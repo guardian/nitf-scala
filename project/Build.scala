@@ -10,7 +10,7 @@ object Build extends BuildDef with BuildCommon {
   lazy val testProjects: Seq[Project] = schemaVersions.map(testProject)
 
   private val releaseVersion = 0
-  private val schemaVersions = Seq(/*"3.3",*/ "3.4", "3.5", "3.6")
+  private val schemaVersions = Seq("3.3", "3.4", "3.5", "3.6")
 
   private val commonDependencies = Dependencies.xmlParsing
 
@@ -21,8 +21,7 @@ object Build extends BuildDef with BuildCommon {
   )
 
   private lazy val testSettings = Seq(
-//    scalaVersion := Dependencies.scala211Version,  // scala-xml-diff is released for 2.11 only
-    crossVersion := Disabled(),
+    crossVersion := Disabled(),  // scala-xml-diff is released for 2.11 only
     libraryDependencies ++= commonDependencies ++ Dependencies.testing
   )
 

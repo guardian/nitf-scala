@@ -21,6 +21,7 @@ object Build extends BuildDef with BuildCommon {
   )
 
   private lazy val testSettings = Seq(
+    fork := true,
     crossVersion := Disabled(),  // scala-xml-diff is released for 2.11 only
     libraryDependencies ++= commonDependencies ++ Dependencies.testing
   )
@@ -35,7 +36,10 @@ object Build extends BuildDef with BuildCommon {
     val mainProjectId = projectId(schemaVersion)
     Project(id = mainProjectId + "Test", base = file("Tests"))
       .settings(testSettings)
-      .settings(target := baseDirectory.value / s"target/$schemaVersion")
+      .settings(
+        target := baseDirectory.value / s"target/$schemaVersion",
+        javaOptions += s"-Dnitf.schema.version=$schemaVersion"
+      )
       .dependsOn(mainProjects.find(_.id == mainProjectId).get)
   }
 

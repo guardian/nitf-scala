@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<nitf xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xsi:schemaLocation="http://iptc.org/std/NITF/2006-10-18/ nitf-3-6.xsd"
+ xmlns="http://iptc.org/std/NITF/2006-10-18/"
+ xmlns:xhtml="http://xhtml.example.org"
+ xmlns:stuart="http://stuart.example.org"
+ xmlns:georss="http://georss.example.org"
+ xmlns:nar="http://iptc.example.org"
+ xmlns:per="http://person.example.net"
+ version="-//IPTC//DTD NITF 3.6//EN">
+    <head>
+        <docdata>
+            <doc-id regsrc="EP"/>
+            <date.issue norm="20091123T114428Z"/>
+            <doc.rights owner="http://press.example.org" agent="http://license.example.net" type="none"/>
+            <doc.copyright holder="EP" year="2009"/>
+            <stuart:motto>
+                Now is the time for all good men to come to the aid of the party
+            </stuart:motto>
+        </docdata>
+        <stuart:motto>
+            Now is the time for all good men to come to the aid of the party
+        </stuart:motto>
+    </head>
+    <body>
+        <body.head>
+            <hedline>
+                <hl1 id="headline">Astronauts take spacewalk No. 3 after suit snag</hl1>
+            </hedline>
+            <byline>By Alan Karben, <byttl>EP Aerospace Writer</byttl>.</byline>
+            <distributor>The Example Press</distributor>
+            <dateline>
+                <location><city>CAPE CANAVERAL</city>, <state>Fla</state>.</location>
+            </dateline>
+            <georss:point>28.4 80.6</georss:point>
+        </body.head>
+        <body.content>
+            <media id="media09373440513b437ea92bdbb15a701110" media-type="Photo">
+                <media-reference id="media-reference7ec8f76677914ac68cec6ad32a67bc2a"
+                    mime-type="image/jpeg" name="EP Photo"
+                    source="http://syndication.example.org/contentid/7ec8f76677914ac68cec6ad32a67bc2a"
+                    height="1406" width="2100" coding="jpg"/>
+                <media-caption>
+                    <p> In an image provided by NASA, astronaut Vinnie Tripodi, STS-129 mission
+                        specialist, salutes crewmates while positioned near the European Space
+                        Agency's Columbus module on International Space Station Saturday Nov. 21,
+                        2009. (EP Photo/NASA) </p>
+                </media-caption>
+                <media-producer>The Example Press</media-producer>
+                <media-producer>NASA</media-producer>
+                <stuart:media-thing>Example Media</stuart:media-thing>
+            </media>
+            <block>
+                <p>CAPE CANAVERAL, Fla. (EP) — A pair of astronauts stepped out on the third and
+                    final spacewalk of their mission Monday to take care of some odd jobs at the
+                    International Space station.</p>
+                <p>Dr. Amy Sweigert Jr. and <person gender="male" per:ssn="123-45-6789">Vinnie Tripodi</person> — the father of a new baby boy — got
+                    started on the work an hour late.</p>
+                <p>A valve on the drink bag in Sweigert's suit came off as she was getting ready for
+                    the spacewalk. To everyone's relief, the valve to the water pouch went back on
+                    tightly. The concern was that big blobs of <xhtml:span>water</xhtml:span> could float up and get in her
+                    eyes if the valve came loose during the spacewalk.</p>
+                <p>They did their best to make up lost time, quickly getting ahead in their main
+                    chore, the installing a fresh oxygen tank. The 1,200-pound tank of high-pressure
+                    oxygen, delivered last week by Atlantis, needed to be attached to NASA's station
+                    air lock, a chamber leading out to the vacuum of space.</p>
+                <p>The spacewalkers also had some science experiments to hang on the orbiting
+                    outpost.</p>
+                <p>The first two spacewalks of Atlantis' weeklong space station visit went so well,
+                    and the astronauts accomplished so much extra work, that only a few chores
+                    remained.</p>
+                <p>Lightning storms caught Tripodi's eye as he toiled 220 miles up. "Where we over?"
+                    he called out. The answer: Micronesia.</p>
+                <p>Tripoldi was still celebrating the birth of "Bruce". He arrived just hours
+                    after his first-ever spacewalk Saturday.</p>
+                <p>Atlantis and its crew of seven will depart the space station Wednesday. The
+                    shuttle will aim for a landing back at Kennedy Space Center on Friday.</p>
+                <p>On the Net:<a href="http://www.nasa.gov/mission_pages/shuttle/main/index.html">NASA</a></p>
+                <xhtml:b>A Bold Statement.</xhtml:b>
+            </block>
+        </body.content>
+        <body.end/>
+    </body>
+    <stuart:markdown>Something *after* the body</stuart:markdown>
+</nitf>

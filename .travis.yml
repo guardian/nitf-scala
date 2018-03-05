@@ -1,7 +1,15 @@
 language: scala
 jdk: oraclejdk8
+
+env:
+  matrix:
+    - version=33
+    - version=34
+    - version=35
+    - version=36
+
 script:
-  - sbt +compile test
+  - sbt "+nitf${version}/compile" "nitf${version}Test/test"
 
 # These directories are cached to S3 at the end of the build
 cache:

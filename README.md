@@ -1,5 +1,9 @@
 # nitf-scala
+[![License: Apache-2.0](https://img.shields.io/github/license/guardian/nitf-scala.svg)](https://github.com/guardian/nitf-scala/blob/master/LICENSE)
 [![Build Status](https://travis-ci.org/guardian/nitf-scala.svg?branch=master)](https://travis-ci.org/guardian/nitf-scala)
+<!--
+![Maven Metadata](https://img.shields.io/maven-metadata/v/http/central.maven.org/maven2/com/gu/nitf-scala/maven-metadata.xml.svg)
+-->
 
 Scala library to parse and generate [News Industry Text Format](https://iptc.org/standards/nitf/) files,
 based on [ScalaXB](http://scalaxb.org).
@@ -38,7 +42,7 @@ val xml = scalaxb.toXML(doc, namespace = None, elementLabel = Some("nitf"), scop
 NITF schema, documentation, and examples are available from IPTC.
 [This archive](http://www.iptc.org/std/NITF/NITF.zip) contains all of this for versions 2.5 to 3.6.
 
-The schemas used to generate the classes in this project are available in the [schema](schema/) folder.
+The schemas used to generate the classes in this project are available in the [schema](schema) folder.
 
 ## Generated Sources
 

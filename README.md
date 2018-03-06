@@ -1,4 +1,5 @@
 # nitf-scala
+[![Build Status](https://travis-ci.org/guardian/nitf-scala.svg?branch=master)](https://travis-ci.org/guardian/nitf-scala)
 
 Scala library to parse and generate [News Industry Text Format](https://iptc.org/standards/nitf/) files,
 based on [ScalaXB](http://scalaxb.org).

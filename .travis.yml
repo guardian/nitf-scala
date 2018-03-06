@@ -1,5 +1,7 @@
 language: scala
 jdk: oraclejdk8
+git:
+  depth: 1
 
 env:
   matrix:

@@ -15,9 +15,10 @@ script:
 
 # These directories are cached to S3 at the end of the build
 cache:
+  timeout: 86400
   directories:
     - $HOME/.ivy2/cache
-    - $HOME/.sbt/boot/
+    - $HOME/.sbt
 
 before_cache:
   # Cleanup the cached directories to avoid unnecessary cache updates

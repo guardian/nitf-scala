@@ -2,6 +2,7 @@ import sbt._
 import sbt.Keys._
 import sbt.internal.BuildDef
 
+import com.typesafe.sbt.SbtPgp.autoImport._
 import net.vonbuchholtz.sbt.dependencycheck.DependencyCheckPlugin.autoImport._
 import sbtrelease.ReleasePlugin.autoImport._
 import sbtrelease.ReleaseStateTransformations._
@@ -29,21 +30,23 @@ object Build extends BuildDef with BuildCommon {
       .settings(commonSettings ++ disabledPublishingSettings)
       .settings(
         crossScalaVersions := Dependencies.scalaVersions,
-        releaseProcess := releasingProcess,
-        releaseCrossBuild := true
+        releaseCrossBuild := true,
+        releaseProcess := releasingProcess
       )
   )
 
   private lazy val commonSettings = Seq(
     organization := "com.gu",
     licenses += "Apache-2.0" -> url("https://choosealicense.com/licenses/apache-2.0/"),
+
     crossScalaVersions := Dependencies.scalaVersions,
     scalaVersion := Dependencies.scalaVersions.min,
     scalacOptions += "-target:jvm-1.8",
 
     dependencyCheckFailBuildOnCVSS := 4,
+
     publishTo := sonatypePublishTo.value,
-    releasePublishArtifactsAction := publishLocal.value  // TODO remove this when we're ready to publish publicly
+    releasePublishArtifactsAction := PgpKeys.publishLocalSigned.value  // TODO remove this when we're ready to publish publicly
   )
 
   private val commonDependencies = Dependencies.xmlParsing

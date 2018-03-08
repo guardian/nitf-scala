@@ -11,7 +11,7 @@ env:
     - version=36
 
 script:
-  - sbt "+nitf${version}/compile" "nitf${version}Test/test"
+  - sbt "+nitf${version}Test/test"
 
 # These directories are cached to S3 at the end of the build
 cache:

@@ -25,7 +25,7 @@ object Build extends BuildDef with BuildCommon {
 
   override def projects: Seq[Project] = rootProject.toSeq ++ realProjects
   override def rootProject = Some(
-    Project(id = "nitf-scala", base = file("."))
+    Project(id = Metadata.projectName, base = file("."))
       .aggregate(realProjects.map(Project.projectToRef): _*)
       .settings(commonSettings ++ disabledPublishingSettings)
       .settings(
@@ -35,10 +35,7 @@ object Build extends BuildDef with BuildCommon {
       )
   )
 
-  private lazy val commonSettings = Seq(
-    organization := "com.gu",
-    licenses += "Apache-2.0" -> url("https://choosealicense.com/licenses/apache-2.0/"),
-
+  private lazy val commonSettings = Metadata.settings ++ Seq(
     crossScalaVersions := Dependencies.scalaVersions,
     scalaVersion := Dependencies.scalaVersions.min,
     scalacOptions += "-target:jvm-1.8",
@@ -61,11 +58,14 @@ object Build extends BuildDef with BuildCommon {
     dependencyCheckSkip := true
   )
 
-  private lazy val disabledPublishingSettings = Seq(
+  private lazy val disabledPublishingSettings = { import PgpKeys._; Seq(
     publish := {},
     publishLocal := {},
-    publishArtifact := false
-  )
+    publishSigned := {},
+    publishLocalSigned := {},
+    publishArtifact := false,
+    sonatypePublishTo := None
+  )}
 
   private val releasingProcess = Seq[ReleaseStep](ReleaseStep(identity)  /* no-op */
     , checkSnapshotDependencies

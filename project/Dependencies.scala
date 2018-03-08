@@ -16,9 +16,7 @@ object Dependencies {
   val scalaTest = "org.scalatest" %% "scalatest" % scalaTestVersion
   val scalactic = "org.scalactic" %% "scalactic" % scalaTestVersion
 
-  val scalaCheck = "org.scalacheck" %% "scalacheck" % "1.13.4"
+  val xmlDiff = "com.github.andyglow" %% "scala-xml-diff" % "2.0.3"
 
-  val xmlDiff = "com.github.andyglow" %% "scala-xml-diff" % "2.0.2"
-
-  val testing = Seq(scalaTest, scalaCheck, xmlDiff).map(_ % Test)
+  val testing = Seq(scalaTest, xmlDiff).map(_ % Test)
 }

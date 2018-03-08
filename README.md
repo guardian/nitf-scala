@@ -46,8 +46,8 @@ The schemas used to generate the classes in this project are available in the [s
 
 ## Generated Sources
 
-The source files were generated using a
-[custom version of ScalaXB](https://github.com/hosamaly/scalaxb/archive/bd92a411fa863815019a216d23f7b8d9d342b27b.zip)
+The source files were generated using an
+[unreleased version of ScalaXB](https://github.com/eed3si9n/scalaxb/archive/5d0eea5a6c4d713976c9b86cc2cb691d0f83e137.zip)
 that was built from source. Hopefully, it will be released in the main repository soon.
 
 The following command was used to generate the files for each version:
@@ -65,16 +65,12 @@ done
 
 ## Building
 
-To build this project, run:
+To build this project from source, run:
 ```bash
-sbt clean +compile test
+sbt clean +compile +test
 ```
-Note that a clean build may take up to 10 minutes.  
-(The full compilation has more than 23k classes!)
+Note that a clean build may take up to 10 minutes.
+You may also need to increase the memory available to sbt (e.g. using `-mem`).  
+(The full compilation has more than 24k classes files!)
 
-The compiled sources are cross-built against Scala 2.11 and 2.12.
-
-The tests are built against Scala 2.11 only.
-Hopefully, this will change as soon as
-[scala-xml-diff](https://github.com/andyglow/scala-xml-diff)
-is released for 2.12.
+The project is set up to build against Scala 2.11 and Scala 2.12.

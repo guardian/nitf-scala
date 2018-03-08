@@ -1,6 +1,1 @@
-import Build._
-
-inThisBuild(Seq(
-  organization := "com.gu",
-  scalaVersion := Dependencies.scalaVersions.min
-))
+// project definitions are dynamically generated in project/Build.scala

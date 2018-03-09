@@ -71,6 +71,6 @@ sbt clean +compile +test
 ```
 Note that a clean build may take up to 10 minutes.
 You may also need to increase the memory available to sbt (e.g. using `-mem`).  
-(The full compilation has more than 24k classes files!)
+(The full compilation has more than 24k class files!)
 
 The project is set up to build against Scala 2.11 and Scala 2.12.

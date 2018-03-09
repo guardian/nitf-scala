@@ -1,9 +1,8 @@
 # nitf-scala
 [![License: Apache-2.0](https://img.shields.io/github/license/guardian/nitf-scala.svg)](https://github.com/guardian/nitf-scala/blob/master/LICENSE)
 [![Build Status](https://travis-ci.org/guardian/nitf-scala.svg?branch=master)](https://travis-ci.org/guardian/nitf-scala)
-<!--
-![Maven Metadata](https://img.shields.io/maven-metadata/v/http/central.maven.org/maven2/com/gu/nitf-scala/maven-metadata.xml.svg)
--->
+![Latest release for Scala 2.11](https://img.shields.io/maven-metadata/v/http/central.maven.org/maven2/com/gu/nitf-scala_2.11/maven-metadata.xml.svg?label=scala%202.11)
+![Latest release for Scala 2.12](https://img.shields.io/maven-metadata/v/http/central.maven.org/maven2/com/gu/nitf-scala_2.12/maven-metadata.xml.svg?label=scala%202.12)
 
 Scala library to parse and generate [News Industry Text Format](https://iptc.org/standards/nitf/) files,
 based on [ScalaXB](http://scalaxb.org).

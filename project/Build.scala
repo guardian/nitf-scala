@@ -43,12 +43,13 @@ object Build extends BuildDef with BuildCommon {
     dependencyCheckFailBuildOnCVSS := 4,
 
     publishTo := sonatypePublishTo.value,
-    releasePublishArtifactsAction := PgpKeys.publishLocalSigned.value  // TODO remove this when we're ready to publish publicly
+    releasePublishArtifactsAction := PgpKeys.publishSigned.value
   )
 
   private val commonDependencies = Dependencies.xmlParsing
 
   private lazy val mainSettings = commonSettings ++ Seq(
+    name := "nitf-scala",
     libraryDependencies ++= commonDependencies
   )
 
@@ -68,18 +69,18 @@ object Build extends BuildDef with BuildCommon {
   )}
 
   private val releasingProcess = Seq[ReleaseStep](ReleaseStep(identity)  /* no-op */
+    , runClean
     , checkSnapshotDependencies
     , releaseStepTask(dependencyCheckAggregate)
     , inquireVersions
-    , runClean
     , runTest
     , setReleaseVersion
-//  , commitReleaseVersion
-//  , tagRelease
+    , commitReleaseVersion
+    , tagRelease
     , publishArtifacts
-//  , setNextVersion
-//  , commitNextVersion
-//  ,  pushChanges
+    , setNextVersion
+    , commitNextVersion
+    , pushChanges
   )
 
   private def nitfProject(schemaVersion: String): Project = {

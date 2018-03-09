@@ -17,64 +17,25 @@ import xerial.sbt.Sonatype.autoImport._
   * The release process is customised to include a step to run ''dependencyCheck''.
   */
 object Build extends BuildDef with BuildCommon {
+  import BuildSettings._
+
   private val schemaVersions = Seq("3.3", "3.4", "3.5", "3.6")
 
   lazy val mainProjects: Seq[Project] = schemaVersions.map(nitfProject)
   lazy val testProjects: Seq[Project] = schemaVersions.map(testProject)
-  lazy val realProjects: Seq[Project] = mainProjects ++ testProjects
+  lazy val leafProjects: Seq[Project] = mainProjects ++ testProjects
 
-  override def projects: Seq[Project] = rootProject.toSeq ++ realProjects
+  override def projects: Seq[Project] = rootProject.toSeq ++ leafProjects
+
   override def rootProject = Some(
     Project(id = Metadata.projectName, base = file("."))
-      .aggregate(realProjects.map(Project.projectToRef): _*)
+      .aggregate(leafProjects.map(Project.projectToRef): _*)
       .settings(commonSettings ++ disabledPublishingSettings)
       .settings(
         crossScalaVersions := Dependencies.scalaVersions,
         releaseCrossBuild := true,
         releaseProcess := releasingProcess
       )
-  )
-
-  private lazy val commonSettings = Metadata.settings ++ Seq(
-    crossScalaVersions := Dependencies.scalaVersions,
-    scalaVersion := Dependencies.scalaVersions.min,
-    scalacOptions += "-target:jvm-1.8",
-
-    dependencyCheckFailBuildOnCVSS := 4
-  )
-
-  private val commonDependencies = Dependencies.xmlParsing
-
-  private lazy val mainSettings = commonSettings ++ Seq(
-    name := "nitf-scala",
-    publishTo := sonatypePublishTo.value,
-    libraryDependencies ++= commonDependencies
-  )
-
-  private lazy val testSettings = commonSettings ++ disabledPublishingSettings ++ Seq(
-    fork := true,
-    libraryDependencies ++= commonDependencies ++ Dependencies.testing,
-    dependencyCheckSkip := true
-  )
-
-  val disabledPublishingSettings: Seq[Setting[_]] = Seq(
-    skip in publish := true
-  )
-
-  val releasePublishAction: TaskKey[_] = PgpKeys.publishSigned
-  private val releasingProcess = Seq[ReleaseStep](ReleaseStep(identity)  /* no-op */
-    , runClean
-    , checkSnapshotDependencies
-    , releaseStepTask(dependencyCheckAggregate)
-    , inquireVersions
-    , runTest
-    , setReleaseVersion
-    , commitReleaseVersion
-    , tagRelease
-    , releaseStepCommandAndRemaining(s"+${releasePublishAction.key.label}")
-    , setNextVersion
-    , commitNextVersion
-    , pushChanges
   )
 
   private def nitfProject(schemaVersion: String): Project = {
@@ -95,4 +56,48 @@ object Build extends BuildDef with BuildCommon {
   }
 
   private def projectId(schemaVersion: String) = "nitf" + schemaVersion.replaceAll("""\.""", "")
+}
+
+object BuildSettings {
+  val commonDependencies: Seq[ModuleID] = Dependencies.xmlParsing
+
+  val commonSettings: Seq[Setting[_]] = Metadata.settings ++ Seq(
+    crossScalaVersions := Dependencies.scalaVersions,
+    scalaVersion := Dependencies.scalaVersions.min,
+    scalacOptions += "-target:jvm-1.8",
+
+    dependencyCheckFailBuildOnCVSS := 4
+  )
+
+  val disabledPublishingSettings: Seq[Setting[_]] = Seq(
+    skip in publish := true
+  )
+
+  val mainSettings: Seq[Setting[_]] = commonSettings ++ Seq(
+    name := "nitf-scala",
+    publishTo := sonatypePublishTo.value,
+    libraryDependencies ++= commonDependencies
+  )
+
+  val testSettings: Seq[Setting[_]] = commonSettings ++ disabledPublishingSettings ++ Seq(
+    fork := true,
+    libraryDependencies ++= commonDependencies ++ Dependencies.testing,
+    dependencyCheckSkip := true
+  )
+
+  val releasePublishAction: TaskKey[_] = PgpKeys.publishSigned
+  val releasingProcess: Seq[ReleaseStep] = Seq(ReleaseStep(identity)  /* no-op */
+    , runClean
+    , checkSnapshotDependencies
+    , releaseStepTask(dependencyCheckAggregate)
+    , inquireVersions
+    , runTest
+    , setReleaseVersion
+    , commitReleaseVersion
+    , tagRelease
+    , releaseStepCommandAndRemaining(s"+${releasePublishAction.key.label}")
+    , setNextVersion
+    , commitNextVersion
+    , pushChanges
+  )
 }

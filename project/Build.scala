@@ -40,16 +40,14 @@ object Build extends BuildDef with BuildCommon {
     scalaVersion := Dependencies.scalaVersions.min,
     scalacOptions += "-target:jvm-1.8",
 
-    dependencyCheckFailBuildOnCVSS := 4,
-
-    publishTo := sonatypePublishTo.value,
-    releasePublishArtifactsAction := PgpKeys.publishSigned.value
+    dependencyCheckFailBuildOnCVSS := 4
   )
 
   private val commonDependencies = Dependencies.xmlParsing
 
   private lazy val mainSettings = commonSettings ++ Seq(
     name := "nitf-scala",
+    publishTo := sonatypePublishTo.value,
     libraryDependencies ++= commonDependencies
   )
 
@@ -59,15 +57,11 @@ object Build extends BuildDef with BuildCommon {
     dependencyCheckSkip := true
   )
 
-  private lazy val disabledPublishingSettings = { import PgpKeys._; Seq(
-    publish := {},
-    publishLocal := {},
-    publishSigned := {},
-    publishLocalSigned := {},
-    publishArtifact := false,
-    sonatypePublishTo := None
-  )}
+  val disabledPublishingSettings: Seq[Setting[_]] = Seq(
+    skip in publish := true
+  )
 
+  val releasePublishAction: TaskKey[_] = PgpKeys.publishSigned
   private val releasingProcess = Seq[ReleaseStep](ReleaseStep(identity)  /* no-op */
     , runClean
     , checkSnapshotDependencies
@@ -77,7 +71,7 @@ object Build extends BuildDef with BuildCommon {
     , setReleaseVersion
     , commitReleaseVersion
     , tagRelease
-    , publishArtifacts
+    , releaseStepCommandAndRemaining(s"+${releasePublishAction.key.label}")
     , setNextVersion
     , commitNextVersion
     , pushChanges

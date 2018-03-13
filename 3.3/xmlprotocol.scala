@@ -334,6 +334,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
   def buildComgunitfmodel_AlignFormat = new DefaultComgunitfmodel_AlignFormat {}
   trait DefaultComgunitfmodel_AlignFormat extends scalaxb.XMLFormat[com.gu.nitf.model.Align] {
     val targetNamespace: Option[String] = Some("http://iptc.org/std/nitf/2006-03-01/")
+    override val defaultElementLabel: Option[String] = Some("align")
     
     def fromString(value: String, scope: scala.xml.NamespaceBinding): com.gu.nitf.model.Align = scalaxb.fromXML[String](scala.xml.Text(value)) match {
       case x: String if x == scalaxb.fromXML[String](scala.xml.Text("left")) => com.gu.nitf.model.LeftType
@@ -352,13 +353,14 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
     def writes(__obj: com.gu.nitf.model.Align, __namespace: Option[String], __elementLabel: Option[String],
         __scope: scala.xml.NamespaceBinding, __typeAttribute: Boolean): scala.xml.NodeSeq =
       scala.xml.Elem(scalaxb.Helper.getPrefix(__namespace, __scope).orNull, 
-        __elementLabel getOrElse { sys.error("missing element label.") },
+        __elementLabel orElse defaultElementLabel getOrElse { sys.error("missing element label.") },
         scala.xml.Null, __scope, true, scala.xml.Text(__obj.toString))
   }
 
   def buildComgunitfmodel_ValignFormat = new DefaultComgunitfmodel_ValignFormat {}
   trait DefaultComgunitfmodel_ValignFormat extends scalaxb.XMLFormat[com.gu.nitf.model.Valign] {
     val targetNamespace: Option[String] = Some("http://iptc.org/std/nitf/2006-03-01/")
+    override val defaultElementLabel: Option[String] = Some("valign")
     
     def fromString(value: String, scope: scala.xml.NamespaceBinding): com.gu.nitf.model.Valign = scalaxb.fromXML[String](scala.xml.Text(value)) match {
       case x: String if x == scalaxb.fromXML[String](scala.xml.Text("top")) => com.gu.nitf.model.Top
@@ -376,11 +378,12 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
     def writes(__obj: com.gu.nitf.model.Valign, __namespace: Option[String], __elementLabel: Option[String],
         __scope: scala.xml.NamespaceBinding, __typeAttribute: Boolean): scala.xml.NodeSeq =
       scala.xml.Elem(scalaxb.Helper.getPrefix(__namespace, __scope).orNull, 
-        __elementLabel getOrElse { sys.error("missing element label.") },
+        __elementLabel orElse defaultElementLabel getOrElse { sys.error("missing element label.") },
         scala.xml.Null, __scope, true, scala.xml.Text(__obj.toString))
   }
 
   trait DefaultComgunitfmodel_NitfFormat extends scalaxb.ElemNameParser[com.gu.nitf.model.Nitf] {
+    override val defaultElementLabel: Option[String] = Some("nitf")
     val targetNamespace: Option[String] = Some("http://iptc.org/std/nitf/2006-03-01/")
     
     def parser(node: scala.xml.Node, stack: List[scalaxb.ElemName]): Parser[com.gu.nitf.model.Nitf] =
@@ -421,6 +424,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
   }
 
   trait DefaultComgunitfmodel_HeadFormat extends scalaxb.ElemNameParser[com.gu.nitf.model.Head] {
+    override val defaultElementLabel: Option[String] = Some("head")
     val targetNamespace: Option[String] = Some("http://iptc.org/std/nitf/2006-03-01/")
     
     def parser(node: scala.xml.Node, stack: List[scalaxb.ElemName]): Parser[com.gu.nitf.model.Head] =
@@ -466,6 +470,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
   def buildComgunitfmodel_TypeFormat = new DefaultComgunitfmodel_TypeFormat {}
   trait DefaultComgunitfmodel_TypeFormat extends scalaxb.XMLFormat[com.gu.nitf.model.Type] {
     val targetNamespace: Option[String] = Some("http://iptc.org/std/nitf/2006-03-01/")
+    override val defaultElementLabel: Option[String] = Some("type")
     
     def fromString(value: String, scope: scala.xml.NamespaceBinding): com.gu.nitf.model.Type = scalaxb.fromXML[String](scala.xml.Text(value)) match {
       case x: String if x == scalaxb.fromXML[String](scala.xml.Text("main")) => com.gu.nitf.model.Main
@@ -485,11 +490,12 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
     def writes(__obj: com.gu.nitf.model.Type, __namespace: Option[String], __elementLabel: Option[String],
         __scope: scala.xml.NamespaceBinding, __typeAttribute: Boolean): scala.xml.NodeSeq =
       scala.xml.Elem(scalaxb.Helper.getPrefix(__namespace, __scope).orNull, 
-        __elementLabel getOrElse { sys.error("missing element label.") },
+        __elementLabel orElse defaultElementLabel getOrElse { sys.error("missing element label.") },
         scala.xml.Null, __scope, true, scala.xml.Text(__obj.toString))
   }
 
   trait DefaultComgunitfmodel_TitleFormat extends scalaxb.ElemNameParser[com.gu.nitf.model.Title] {
+    override val defaultElementLabel: Option[String] = Some("title")
     val targetNamespace: Option[String] = Some("http://iptc.org/std/nitf/2006-03-01/")
     
     override def isMixed: Boolean = true
@@ -520,6 +526,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
 
   trait DefaultComgunitfmodel_MetaFormat extends scalaxb.XMLFormat[com.gu.nitf.model.Meta] with scalaxb.CanWriteChildNodes[com.gu.nitf.model.Meta] {
     val targetNamespace: Option[String] = Some("http://iptc.org/std/nitf/2006-03-01/")
+    override val defaultElementLabel: Option[String] = Some("meta")
     import scalaxb.ElemName._
     
     def reads(seq: scala.xml.NodeSeq, stack: List[scalaxb.ElemName]): Either[String, com.gu.nitf.model.Meta] = seq match {
@@ -551,6 +558,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
   }
 
   trait DefaultComgunitfmodel_TobjectFormat extends scalaxb.ElemNameParser[com.gu.nitf.model.Tobject] {
+    override val defaultElementLabel: Option[String] = Some("tobject")
     val targetNamespace: Option[String] = Some("http://iptc.org/std/nitf/2006-03-01/")
     
     def parser(node: scala.xml.Node, stack: List[scalaxb.ElemName]): Parser[com.gu.nitf.model.Tobject] =
@@ -582,6 +590,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
 
   trait DefaultComgunitfmodel_TobjectPropertyFormat extends scalaxb.XMLFormat[com.gu.nitf.model.TobjectProperty] with scalaxb.CanWriteChildNodes[com.gu.nitf.model.TobjectProperty] {
     val targetNamespace: Option[String] = Some("http://iptc.org/std/nitf/2006-03-01/")
+    override val defaultElementLabel: Option[String] = Some("tobject.property")
     import scalaxb.ElemName._
     
     def reads(seq: scala.xml.NodeSeq, stack: List[scalaxb.ElemName]): Either[String, com.gu.nitf.model.TobjectProperty] = seq match {
@@ -610,6 +619,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
 
   trait DefaultComgunitfmodel_TobjectSubjectFormat extends scalaxb.XMLFormat[com.gu.nitf.model.TobjectSubject] with scalaxb.CanWriteChildNodes[com.gu.nitf.model.TobjectSubject] {
     val targetNamespace: Option[String] = Some("http://iptc.org/std/nitf/2006-03-01/")
+    override val defaultElementLabel: Option[String] = Some("tobject.subject")
     import scalaxb.ElemName._
     
     def reads(seq: scala.xml.NodeSeq, stack: List[scalaxb.ElemName]): Either[String, com.gu.nitf.model.TobjectSubject] = seq match {
@@ -647,6 +657,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
   }
 
   trait DefaultComgunitfmodel_IimFormat extends scalaxb.ElemNameParser[com.gu.nitf.model.Iim] {
+    override val defaultElementLabel: Option[String] = Some("iim")
     val targetNamespace: Option[String] = Some("http://iptc.org/std/nitf/2006-03-01/")
     
     def parser(node: scala.xml.Node, stack: List[scalaxb.ElemName]): Parser[com.gu.nitf.model.Iim] =
@@ -675,6 +686,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
 
   trait DefaultComgunitfmodel_DsFormat extends scalaxb.XMLFormat[com.gu.nitf.model.Ds] with scalaxb.CanWriteChildNodes[com.gu.nitf.model.Ds] {
     val targetNamespace: Option[String] = Some("http://iptc.org/std/nitf/2006-03-01/")
+    override val defaultElementLabel: Option[String] = Some("ds")
     import scalaxb.ElemName._
     
     def reads(seq: scala.xml.NodeSeq, stack: List[scalaxb.ElemName]): Either[String, com.gu.nitf.model.Ds] = seq match {
@@ -704,6 +716,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
   }
 
   trait DefaultComgunitfmodel_DocdataFormat extends scalaxb.ElemNameParser[com.gu.nitf.model.Docdata] {
+    override val defaultElementLabel: Option[String] = Some("docdata")
     val targetNamespace: Option[String] = Some("http://iptc.org/std/nitf/2006-03-01/")
     
     def parser(node: scala.xml.Node, stack: List[scalaxb.ElemName]): Parser[com.gu.nitf.model.Docdata] =
@@ -769,6 +782,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
 
   trait DefaultComgunitfmodel_CorrectionFormat extends scalaxb.XMLFormat[com.gu.nitf.model.Correction] with scalaxb.CanWriteChildNodes[com.gu.nitf.model.Correction] {
     val targetNamespace: Option[String] = Some("http://iptc.org/std/nitf/2006-03-01/")
+    override val defaultElementLabel: Option[String] = Some("correction")
     import scalaxb.ElemName._
     
     def reads(seq: scala.xml.NodeSeq, stack: List[scalaxb.ElemName]): Either[String, com.gu.nitf.model.Correction] = seq match {
@@ -801,6 +815,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
 
   trait DefaultComgunitfmodel_EvlocFormat extends scalaxb.XMLFormat[com.gu.nitf.model.Evloc] with scalaxb.CanWriteChildNodes[com.gu.nitf.model.Evloc] {
     val targetNamespace: Option[String] = Some("http://iptc.org/std/nitf/2006-03-01/")
+    override val defaultElementLabel: Option[String] = Some("evloc")
     import scalaxb.ElemName._
     
     def reads(seq: scala.xml.NodeSeq, stack: List[scalaxb.ElemName]): Either[String, com.gu.nitf.model.Evloc] = seq match {
@@ -835,6 +850,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
 
   trait DefaultComgunitfmodel_DocIdFormat extends scalaxb.XMLFormat[com.gu.nitf.model.DocId] with scalaxb.CanWriteChildNodes[com.gu.nitf.model.DocId] {
     val targetNamespace: Option[String] = Some("http://iptc.org/std/nitf/2006-03-01/")
+    override val defaultElementLabel: Option[String] = Some("doc-id")
     import scalaxb.ElemName._
     
     def reads(seq: scala.xml.NodeSeq, stack: List[scalaxb.ElemName]): Either[String, com.gu.nitf.model.DocId] = seq match {
@@ -864,6 +880,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
   }
 
   trait DefaultComgunitfmodel_DelListFormat extends scalaxb.ElemNameParser[com.gu.nitf.model.DelList] {
+    override val defaultElementLabel: Option[String] = Some("del-list")
     val targetNamespace: Option[String] = Some("http://iptc.org/std/nitf/2006-03-01/")
     
     def parser(node: scala.xml.Node, stack: List[scalaxb.ElemName]): Parser[com.gu.nitf.model.DelList] =
@@ -890,6 +907,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
   }
 
   trait DefaultComgunitfmodel_DelListSequence1Format extends scalaxb.XMLFormat[com.gu.nitf.model.DelListSequence1] {
+    final override def defaultElementLabel: Option[String] = None  // sequences have no label
     def reads(seq: scala.xml.NodeSeq, stack: List[scalaxb.ElemName]): Either[String, com.gu.nitf.model.DelListSequence1] = Left("don't call me.")
     
     def writes(__obj: com.gu.nitf.model.DelListSequence1, __namespace: Option[String], __elementLabel: Option[String], 
@@ -901,6 +919,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
 
   trait DefaultComgunitfmodel_FromSrcFormat extends scalaxb.XMLFormat[com.gu.nitf.model.FromSrc] with scalaxb.CanWriteChildNodes[com.gu.nitf.model.FromSrc] {
     val targetNamespace: Option[String] = Some("http://iptc.org/std/nitf/2006-03-01/")
+    override val defaultElementLabel: Option[String] = Some("from-src")
     import scalaxb.ElemName._
     
     def reads(seq: scala.xml.NodeSeq, stack: List[scalaxb.ElemName]): Either[String, com.gu.nitf.model.FromSrc] = seq match {
@@ -931,6 +950,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
 
   trait DefaultComgunitfmodel_UrgencyFormat extends scalaxb.XMLFormat[com.gu.nitf.model.Urgency] with scalaxb.CanWriteChildNodes[com.gu.nitf.model.Urgency] {
     val targetNamespace: Option[String] = Some("http://iptc.org/std/nitf/2006-03-01/")
+    override val defaultElementLabel: Option[String] = Some("urgency")
     import scalaxb.ElemName._
     
     def reads(seq: scala.xml.NodeSeq, stack: List[scalaxb.ElemName]): Either[String, com.gu.nitf.model.Urgency] = seq match {
@@ -959,6 +979,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
 
   trait DefaultComgunitfmodel_FixtureFormat extends scalaxb.XMLFormat[com.gu.nitf.model.Fixture] with scalaxb.CanWriteChildNodes[com.gu.nitf.model.Fixture] {
     val targetNamespace: Option[String] = Some("http://iptc.org/std/nitf/2006-03-01/")
+    override val defaultElementLabel: Option[String] = Some("fixture")
     import scalaxb.ElemName._
     
     def reads(seq: scala.xml.NodeSeq, stack: List[scalaxb.ElemName]): Either[String, com.gu.nitf.model.Fixture] = seq match {
@@ -987,6 +1008,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
 
   trait DefaultComgunitfmodel_DateIssueFormat extends scalaxb.XMLFormat[com.gu.nitf.model.DateIssue] with scalaxb.CanWriteChildNodes[com.gu.nitf.model.DateIssue] {
     val targetNamespace: Option[String] = Some("http://iptc.org/std/nitf/2006-03-01/")
+    override val defaultElementLabel: Option[String] = Some("date.issue")
     import scalaxb.ElemName._
     
     def reads(seq: scala.xml.NodeSeq, stack: List[scalaxb.ElemName]): Either[String, com.gu.nitf.model.DateIssue] = seq match {
@@ -1015,6 +1037,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
 
   trait DefaultComgunitfmodel_DateReleaseFormat extends scalaxb.XMLFormat[com.gu.nitf.model.DateRelease] with scalaxb.CanWriteChildNodes[com.gu.nitf.model.DateRelease] {
     val targetNamespace: Option[String] = Some("http://iptc.org/std/nitf/2006-03-01/")
+    override val defaultElementLabel: Option[String] = Some("date.release")
     import scalaxb.ElemName._
     
     def reads(seq: scala.xml.NodeSeq, stack: List[scalaxb.ElemName]): Either[String, com.gu.nitf.model.DateRelease] = seq match {
@@ -1043,6 +1066,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
 
   trait DefaultComgunitfmodel_DateExpireFormat extends scalaxb.XMLFormat[com.gu.nitf.model.DateExpire] with scalaxb.CanWriteChildNodes[com.gu.nitf.model.DateExpire] {
     val targetNamespace: Option[String] = Some("http://iptc.org/std/nitf/2006-03-01/")
+    override val defaultElementLabel: Option[String] = Some("date.expire")
     import scalaxb.ElemName._
     
     def reads(seq: scala.xml.NodeSeq, stack: List[scalaxb.ElemName]): Either[String, com.gu.nitf.model.DateExpire] = seq match {
@@ -1071,6 +1095,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
 
   trait DefaultComgunitfmodel_DocScopeFormat extends scalaxb.XMLFormat[com.gu.nitf.model.DocScope] with scalaxb.CanWriteChildNodes[com.gu.nitf.model.DocScope] {
     val targetNamespace: Option[String] = Some("http://iptc.org/std/nitf/2006-03-01/")
+    override val defaultElementLabel: Option[String] = Some("doc-scope")
     import scalaxb.ElemName._
     
     def reads(seq: scala.xml.NodeSeq, stack: List[scalaxb.ElemName]): Either[String, com.gu.nitf.model.DocScope] = seq match {
@@ -1099,6 +1124,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
 
   trait DefaultComgunitfmodel_SeriesFormat extends scalaxb.XMLFormat[com.gu.nitf.model.Series] with scalaxb.CanWriteChildNodes[com.gu.nitf.model.Series] {
     val targetNamespace: Option[String] = Some("http://iptc.org/std/nitf/2006-03-01/")
+    override val defaultElementLabel: Option[String] = Some("series")
     import scalaxb.ElemName._
     
     def reads(seq: scala.xml.NodeSeq, stack: List[scalaxb.ElemName]): Either[String, com.gu.nitf.model.Series] = seq match {
@@ -1131,6 +1157,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
 
   trait DefaultComgunitfmodel_EdMsgFormat extends scalaxb.XMLFormat[com.gu.nitf.model.EdMsg] with scalaxb.CanWriteChildNodes[com.gu.nitf.model.EdMsg] {
     val targetNamespace: Option[String] = Some("http://iptc.org/std/nitf/2006-03-01/")
+    override val defaultElementLabel: Option[String] = Some("ed-msg")
     import scalaxb.ElemName._
     
     def reads(seq: scala.xml.NodeSeq, stack: List[scalaxb.ElemName]): Either[String, com.gu.nitf.model.EdMsg] = seq match {
@@ -1161,6 +1188,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
 
   trait DefaultComgunitfmodel_DuKeyFormat extends scalaxb.XMLFormat[com.gu.nitf.model.DuKey] with scalaxb.CanWriteChildNodes[com.gu.nitf.model.DuKey] {
     val targetNamespace: Option[String] = Some("http://iptc.org/std/nitf/2006-03-01/")
+    override val defaultElementLabel: Option[String] = Some("du-key")
     import scalaxb.ElemName._
     
     def reads(seq: scala.xml.NodeSeq, stack: List[scalaxb.ElemName]): Either[String, com.gu.nitf.model.DuKey] = seq match {
@@ -1195,6 +1223,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
 
   trait DefaultComgunitfmodel_DocCopyrightFormat extends scalaxb.XMLFormat[com.gu.nitf.model.DocCopyright] with scalaxb.CanWriteChildNodes[com.gu.nitf.model.DocCopyright] {
     val targetNamespace: Option[String] = Some("http://iptc.org/std/nitf/2006-03-01/")
+    override val defaultElementLabel: Option[String] = Some("doc.copyright")
     import scalaxb.ElemName._
     
     def reads(seq: scala.xml.NodeSeq, stack: List[scalaxb.ElemName]): Either[String, com.gu.nitf.model.DocCopyright] = seq match {
@@ -1225,6 +1254,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
 
   trait DefaultComgunitfmodel_DocRightsFormat extends scalaxb.XMLFormat[com.gu.nitf.model.DocRights] with scalaxb.CanWriteChildNodes[com.gu.nitf.model.DocRights] {
     val targetNamespace: Option[String] = Some("http://iptc.org/std/nitf/2006-03-01/")
+    override val defaultElementLabel: Option[String] = Some("doc.rights")
     import scalaxb.ElemName._
     
     def reads(seq: scala.xml.NodeSeq, stack: List[scalaxb.ElemName]): Either[String, com.gu.nitf.model.DocRights] = seq match {
@@ -1268,6 +1298,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
   }
 
   trait DefaultComgunitfmodel_KeyListFormat extends scalaxb.ElemNameParser[com.gu.nitf.model.KeyList] {
+    override val defaultElementLabel: Option[String] = Some("key-list")
     val targetNamespace: Option[String] = Some("http://iptc.org/std/nitf/2006-03-01/")
     
     def parser(node: scala.xml.Node, stack: List[scalaxb.ElemName]): Parser[com.gu.nitf.model.KeyList] =
@@ -1294,6 +1325,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
   }
 
   trait DefaultComgunitfmodel_KeyListSequence1Format extends scalaxb.XMLFormat[com.gu.nitf.model.KeyListSequence1] {
+    final override def defaultElementLabel: Option[String] = None  // sequences have no label
     def reads(seq: scala.xml.NodeSeq, stack: List[scalaxb.ElemName]): Either[String, com.gu.nitf.model.KeyListSequence1] = Left("don't call me.")
     
     def writes(__obj: com.gu.nitf.model.KeyListSequence1, __namespace: Option[String], __elementLabel: Option[String], 
@@ -1305,6 +1337,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
 
   trait DefaultComgunitfmodel_KeywordFormat extends scalaxb.XMLFormat[com.gu.nitf.model.Keyword] with scalaxb.CanWriteChildNodes[com.gu.nitf.model.Keyword] {
     val targetNamespace: Option[String] = Some("http://iptc.org/std/nitf/2006-03-01/")
+    override val defaultElementLabel: Option[String] = Some("keyword")
     import scalaxb.ElemName._
     
     def reads(seq: scala.xml.NodeSeq, stack: List[scalaxb.ElemName]): Either[String, com.gu.nitf.model.Keyword] = seq match {
@@ -1332,6 +1365,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
   }
 
   trait DefaultComgunitfmodel_IdentifiedContentFormat extends scalaxb.ElemNameParser[com.gu.nitf.model.IdentifiedContent] {
+    override val defaultElementLabel: Option[String] = Some("identified-content")
     val targetNamespace: Option[String] = Some("http://iptc.org/std/nitf/2006-03-01/")
     
     def parser(node: scala.xml.Node, stack: List[scalaxb.ElemName]): Parser[com.gu.nitf.model.IdentifiedContent] =
@@ -1374,6 +1408,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
   def buildComgunitfmodel_TypeTypeFormat = new DefaultComgunitfmodel_TypeTypeFormat {}
   trait DefaultComgunitfmodel_TypeTypeFormat extends scalaxb.XMLFormat[com.gu.nitf.model.TypeType] {
     val targetNamespace: Option[String] = Some("http://iptc.org/std/nitf/2006-03-01/")
+    override val defaultElementLabel: Option[String] = Some("type")
     
     def fromString(value: String, scope: scala.xml.NamespaceBinding): com.gu.nitf.model.TypeType = scalaxb.fromXML[String](scala.xml.Text(value)) match {
       case x: String if x == scalaxb.fromXML[String](scala.xml.Text("print")) => com.gu.nitf.model.Print
@@ -1393,12 +1428,13 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
     def writes(__obj: com.gu.nitf.model.TypeType, __namespace: Option[String], __elementLabel: Option[String],
         __scope: scala.xml.NamespaceBinding, __typeAttribute: Boolean): scala.xml.NodeSeq =
       scala.xml.Elem(scalaxb.Helper.getPrefix(__namespace, __scope).orNull, 
-        __elementLabel getOrElse { sys.error("missing element label.") },
+        __elementLabel orElse defaultElementLabel getOrElse { sys.error("missing element label.") },
         scala.xml.Null, __scope, true, scala.xml.Text(__obj.toString))
   }
 
   trait DefaultComgunitfmodel_PubdataFormat extends scalaxb.XMLFormat[com.gu.nitf.model.Pubdata] with scalaxb.CanWriteChildNodes[com.gu.nitf.model.Pubdata] {
     val targetNamespace: Option[String] = Some("http://iptc.org/std/nitf/2006-03-01/")
+    override val defaultElementLabel: Option[String] = Some("pubdata")
     import scalaxb.ElemName._
     
     def reads(seq: scala.xml.NodeSeq, stack: List[scalaxb.ElemName]): Either[String, com.gu.nitf.model.Pubdata] = seq match {
@@ -1454,6 +1490,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
   def buildComgunitfmodel_FunctionTypeTypeFormat = new DefaultComgunitfmodel_FunctionTypeTypeFormat {}
   trait DefaultComgunitfmodel_FunctionTypeTypeFormat extends scalaxb.XMLFormat[com.gu.nitf.model.FunctionTypeType] {
     val targetNamespace: Option[String] = Some("http://iptc.org/std/nitf/2006-03-01/")
+    override val defaultElementLabel: Option[String] = Some("function")
     
     def fromString(value: String, scope: scala.xml.NamespaceBinding): com.gu.nitf.model.FunctionTypeType = scalaxb.fromXML[String](scala.xml.Text(value)) match {
       case x: String if x == scalaxb.fromXML[String](scala.xml.Text("writer-author")) => com.gu.nitf.model.WriterAuthor
@@ -1476,12 +1513,13 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
     def writes(__obj: com.gu.nitf.model.FunctionTypeType, __namespace: Option[String], __elementLabel: Option[String],
         __scope: scala.xml.NamespaceBinding, __typeAttribute: Boolean): scala.xml.NodeSeq =
       scala.xml.Elem(scalaxb.Helper.getPrefix(__namespace, __scope).orNull, 
-        __elementLabel getOrElse { sys.error("missing element label.") },
+        __elementLabel orElse defaultElementLabel getOrElse { sys.error("missing element label.") },
         scala.xml.Null, __scope, true, scala.xml.Text(__obj.toString))
   }
 
   trait DefaultComgunitfmodel_RevisionHistoryFormat extends scalaxb.XMLFormat[com.gu.nitf.model.RevisionHistory] with scalaxb.CanWriteChildNodes[com.gu.nitf.model.RevisionHistory] {
     val targetNamespace: Option[String] = Some("http://iptc.org/std/nitf/2006-03-01/")
+    override val defaultElementLabel: Option[String] = Some("revision-history")
     import scalaxb.ElemName._
     
     def reads(seq: scala.xml.NodeSeq, stack: List[scalaxb.ElemName]): Either[String, com.gu.nitf.model.RevisionHistory] = seq match {
@@ -1515,6 +1553,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
   }
 
   trait DefaultComgunitfmodel_BodyFormat extends scalaxb.ElemNameParser[com.gu.nitf.model.Body] {
+    override val defaultElementLabel: Option[String] = Some("body")
     val targetNamespace: Option[String] = Some("http://iptc.org/std/nitf/2006-03-01/")
     
     def parser(node: scala.xml.Node, stack: List[scalaxb.ElemName]): Parser[com.gu.nitf.model.Body] =
@@ -1552,6 +1591,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
   }
 
   trait DefaultComgunitfmodel_BodyHeadFormat extends scalaxb.ElemNameParser[com.gu.nitf.model.BodyHead] {
+    override val defaultElementLabel: Option[String] = Some("body.head")
     val targetNamespace: Option[String] = Some("http://iptc.org/std/nitf/2006-03-01/")
     
     def parser(node: scala.xml.Node, stack: List[scalaxb.ElemName]): Parser[com.gu.nitf.model.BodyHead] =
@@ -1598,6 +1638,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
   }
 
   trait DefaultComgunitfmodel_HedlineFormat extends scalaxb.ElemNameParser[com.gu.nitf.model.Hedline] {
+    override val defaultElementLabel: Option[String] = Some("hedline")
     val targetNamespace: Option[String] = Some("http://iptc.org/std/nitf/2006-03-01/")
     
     def parser(node: scala.xml.Node, stack: List[scalaxb.ElemName]): Parser[com.gu.nitf.model.Hedline] =
@@ -1632,6 +1673,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
   }
 
   trait DefaultComgunitfmodel_Hl1Format extends scalaxb.ElemNameParser[com.gu.nitf.model.Hl1] with Comgunitfmodel_EnrichedTextGroupFormat {
+    override val defaultElementLabel: Option[String] = Some("hl1")
     val targetNamespace: Option[String] = Some("http://iptc.org/std/nitf/2006-03-01/")
     
     override def isMixed: Boolean = true
@@ -1669,6 +1711,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
   }
 
   trait DefaultComgunitfmodel_Hl2Format extends scalaxb.ElemNameParser[com.gu.nitf.model.Hl2] {
+    override val defaultElementLabel: Option[String] = Some("hl2")
     val targetNamespace: Option[String] = Some("http://iptc.org/std/nitf/2006-03-01/")
     
     override def isMixed: Boolean = true
@@ -1802,6 +1845,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
   def buildComgunitfmodel_NoteclassFormat = new DefaultComgunitfmodel_NoteclassFormat {}
   trait DefaultComgunitfmodel_NoteclassFormat extends scalaxb.XMLFormat[com.gu.nitf.model.Noteclass] {
     val targetNamespace: Option[String] = Some("http://iptc.org/std/nitf/2006-03-01/")
+    override val defaultElementLabel: Option[String] = Some("noteclass")
     
     def fromString(value: String, scope: scala.xml.NamespaceBinding): com.gu.nitf.model.Noteclass = scalaxb.fromXML[String](scala.xml.Text(value)) match {
       case x: String if x == scalaxb.fromXML[String](scala.xml.Text("cpyrt")) => com.gu.nitf.model.Cpyrt
@@ -1821,13 +1865,14 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
     def writes(__obj: com.gu.nitf.model.Noteclass, __namespace: Option[String], __elementLabel: Option[String],
         __scope: scala.xml.NamespaceBinding, __typeAttribute: Boolean): scala.xml.NodeSeq =
       scala.xml.Elem(scalaxb.Helper.getPrefix(__namespace, __scope).orNull, 
-        __elementLabel getOrElse { sys.error("missing element label.") },
+        __elementLabel orElse defaultElementLabel getOrElse { sys.error("missing element label.") },
         scala.xml.Null, __scope, true, scala.xml.Text(__obj.toString))
   }
 
   def buildComgunitfmodel_TypeType2Format = new DefaultComgunitfmodel_TypeType2Format {}
   trait DefaultComgunitfmodel_TypeType2Format extends scalaxb.XMLFormat[com.gu.nitf.model.TypeType2] {
     val targetNamespace: Option[String] = Some("http://iptc.org/std/nitf/2006-03-01/")
+    override val defaultElementLabel: Option[String] = Some("type")
     
     def fromString(value: String, scope: scala.xml.NamespaceBinding): com.gu.nitf.model.TypeType2 = scalaxb.fromXML[String](scala.xml.Text(value)) match {
       case x: String if x == scalaxb.fromXML[String](scala.xml.Text("std")) => com.gu.nitf.model.Std
@@ -1844,11 +1889,12 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
     def writes(__obj: com.gu.nitf.model.TypeType2, __namespace: Option[String], __elementLabel: Option[String],
         __scope: scala.xml.NamespaceBinding, __typeAttribute: Boolean): scala.xml.NodeSeq =
       scala.xml.Elem(scalaxb.Helper.getPrefix(__namespace, __scope).orNull, 
-        __elementLabel getOrElse { sys.error("missing element label.") },
+        __elementLabel orElse defaultElementLabel getOrElse { sys.error("missing element label.") },
         scala.xml.Null, __scope, true, scala.xml.Text(__obj.toString))
   }
 
   trait DefaultComgunitfmodel_NoteFormat extends scalaxb.ElemNameParser[com.gu.nitf.model.Note] {
+    override val defaultElementLabel: Option[String] = Some("note")
     val targetNamespace: Option[String] = Some("http://iptc.org/std/nitf/2006-03-01/")
     
     def parser(node: scala.xml.Node, stack: List[scalaxb.ElemName]): Parser[com.gu.nitf.model.Note] =
@@ -1885,6 +1931,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
   }
 
   trait DefaultComgunitfmodel_NoteSequence1Format extends scalaxb.XMLFormat[com.gu.nitf.model.NoteSequence1] {
+    final override def defaultElementLabel: Option[String] = None  // sequences have no label
     def reads(seq: scala.xml.NodeSeq, stack: List[scalaxb.ElemName]): Either[String, com.gu.nitf.model.NoteSequence1] = Left("don't call me.")
     
     def writes(__obj: com.gu.nitf.model.NoteSequence1, __namespace: Option[String], __elementLabel: Option[String], 
@@ -1895,6 +1942,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
   }
 
   trait DefaultComgunitfmodel_RightsFormat extends scalaxb.ElemNameParser[com.gu.nitf.model.Rights] {
+    override val defaultElementLabel: Option[String] = Some("rights")
     val targetNamespace: Option[String] = Some("http://iptc.org/std/nitf/2006-03-01/")
     
     override def isMixed: Boolean = true
@@ -1960,6 +2008,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
   }
 
   trait DefaultComgunitfmodel_RightsOwnerFormat extends scalaxb.ElemNameParser[com.gu.nitf.model.RightsOwner] {
+    override val defaultElementLabel: Option[String] = Some("rights.owner")
     val targetNamespace: Option[String] = Some("http://iptc.org/std/nitf/2006-03-01/")
     
     override def isMixed: Boolean = true
@@ -1989,6 +2038,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
   }
 
   trait DefaultComgunitfmodel_RightsStartdateFormat extends scalaxb.ElemNameParser[com.gu.nitf.model.RightsStartdate] {
+    override val defaultElementLabel: Option[String] = Some("rights.startdate")
     val targetNamespace: Option[String] = Some("http://iptc.org/std/nitf/2006-03-01/")
     
     override def isMixed: Boolean = true
@@ -2018,6 +2068,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
   }
 
   trait DefaultComgunitfmodel_RightsEnddateFormat extends scalaxb.ElemNameParser[com.gu.nitf.model.RightsEnddate] {
+    override val defaultElementLabel: Option[String] = Some("rights.enddate")
     val targetNamespace: Option[String] = Some("http://iptc.org/std/nitf/2006-03-01/")
     
     override def isMixed: Boolean = true
@@ -2047,6 +2098,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
   }
 
   trait DefaultComgunitfmodel_RightsAgentFormat extends scalaxb.ElemNameParser[com.gu.nitf.model.RightsAgent] {
+    override val defaultElementLabel: Option[String] = Some("rights.agent")
     val targetNamespace: Option[String] = Some("http://iptc.org/std/nitf/2006-03-01/")
     
     override def isMixed: Boolean = true
@@ -2076,6 +2128,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
   }
 
   trait DefaultComgunitfmodel_RightsGeographyFormat extends scalaxb.ElemNameParser[com.gu.nitf.model.RightsGeography] {
+    override val defaultElementLabel: Option[String] = Some("rights.geography")
     val targetNamespace: Option[String] = Some("http://iptc.org/std/nitf/2006-03-01/")
     
     override def isMixed: Boolean = true
@@ -2107,6 +2160,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
   }
 
   trait DefaultComgunitfmodel_RightsTypeFormat extends scalaxb.ElemNameParser[com.gu.nitf.model.RightsType] {
+    override val defaultElementLabel: Option[String] = Some("rights.type")
     val targetNamespace: Option[String] = Some("http://iptc.org/std/nitf/2006-03-01/")
     
     override def isMixed: Boolean = true
@@ -2134,6 +2188,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
   }
 
   trait DefaultComgunitfmodel_RightsLimitationsFormat extends scalaxb.ElemNameParser[com.gu.nitf.model.RightsLimitations] {
+    override val defaultElementLabel: Option[String] = Some("rights.limitations")
     val targetNamespace: Option[String] = Some("http://iptc.org/std/nitf/2006-03-01/")
     
     override def isMixed: Boolean = true
@@ -2161,6 +2216,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
   }
 
   trait DefaultComgunitfmodel_BylineFormat extends scalaxb.ElemNameParser[com.gu.nitf.model.Byline] {
+    override val defaultElementLabel: Option[String] = Some("byline")
     val targetNamespace: Option[String] = Some("http://iptc.org/std/nitf/2006-03-01/")
     
     override def isMixed: Boolean = true
@@ -2217,6 +2273,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
   }
 
   trait DefaultComgunitfmodel_ByttlFormat extends scalaxb.ElemNameParser[com.gu.nitf.model.Byttl] {
+    override val defaultElementLabel: Option[String] = Some("byttl")
     val targetNamespace: Option[String] = Some("http://iptc.org/std/nitf/2006-03-01/")
     
     override def isMixed: Boolean = true
@@ -2252,6 +2309,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
   }
 
   trait DefaultComgunitfmodel_DistributorFormat extends scalaxb.ElemNameParser[com.gu.nitf.model.Distributor] {
+    override val defaultElementLabel: Option[String] = Some("distributor")
     val targetNamespace: Option[String] = Some("http://iptc.org/std/nitf/2006-03-01/")
     
     override def isMixed: Boolean = true
@@ -2293,6 +2351,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
   }
 
   trait DefaultComgunitfmodel_DatelineFormat extends scalaxb.ElemNameParser[com.gu.nitf.model.Dateline] {
+    override val defaultElementLabel: Option[String] = Some("dateline")
     val targetNamespace: Option[String] = Some("http://iptc.org/std/nitf/2006-03-01/")
     
     override def isMixed: Boolean = true
@@ -2339,6 +2398,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
   }
 
   trait DefaultComgunitfmodel_StoryDateFormat extends scalaxb.ElemNameParser[com.gu.nitf.model.StoryDate] {
+    override val defaultElementLabel: Option[String] = Some("story.date")
     val targetNamespace: Option[String] = Some("http://iptc.org/std/nitf/2006-03-01/")
     
     override def isMixed: Boolean = true
@@ -2368,6 +2428,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
   }
 
   trait DefaultComgunitfmodel_AbstractFormat extends scalaxb.ElemNameParser[com.gu.nitf.model.Abstract] with Comgunitfmodel_BlockContentGroupFormat {
+    override val defaultElementLabel: Option[String] = Some("abstract")
     val targetNamespace: Option[String] = Some("http://iptc.org/std/nitf/2006-03-01/")
     
     def parser(node: scala.xml.Node, stack: List[scalaxb.ElemName]): Parser[com.gu.nitf.model.Abstract] =
@@ -2393,6 +2454,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
   }
 
   trait DefaultComgunitfmodel_CopyriteFormat extends scalaxb.ElemNameParser[com.gu.nitf.model.Copyrite] {
+    override val defaultElementLabel: Option[String] = Some("copyrite")
     val targetNamespace: Option[String] = Some("http://iptc.org/std/nitf/2006-03-01/")
     
     override def isMixed: Boolean = true
@@ -2433,6 +2495,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
   }
 
   trait DefaultComgunitfmodel_CopyriteYearFormat extends scalaxb.ElemNameParser[com.gu.nitf.model.CopyriteYear] {
+    override val defaultElementLabel: Option[String] = Some("copyrite.year")
     val targetNamespace: Option[String] = Some("http://iptc.org/std/nitf/2006-03-01/")
     
     override def isMixed: Boolean = true
@@ -2460,6 +2523,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
   }
 
   trait DefaultComgunitfmodel_CopyriteHolderFormat extends scalaxb.ElemNameParser[com.gu.nitf.model.CopyriteHolder] {
+    override val defaultElementLabel: Option[String] = Some("copyrite.holder")
     val targetNamespace: Option[String] = Some("http://iptc.org/std/nitf/2006-03-01/")
     
     override def isMixed: Boolean = true
@@ -2487,6 +2551,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
   }
 
   trait DefaultComgunitfmodel_BodyContentFormat extends scalaxb.ElemNameParser[com.gu.nitf.model.BodyContent] with Comgunitfmodel_BlockContentGroupFormat {
+    override val defaultElementLabel: Option[String] = Some("body.content")
     val targetNamespace: Option[String] = Some("http://iptc.org/std/nitf/2006-03-01/")
     
     def parser(node: scala.xml.Node, stack: List[scalaxb.ElemName]): Parser[com.gu.nitf.model.BodyContent] =
@@ -2514,6 +2579,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
   }
 
   trait DefaultComgunitfmodel_BlockFormat extends scalaxb.ElemNameParser[com.gu.nitf.model.Block] with Comgunitfmodel_BlockContentGroupFormat {
+    override val defaultElementLabel: Option[String] = Some("block")
     val targetNamespace: Option[String] = Some("http://iptc.org/std/nitf/2006-03-01/")
     
     def parser(node: scala.xml.Node, stack: List[scalaxb.ElemName]): Parser[com.gu.nitf.model.Block] =
@@ -2565,6 +2631,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
   }
 
   trait DefaultComgunitfmodel_BlockSequence2Format extends scalaxb.XMLFormat[com.gu.nitf.model.BlockSequence2] {
+    final override def defaultElementLabel: Option[String] = None  // sequences have no label
     def reads(seq: scala.xml.NodeSeq, stack: List[scalaxb.ElemName]): Either[String, com.gu.nitf.model.BlockSequence2] = Left("don't call me.")
     
     def writes(__obj: com.gu.nitf.model.BlockSequence2, __namespace: Option[String], __elementLabel: Option[String], 
@@ -2575,6 +2642,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
   }
 
   trait DefaultComgunitfmodel_BlockSequence1Format extends scalaxb.XMLFormat[com.gu.nitf.model.BlockSequence1] {
+    final override def defaultElementLabel: Option[String] = None  // sequences have no label
     def reads(seq: scala.xml.NodeSeq, stack: List[scalaxb.ElemName]): Either[String, com.gu.nitf.model.BlockSequence1] = Left("don't call me.")
     
     def writes(__obj: com.gu.nitf.model.BlockSequence1, __namespace: Option[String], __elementLabel: Option[String], 
@@ -2591,6 +2659,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
   }
 
   trait DefaultComgunitfmodel_PFormat extends scalaxb.ElemNameParser[com.gu.nitf.model.P] {
+    override val defaultElementLabel: Option[String] = Some("p")
     val targetNamespace: Option[String] = Some("http://iptc.org/std/nitf/2006-03-01/")
     
     override def isMixed: Boolean = true
@@ -2730,6 +2799,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
   def buildComgunitfmodel_AlignTypeFormat = new DefaultComgunitfmodel_AlignTypeFormat {}
   trait DefaultComgunitfmodel_AlignTypeFormat extends scalaxb.XMLFormat[com.gu.nitf.model.AlignType] {
     val targetNamespace: Option[String] = Some("http://iptc.org/std/nitf/2006-03-01/")
+    override val defaultElementLabel: Option[String] = Some("align")
     
     def fromString(value: String, scope: scala.xml.NamespaceBinding): com.gu.nitf.model.AlignType = scalaxb.fromXML[String](scala.xml.Text(value)) match {
       case x: String if x == scalaxb.fromXML[String](scala.xml.Text("left")) => com.gu.nitf.model.LeftTypeValue
@@ -2746,13 +2816,14 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
     def writes(__obj: com.gu.nitf.model.AlignType, __namespace: Option[String], __elementLabel: Option[String],
         __scope: scala.xml.NamespaceBinding, __typeAttribute: Boolean): scala.xml.NodeSeq =
       scala.xml.Elem(scalaxb.Helper.getPrefix(__namespace, __scope).orNull, 
-        __elementLabel getOrElse { sys.error("missing element label.") },
+        __elementLabel orElse defaultElementLabel getOrElse { sys.error("missing element label.") },
         scala.xml.Null, __scope, true, scala.xml.Text(__obj.toString))
   }
 
   def buildComgunitfmodel_FrameFormat = new DefaultComgunitfmodel_FrameFormat {}
   trait DefaultComgunitfmodel_FrameFormat extends scalaxb.XMLFormat[com.gu.nitf.model.Frame] {
     val targetNamespace: Option[String] = Some("http://iptc.org/std/nitf/2006-03-01/")
+    override val defaultElementLabel: Option[String] = Some("frame")
     
     def fromString(value: String, scope: scala.xml.NamespaceBinding): com.gu.nitf.model.Frame = scalaxb.fromXML[String](scala.xml.Text(value)) match {
       case x: String if x == scalaxb.fromXML[String](scala.xml.Text("void")) => com.gu.nitf.model.Void
@@ -2775,13 +2846,14 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
     def writes(__obj: com.gu.nitf.model.Frame, __namespace: Option[String], __elementLabel: Option[String],
         __scope: scala.xml.NamespaceBinding, __typeAttribute: Boolean): scala.xml.NodeSeq =
       scala.xml.Elem(scalaxb.Helper.getPrefix(__namespace, __scope).orNull, 
-        __elementLabel getOrElse { sys.error("missing element label.") },
+        __elementLabel orElse defaultElementLabel getOrElse { sys.error("missing element label.") },
         scala.xml.Null, __scope, true, scala.xml.Text(__obj.toString))
   }
 
   def buildComgunitfmodel_RulesFormat = new DefaultComgunitfmodel_RulesFormat {}
   trait DefaultComgunitfmodel_RulesFormat extends scalaxb.XMLFormat[com.gu.nitf.model.Rules] {
     val targetNamespace: Option[String] = Some("http://iptc.org/std/nitf/2006-03-01/")
+    override val defaultElementLabel: Option[String] = Some("rules")
     
     def fromString(value: String, scope: scala.xml.NamespaceBinding): com.gu.nitf.model.Rules = scalaxb.fromXML[String](scala.xml.Text(value)) match {
       case x: String if x == scalaxb.fromXML[String](scala.xml.Text("none")) => com.gu.nitf.model.NoneType
@@ -2800,11 +2872,12 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
     def writes(__obj: com.gu.nitf.model.Rules, __namespace: Option[String], __elementLabel: Option[String],
         __scope: scala.xml.NamespaceBinding, __typeAttribute: Boolean): scala.xml.NodeSeq =
       scala.xml.Elem(scalaxb.Helper.getPrefix(__namespace, __scope).orNull, 
-        __elementLabel getOrElse { sys.error("missing element label.") },
+        __elementLabel orElse defaultElementLabel getOrElse { sys.error("missing element label.") },
         scala.xml.Null, __scope, true, scala.xml.Text(__obj.toString))
   }
 
   trait DefaultComgunitfmodel_TableFormat extends scalaxb.ElemNameParser[com.gu.nitf.model.Table] {
+    override val defaultElementLabel: Option[String] = Some("table")
     val targetNamespace: Option[String] = Some("http://iptc.org/std/nitf/2006-03-01/")
     
     def parser(node: scala.xml.Node, stack: List[scalaxb.ElemName]): Parser[com.gu.nitf.model.Table] =
@@ -2872,6 +2945,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
   }
 
   trait DefaultComgunitfmodel_MediaFormat extends scalaxb.ElemNameParser[com.gu.nitf.model.Media] {
+    override val defaultElementLabel: Option[String] = Some("media")
     val targetNamespace: Option[String] = Some("http://iptc.org/std/nitf/2006-03-01/")
     
     def parser(node: scala.xml.Node, stack: List[scalaxb.ElemName]): Parser[com.gu.nitf.model.Media] =
@@ -2917,6 +2991,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
   }
 
   trait DefaultComgunitfmodel_MediaSequence1Format extends scalaxb.XMLFormat[com.gu.nitf.model.MediaSequence1] {
+    final override def defaultElementLabel: Option[String] = None  // sequences have no label
     def reads(seq: scala.xml.NodeSeq, stack: List[scalaxb.ElemName]): Either[String, com.gu.nitf.model.MediaSequence1] = Left("don't call me.")
     
     def writes(__obj: com.gu.nitf.model.MediaSequence1, __namespace: Option[String], __elementLabel: Option[String], 
@@ -2930,6 +3005,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
   def buildComgunitfmodel_UnitsFormat = new DefaultComgunitfmodel_UnitsFormat {}
   trait DefaultComgunitfmodel_UnitsFormat extends scalaxb.XMLFormat[com.gu.nitf.model.Units] {
     val targetNamespace: Option[String] = Some("http://iptc.org/std/nitf/2006-03-01/")
+    override val defaultElementLabel: Option[String] = Some("units")
     
     def fromString(value: String, scope: scala.xml.NamespaceBinding): com.gu.nitf.model.Units = scalaxb.fromXML[String](scala.xml.Text(value)) match {
       case x: String if x == scalaxb.fromXML[String](scala.xml.Text("pixels")) => com.gu.nitf.model.Pixels
@@ -2944,13 +3020,14 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
     def writes(__obj: com.gu.nitf.model.Units, __namespace: Option[String], __elementLabel: Option[String],
         __scope: scala.xml.NamespaceBinding, __typeAttribute: Boolean): scala.xml.NodeSeq =
       scala.xml.Elem(scalaxb.Helper.getPrefix(__namespace, __scope).orNull, 
-        __elementLabel getOrElse { sys.error("missing element label.") },
+        __elementLabel orElse defaultElementLabel getOrElse { sys.error("missing element label.") },
         scala.xml.Null, __scope, true, scala.xml.Text(__obj.toString))
   }
 
   def buildComgunitfmodel_NoflowFormat = new DefaultComgunitfmodel_NoflowFormat {}
   trait DefaultComgunitfmodel_NoflowFormat extends scalaxb.XMLFormat[com.gu.nitf.model.Noflow] {
     val targetNamespace: Option[String] = Some("http://iptc.org/std/nitf/2006-03-01/")
+    override val defaultElementLabel: Option[String] = Some("noflow")
     
     def fromString(value: String, scope: scala.xml.NamespaceBinding): com.gu.nitf.model.Noflow = scalaxb.fromXML[String](scala.xml.Text(value)) match {
       case x: String if x == scalaxb.fromXML[String](scala.xml.Text("noflow")) => com.gu.nitf.model.NoflowValue
@@ -2965,11 +3042,12 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
     def writes(__obj: com.gu.nitf.model.Noflow, __namespace: Option[String], __elementLabel: Option[String],
         __scope: scala.xml.NamespaceBinding, __typeAttribute: Boolean): scala.xml.NodeSeq =
       scala.xml.Elem(scalaxb.Helper.getPrefix(__namespace, __scope).orNull, 
-        __elementLabel getOrElse { sys.error("missing element label.") },
+        __elementLabel orElse defaultElementLabel getOrElse { sys.error("missing element label.") },
         scala.xml.Null, __scope, true, scala.xml.Text(__obj.toString))
   }
 
   trait DefaultComgunitfmodel_MediaReferenceFormat extends scalaxb.ElemNameParser[com.gu.nitf.model.MediaReference] {
+    override val defaultElementLabel: Option[String] = Some("media-reference")
     val targetNamespace: Option[String] = Some("http://iptc.org/std/nitf/2006-03-01/")
     
     override def isMixed: Boolean = true
@@ -3030,6 +3108,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
 
   trait DefaultComgunitfmodel_MediaMetadataFormat extends scalaxb.XMLFormat[com.gu.nitf.model.MediaMetadata] with scalaxb.CanWriteChildNodes[com.gu.nitf.model.MediaMetadata] {
     val targetNamespace: Option[String] = Some("http://iptc.org/std/nitf/2006-03-01/")
+    override val defaultElementLabel: Option[String] = Some("media-metadata")
     import scalaxb.ElemName._
     
     def reads(seq: scala.xml.NodeSeq, stack: List[scalaxb.ElemName]): Either[String, com.gu.nitf.model.MediaMetadata] = seq match {
@@ -3059,6 +3138,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
   }
 
   trait DefaultComgunitfmodel_MediaObjectFormat extends scalaxb.ElemNameParser[com.gu.nitf.model.MediaObject] {
+    override val defaultElementLabel: Option[String] = Some("media-object")
     val targetNamespace: Option[String] = Some("http://iptc.org/std/nitf/2006-03-01/")
     
     override def isMixed: Boolean = true
@@ -3094,6 +3174,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
   }
 
   trait DefaultComgunitfmodel_MediaCaptionFormat extends scalaxb.ElemNameParser[com.gu.nitf.model.MediaCaption] with Comgunitfmodel_EnrichedTextGroupFormat with Comgunitfmodel_BlockContentGroupFormat {
+    override val defaultElementLabel: Option[String] = Some("media-caption")
     val targetNamespace: Option[String] = Some("http://iptc.org/std/nitf/2006-03-01/")
     
     override def isMixed: Boolean = true
@@ -3132,6 +3213,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
   }
 
   trait DefaultComgunitfmodel_MediaProducerFormat extends scalaxb.ElemNameParser[com.gu.nitf.model.MediaProducer] with Comgunitfmodel_EnrichedTextGroupFormat {
+    override val defaultElementLabel: Option[String] = Some("media-producer")
     val targetNamespace: Option[String] = Some("http://iptc.org/std/nitf/2006-03-01/")
     
     override def isMixed: Boolean = true
@@ -3169,6 +3251,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
   }
 
   trait DefaultComgunitfmodel_OlFormat extends scalaxb.ElemNameParser[com.gu.nitf.model.Ol] {
+    override val defaultElementLabel: Option[String] = Some("ol")
     val targetNamespace: Option[String] = Some("http://iptc.org/std/nitf/2006-03-01/")
     
     def parser(node: scala.xml.Node, stack: List[scalaxb.ElemName]): Parser[com.gu.nitf.model.Ol] =
@@ -3203,6 +3286,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
   }
 
   trait DefaultComgunitfmodel_OlSequence1Format extends scalaxb.XMLFormat[com.gu.nitf.model.OlSequence1] {
+    final override def defaultElementLabel: Option[String] = None  // sequences have no label
     def reads(seq: scala.xml.NodeSeq, stack: List[scalaxb.ElemName]): Either[String, com.gu.nitf.model.OlSequence1] = Left("don't call me.")
     
     def writes(__obj: com.gu.nitf.model.OlSequence1, __namespace: Option[String], __elementLabel: Option[String], 
@@ -3213,6 +3297,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
   }
 
   trait DefaultComgunitfmodel_UlFormat extends scalaxb.ElemNameParser[com.gu.nitf.model.Ul] {
+    override val defaultElementLabel: Option[String] = Some("ul")
     val targetNamespace: Option[String] = Some("http://iptc.org/std/nitf/2006-03-01/")
     
     def parser(node: scala.xml.Node, stack: List[scalaxb.ElemName]): Parser[com.gu.nitf.model.Ul] =
@@ -3245,6 +3330,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
   }
 
   trait DefaultComgunitfmodel_UlSequence1Format extends scalaxb.XMLFormat[com.gu.nitf.model.UlSequence1] {
+    final override def defaultElementLabel: Option[String] = None  // sequences have no label
     def reads(seq: scala.xml.NodeSeq, stack: List[scalaxb.ElemName]): Either[String, com.gu.nitf.model.UlSequence1] = Left("don't call me.")
     
     def writes(__obj: com.gu.nitf.model.UlSequence1, __namespace: Option[String], __elementLabel: Option[String], 
@@ -3255,6 +3341,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
   }
 
   trait DefaultComgunitfmodel_LiFormat extends scalaxb.ElemNameParser[com.gu.nitf.model.Li] with Comgunitfmodel_EnrichedTextGroupFormat with Comgunitfmodel_BlockContentGroupFormat {
+    override val defaultElementLabel: Option[String] = Some("li")
     val targetNamespace: Option[String] = Some("http://iptc.org/std/nitf/2006-03-01/")
     
     override def isMixed: Boolean = true
@@ -3293,6 +3380,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
   }
 
   trait DefaultComgunitfmodel_DlFormat extends scalaxb.ElemNameParser[com.gu.nitf.model.Dl] {
+    override val defaultElementLabel: Option[String] = Some("dl")
     val targetNamespace: Option[String] = Some("http://iptc.org/std/nitf/2006-03-01/")
     
     def parser(node: scala.xml.Node, stack: List[scalaxb.ElemName]): Parser[com.gu.nitf.model.Dl] =
@@ -3327,6 +3415,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
   }
 
   trait DefaultComgunitfmodel_DtFormat extends scalaxb.ElemNameParser[com.gu.nitf.model.Dt] with Comgunitfmodel_EnrichedTextGroupFormat {
+    override val defaultElementLabel: Option[String] = Some("dt")
     val targetNamespace: Option[String] = Some("http://iptc.org/std/nitf/2006-03-01/")
     
     override def isMixed: Boolean = true
@@ -3364,6 +3453,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
   }
 
   trait DefaultComgunitfmodel_DdFormat extends scalaxb.ElemNameParser[com.gu.nitf.model.Dd] with Comgunitfmodel_EnrichedTextGroupFormat with Comgunitfmodel_BlockContentGroupFormat {
+    override val defaultElementLabel: Option[String] = Some("dd")
     val targetNamespace: Option[String] = Some("http://iptc.org/std/nitf/2006-03-01/")
     
     def parser(node: scala.xml.Node, stack: List[scalaxb.ElemName]): Parser[com.gu.nitf.model.Dd] =
@@ -3400,6 +3490,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
   def buildComgunitfmodel_NowrapFormat = new DefaultComgunitfmodel_NowrapFormat {}
   trait DefaultComgunitfmodel_NowrapFormat extends scalaxb.XMLFormat[com.gu.nitf.model.Nowrap] {
     val targetNamespace: Option[String] = Some("http://iptc.org/std/nitf/2006-03-01/")
+    override val defaultElementLabel: Option[String] = Some("nowrap")
     
     def fromString(value: String, scope: scala.xml.NamespaceBinding): com.gu.nitf.model.Nowrap = scalaxb.fromXML[String](scala.xml.Text(value)) match {
       case x: String if x == scalaxb.fromXML[String](scala.xml.Text("nowrap")) => com.gu.nitf.model.NowrapValue
@@ -3414,11 +3505,12 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
     def writes(__obj: com.gu.nitf.model.Nowrap, __namespace: Option[String], __elementLabel: Option[String],
         __scope: scala.xml.NamespaceBinding, __typeAttribute: Boolean): scala.xml.NodeSeq =
       scala.xml.Elem(scalaxb.Helper.getPrefix(__namespace, __scope).orNull, 
-        __elementLabel getOrElse { sys.error("missing element label.") },
+        __elementLabel orElse defaultElementLabel getOrElse { sys.error("missing element label.") },
         scala.xml.Null, __scope, true, scala.xml.Text(__obj.toString))
   }
 
   trait DefaultComgunitfmodel_BqFormat extends scalaxb.ElemNameParser[com.gu.nitf.model.Bq] {
+    override val defaultElementLabel: Option[String] = Some("bq")
     val targetNamespace: Option[String] = Some("http://iptc.org/std/nitf/2006-03-01/")
     
     def parser(node: scala.xml.Node, stack: List[scalaxb.ElemName]): Parser[com.gu.nitf.model.Bq] =
@@ -3457,6 +3549,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
   }
 
   trait DefaultComgunitfmodel_BqSequence1Format extends scalaxb.XMLFormat[com.gu.nitf.model.BqSequence1] {
+    final override def defaultElementLabel: Option[String] = None  // sequences have no label
     def reads(seq: scala.xml.NodeSeq, stack: List[scalaxb.ElemName]): Either[String, com.gu.nitf.model.BqSequence1] = Left("don't call me.")
     
     def writes(__obj: com.gu.nitf.model.BqSequence1, __namespace: Option[String], __elementLabel: Option[String], 
@@ -3468,6 +3561,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
   }
 
   trait DefaultComgunitfmodel_CreditFormat extends scalaxb.ElemNameParser[com.gu.nitf.model.Credit] with Comgunitfmodel_EnrichedTextGroupFormat {
+    override val defaultElementLabel: Option[String] = Some("credit")
     val targetNamespace: Option[String] = Some("http://iptc.org/std/nitf/2006-03-01/")
     
     override def isMixed: Boolean = true
@@ -3505,6 +3599,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
   }
 
   trait DefaultComgunitfmodel_FnFormat extends scalaxb.ElemNameParser[com.gu.nitf.model.Fn] {
+    override val defaultElementLabel: Option[String] = Some("fn")
     val targetNamespace: Option[String] = Some("http://iptc.org/std/nitf/2006-03-01/")
     
     def parser(node: scala.xml.Node, stack: List[scalaxb.ElemName]): Parser[com.gu.nitf.model.Fn] =
@@ -3537,6 +3632,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
   }
 
   trait DefaultComgunitfmodel_FnSequence1Format extends scalaxb.XMLFormat[com.gu.nitf.model.FnSequence1] {
+    final override def defaultElementLabel: Option[String] = None  // sequences have no label
     def reads(seq: scala.xml.NodeSeq, stack: List[scalaxb.ElemName]): Either[String, com.gu.nitf.model.FnSequence1] = Left("don't call me.")
     
     def writes(__obj: com.gu.nitf.model.FnSequence1, __namespace: Option[String], __elementLabel: Option[String], 
@@ -3547,6 +3643,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
   }
 
   trait DefaultComgunitfmodel_PreFormat extends scalaxb.ElemNameParser[com.gu.nitf.model.Pre] {
+    override val defaultElementLabel: Option[String] = Some("pre")
     val targetNamespace: Option[String] = Some("http://iptc.org/std/nitf/2006-03-01/")
     
     override def isMixed: Boolean = true
@@ -3581,6 +3678,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
 
   trait DefaultComgunitfmodel_HrFormat extends scalaxb.XMLFormat[com.gu.nitf.model.Hr] with scalaxb.CanWriteChildNodes[com.gu.nitf.model.Hr] {
     val targetNamespace: Option[String] = Some("http://iptc.org/std/nitf/2006-03-01/")
+    override val defaultElementLabel: Option[String] = Some("hr")
     import scalaxb.ElemName._
     
     def reads(seq: scala.xml.NodeSeq, stack: List[scalaxb.ElemName]): Either[String, com.gu.nitf.model.Hr] = seq match {
@@ -3612,6 +3710,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
   }
 
   trait DefaultComgunitfmodel_DatasourceFormat extends scalaxb.ElemNameParser[com.gu.nitf.model.Datasource] {
+    override val defaultElementLabel: Option[String] = Some("datasource")
     val targetNamespace: Option[String] = Some("http://iptc.org/std/nitf/2006-03-01/")
     
     override def isMixed: Boolean = true
@@ -3641,6 +3740,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
   def buildComgunitfmodel_AlignType2Format = new DefaultComgunitfmodel_AlignType2Format {}
   trait DefaultComgunitfmodel_AlignType2Format extends scalaxb.XMLFormat[com.gu.nitf.model.AlignType2] {
     val targetNamespace: Option[String] = Some("http://iptc.org/std/nitf/2006-03-01/")
+    override val defaultElementLabel: Option[String] = Some("align")
     
     def fromString(value: String, scope: scala.xml.NamespaceBinding): com.gu.nitf.model.AlignType2 = scalaxb.fromXML[String](scala.xml.Text(value)) match {
       case x: String if x == scalaxb.fromXML[String](scala.xml.Text("top")) => com.gu.nitf.model.TopValue
@@ -3658,11 +3758,12 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
     def writes(__obj: com.gu.nitf.model.AlignType2, __namespace: Option[String], __elementLabel: Option[String],
         __scope: scala.xml.NamespaceBinding, __typeAttribute: Boolean): scala.xml.NodeSeq =
       scala.xml.Elem(scalaxb.Helper.getPrefix(__namespace, __scope).orNull, 
-        __elementLabel getOrElse { sys.error("missing element label.") },
+        __elementLabel orElse defaultElementLabel getOrElse { sys.error("missing element label.") },
         scala.xml.Null, __scope, true, scala.xml.Text(__obj.toString))
   }
 
   trait DefaultComgunitfmodel_CaptionFormat extends scalaxb.ElemNameParser[com.gu.nitf.model.Caption] with Comgunitfmodel_EnrichedTextGroupFormat with Comgunitfmodel_BlockContentGroupFormat {
+    override val defaultElementLabel: Option[String] = Some("caption")
     val targetNamespace: Option[String] = Some("http://iptc.org/std/nitf/2006-03-01/")
     
     override def isMixed: Boolean = true
@@ -3704,6 +3805,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
 
   trait DefaultComgunitfmodel_ColFormat extends scalaxb.XMLFormat[com.gu.nitf.model.Col] with scalaxb.CanWriteChildNodes[com.gu.nitf.model.Col] {
     val targetNamespace: Option[String] = Some("http://iptc.org/std/nitf/2006-03-01/")
+    override val defaultElementLabel: Option[String] = Some("col")
     import scalaxb.ElemName._
     
     def reads(seq: scala.xml.NodeSeq, stack: List[scalaxb.ElemName]): Either[String, com.gu.nitf.model.Col] = seq match {
@@ -3747,6 +3849,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
   }
 
   trait DefaultComgunitfmodel_ColgroupFormat extends scalaxb.ElemNameParser[com.gu.nitf.model.Colgroup] {
+    override val defaultElementLabel: Option[String] = Some("colgroup")
     val targetNamespace: Option[String] = Some("http://iptc.org/std/nitf/2006-03-01/")
     
     def parser(node: scala.xml.Node, stack: List[scalaxb.ElemName]): Parser[com.gu.nitf.model.Colgroup] =
@@ -3786,6 +3889,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
   }
 
   trait DefaultComgunitfmodel_TheadFormat extends scalaxb.ElemNameParser[com.gu.nitf.model.Thead] {
+    override val defaultElementLabel: Option[String] = Some("thead")
     val targetNamespace: Option[String] = Some("http://iptc.org/std/nitf/2006-03-01/")
     
     def parser(node: scala.xml.Node, stack: List[scalaxb.ElemName]): Parser[com.gu.nitf.model.Thead] =
@@ -3825,6 +3929,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
   }
 
   trait DefaultComgunitfmodel_TbodyFormat extends scalaxb.ElemNameParser[com.gu.nitf.model.Tbody] {
+    override val defaultElementLabel: Option[String] = Some("tbody")
     val targetNamespace: Option[String] = Some("http://iptc.org/std/nitf/2006-03-01/")
     
     def parser(node: scala.xml.Node, stack: List[scalaxb.ElemName]): Parser[com.gu.nitf.model.Tbody] =
@@ -3864,6 +3969,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
   }
 
   trait DefaultComgunitfmodel_TfootFormat extends scalaxb.ElemNameParser[com.gu.nitf.model.Tfoot] {
+    override val defaultElementLabel: Option[String] = Some("tfoot")
     val targetNamespace: Option[String] = Some("http://iptc.org/std/nitf/2006-03-01/")
     
     def parser(node: scala.xml.Node, stack: List[scalaxb.ElemName]): Parser[com.gu.nitf.model.Tfoot] =
@@ -3903,6 +4009,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
   }
 
   trait DefaultComgunitfmodel_TrFormat extends scalaxb.ElemNameParser[com.gu.nitf.model.Tr] {
+    override val defaultElementLabel: Option[String] = Some("tr")
     val targetNamespace: Option[String] = Some("http://iptc.org/std/nitf/2006-03-01/")
     
     def parser(node: scala.xml.Node, stack: List[scalaxb.ElemName]): Parser[com.gu.nitf.model.Tr] =
@@ -3947,6 +4054,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
   def buildComgunitfmodel_NowrapTypeFormat = new DefaultComgunitfmodel_NowrapTypeFormat {}
   trait DefaultComgunitfmodel_NowrapTypeFormat extends scalaxb.XMLFormat[com.gu.nitf.model.NowrapType] {
     val targetNamespace: Option[String] = Some("http://iptc.org/std/nitf/2006-03-01/")
+    override val defaultElementLabel: Option[String] = Some("nowrap")
     
     def fromString(value: String, scope: scala.xml.NamespaceBinding): com.gu.nitf.model.NowrapType = scalaxb.fromXML[String](scala.xml.Text(value)) match {
       case x: String if x == scalaxb.fromXML[String](scala.xml.Text("nowrap")) => com.gu.nitf.model.NowrapValue2
@@ -3961,11 +4069,12 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
     def writes(__obj: com.gu.nitf.model.NowrapType, __namespace: Option[String], __elementLabel: Option[String],
         __scope: scala.xml.NamespaceBinding, __typeAttribute: Boolean): scala.xml.NodeSeq =
       scala.xml.Elem(scalaxb.Helper.getPrefix(__namespace, __scope).orNull, 
-        __elementLabel getOrElse { sys.error("missing element label.") },
+        __elementLabel orElse defaultElementLabel getOrElse { sys.error("missing element label.") },
         scala.xml.Null, __scope, true, scala.xml.Text(__obj.toString))
   }
 
   trait DefaultComgunitfmodel_ThFormat extends scalaxb.ElemNameParser[com.gu.nitf.model.Th] with Comgunitfmodel_EnrichedTextGroupFormat with Comgunitfmodel_BlockContentGroupFormat {
+    override val defaultElementLabel: Option[String] = Some("th")
     val targetNamespace: Option[String] = Some("http://iptc.org/std/nitf/2006-03-01/")
     
     override def isMixed: Boolean = true
@@ -4024,6 +4133,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
   def buildComgunitfmodel_NowrapType2Format = new DefaultComgunitfmodel_NowrapType2Format {}
   trait DefaultComgunitfmodel_NowrapType2Format extends scalaxb.XMLFormat[com.gu.nitf.model.NowrapType2] {
     val targetNamespace: Option[String] = Some("http://iptc.org/std/nitf/2006-03-01/")
+    override val defaultElementLabel: Option[String] = Some("nowrap")
     
     def fromString(value: String, scope: scala.xml.NamespaceBinding): com.gu.nitf.model.NowrapType2 = scalaxb.fromXML[String](scala.xml.Text(value)) match {
       case x: String if x == scalaxb.fromXML[String](scala.xml.Text("nowrap")) => com.gu.nitf.model.NowrapValue3
@@ -4038,11 +4148,12 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
     def writes(__obj: com.gu.nitf.model.NowrapType2, __namespace: Option[String], __elementLabel: Option[String],
         __scope: scala.xml.NamespaceBinding, __typeAttribute: Boolean): scala.xml.NodeSeq =
       scala.xml.Elem(scalaxb.Helper.getPrefix(__namespace, __scope).orNull, 
-        __elementLabel getOrElse { sys.error("missing element label.") },
+        __elementLabel orElse defaultElementLabel getOrElse { sys.error("missing element label.") },
         scala.xml.Null, __scope, true, scala.xml.Text(__obj.toString))
   }
 
   trait DefaultComgunitfmodel_TdFormat extends scalaxb.ElemNameParser[com.gu.nitf.model.Td] with Comgunitfmodel_EnrichedTextGroupFormat with Comgunitfmodel_BlockContentGroupFormat {
+    override val defaultElementLabel: Option[String] = Some("td")
     val targetNamespace: Option[String] = Some("http://iptc.org/std/nitf/2006-03-01/")
     
     override def isMixed: Boolean = true
@@ -4099,6 +4210,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
   }
 
   trait DefaultComgunitfmodel_ChronFormat extends scalaxb.ElemNameParser[com.gu.nitf.model.Chron] {
+    override val defaultElementLabel: Option[String] = Some("chron")
     val targetNamespace: Option[String] = Some("http://iptc.org/std/nitf/2006-03-01/")
     
     override def isMixed: Boolean = true
@@ -4134,6 +4246,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
   }
 
   trait DefaultComgunitfmodel_EventFormat extends scalaxb.ElemNameParser[com.gu.nitf.model.Event] {
+    override val defaultElementLabel: Option[String] = Some("event")
     val targetNamespace: Option[String] = Some("http://iptc.org/std/nitf/2006-03-01/")
     
     override def isMixed: Boolean = true
@@ -4183,6 +4296,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
   }
 
   trait DefaultComgunitfmodel_FunctionTypeFormat extends scalaxb.ElemNameParser[com.gu.nitf.model.FunctionType] {
+    override val defaultElementLabel: Option[String] = Some("function")
     val targetNamespace: Option[String] = Some("http://iptc.org/std/nitf/2006-03-01/")
     
     override def isMixed: Boolean = true
@@ -4222,6 +4336,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
   }
 
   trait DefaultComgunitfmodel_LocationFormat extends scalaxb.ElemNameParser[com.gu.nitf.model.Location] {
+    override val defaultElementLabel: Option[String] = Some("location")
     val targetNamespace: Option[String] = Some("http://iptc.org/std/nitf/2006-03-01/")
     
     override def isMixed: Boolean = true
@@ -4292,6 +4407,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
   }
 
   trait DefaultComgunitfmodel_SublocationFormat extends scalaxb.ElemNameParser[com.gu.nitf.model.Sublocation] {
+    override val defaultElementLabel: Option[String] = Some("sublocation")
     val targetNamespace: Option[String] = Some("http://iptc.org/std/nitf/2006-03-01/")
     
     override def isMixed: Boolean = true
@@ -4337,6 +4453,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
   }
 
   trait DefaultComgunitfmodel_CityFormat extends scalaxb.ElemNameParser[com.gu.nitf.model.City] {
+    override val defaultElementLabel: Option[String] = Some("city")
     val targetNamespace: Option[String] = Some("http://iptc.org/std/nitf/2006-03-01/")
     
     override def isMixed: Boolean = true
@@ -4382,6 +4499,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
   }
 
   trait DefaultComgunitfmodel_StateFormat extends scalaxb.ElemNameParser[com.gu.nitf.model.State] {
+    override val defaultElementLabel: Option[String] = Some("state")
     val targetNamespace: Option[String] = Some("http://iptc.org/std/nitf/2006-03-01/")
     
     override def isMixed: Boolean = true
@@ -4427,6 +4545,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
   }
 
   trait DefaultComgunitfmodel_RegionFormat extends scalaxb.ElemNameParser[com.gu.nitf.model.Region] {
+    override val defaultElementLabel: Option[String] = Some("region")
     val targetNamespace: Option[String] = Some("http://iptc.org/std/nitf/2006-03-01/")
     
     override def isMixed: Boolean = true
@@ -4472,6 +4591,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
   }
 
   trait DefaultComgunitfmodel_CountryFormat extends scalaxb.ElemNameParser[com.gu.nitf.model.Country] {
+    override val defaultElementLabel: Option[String] = Some("country")
     val targetNamespace: Option[String] = Some("http://iptc.org/std/nitf/2006-03-01/")
     
     override def isMixed: Boolean = true
@@ -4515,6 +4635,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
   }
 
   trait DefaultComgunitfmodel_MoneyFormat extends scalaxb.ElemNameParser[com.gu.nitf.model.Money] {
+    override val defaultElementLabel: Option[String] = Some("money")
     val targetNamespace: Option[String] = Some("http://iptc.org/std/nitf/2006-03-01/")
     
     override def isMixed: Boolean = true
@@ -4552,6 +4673,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
   }
 
   trait DefaultComgunitfmodel_NumFormat extends scalaxb.ElemNameParser[com.gu.nitf.model.Num] {
+    override val defaultElementLabel: Option[String] = Some("num")
     val targetNamespace: Option[String] = Some("http://iptc.org/std/nitf/2006-03-01/")
     
     override def isMixed: Boolean = true
@@ -4609,6 +4731,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
   }
 
   trait DefaultComgunitfmodel_FracFormat extends scalaxb.ElemNameParser[com.gu.nitf.model.Frac] {
+    override val defaultElementLabel: Option[String] = Some("frac")
     val targetNamespace: Option[String] = Some("http://iptc.org/std/nitf/2006-03-01/")
     
     def parser(node: scala.xml.Node, stack: List[scalaxb.ElemName]): Parser[com.gu.nitf.model.Frac] =
@@ -4646,6 +4769,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
   }
 
   trait DefaultComgunitfmodel_NumerFormat extends scalaxb.ElemNameParser[com.gu.nitf.model.Numer] {
+    override val defaultElementLabel: Option[String] = Some("numer")
     val targetNamespace: Option[String] = Some("http://iptc.org/std/nitf/2006-03-01/")
     
     override def isMixed: Boolean = true
@@ -4673,6 +4797,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
   }
 
   trait DefaultComgunitfmodel_FracSepFormat extends scalaxb.ElemNameParser[com.gu.nitf.model.FracSep] {
+    override val defaultElementLabel: Option[String] = Some("frac-sep")
     val targetNamespace: Option[String] = Some("http://iptc.org/std/nitf/2006-03-01/")
     
     override def isMixed: Boolean = true
@@ -4700,6 +4825,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
   }
 
   trait DefaultComgunitfmodel_DenomFormat extends scalaxb.ElemNameParser[com.gu.nitf.model.Denom] {
+    override val defaultElementLabel: Option[String] = Some("denom")
     val targetNamespace: Option[String] = Some("http://iptc.org/std/nitf/2006-03-01/")
     
     override def isMixed: Boolean = true
@@ -4727,6 +4853,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
   }
 
   trait DefaultComgunitfmodel_SubFormat extends scalaxb.ElemNameParser[com.gu.nitf.model.Sub] {
+    override val defaultElementLabel: Option[String] = Some("sub")
     val targetNamespace: Option[String] = Some("http://iptc.org/std/nitf/2006-03-01/")
     
     override def isMixed: Boolean = true
@@ -4760,6 +4887,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
   }
 
   trait DefaultComgunitfmodel_SupFormat extends scalaxb.ElemNameParser[com.gu.nitf.model.Sup] {
+    override val defaultElementLabel: Option[String] = Some("sup")
     val targetNamespace: Option[String] = Some("http://iptc.org/std/nitf/2006-03-01/")
     
     override def isMixed: Boolean = true
@@ -4793,6 +4921,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
   }
 
   trait DefaultComgunitfmodel_ObjectTitleFormat extends scalaxb.ElemNameParser[com.gu.nitf.model.ObjectTitle] {
+    override val defaultElementLabel: Option[String] = Some("object.title")
     val targetNamespace: Option[String] = Some("http://iptc.org/std/nitf/2006-03-01/")
     
     override def isMixed: Boolean = true
@@ -4838,6 +4967,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
   }
 
   trait DefaultComgunitfmodel_OrgFormat extends scalaxb.ElemNameParser[com.gu.nitf.model.Org] {
+    override val defaultElementLabel: Option[String] = Some("org")
     val targetNamespace: Option[String] = Some("http://iptc.org/std/nitf/2006-03-01/")
     
     override def isMixed: Boolean = true
@@ -4884,6 +5014,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
 
   trait DefaultComgunitfmodel_AltCodeFormat extends scalaxb.XMLFormat[com.gu.nitf.model.AltCode] with scalaxb.CanWriteChildNodes[com.gu.nitf.model.AltCode] {
     val targetNamespace: Option[String] = Some("http://iptc.org/std/nitf/2006-03-01/")
+    override val defaultElementLabel: Option[String] = Some("alt-code")
     import scalaxb.ElemName._
     
     def reads(seq: scala.xml.NodeSeq, stack: List[scalaxb.ElemName]): Either[String, com.gu.nitf.model.AltCode] = seq match {
@@ -4915,6 +5046,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
   def buildComgunitfmodel_GenderFormat = new DefaultComgunitfmodel_GenderFormat {}
   trait DefaultComgunitfmodel_GenderFormat extends scalaxb.XMLFormat[com.gu.nitf.model.Gender] {
     val targetNamespace: Option[String] = Some("http://iptc.org/std/nitf/2006-03-01/")
+    override val defaultElementLabel: Option[String] = Some("gender")
     
     def fromString(value: String, scope: scala.xml.NamespaceBinding): com.gu.nitf.model.Gender = scalaxb.fromXML[String](scala.xml.Text(value)) match {
       case x: String if x == scalaxb.fromXML[String](scala.xml.Text("male")) => com.gu.nitf.model.Male
@@ -4930,11 +5062,12 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
     def writes(__obj: com.gu.nitf.model.Gender, __namespace: Option[String], __elementLabel: Option[String],
         __scope: scala.xml.NamespaceBinding, __typeAttribute: Boolean): scala.xml.NodeSeq =
       scala.xml.Elem(scalaxb.Helper.getPrefix(__namespace, __scope).orNull, 
-        __elementLabel getOrElse { sys.error("missing element label.") },
+        __elementLabel orElse defaultElementLabel getOrElse { sys.error("missing element label.") },
         scala.xml.Null, __scope, true, scala.xml.Text(__obj.toString))
   }
 
   trait DefaultComgunitfmodel_PersonFormat extends scalaxb.ElemNameParser[com.gu.nitf.model.Person] {
+    override val defaultElementLabel: Option[String] = Some("person")
     val targetNamespace: Option[String] = Some("http://iptc.org/std/nitf/2006-03-01/")
     
     override def isMixed: Boolean = true
@@ -4997,6 +5130,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
   }
 
   trait DefaultComgunitfmodel_NameGivenFormat extends scalaxb.ElemNameParser[com.gu.nitf.model.NameGiven] {
+    override val defaultElementLabel: Option[String] = Some("name.given")
     val targetNamespace: Option[String] = Some("http://iptc.org/std/nitf/2006-03-01/")
     
     override def isMixed: Boolean = true
@@ -5030,6 +5164,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
   }
 
   trait DefaultComgunitfmodel_NameFamilyFormat extends scalaxb.ElemNameParser[com.gu.nitf.model.NameFamily] {
+    override val defaultElementLabel: Option[String] = Some("name.family")
     val targetNamespace: Option[String] = Some("http://iptc.org/std/nitf/2006-03-01/")
     
     override def isMixed: Boolean = true
@@ -5063,6 +5198,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
   }
 
   trait DefaultComgunitfmodel_PostaddrFormat extends scalaxb.ElemNameParser[com.gu.nitf.model.Postaddr] {
+    override val defaultElementLabel: Option[String] = Some("postaddr")
     val targetNamespace: Option[String] = Some("http://iptc.org/std/nitf/2006-03-01/")
     
     def parser(node: scala.xml.Node, stack: List[scalaxb.ElemName]): Parser[com.gu.nitf.model.Postaddr] =
@@ -5107,6 +5243,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
   }
 
   trait DefaultComgunitfmodel_VirtlocFormat extends scalaxb.ElemNameParser[com.gu.nitf.model.Virtloc] {
+    override val defaultElementLabel: Option[String] = Some("virtloc")
     val targetNamespace: Option[String] = Some("http://iptc.org/std/nitf/2006-03-01/")
     
     override def isMixed: Boolean = true
@@ -5152,6 +5289,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
   }
 
   trait DefaultComgunitfmodel_AFormat extends scalaxb.ElemNameParser[com.gu.nitf.model.A] with Comgunitfmodel_EnrichedTextGroupFormat {
+    override val defaultElementLabel: Option[String] = Some("a")
     val targetNamespace: Option[String] = Some("http://iptc.org/std/nitf/2006-03-01/")
     
     override def isMixed: Boolean = true
@@ -5200,6 +5338,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
 
   trait DefaultComgunitfmodel_BrFormat extends scalaxb.XMLFormat[com.gu.nitf.model.Br] with scalaxb.CanWriteChildNodes[com.gu.nitf.model.Br] {
     val targetNamespace: Option[String] = Some("http://iptc.org/std/nitf/2006-03-01/")
+    override val defaultElementLabel: Option[String] = Some("br")
     import scalaxb.ElemName._
     
     def reads(seq: scala.xml.NodeSeq, stack: List[scalaxb.ElemName]): Either[String, com.gu.nitf.model.Br] = seq match {
@@ -5225,6 +5364,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
   }
 
   trait DefaultComgunitfmodel_EmFormat extends scalaxb.ElemNameParser[com.gu.nitf.model.Em] with Comgunitfmodel_EnrichedTextGroupFormat {
+    override val defaultElementLabel: Option[String] = Some("em")
     val targetNamespace: Option[String] = Some("http://iptc.org/std/nitf/2006-03-01/")
     
     override def isMixed: Boolean = true
@@ -5262,6 +5402,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
   }
 
   trait DefaultComgunitfmodel_LangFormat extends scalaxb.ElemNameParser[com.gu.nitf.model.Lang] with Comgunitfmodel_EnrichedTextGroupFormat {
+    override val defaultElementLabel: Option[String] = Some("lang")
     val targetNamespace: Option[String] = Some("http://iptc.org/std/nitf/2006-03-01/")
     
     override def isMixed: Boolean = true
@@ -5303,6 +5444,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
   }
 
   trait DefaultComgunitfmodel_PronounceFormat extends scalaxb.ElemNameParser[com.gu.nitf.model.Pronounce] with Comgunitfmodel_EnrichedTextGroupFormat {
+    override val defaultElementLabel: Option[String] = Some("pronounce")
     val targetNamespace: Option[String] = Some("http://iptc.org/std/nitf/2006-03-01/")
     
     override def isMixed: Boolean = true
@@ -5344,6 +5486,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
   }
 
   trait DefaultComgunitfmodel_QFormat extends scalaxb.ElemNameParser[com.gu.nitf.model.Q] with Comgunitfmodel_EnrichedTextGroupFormat {
+    override val defaultElementLabel: Option[String] = Some("q")
     val targetNamespace: Option[String] = Some("http://iptc.org/std/nitf/2006-03-01/")
     
     override def isMixed: Boolean = true
@@ -5383,6 +5526,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
   }
 
   trait DefaultComgunitfmodel_AddresseeFormat extends scalaxb.ElemNameParser[com.gu.nitf.model.Addressee] {
+    override val defaultElementLabel: Option[String] = Some("addressee")
     val targetNamespace: Option[String] = Some("http://iptc.org/std/nitf/2006-03-01/")
     
     def parser(node: scala.xml.Node, stack: List[scalaxb.ElemName]): Parser[com.gu.nitf.model.Addressee] =
@@ -5414,6 +5558,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
   }
 
   trait DefaultComgunitfmodel_CareOfFormat extends scalaxb.ElemNameParser[com.gu.nitf.model.CareOf] {
+    override val defaultElementLabel: Option[String] = Some("care.of")
     val targetNamespace: Option[String] = Some("http://iptc.org/std/nitf/2006-03-01/")
     
     override def isMixed: Boolean = true
@@ -5441,6 +5586,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
   }
 
   trait DefaultComgunitfmodel_DeliveryPointFormat extends scalaxb.ElemNameParser[com.gu.nitf.model.DeliveryPoint] {
+    override val defaultElementLabel: Option[String] = Some("delivery.point")
     val targetNamespace: Option[String] = Some("http://iptc.org/std/nitf/2006-03-01/")
     
     override def isMixed: Boolean = true
@@ -5480,6 +5626,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
   }
 
   trait DefaultComgunitfmodel_PostcodeFormat extends scalaxb.ElemNameParser[com.gu.nitf.model.Postcode] {
+    override val defaultElementLabel: Option[String] = Some("postcode")
     val targetNamespace: Option[String] = Some("http://iptc.org/std/nitf/2006-03-01/")
     
     override def isMixed: Boolean = true
@@ -5509,6 +5656,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
   }
 
   trait DefaultComgunitfmodel_DeliveryOfficeFormat extends scalaxb.ElemNameParser[com.gu.nitf.model.DeliveryOffice] {
+    override val defaultElementLabel: Option[String] = Some("delivery.office")
     val targetNamespace: Option[String] = Some("http://iptc.org/std/nitf/2006-03-01/")
     
     override def isMixed: Boolean = true
@@ -5548,6 +5696,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
   }
 
   trait DefaultComgunitfmodel_BodyEndFormat extends scalaxb.ElemNameParser[com.gu.nitf.model.BodyEnd] {
+    override val defaultElementLabel: Option[String] = Some("body.end")
     val targetNamespace: Option[String] = Some("http://iptc.org/std/nitf/2006-03-01/")
     
     def parser(node: scala.xml.Node, stack: List[scalaxb.ElemName]): Parser[com.gu.nitf.model.BodyEnd] =
@@ -5578,6 +5727,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
   def buildComgunitfmodel_TypeType3Format = new DefaultComgunitfmodel_TypeType3Format {}
   trait DefaultComgunitfmodel_TypeType3Format extends scalaxb.XMLFormat[com.gu.nitf.model.TypeType3] {
     val targetNamespace: Option[String] = Some("http://iptc.org/std/nitf/2006-03-01/")
+    override val defaultElementLabel: Option[String] = Some("type")
     
     def fromString(value: String, scope: scala.xml.NamespaceBinding): com.gu.nitf.model.TypeType3 = scalaxb.fromXML[String](scala.xml.Text(value)) match {
       case x: String if x == scalaxb.fromXML[String](scala.xml.Text("std")) => com.gu.nitf.model.StdValue
@@ -5594,11 +5744,12 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
     def writes(__obj: com.gu.nitf.model.TypeType3, __namespace: Option[String], __elementLabel: Option[String],
         __scope: scala.xml.NamespaceBinding, __typeAttribute: Boolean): scala.xml.NodeSeq =
       scala.xml.Elem(scalaxb.Helper.getPrefix(__namespace, __scope).orNull, 
-        __elementLabel getOrElse { sys.error("missing element label.") },
+        __elementLabel orElse defaultElementLabel getOrElse { sys.error("missing element label.") },
         scala.xml.Null, __scope, true, scala.xml.Text(__obj.toString))
   }
 
   trait DefaultComgunitfmodel_TaglineFormat extends scalaxb.ElemNameParser[com.gu.nitf.model.Tagline] with Comgunitfmodel_EnrichedTextGroupFormat {
+    override val defaultElementLabel: Option[String] = Some("tagline")
     val targetNamespace: Option[String] = Some("http://iptc.org/std/nitf/2006-03-01/")
     
     override def isMixed: Boolean = true
@@ -5638,6 +5789,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
   }
 
   trait DefaultComgunitfmodel_BibliographyFormat extends scalaxb.ElemNameParser[com.gu.nitf.model.Bibliography] {
+    override val defaultElementLabel: Option[String] = Some("bibliography")
     val targetNamespace: Option[String] = Some("http://iptc.org/std/nitf/2006-03-01/")
     
     override def isMixed: Boolean = true
@@ -5671,6 +5823,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
   }
 
   trait DefaultComgunitfmodel_ClassifierFormat extends scalaxb.ElemNameParser[com.gu.nitf.model.Classifier] {
+    override val defaultElementLabel: Option[String] = Some("classifier")
     val targetNamespace: Option[String] = Some("http://iptc.org/std/nitf/2006-03-01/")
     
     override def isMixed: Boolean = true
@@ -5718,6 +5871,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
   }
 
   trait DefaultComgunitfmodel_NitfTableFormat extends scalaxb.ElemNameParser[com.gu.nitf.model.NitfTable] {
+    override val defaultElementLabel: Option[String] = Some("nitf-table")
     val targetNamespace: Option[String] = Some("http://iptc.org/std/nitf/2006-03-01/")
     
     def parser(node: scala.xml.Node, stack: List[scalaxb.ElemName]): Parser[com.gu.nitf.model.NitfTable] =
@@ -5751,6 +5905,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
   }
 
   trait DefaultComgunitfmodel_CustomTableFormat extends scalaxb.ElemNameParser[com.gu.nitf.model.CustomTable] {
+    override val defaultElementLabel: Option[String] = Some("custom-table")
     val targetNamespace: Option[String] = Some("http://iptc.org/std/nitf/2006-03-01/")
     
     override def isMixed: Boolean = true
@@ -5785,6 +5940,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
 
   trait DefaultComgunitfmodel_TableReferenceFormat extends scalaxb.XMLFormat[com.gu.nitf.model.TableReference] with scalaxb.CanWriteChildNodes[com.gu.nitf.model.TableReference] {
     val targetNamespace: Option[String] = Some("http://iptc.org/std/nitf/2006-03-01/")
+    override val defaultElementLabel: Option[String] = Some("table-reference")
     import scalaxb.ElemName._
     
     def reads(seq: scala.xml.NodeSeq, stack: List[scalaxb.ElemName]): Either[String, com.gu.nitf.model.TableReference] = seq match {
@@ -5814,6 +5970,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
   def buildComgunitfmodel_StatusFormat = new DefaultComgunitfmodel_StatusFormat {}
   trait DefaultComgunitfmodel_StatusFormat extends scalaxb.XMLFormat[com.gu.nitf.model.Status] {
     val targetNamespace: Option[String] = Some("http://iptc.org/std/nitf/2006-03-01/")
+    override val defaultElementLabel: Option[String] = Some("status")
     
     def fromString(value: String, scope: scala.xml.NamespaceBinding): com.gu.nitf.model.Status = scalaxb.fromXML[String](scala.xml.Text(value)) match {
       case x: String if x == scalaxb.fromXML[String](scala.xml.Text("pre")) => com.gu.nitf.model.PreValue
@@ -5832,11 +5989,12 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
     def writes(__obj: com.gu.nitf.model.Status, __namespace: Option[String], __elementLabel: Option[String],
         __scope: scala.xml.NamespaceBinding, __typeAttribute: Boolean): scala.xml.NodeSeq =
       scala.xml.Elem(scalaxb.Helper.getPrefix(__namespace, __scope).orNull, 
-        __elementLabel getOrElse { sys.error("missing element label.") },
+        __elementLabel orElse defaultElementLabel getOrElse { sys.error("missing element label.") },
         scala.xml.Null, __scope, true, scala.xml.Text(__obj.toString))
   }
 
   trait DefaultComgunitfmodel_NitfTableMetadataFormat extends scalaxb.ElemNameParser[com.gu.nitf.model.NitfTableMetadata] {
+    override val defaultElementLabel: Option[String] = Some("nitf-table-metadata")
     val targetNamespace: Option[String] = Some("http://iptc.org/std/nitf/2006-03-01/")
     
     def parser(node: scala.xml.Node, stack: List[scalaxb.ElemName]): Parser[com.gu.nitf.model.NitfTableMetadata] =
@@ -5886,6 +6044,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
   }
 
   trait DefaultComgunitfmodel_NitfTableSummaryFormat extends scalaxb.ElemNameParser[com.gu.nitf.model.NitfTableSummary] {
+    override val defaultElementLabel: Option[String] = Some("nitf-table-summary")
     val targetNamespace: Option[String] = Some("http://iptc.org/std/nitf/2006-03-01/")
     
     def parser(node: scala.xml.Node, stack: List[scalaxb.ElemName]): Parser[com.gu.nitf.model.NitfTableSummary] =
@@ -5917,6 +6076,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
   }
 
   trait DefaultComgunitfmodel_NitfColgroupFormat extends scalaxb.ElemNameParser[com.gu.nitf.model.NitfColgroup] {
+    override val defaultElementLabel: Option[String] = Some("nitf-colgroup")
     val targetNamespace: Option[String] = Some("http://iptc.org/std/nitf/2006-03-01/")
     
     def parser(node: scala.xml.Node, stack: List[scalaxb.ElemName]): Parser[com.gu.nitf.model.NitfColgroup] =
@@ -5949,6 +6109,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
   }
 
   trait DefaultComgunitfmodel_NitfColgroupSequence1Format extends scalaxb.XMLFormat[com.gu.nitf.model.NitfColgroupSequence1] {
+    final override def defaultElementLabel: Option[String] = None  // sequences have no label
     def reads(seq: scala.xml.NodeSeq, stack: List[scalaxb.ElemName]): Either[String, com.gu.nitf.model.NitfColgroupSequence1] = Left("don't call me.")
     
     def writes(__obj: com.gu.nitf.model.NitfColgroupSequence1, __namespace: Option[String], __elementLabel: Option[String], 
@@ -5961,6 +6122,7 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
   def buildComgunitfmodel_DataTypeFormat = new DefaultComgunitfmodel_DataTypeFormat {}
   trait DefaultComgunitfmodel_DataTypeFormat extends scalaxb.XMLFormat[com.gu.nitf.model.DataType] {
     val targetNamespace: Option[String] = Some("http://iptc.org/std/nitf/2006-03-01/")
+    override val defaultElementLabel: Option[String] = Some("data-type")
     
     def fromString(value: String, scope: scala.xml.NamespaceBinding): com.gu.nitf.model.DataType = scalaxb.fromXML[String](scala.xml.Text(value)) match {
       case x: String if x == scalaxb.fromXML[String](scala.xml.Text("text")) => com.gu.nitf.model.Text
@@ -5978,12 +6140,13 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
     def writes(__obj: com.gu.nitf.model.DataType, __namespace: Option[String], __elementLabel: Option[String],
         __scope: scala.xml.NamespaceBinding, __typeAttribute: Boolean): scala.xml.NodeSeq =
       scala.xml.Elem(scalaxb.Helper.getPrefix(__namespace, __scope).orNull, 
-        __elementLabel getOrElse { sys.error("missing element label.") },
+        __elementLabel orElse defaultElementLabel getOrElse { sys.error("missing element label.") },
         scala.xml.Null, __scope, true, scala.xml.Text(__obj.toString))
   }
 
   trait DefaultComgunitfmodel_NitfColFormat extends scalaxb.XMLFormat[com.gu.nitf.model.NitfCol] with scalaxb.CanWriteChildNodes[com.gu.nitf.model.NitfCol] {
     val targetNamespace: Option[String] = Some("http://iptc.org/std/nitf/2006-03-01/")
+    override val defaultElementLabel: Option[String] = Some("nitf-col")
     import scalaxb.ElemName._
     
     def reads(seq: scala.xml.NodeSeq, stack: List[scalaxb.ElemName]): Either[String, com.gu.nitf.model.NitfCol] = seq match {

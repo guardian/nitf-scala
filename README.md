@@ -46,7 +46,7 @@ The schemas used to generate the classes in this project are available in the [s
 ## Generated Sources
 
 The source files were generated using an
-[unreleased version of ScalaXB](https://github.com/eed3si9n/scalaxb/archive/5d0eea5a6c4d713976c9b86cc2cb691d0f83e137.zip)
+[unreleased version of ScalaXB](https://github.com/hosamaly/scalaxb/archive/a54acf3d30f081dba5c12e7217556199952b7c2d.zip)
 that was built from source. Hopefully, it will be released in the main repository soon.
 
 The following command was used to generate the files for each version:

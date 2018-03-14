@@ -39,16 +39,13 @@ case object Baseline extends Valign { override def toString = "baseline" }
 
 case class Nitf(head: Option[com.gu.nitf.model.Head] = None,
   body: com.gu.nitf.model.Body,
-  attributes: Map[String, scalaxb.DataRecord[Any]] = Map()) {
-  lazy val id = attributes.get("@id") map { _.as[String]}
-  lazy val uno = attributes.get("@uno") map { _.as[String]}
-  lazy val version = attributes("@version").as[String]
-  lazy val changeDate = attributes("@change.date").as[String]
-  lazy val changeTime = attributes("@change.time").as[String]
-  lazy val baselang = attributes.get("@baselang") map { _.as[String]}
-  lazy val classValue = attributes.get("@class") map { _.as[Seq[String]]}
-}
-
+  id: Option[String] = None,
+  uno: Option[String] = None,
+  version: String,
+  changeDate: String,
+  changeTime: String,
+  baselang: Option[String] = None,
+  classValue: Option[Seq[String]] = None)
       
 
 
@@ -59,10 +56,7 @@ case class Head(title: Option[com.gu.nitf.model.Title] = None,
   docdata: Option[com.gu.nitf.model.Docdata] = None,
   pubdata: Seq[com.gu.nitf.model.Pubdata] = Nil,
   revisionHistory: Seq[com.gu.nitf.model.RevisionHistory] = Nil,
-  attributes: Map[String, scalaxb.DataRecord[Any]] = Map()) {
-  lazy val id = attributes.get("@id") map { _.as[String]}
-}
-
+  id: Option[String] = None)
       
 
 trait Type
@@ -84,258 +78,177 @@ case object Other extends Type { override def toString = "other" }
 
 
 case class Title(mixed: Seq[scalaxb.DataRecord[Any]] = Nil,
-  attributes: Map[String, scalaxb.DataRecord[Any]] = Map()) {
-  lazy val id = attributes.get("@id") map { _.as[String]}
-  lazy val typeValue = attributes.get("@type") map { _.as[Type]}
-}
-
+  id: Option[String] = None,
+  typeValue: Option[com.gu.nitf.model.Type] = None)
       
 
 
-case class Meta(attributes: Map[String, scalaxb.DataRecord[Any]] = Map()) {
-  lazy val id = attributes.get("@id") map { _.as[String]}
-  lazy val httpEquiv = attributes.get("@http-equiv") map { _.as[String]}
-  lazy val name = attributes.get("@name") map { _.as[String]}
-  lazy val content = attributes("@content").as[String]
-}
-
+case class Meta(id: Option[String] = None,
+  httpEquiv: Option[String] = None,
+  name: Option[String] = None,
+  content: String)
       
 
 
 case class Tobject(tobjectProperty: Seq[com.gu.nitf.model.TobjectProperty] = Nil,
   tobjectSubject: Seq[com.gu.nitf.model.TobjectSubject] = Nil,
-  attributes: Map[String, scalaxb.DataRecord[Any]] = Map()) {
-  lazy val id = attributes.get("@id") map { _.as[String]}
-  lazy val tobjectType = attributes("@tobject.type").as[String]
-}
-
+  id: Option[String] = None,
+  tobjectType: String)
       
 
 
-case class TobjectProperty(attributes: Map[String, scalaxb.DataRecord[Any]] = Map()) {
-  lazy val id = attributes.get("@id") map { _.as[String]}
-  lazy val tobjectPropertyType = attributes("@tobject.property.type").as[String]
-}
-
+case class TobjectProperty(id: Option[String] = None,
+  tobjectPropertyType: String)
       
 
 
-case class TobjectSubject(attributes: Map[String, scalaxb.DataRecord[Any]] = Map()) {
-  lazy val id = attributes.get("@id") map { _.as[String]}
-  lazy val tobjectSubjectIpr = attributes("@tobject.subject.ipr").as[String]
-  lazy val tobjectSubjectRefnum = attributes("@tobject.subject.refnum").as[String]
-  lazy val tobjectSubjectCode = attributes.get("@tobject.subject.code") map { _.as[String]}
-  lazy val tobjectSubjectType = attributes.get("@tobject.subject.type") map { _.as[String]}
-  lazy val tobjectSubjectMatter = attributes.get("@tobject.subject.matter") map { _.as[String]}
-  lazy val tobjectSubjectDetail = attributes.get("@tobject.subject.detail") map { _.as[String]}
-}
-
+case class TobjectSubject(id: Option[String] = None,
+  tobjectSubjectIpr: String,
+  tobjectSubjectRefnum: String,
+  tobjectSubjectCode: Option[String] = None,
+  tobjectSubjectType: Option[String] = None,
+  tobjectSubjectMatter: Option[String] = None,
+  tobjectSubjectDetail: Option[String] = None)
       
 
 
 case class Iim(ds: Seq[com.gu.nitf.model.Ds] = Nil,
-  attributes: Map[String, scalaxb.DataRecord[Any]] = Map()) {
-  lazy val id = attributes.get("@id") map { _.as[String]}
-  lazy val ver = attributes.get("@ver") map { _.as[String]}
-}
-
+  id: Option[String] = None,
+  ver: Option[String] = None)
       
 
 
-case class Ds(attributes: Map[String, scalaxb.DataRecord[Any]] = Map()) {
-  lazy val id = attributes.get("@id") map { _.as[String]}
-  lazy val num = attributes("@num").as[String]
-  lazy val valueAttribute = attributes.get("@value") map { _.as[String]}
-}
-
+case class Ds(id: Option[String] = None,
+  num: String,
+  valueAttribute: Option[String] = None)
       
 
 
 case class Docdata(docdataoption: Seq[scalaxb.DataRecord[com.gu.nitf.model.DocdataOption]] = Nil,
-  attributes: Map[String, scalaxb.DataRecord[Any]] = Map()) {
-  lazy val id = attributes.get("@id") map { _.as[String]}
-  lazy val managementStatus = attributes.get("@management-status") map { _.as[String]}
-  lazy val managementDocIdref = attributes.get("@management-doc-idref") map { _.as[String]}
-  lazy val managementIdrefStatus = attributes.get("@management-idref-status") map { _.as[String]}
-}
-
+  id: Option[String] = None,
+  managementStatus: Option[String] = None,
+  managementDocIdref: Option[String] = None,
+  managementIdrefStatus: Option[String] = None)
       
 
 trait DocdataOption
 
-case class Correction(attributes: Map[String, scalaxb.DataRecord[Any]] = Map()) extends DocdataOption {
-  lazy val id = attributes.get("@id") map { _.as[String]}
-  lazy val info = attributes.get("@info") map { _.as[String]}
-  lazy val idString = attributes.get("@id-string") map { _.as[String]}
-  lazy val regsrc = attributes.get("@regsrc") map { _.as[String]}
-}
-
+case class Correction(id: Option[String] = None,
+  info: Option[String] = None,
+  idString: Option[String] = None,
+  regsrc: Option[String] = None) extends DocdataOption
       
 
 
-case class Evloc(attributes: Map[String, scalaxb.DataRecord[Any]] = Map()) extends DocdataOption {
-  lazy val id = attributes.get("@id") map { _.as[String]}
-  lazy val isoCc = attributes.get("@iso-cc") map { _.as[String]}
-  lazy val stateProv = attributes.get("@state-prov") map { _.as[String]}
-  lazy val countyDist = attributes.get("@county-dist") map { _.as[String]}
-  lazy val city = attributes.get("@city") map { _.as[String]}
-}
-
+case class Evloc(id: Option[String] = None,
+  isoCc: Option[String] = None,
+  stateProv: Option[String] = None,
+  countyDist: Option[String] = None,
+  city: Option[String] = None) extends DocdataOption
       
 
 
-case class DocId(attributes: Map[String, scalaxb.DataRecord[Any]] = Map()) extends DocdataOption {
-  lazy val id = attributes.get("@id") map { _.as[String]}
-  lazy val regsrc = attributes.get("@regsrc") map { _.as[String]}
-  lazy val idString = attributes.get("@id-string") map { _.as[String]}
-}
-
+case class DocId(id: Option[String] = None,
+  regsrc: Option[String] = None,
+  idString: Option[String] = None) extends DocdataOption
       
 
 
 case class DelList(dellistsequence1: Seq[com.gu.nitf.model.DelListSequence1] = Nil,
-  attributes: Map[String, scalaxb.DataRecord[Any]] = Map()) extends DocdataOption {
-  lazy val id = attributes.get("@id") map { _.as[String]}
-}
-
+  id: Option[String] = None) extends DocdataOption
       
 
 case class DelListSequence1(fromSrc: com.gu.nitf.model.FromSrc)
 
-case class FromSrc(attributes: Map[String, scalaxb.DataRecord[Any]] = Map()) {
-  lazy val id = attributes.get("@id") map { _.as[String]}
-  lazy val srcName = attributes.get("@src-name") map { _.as[String]}
-  lazy val levelNumber = attributes.get("@level-number") map { _.as[String]}
-}
-
+case class FromSrc(id: Option[String] = None,
+  srcName: Option[String] = None,
+  levelNumber: Option[String] = None)
       
 
 
-case class Urgency(attributes: Map[String, scalaxb.DataRecord[Any]] = Map()) extends DocdataOption {
-  lazy val id = attributes.get("@id") map { _.as[String]}
-  lazy val edUrg = attributes.get("@ed-urg") map { _.as[String]}
-}
-
+case class Urgency(id: Option[String] = None,
+  edUrg: Option[String] = None) extends DocdataOption
       
 
 
-case class Fixture(attributes: Map[String, scalaxb.DataRecord[Any]] = Map()) extends DocdataOption {
-  lazy val id = attributes.get("@id") map { _.as[String]}
-  lazy val fixId = attributes.get("@fix-id") map { _.as[String]}
-}
-
+case class Fixture(id: Option[String] = None,
+  fixId: Option[String] = None) extends DocdataOption
       
 
 
-case class DateIssue(attributes: Map[String, scalaxb.DataRecord[Any]] = Map()) extends DocdataOption {
-  lazy val id = attributes.get("@id") map { _.as[String]}
-  lazy val norm = attributes.get("@norm") map { _.as[String]}
-}
-
+case class DateIssue(id: Option[String] = None,
+  norm: Option[String] = None) extends DocdataOption
       
 
 
-case class DateRelease(attributes: Map[String, scalaxb.DataRecord[Any]] = Map()) extends DocdataOption {
-  lazy val id = attributes.get("@id") map { _.as[String]}
-  lazy val norm = attributes.get("@norm") map { _.as[String]}
-}
-
+case class DateRelease(id: Option[String] = None,
+  norm: Option[String] = None) extends DocdataOption
       
 
 
-case class DateExpire(attributes: Map[String, scalaxb.DataRecord[Any]] = Map()) extends DocdataOption {
-  lazy val id = attributes.get("@id") map { _.as[String]}
-  lazy val norm = attributes.get("@norm") map { _.as[String]}
-}
-
+case class DateExpire(id: Option[String] = None,
+  norm: Option[String] = None) extends DocdataOption
       
 
 
-case class DocScope(attributes: Map[String, scalaxb.DataRecord[Any]] = Map()) extends DocdataOption {
-  lazy val id = attributes.get("@id") map { _.as[String]}
-  lazy val scope = attributes.get("@scope") map { _.as[String]}
-}
-
+case class DocScope(id: Option[String] = None,
+  scope: Option[String] = None) extends DocdataOption
       
 
 
-case class Series(attributes: Map[String, scalaxb.DataRecord[Any]] = Map()) extends DocdataOption {
-  lazy val id = attributes.get("@id") map { _.as[String]}
-  lazy val seriesName = attributes.get("@series.name") map { _.as[String]}
-  lazy val seriesPart = attributes("@series.part").as[String]
-  lazy val seriesTotalpart = attributes("@series.totalpart").as[String]
-}
-
+case class Series(id: Option[String] = None,
+  seriesName: Option[String] = None,
+  seriesPart: String,
+  seriesTotalpart: String) extends DocdataOption
       
 
 
-case class EdMsg(attributes: Map[String, scalaxb.DataRecord[Any]] = Map()) extends DocdataOption {
-  lazy val id = attributes.get("@id") map { _.as[String]}
-  lazy val msgType = attributes.get("@msg-type") map { _.as[String]}
-  lazy val info = attributes.get("@info") map { _.as[String]}
-}
-
+case class EdMsg(id: Option[String] = None,
+  msgType: Option[String] = None,
+  info: Option[String] = None) extends DocdataOption
       
 
 
-case class DuKey(attributes: Map[String, scalaxb.DataRecord[Any]] = Map()) extends DocdataOption {
-  lazy val id = attributes.get("@id") map { _.as[String]}
-  lazy val generation = attributes.get("@generation") map { _.as[String]}
-  lazy val part = attributes.get("@part") map { _.as[String]}
-  lazy val version = attributes.get("@version") map { _.as[String]}
-  lazy val key = attributes.get("@key") map { _.as[String]}
-}
-
+case class DuKey(id: Option[String] = None,
+  generation: Option[String] = None,
+  part: Option[String] = None,
+  version: Option[String] = None,
+  key: Option[String] = None) extends DocdataOption
       
 
 
-case class DocCopyright(attributes: Map[String, scalaxb.DataRecord[Any]] = Map()) extends DocdataOption {
-  lazy val id = attributes.get("@id") map { _.as[String]}
-  lazy val year = attributes.get("@year") map { _.as[String]}
-  lazy val holder = attributes.get("@holder") map { _.as[String]}
-}
-
+case class DocCopyright(id: Option[String] = None,
+  year: Option[String] = None,
+  holder: Option[String] = None) extends DocdataOption
       
 
 
-case class DocRights(attributes: Map[String, scalaxb.DataRecord[Any]] = Map()) extends DocdataOption {
-  lazy val id = attributes.get("@id") map { _.as[String]}
-  lazy val owner = attributes.get("@owner") map { _.as[String]}
-  lazy val startdate = attributes.get("@startdate") map { _.as[String]}
-  lazy val enddate = attributes.get("@enddate") map { _.as[String]}
-  lazy val agent = attributes.get("@agent") map { _.as[String]}
-  lazy val geography = attributes.get("@geography") map { _.as[String]}
-  lazy val locationCode = attributes.get("@location-code") map { _.as[String]}
-  lazy val codeSource = attributes.get("@code-source") map { _.as[String]}
-  lazy val typeValue = attributes.get("@type") map { _.as[String]}
-  lazy val limitations = attributes.get("@limitations") map { _.as[String]}
-}
-
+case class DocRights(id: Option[String] = None,
+  owner: Option[String] = None,
+  startdate: Option[String] = None,
+  enddate: Option[String] = None,
+  agent: Option[String] = None,
+  geography: Option[String] = None,
+  locationCode: Option[String] = None,
+  codeSource: Option[String] = None,
+  typeValue: Option[String] = None,
+  limitations: Option[String] = None) extends DocdataOption
       
 
 
 case class KeyList(keylistsequence1: Seq[com.gu.nitf.model.KeyListSequence1] = Nil,
-  attributes: Map[String, scalaxb.DataRecord[Any]] = Map()) extends DocdataOption {
-  lazy val id = attributes.get("@id") map { _.as[String]}
-}
-
+  id: Option[String] = None) extends DocdataOption
       
 
 case class KeyListSequence1(keyword: com.gu.nitf.model.Keyword)
 
-case class Keyword(attributes: Map[String, scalaxb.DataRecord[Any]] = Map()) {
-  lazy val id = attributes.get("@id") map { _.as[String]}
-  lazy val key = attributes.get("@key") map { _.as[String]}
-}
-
+case class Keyword(id: Option[String] = None,
+  key: Option[String] = None)
       
 
 
 case class IdentifiedContent(identifiedcontentoption: Seq[scalaxb.DataRecord[com.gu.nitf.model.IdentifiedContentOption]] = Nil,
-  attributes: Map[String, scalaxb.DataRecord[Any]] = Map()) extends DocdataOption {
-  lazy val id = attributes.get("@id") map { _.as[String]}
-}
-
+  id: Option[String] = None) extends DocdataOption
       
 
 trait IdentifiedContentOption
@@ -357,24 +270,21 @@ case object Appliance extends TypeType { override def toString = "appliance" }
 case object OtherValue extends TypeType { override def toString = "other" }
 
 
-case class Pubdata(attributes: Map[String, scalaxb.DataRecord[Any]] = Map()) {
-  lazy val id = attributes.get("@id") map { _.as[String]}
-  lazy val typeValue = attributes.get("@type") map { _.as[TypeType]}
-  lazy val itemLength = attributes.get("@item-length") map { _.as[String]}
-  lazy val unitOfMeasure = attributes.get("@unit-of-measure") map { _.as[String]}
-  lazy val datePublication = attributes.get("@date.publication") map { _.as[String]}
-  lazy val name = attributes.get("@name") map { _.as[String]}
-  lazy val issn = attributes.get("@issn") map { _.as[String]}
-  lazy val volume = attributes.get("@volume") map { _.as[String]}
-  lazy val number = attributes.get("@number") map { _.as[String]}
-  lazy val issue = attributes.get("@issue") map { _.as[String]}
-  lazy val editionName = attributes.get("@edition.name") map { _.as[String]}
-  lazy val editionArea = attributes.get("@edition.area") map { _.as[String]}
-  lazy val positionSection = attributes.get("@position.section") map { _.as[String]}
-  lazy val positionSequence = attributes.get("@position.sequence") map { _.as[String]}
-  lazy val exRef = attributes.get("@ex-ref") map { _.as[String]}
-}
-
+case class Pubdata(id: Option[String] = None,
+  typeValue: Option[com.gu.nitf.model.TypeType] = None,
+  itemLength: Option[String] = None,
+  unitOfMeasure: Option[String] = None,
+  datePublication: Option[String] = None,
+  name: Option[String] = None,
+  issn: Option[String] = None,
+  volume: Option[String] = None,
+  number: Option[String] = None,
+  issue: Option[String] = None,
+  editionName: Option[String] = None,
+  editionArea: Option[String] = None,
+  positionSection: Option[String] = None,
+  positionSequence: Option[String] = None,
+  exRef: Option[String] = None)
       
 
 trait FunctionTypeType
@@ -398,27 +308,21 @@ case object Statistician extends FunctionTypeType { override def toString = "sta
 case object OtherValue2 extends FunctionTypeType { override def toString = "other" }
 
 
-case class RevisionHistory(attributes: Map[String, scalaxb.DataRecord[Any]] = Map()) {
-  lazy val id = attributes.get("@id") map { _.as[String]}
-  lazy val name = attributes.get("@name") map { _.as[String]}
-  lazy val function = attributes.get("@function") map { _.as[FunctionTypeType]}
-  lazy val norm = attributes.get("@norm") map { _.as[String]}
-  lazy val comment = attributes.get("@comment") map { _.as[String]}
-}
-
+case class RevisionHistory(id: Option[String] = None,
+  name: Option[String] = None,
+  function: Option[com.gu.nitf.model.FunctionTypeType] = None,
+  norm: Option[String] = None,
+  comment: Option[String] = None)
       
 
 
 case class Body(bodyHead: Option[com.gu.nitf.model.BodyHead] = None,
   bodyContent: Seq[com.gu.nitf.model.BodyContent] = Nil,
   bodyEnd: Option[com.gu.nitf.model.BodyEnd] = None,
-  attributes: Map[String, scalaxb.DataRecord[Any]] = Map()) {
-  lazy val id = attributes.get("@id") map { _.as[String]}
-  lazy val classValue = attributes.get("@class") map { _.as[String]}
-  lazy val style = attributes.get("@style") map { _.as[String]}
-  lazy val xmllang = attributes.get("@{http://www.w3.org/XML/1998/namespace}lang") map { _.as[String]}
-}
-
+  id: Option[String] = None,
+  classValue: Option[String] = None,
+  style: Option[String] = None,
+  xmllang: Option[String] = None)
       
 
 
@@ -430,45 +334,33 @@ case class BodyHead(hedline: Seq[com.gu.nitf.model.Hedline] = Nil,
   dateline: Seq[com.gu.nitf.model.Dateline] = Nil,
   abstractValue: Seq[com.gu.nitf.model.Abstract] = Nil,
   series: Option[com.gu.nitf.model.Series] = None,
-  attributes: Map[String, scalaxb.DataRecord[Any]] = Map()) {
-  lazy val id = attributes.get("@id") map { _.as[String]}
-}
-
+  id: Option[String] = None)
       
 
 
 case class Hedline(hl1: com.gu.nitf.model.Hl1,
   hl2: Seq[com.gu.nitf.model.Hl2] = Nil,
-  attributes: Map[String, scalaxb.DataRecord[Any]] = Map()) {
-  lazy val id = attributes.get("@id") map { _.as[String]}
-  lazy val classValue = attributes.get("@class") map { _.as[String]}
-  lazy val style = attributes.get("@style") map { _.as[String]}
-  lazy val xmllang = attributes.get("@{http://www.w3.org/XML/1998/namespace}lang") map { _.as[String]}
-}
-
+  id: Option[String] = None,
+  classValue: Option[String] = None,
+  style: Option[String] = None,
+  xmllang: Option[String] = None)
       
 
 
 case class Hl1(mixed: Seq[scalaxb.DataRecord[Any]] = Nil,
-  attributes: Map[String, scalaxb.DataRecord[Any]] = Map()) {
-  lazy val id = attributes.get("@id") map { _.as[String]}
-  lazy val classValue = attributes.get("@class") map { _.as[String]}
-  lazy val style = attributes.get("@style") map { _.as[String]}
-  lazy val xmllang = attributes.get("@{http://www.w3.org/XML/1998/namespace}lang") map { _.as[String]}
-}
-
+  id: Option[String] = None,
+  classValue: Option[String] = None,
+  style: Option[String] = None,
+  xmllang: Option[String] = None)
       
 
 trait Hl1Option
 
 case class Hl2(mixed: Seq[scalaxb.DataRecord[Any]] = Nil,
-  attributes: Map[String, scalaxb.DataRecord[Any]] = Map()) extends BlockContentOption {
-  lazy val id = attributes.get("@id") map { _.as[String]}
-  lazy val classValue = attributes.get("@class") map { _.as[String]}
-  lazy val style = attributes.get("@style") map { _.as[String]}
-  lazy val xmllang = attributes.get("@{http://www.w3.org/XML/1998/namespace}lang") map { _.as[String]}
-}
-
+  id: Option[String] = None,
+  classValue: Option[String] = None,
+  style: Option[String] = None,
+  xmllang: Option[String] = None) extends BlockContentOption
       
 
 trait Hl2Option
@@ -505,186 +397,129 @@ case object Npa extends TypeType2 { override def toString = "npa" }
 
 
 case class Note(notesequence1: Seq[com.gu.nitf.model.NoteSequence1] = Nil,
-  attributes: Map[String, scalaxb.DataRecord[Any]] = Map()) extends BlockContentOption {
-  lazy val id = attributes.get("@id") map { _.as[String]}
-  lazy val classValue = attributes.get("@class") map { _.as[String]}
-  lazy val style = attributes.get("@style") map { _.as[String]}
-  lazy val xmllang = attributes.get("@{http://www.w3.org/XML/1998/namespace}lang") map { _.as[String]}
-  lazy val noteclass = attributes.get("@noteclass") map { _.as[Noteclass]}
-  lazy val typeValue = attributes("@type").as[TypeType2]
-}
-
+  id: Option[String] = None,
+  classValue: Option[String] = None,
+  style: Option[String] = None,
+  xmllang: Option[String] = None,
+  noteclass: Option[com.gu.nitf.model.Noteclass] = None,
+  typeValue: com.gu.nitf.model.TypeType2) extends BlockContentOption
       
 
 case class NoteSequence1(bodyContent: com.gu.nitf.model.BodyContent)
 
 case class Rights(mixed: Seq[scalaxb.DataRecord[Any]] = Nil,
-  attributes: Map[String, scalaxb.DataRecord[Any]] = Map()) {
-  lazy val id = attributes.get("@id") map { _.as[String]}
-}
-
+  id: Option[String] = None)
       
 
 trait RightsOption
 
 case class RightsOwner(mixed: Seq[scalaxb.DataRecord[Any]] = Nil,
-  attributes: Map[String, scalaxb.DataRecord[Any]] = Map()) extends RightsOption {
-  lazy val id = attributes.get("@id") map { _.as[String]}
-  lazy val contact = attributes.get("@contact") map { _.as[String]}
-}
-
+  id: Option[String] = None,
+  contact: Option[String] = None) extends RightsOption
       
 
 
 case class RightsStartdate(mixed: Seq[scalaxb.DataRecord[Any]] = Nil,
-  attributes: Map[String, scalaxb.DataRecord[Any]] = Map()) extends RightsOption {
-  lazy val id = attributes.get("@id") map { _.as[String]}
-  lazy val norm = attributes.get("@norm") map { _.as[String]}
-}
-
+  id: Option[String] = None,
+  norm: Option[String] = None) extends RightsOption
       
 
 
 case class RightsEnddate(mixed: Seq[scalaxb.DataRecord[Any]] = Nil,
-  attributes: Map[String, scalaxb.DataRecord[Any]] = Map()) extends RightsOption {
-  lazy val id = attributes.get("@id") map { _.as[String]}
-  lazy val norm = attributes.get("@norm") map { _.as[String]}
-}
-
+  id: Option[String] = None,
+  norm: Option[String] = None) extends RightsOption
       
 
 
 case class RightsAgent(mixed: Seq[scalaxb.DataRecord[Any]] = Nil,
-  attributes: Map[String, scalaxb.DataRecord[Any]] = Map()) extends RightsOption {
-  lazy val id = attributes.get("@id") map { _.as[String]}
-  lazy val contact = attributes.get("@contact") map { _.as[String]}
-}
-
+  id: Option[String] = None,
+  contact: Option[String] = None) extends RightsOption
       
 
 
 case class RightsGeography(mixed: Seq[scalaxb.DataRecord[Any]] = Nil,
-  attributes: Map[String, scalaxb.DataRecord[Any]] = Map()) extends RightsOption {
-  lazy val id = attributes.get("@id") map { _.as[String]}
-  lazy val locationCode = attributes.get("@location-code") map { _.as[String]}
-  lazy val codeSource = attributes.get("@code-source") map { _.as[String]}
-}
-
+  id: Option[String] = None,
+  locationCode: Option[String] = None,
+  codeSource: Option[String] = None) extends RightsOption
       
 
 
 case class RightsType(mixed: Seq[scalaxb.DataRecord[Any]] = Nil,
-  attributes: Map[String, scalaxb.DataRecord[Any]] = Map()) extends RightsOption {
-  lazy val id = attributes.get("@id") map { _.as[String]}
-}
-
+  id: Option[String] = None) extends RightsOption
       
 
 
 case class RightsLimitations(mixed: Seq[scalaxb.DataRecord[Any]] = Nil,
-  attributes: Map[String, scalaxb.DataRecord[Any]] = Map()) extends RightsOption {
-  lazy val id = attributes.get("@id") map { _.as[String]}
-}
-
+  id: Option[String] = None) extends RightsOption
       
 
 
 case class Byline(mixed: Seq[scalaxb.DataRecord[Any]] = Nil,
-  attributes: Map[String, scalaxb.DataRecord[Any]] = Map()) {
-  lazy val id = attributes.get("@id") map { _.as[String]}
-  lazy val classValue = attributes.get("@class") map { _.as[String]}
-  lazy val style = attributes.get("@style") map { _.as[String]}
-  lazy val xmllang = attributes.get("@{http://www.w3.org/XML/1998/namespace}lang") map { _.as[String]}
-}
-
+  id: Option[String] = None,
+  classValue: Option[String] = None,
+  style: Option[String] = None,
+  xmllang: Option[String] = None)
       
 
 trait BylineOption
 
 case class Byttl(mixed: Seq[scalaxb.DataRecord[Any]] = Nil,
-  attributes: Map[String, scalaxb.DataRecord[Any]] = Map()) extends BylineOption {
-  lazy val id = attributes.get("@id") map { _.as[String]}
-}
-
+  id: Option[String] = None) extends BylineOption
       
 
 trait ByttlOption
 
 case class Distributor(mixed: Seq[scalaxb.DataRecord[Any]] = Nil,
-  attributes: Map[String, scalaxb.DataRecord[Any]] = Map()) {
-  lazy val id = attributes.get("@id") map { _.as[String]}
-  lazy val classValue = attributes.get("@class") map { _.as[String]}
-  lazy val style = attributes.get("@style") map { _.as[String]}
-  lazy val xmllang = attributes.get("@{http://www.w3.org/XML/1998/namespace}lang") map { _.as[String]}
-}
-
+  id: Option[String] = None,
+  classValue: Option[String] = None,
+  style: Option[String] = None,
+  xmllang: Option[String] = None)
       
 
 trait DistributorOption
 
 case class Dateline(mixed: Seq[scalaxb.DataRecord[Any]] = Nil,
-  attributes: Map[String, scalaxb.DataRecord[Any]] = Map()) {
-  lazy val id = attributes.get("@id") map { _.as[String]}
-  lazy val classValue = attributes.get("@class") map { _.as[String]}
-  lazy val style = attributes.get("@style") map { _.as[String]}
-  lazy val xmllang = attributes.get("@{http://www.w3.org/XML/1998/namespace}lang") map { _.as[String]}
-}
-
+  id: Option[String] = None,
+  classValue: Option[String] = None,
+  style: Option[String] = None,
+  xmllang: Option[String] = None)
       
 
 trait DatelineOption
 
 case class StoryDate(mixed: Seq[scalaxb.DataRecord[Any]] = Nil,
-  attributes: Map[String, scalaxb.DataRecord[Any]] = Map()) extends DatelineOption {
-  lazy val id = attributes.get("@id") map { _.as[String]}
-  lazy val norm = attributes.get("@norm") map { _.as[String]}
-}
-
+  id: Option[String] = None,
+  norm: Option[String] = None) extends DatelineOption
       
 
 
 case class Abstract(abstractoption: Seq[scalaxb.DataRecord[Any]] = Nil,
-  attributes: Map[String, scalaxb.DataRecord[Any]] = Map()) {
-  lazy val id = attributes.get("@id") map { _.as[String]}
-  lazy val classValue = attributes.get("@class") map { _.as[String]}
-  lazy val style = attributes.get("@style") map { _.as[String]}
-  lazy val xmllang = attributes.get("@{http://www.w3.org/XML/1998/namespace}lang") map { _.as[String]}
-}
-
+  id: Option[String] = None,
+  classValue: Option[String] = None,
+  style: Option[String] = None,
+  xmllang: Option[String] = None)
       
 
 trait AbstractOption
 
 case class Copyrite(mixed: Seq[scalaxb.DataRecord[Any]] = Nil,
-  attributes: Map[String, scalaxb.DataRecord[Any]] = Map()) extends EnrichedTextOption {
-  lazy val id = attributes.get("@id") map { _.as[String]}
-}
-
+  id: Option[String] = None) extends EnrichedTextOption
       
 
 trait CopyriteOption
 
 case class CopyriteYear(mixed: Seq[scalaxb.DataRecord[Any]] = Nil,
-  attributes: Map[String, scalaxb.DataRecord[Any]] = Map()) extends CopyriteOption {
-  lazy val id = attributes.get("@id") map { _.as[String]}
-}
-
+  id: Option[String] = None) extends CopyriteOption
       
 
 
 case class CopyriteHolder(mixed: Seq[scalaxb.DataRecord[Any]] = Nil,
-  attributes: Map[String, scalaxb.DataRecord[Any]] = Map()) extends CopyriteOption {
-  lazy val id = attributes.get("@id") map { _.as[String]}
-}
-
+  id: Option[String] = None) extends CopyriteOption
       
 
 
 case class BodyContent(bodycontentoption: Seq[scalaxb.DataRecord[Any]] = Nil,
-  attributes: Map[String, scalaxb.DataRecord[Any]] = Map()) {
-  lazy val id = attributes.get("@id") map { _.as[String]}
-}
-
+  id: Option[String] = None)
       
 
 trait BodyContentOption
@@ -692,13 +527,10 @@ trait BodyContentOption
 case class Block(blocksequence1: Option[com.gu.nitf.model.BlockSequence1] = None,
   blockoption: Seq[scalaxb.DataRecord[Any]] = Nil,
   blocksequence2: Option[com.gu.nitf.model.BlockSequence2] = None,
-  attributes: Map[String, scalaxb.DataRecord[Any]] = Map()) extends BodyContentOption with DdOption {
-  lazy val id = attributes.get("@id") map { _.as[String]}
-  lazy val classValue = attributes.get("@class") map { _.as[String]}
-  lazy val style = attributes.get("@style") map { _.as[String]}
-  lazy val xmllang = attributes.get("@{http://www.w3.org/XML/1998/namespace}lang") map { _.as[String]}
-}
-
+  id: Option[String] = None,
+  classValue: Option[String] = None,
+  style: Option[String] = None,
+  xmllang: Option[String] = None) extends BodyContentOption with DdOption
       
 
 case class BlockSequence2(datasource: Option[com.gu.nitf.model.Datasource] = None)
@@ -713,16 +545,13 @@ case class BlockSequence1(tobject: Option[com.gu.nitf.model.Tobject] = None,
 
 
 case class P(mixed: Seq[scalaxb.DataRecord[Any]] = Nil,
-  attributes: Map[String, scalaxb.DataRecord[Any]] = Map()) extends BlockContentOption {
-  lazy val id = attributes.get("@id") map { _.as[String]}
-  lazy val classValue = attributes.get("@class") map { _.as[String]}
-  lazy val style = attributes.get("@style") map { _.as[String]}
-  lazy val xmllang = attributes.get("@{http://www.w3.org/XML/1998/namespace}lang") map { _.as[String]}
-  lazy val lede = attributes.get("@lede") map { _.as[String]}
-  lazy val summary = attributes.get("@summary") map { _.as[String]}
-  lazy val optionalText = attributes.get("@optional-text") map { _.as[String]}
-}
-
+  id: Option[String] = None,
+  classValue: Option[String] = None,
+  style: Option[String] = None,
+  xmllang: Option[String] = None,
+  lede: Option[String] = None,
+  summary: Option[String] = None,
+  optionalText: Option[String] = None) extends BlockContentOption
       
 
 trait POption
@@ -782,22 +611,19 @@ case class Table(caption: Option[com.gu.nitf.model.Caption] = None,
   thead: Option[com.gu.nitf.model.Thead] = None,
   tfoot: Option[com.gu.nitf.model.Tfoot] = None,
   tableoption2: Seq[scalaxb.DataRecord[com.gu.nitf.model.TableOption2]] = Nil,
-  attributes: Map[String, scalaxb.DataRecord[Any]] = Map()) extends BlockContentOption with NitfTableOption {
-  lazy val id = attributes.get("@id") map { _.as[String]}
-  lazy val classValue = attributes.get("@class") map { _.as[String]}
-  lazy val style = attributes.get("@style") map { _.as[String]}
-  lazy val xmllang = attributes.get("@{http://www.w3.org/XML/1998/namespace}lang") map { _.as[String]}
-  lazy val tabletype = attributes.get("@tabletype") map { _.as[String]}
-  lazy val align = attributes.get("@align") map { _.as[AlignType]}
-  lazy val width = attributes.get("@width") map { _.as[String]}
-  lazy val cols = attributes.get("@cols") map { _.as[String]}
-  lazy val border = attributes.get("@border") map { _.as[String]}
-  lazy val frame = attributes.get("@frame") map { _.as[Frame]}
-  lazy val rules = attributes.get("@rules") map { _.as[Rules]}
-  lazy val cellspacing = attributes.get("@cellspacing") map { _.as[String]}
-  lazy val cellpadding = attributes.get("@cellpadding") map { _.as[String]}
-}
-
+  id: Option[String] = None,
+  classValue: Option[String] = None,
+  style: Option[String] = None,
+  xmllang: Option[String] = None,
+  tabletype: Option[String] = None,
+  align: Option[com.gu.nitf.model.AlignType] = None,
+  width: Option[String] = None,
+  cols: Option[String] = None,
+  border: Option[String] = None,
+  frame: Option[com.gu.nitf.model.Frame] = None,
+  rules: Option[com.gu.nitf.model.Rules] = None,
+  cellspacing: Option[String] = None,
+  cellpadding: Option[String] = None) extends BlockContentOption with NitfTableOption
       
 
 trait TableOption
@@ -807,14 +633,11 @@ case class Media(mediaMetadata: Seq[com.gu.nitf.model.MediaMetadata] = Nil,
   mediasequence1: Seq[com.gu.nitf.model.MediaSequence1] = Nil,
   mediaCaption: Seq[com.gu.nitf.model.MediaCaption] = Nil,
   mediaProducer: Seq[com.gu.nitf.model.MediaProducer] = Nil,
-  attributes: Map[String, scalaxb.DataRecord[Any]] = Map()) extends BlockContentOption {
-  lazy val id = attributes.get("@id") map { _.as[String]}
-  lazy val classValue = attributes.get("@class") map { _.as[String]}
-  lazy val style = attributes.get("@style") map { _.as[String]}
-  lazy val xmllang = attributes.get("@{http://www.w3.org/XML/1998/namespace}lang") map { _.as[String]}
-  lazy val mediaType = attributes("@media-type").as[String]
-}
-
+  id: Option[String] = None,
+  classValue: Option[String] = None,
+  style: Option[String] = None,
+  xmllang: Option[String] = None,
+  mediaType: String) extends BlockContentOption
       
 
 case class MediaSequence1(mediaReference: com.gu.nitf.model.MediaReference,
@@ -846,143 +669,110 @@ case object NoflowValue extends Noflow { override def toString = "noflow" }
 
 
 case class MediaReference(mixed: Seq[scalaxb.DataRecord[Any]] = Nil,
-  attributes: Map[String, scalaxb.DataRecord[Any]] = Map()) {
-  lazy val id = attributes.get("@id") map { _.as[String]}
-  lazy val source = attributes.get("@source") map { _.as[String]}
-  lazy val name = attributes.get("@name") map { _.as[String]}
-  lazy val mimeType = attributes.get("@mime-type") map { _.as[String]}
-  lazy val coding = attributes.get("@coding") map { _.as[String]}
-  lazy val time = attributes.get("@time") map { _.as[String]}
-  lazy val timeUnitOfMeasure = attributes.get("@time-unit-of-measure") map { _.as[String]}
-  lazy val outcue = attributes.get("@outcue") map { _.as[String]}
-  lazy val sourceCredit = attributes.get("@source-credit") map { _.as[String]}
-  lazy val copyright = attributes.get("@copyright") map { _.as[String]}
-  lazy val alternateText = attributes.get("@alternate-text") map { _.as[String]}
-  lazy val height = attributes.get("@height") map { _.as[String]}
-  lazy val width = attributes.get("@width") map { _.as[String]}
-  lazy val units = attributes.get("@units") map { _.as[Units]}
-  lazy val imagemap = attributes.get("@imagemap") map { _.as[String]}
-  lazy val noflow = attributes.get("@noflow") map { _.as[Noflow]}
-  lazy val dataLocation = attributes.get("@data-location") map { _.as[String]}
-}
-
+  id: Option[String] = None,
+  source: Option[String] = None,
+  name: Option[String] = None,
+  mimeType: Option[String] = None,
+  coding: Option[String] = None,
+  time: Option[String] = None,
+  timeUnitOfMeasure: Option[String] = None,
+  outcue: Option[String] = None,
+  sourceCredit: Option[String] = None,
+  copyright: Option[String] = None,
+  alternateText: Option[String] = None,
+  height: Option[String] = None,
+  width: Option[String] = None,
+  units: Option[com.gu.nitf.model.Units] = None,
+  imagemap: Option[String] = None,
+  noflow: Option[com.gu.nitf.model.Noflow] = None,
+  dataLocation: Option[String] = None)
       
 
 
-case class MediaMetadata(attributes: Map[String, scalaxb.DataRecord[Any]] = Map()) {
-  lazy val id = attributes.get("@id") map { _.as[String]}
-  lazy val name = attributes("@name").as[String]
-  lazy val valueAttribute = attributes.get("@value") map { _.as[String]}
-}
-
+case class MediaMetadata(id: Option[String] = None,
+  name: String,
+  valueAttribute: Option[String] = None)
       
 
 
 case class MediaObject(mixed: Seq[scalaxb.DataRecord[Any]] = Nil,
-  attributes: Map[String, scalaxb.DataRecord[Any]] = Map()) {
-  lazy val id = attributes.get("@id") map { _.as[String]}
-  lazy val classValue = attributes.get("@class") map { _.as[String]}
-  lazy val style = attributes.get("@style") map { _.as[String]}
-  lazy val xmllang = attributes.get("@{http://www.w3.org/XML/1998/namespace}lang") map { _.as[String]}
-  lazy val encoding = attributes("@encoding").as[String]
-}
-
+  id: Option[String] = None,
+  classValue: Option[String] = None,
+  style: Option[String] = None,
+  xmllang: Option[String] = None,
+  encoding: String)
       
 
 
 case class MediaCaption(mixed: Seq[scalaxb.DataRecord[Any]] = Nil,
-  attributes: Map[String, scalaxb.DataRecord[Any]] = Map()) {
-  lazy val id = attributes.get("@id") map { _.as[String]}
-  lazy val classValue = attributes.get("@class") map { _.as[String]}
-  lazy val style = attributes.get("@style") map { _.as[String]}
-  lazy val xmllang = attributes.get("@{http://www.w3.org/XML/1998/namespace}lang") map { _.as[String]}
-}
-
+  id: Option[String] = None,
+  classValue: Option[String] = None,
+  style: Option[String] = None,
+  xmllang: Option[String] = None)
       
 
 trait MediaCaptionOption
 
 case class MediaProducer(mixed: Seq[scalaxb.DataRecord[Any]] = Nil,
-  attributes: Map[String, scalaxb.DataRecord[Any]] = Map()) {
-  lazy val id = attributes.get("@id") map { _.as[String]}
-  lazy val classValue = attributes.get("@class") map { _.as[String]}
-  lazy val style = attributes.get("@style") map { _.as[String]}
-  lazy val xmllang = attributes.get("@{http://www.w3.org/XML/1998/namespace}lang") map { _.as[String]}
-}
-
+  id: Option[String] = None,
+  classValue: Option[String] = None,
+  style: Option[String] = None,
+  xmllang: Option[String] = None)
       
 
 trait MediaProducerOption
 
 case class Ol(olsequence1: Seq[com.gu.nitf.model.OlSequence1] = Nil,
-  attributes: Map[String, scalaxb.DataRecord[Any]] = Map()) extends BlockContentOption {
-  lazy val id = attributes.get("@id") map { _.as[String]}
-  lazy val classValue = attributes.get("@class") map { _.as[String]}
-  lazy val style = attributes.get("@style") map { _.as[String]}
-  lazy val xmllang = attributes.get("@{http://www.w3.org/XML/1998/namespace}lang") map { _.as[String]}
-  lazy val seqnum = attributes.get("@seqnum") map { _.as[String]}
-}
-
+  id: Option[String] = None,
+  classValue: Option[String] = None,
+  style: Option[String] = None,
+  xmllang: Option[String] = None,
+  seqnum: Option[String] = None) extends BlockContentOption
       
 
 case class OlSequence1(li: com.gu.nitf.model.Li)
 
 case class Ul(ulsequence1: Seq[com.gu.nitf.model.UlSequence1] = Nil,
-  attributes: Map[String, scalaxb.DataRecord[Any]] = Map()) extends BlockContentOption {
-  lazy val id = attributes.get("@id") map { _.as[String]}
-  lazy val classValue = attributes.get("@class") map { _.as[String]}
-  lazy val style = attributes.get("@style") map { _.as[String]}
-  lazy val xmllang = attributes.get("@{http://www.w3.org/XML/1998/namespace}lang") map { _.as[String]}
-}
-
+  id: Option[String] = None,
+  classValue: Option[String] = None,
+  style: Option[String] = None,
+  xmllang: Option[String] = None) extends BlockContentOption
       
 
 case class UlSequence1(li: com.gu.nitf.model.Li)
 
 case class Li(mixed: Seq[scalaxb.DataRecord[Any]] = Nil,
-  attributes: Map[String, scalaxb.DataRecord[Any]] = Map()) {
-  lazy val id = attributes.get("@id") map { _.as[String]}
-  lazy val classValue = attributes.get("@class") map { _.as[String]}
-  lazy val style = attributes.get("@style") map { _.as[String]}
-  lazy val xmllang = attributes.get("@{http://www.w3.org/XML/1998/namespace}lang") map { _.as[String]}
-}
-
+  id: Option[String] = None,
+  classValue: Option[String] = None,
+  style: Option[String] = None,
+  xmllang: Option[String] = None)
       
 
 trait LiOption
 
 case class Dl(dloption: Seq[scalaxb.DataRecord[com.gu.nitf.model.DlOption]] = Nil,
-  attributes: Map[String, scalaxb.DataRecord[Any]] = Map()) extends BlockContentOption {
-  lazy val id = attributes.get("@id") map { _.as[String]}
-  lazy val classValue = attributes.get("@class") map { _.as[String]}
-  lazy val style = attributes.get("@style") map { _.as[String]}
-  lazy val xmllang = attributes.get("@{http://www.w3.org/XML/1998/namespace}lang") map { _.as[String]}
-}
-
+  id: Option[String] = None,
+  classValue: Option[String] = None,
+  style: Option[String] = None,
+  xmllang: Option[String] = None) extends BlockContentOption
       
 
 trait DlOption
 
 case class Dt(mixed: Seq[scalaxb.DataRecord[Any]] = Nil,
-  attributes: Map[String, scalaxb.DataRecord[Any]] = Map()) extends DlOption {
-  lazy val id = attributes.get("@id") map { _.as[String]}
-  lazy val classValue = attributes.get("@class") map { _.as[String]}
-  lazy val style = attributes.get("@style") map { _.as[String]}
-  lazy val xmllang = attributes.get("@{http://www.w3.org/XML/1998/namespace}lang") map { _.as[String]}
-}
-
+  id: Option[String] = None,
+  classValue: Option[String] = None,
+  style: Option[String] = None,
+  xmllang: Option[String] = None) extends DlOption
       
 
 trait DtOption
 
 case class Dd(ddoption: Seq[scalaxb.DataRecord[Any]] = Nil,
-  attributes: Map[String, scalaxb.DataRecord[Any]] = Map()) extends DlOption {
-  lazy val id = attributes.get("@id") map { _.as[String]}
-  lazy val classValue = attributes.get("@class") map { _.as[String]}
-  lazy val style = attributes.get("@style") map { _.as[String]}
-  lazy val xmllang = attributes.get("@{http://www.w3.org/XML/1998/namespace}lang") map { _.as[String]}
-}
-
+  id: Option[String] = None,
+  classValue: Option[String] = None,
+  style: Option[String] = None,
+  xmllang: Option[String] = None) extends DlOption
       
 
 trait DdOption
@@ -1000,15 +790,12 @@ case object NowrapValue extends Nowrap { override def toString = "nowrap" }
 
 
 case class Bq(bqsequence1: Seq[com.gu.nitf.model.BqSequence1] = Nil,
-  attributes: Map[String, scalaxb.DataRecord[Any]] = Map()) extends BlockContentOption {
-  lazy val id = attributes.get("@id") map { _.as[String]}
-  lazy val classValue = attributes.get("@class") map { _.as[String]}
-  lazy val style = attributes.get("@style") map { _.as[String]}
-  lazy val xmllang = attributes.get("@{http://www.w3.org/XML/1998/namespace}lang") map { _.as[String]}
-  lazy val nowrap = attributes.get("@nowrap") map { _.as[Nowrap]}
-  lazy val quoteSource = attributes.get("@quote-source") map { _.as[String]}
-}
-
+  id: Option[String] = None,
+  classValue: Option[String] = None,
+  style: Option[String] = None,
+  xmllang: Option[String] = None,
+  nowrap: Option[com.gu.nitf.model.Nowrap] = None,
+  quoteSource: Option[String] = None) extends BlockContentOption
       
 
 case class BqSequence1(block: Seq[com.gu.nitf.model.Block] = Nil,
@@ -1016,55 +803,40 @@ case class BqSequence1(block: Seq[com.gu.nitf.model.Block] = Nil,
 
 
 case class Credit(mixed: Seq[scalaxb.DataRecord[Any]] = Nil,
-  attributes: Map[String, scalaxb.DataRecord[Any]] = Map()) {
-  lazy val id = attributes.get("@id") map { _.as[String]}
-  lazy val classValue = attributes.get("@class") map { _.as[String]}
-  lazy val style = attributes.get("@style") map { _.as[String]}
-  lazy val xmllang = attributes.get("@{http://www.w3.org/XML/1998/namespace}lang") map { _.as[String]}
-}
-
+  id: Option[String] = None,
+  classValue: Option[String] = None,
+  style: Option[String] = None,
+  xmllang: Option[String] = None)
       
 
 trait CreditOption
 
 case class Fn(fnsequence1: Seq[com.gu.nitf.model.FnSequence1] = Nil,
-  attributes: Map[String, scalaxb.DataRecord[Any]] = Map()) extends BlockContentOption {
-  lazy val id = attributes.get("@id") map { _.as[String]}
-  lazy val classValue = attributes.get("@class") map { _.as[String]}
-  lazy val style = attributes.get("@style") map { _.as[String]}
-  lazy val xmllang = attributes.get("@{http://www.w3.org/XML/1998/namespace}lang") map { _.as[String]}
-}
-
+  id: Option[String] = None,
+  classValue: Option[String] = None,
+  style: Option[String] = None,
+  xmllang: Option[String] = None) extends BlockContentOption
       
 
 case class FnSequence1(bodyContent: com.gu.nitf.model.BodyContent)
 
 case class Pre(mixed: Seq[scalaxb.DataRecord[Any]] = Nil,
-  attributes: Map[String, scalaxb.DataRecord[Any]] = Map()) extends BlockContentOption {
-  lazy val id = attributes.get("@id") map { _.as[String]}
-  lazy val classValue = attributes.get("@class") map { _.as[String]}
-  lazy val style = attributes.get("@style") map { _.as[String]}
-  lazy val xmllang = attributes.get("@{http://www.w3.org/XML/1998/namespace}lang") map { _.as[String]}
-}
-
+  id: Option[String] = None,
+  classValue: Option[String] = None,
+  style: Option[String] = None,
+  xmllang: Option[String] = None) extends BlockContentOption
       
 
 
-case class Hr(attributes: Map[String, scalaxb.DataRecord[Any]] = Map()) extends BlockContentOption {
-  lazy val id = attributes.get("@id") map { _.as[String]}
-  lazy val classValue = attributes.get("@class") map { _.as[String]}
-  lazy val style = attributes.get("@style") map { _.as[String]}
-  lazy val xmllang = attributes.get("@{http://www.w3.org/XML/1998/namespace}lang") map { _.as[String]}
-}
-
+case class Hr(id: Option[String] = None,
+  classValue: Option[String] = None,
+  style: Option[String] = None,
+  xmllang: Option[String] = None) extends BlockContentOption
       
 
 
 case class Datasource(mixed: Seq[scalaxb.DataRecord[Any]] = Nil,
-  attributes: Map[String, scalaxb.DataRecord[Any]] = Map()) {
-  lazy val id = attributes.get("@id") map { _.as[String]}
-}
-
+  id: Option[String] = None)
       
 
 trait AlignType2
@@ -1084,106 +856,85 @@ case object RightTypeValue2 extends AlignType2 { override def toString = "right"
 
 
 case class Caption(mixed: Seq[scalaxb.DataRecord[Any]] = Nil,
-  attributes: Map[String, scalaxb.DataRecord[Any]] = Map()) {
-  lazy val id = attributes.get("@id") map { _.as[String]}
-  lazy val classValue = attributes.get("@class") map { _.as[String]}
-  lazy val style = attributes.get("@style") map { _.as[String]}
-  lazy val xmllang = attributes.get("@{http://www.w3.org/XML/1998/namespace}lang") map { _.as[String]}
-  lazy val align = attributes.get("@align") map { _.as[AlignType2]}
-}
-
+  id: Option[String] = None,
+  classValue: Option[String] = None,
+  style: Option[String] = None,
+  xmllang: Option[String] = None,
+  align: Option[com.gu.nitf.model.AlignType2] = None)
       
 
 trait CaptionOption
 
-case class Col(attributes: Map[String, scalaxb.DataRecord[Any]] = Map()) extends TableOption {
-  lazy val id = attributes.get("@id") map { _.as[String]}
-  lazy val classValue = attributes.get("@class") map { _.as[String]}
-  lazy val style = attributes.get("@style") map { _.as[String]}
-  lazy val xmllang = attributes.get("@{http://www.w3.org/XML/1998/namespace}lang") map { _.as[String]}
-  lazy val span = attributes("@span").as[String]
-  lazy val width = attributes.get("@width") map { _.as[String]}
-  lazy val align = attributes.get("@align") map { _.as[Align]}
-  lazy val char = attributes.get("@char") map { _.as[String]}
-  lazy val charoff = attributes.get("@charoff") map { _.as[String]}
-  lazy val valign = attributes.get("@valign") map { _.as[Valign]}
-}
-
+case class Col(id: Option[String] = None,
+  classValue: Option[String] = None,
+  style: Option[String] = None,
+  xmllang: Option[String] = None,
+  span: String,
+  width: Option[String] = None,
+  align: Option[com.gu.nitf.model.Align] = None,
+  char: Option[String] = None,
+  charoff: Option[String] = None,
+  valign: Option[com.gu.nitf.model.Valign] = None) extends TableOption
       
 
 
 case class Colgroup(col: Seq[com.gu.nitf.model.Col] = Nil,
-  attributes: Map[String, scalaxb.DataRecord[Any]] = Map()) extends TableOption {
-  lazy val id = attributes.get("@id") map { _.as[String]}
-  lazy val classValue = attributes.get("@class") map { _.as[String]}
-  lazy val style = attributes.get("@style") map { _.as[String]}
-  lazy val xmllang = attributes.get("@{http://www.w3.org/XML/1998/namespace}lang") map { _.as[String]}
-  lazy val align = attributes.get("@align") map { _.as[Align]}
-  lazy val char = attributes.get("@char") map { _.as[String]}
-  lazy val charoff = attributes.get("@charoff") map { _.as[String]}
-  lazy val valign = attributes.get("@valign") map { _.as[Valign]}
-}
-
+  id: Option[String] = None,
+  classValue: Option[String] = None,
+  style: Option[String] = None,
+  xmllang: Option[String] = None,
+  align: Option[com.gu.nitf.model.Align] = None,
+  char: Option[String] = None,
+  charoff: Option[String] = None,
+  valign: Option[com.gu.nitf.model.Valign] = None) extends TableOption
       
 
 
 case class Thead(tr: Seq[com.gu.nitf.model.Tr] = Nil,
-  attributes: Map[String, scalaxb.DataRecord[Any]] = Map()) {
-  lazy val id = attributes.get("@id") map { _.as[String]}
-  lazy val classValue = attributes.get("@class") map { _.as[String]}
-  lazy val style = attributes.get("@style") map { _.as[String]}
-  lazy val xmllang = attributes.get("@{http://www.w3.org/XML/1998/namespace}lang") map { _.as[String]}
-  lazy val align = attributes.get("@align") map { _.as[Align]}
-  lazy val char = attributes.get("@char") map { _.as[String]}
-  lazy val charoff = attributes.get("@charoff") map { _.as[String]}
-  lazy val valign = attributes.get("@valign") map { _.as[Valign]}
-}
-
+  id: Option[String] = None,
+  classValue: Option[String] = None,
+  style: Option[String] = None,
+  xmllang: Option[String] = None,
+  align: Option[com.gu.nitf.model.Align] = None,
+  char: Option[String] = None,
+  charoff: Option[String] = None,
+  valign: Option[com.gu.nitf.model.Valign] = None)
       
 
 
 case class Tbody(tr: Seq[com.gu.nitf.model.Tr] = Nil,
-  attributes: Map[String, scalaxb.DataRecord[Any]] = Map()) extends TableOption2 {
-  lazy val id = attributes.get("@id") map { _.as[String]}
-  lazy val classValue = attributes.get("@class") map { _.as[String]}
-  lazy val style = attributes.get("@style") map { _.as[String]}
-  lazy val xmllang = attributes.get("@{http://www.w3.org/XML/1998/namespace}lang") map { _.as[String]}
-  lazy val align = attributes.get("@align") map { _.as[Align]}
-  lazy val char = attributes.get("@char") map { _.as[String]}
-  lazy val charoff = attributes.get("@charoff") map { _.as[String]}
-  lazy val valign = attributes.get("@valign") map { _.as[Valign]}
-}
-
+  id: Option[String] = None,
+  classValue: Option[String] = None,
+  style: Option[String] = None,
+  xmllang: Option[String] = None,
+  align: Option[com.gu.nitf.model.Align] = None,
+  char: Option[String] = None,
+  charoff: Option[String] = None,
+  valign: Option[com.gu.nitf.model.Valign] = None) extends TableOption2
       
 
 
 case class Tfoot(tr: Seq[com.gu.nitf.model.Tr] = Nil,
-  attributes: Map[String, scalaxb.DataRecord[Any]] = Map()) {
-  lazy val id = attributes.get("@id") map { _.as[String]}
-  lazy val classValue = attributes.get("@class") map { _.as[String]}
-  lazy val style = attributes.get("@style") map { _.as[String]}
-  lazy val xmllang = attributes.get("@{http://www.w3.org/XML/1998/namespace}lang") map { _.as[String]}
-  lazy val align = attributes.get("@align") map { _.as[Align]}
-  lazy val char = attributes.get("@char") map { _.as[String]}
-  lazy val charoff = attributes.get("@charoff") map { _.as[String]}
-  lazy val valign = attributes.get("@valign") map { _.as[Valign]}
-}
-
+  id: Option[String] = None,
+  classValue: Option[String] = None,
+  style: Option[String] = None,
+  xmllang: Option[String] = None,
+  align: Option[com.gu.nitf.model.Align] = None,
+  char: Option[String] = None,
+  charoff: Option[String] = None,
+  valign: Option[com.gu.nitf.model.Valign] = None)
       
 
 
 case class Tr(troption: Seq[scalaxb.DataRecord[com.gu.nitf.model.TrOption]] = Nil,
-  attributes: Map[String, scalaxb.DataRecord[Any]] = Map()) extends TableOption2 {
-  lazy val id = attributes.get("@id") map { _.as[String]}
-  lazy val classValue = attributes.get("@class") map { _.as[String]}
-  lazy val style = attributes.get("@style") map { _.as[String]}
-  lazy val xmllang = attributes.get("@{http://www.w3.org/XML/1998/namespace}lang") map { _.as[String]}
-  lazy val align = attributes.get("@align") map { _.as[Align]}
-  lazy val char = attributes.get("@char") map { _.as[String]}
-  lazy val charoff = attributes.get("@charoff") map { _.as[String]}
-  lazy val valign = attributes.get("@valign") map { _.as[Valign]}
-}
-
+  id: Option[String] = None,
+  classValue: Option[String] = None,
+  style: Option[String] = None,
+  xmllang: Option[String] = None,
+  align: Option[com.gu.nitf.model.Align] = None,
+  char: Option[String] = None,
+  charoff: Option[String] = None,
+  valign: Option[com.gu.nitf.model.Valign] = None) extends TableOption2
       
 
 trait TrOption
@@ -1201,22 +952,19 @@ case object NowrapValue2 extends NowrapType { override def toString = "nowrap" }
 
 
 case class Th(mixed: Seq[scalaxb.DataRecord[Any]] = Nil,
-  attributes: Map[String, scalaxb.DataRecord[Any]] = Map()) extends TrOption {
-  lazy val id = attributes.get("@id") map { _.as[String]}
-  lazy val classValue = attributes.get("@class") map { _.as[String]}
-  lazy val style = attributes.get("@style") map { _.as[String]}
-  lazy val xmllang = attributes.get("@{http://www.w3.org/XML/1998/namespace}lang") map { _.as[String]}
-  lazy val axis = attributes.get("@axis") map { _.as[String]}
-  lazy val axes = attributes.get("@axes") map { _.as[String]}
-  lazy val nowrap = attributes.get("@nowrap") map { _.as[NowrapType]}
-  lazy val rowspan = attributes.get("@rowspan") map { _.as[String]}
-  lazy val colspan = attributes.get("@colspan") map { _.as[String]}
-  lazy val align = attributes.get("@align") map { _.as[Align]}
-  lazy val char = attributes.get("@char") map { _.as[String]}
-  lazy val charoff = attributes.get("@charoff") map { _.as[String]}
-  lazy val valign = attributes.get("@valign") map { _.as[Valign]}
-}
-
+  id: Option[String] = None,
+  classValue: Option[String] = None,
+  style: Option[String] = None,
+  xmllang: Option[String] = None,
+  axis: Option[String] = None,
+  axes: Option[String] = None,
+  nowrap: Option[com.gu.nitf.model.NowrapType] = None,
+  rowspan: Option[String] = None,
+  colspan: Option[String] = None,
+  align: Option[com.gu.nitf.model.Align] = None,
+  char: Option[String] = None,
+  charoff: Option[String] = None,
+  valign: Option[com.gu.nitf.model.Valign] = None) extends TrOption
       
 
 trait ThOption
@@ -1234,172 +982,136 @@ case object NowrapValue3 extends NowrapType2 { override def toString = "nowrap" 
 
 
 case class Td(mixed: Seq[scalaxb.DataRecord[Any]] = Nil,
-  attributes: Map[String, scalaxb.DataRecord[Any]] = Map()) extends TrOption {
-  lazy val id = attributes.get("@id") map { _.as[String]}
-  lazy val classValue = attributes.get("@class") map { _.as[String]}
-  lazy val style = attributes.get("@style") map { _.as[String]}
-  lazy val xmllang = attributes.get("@{http://www.w3.org/XML/1998/namespace}lang") map { _.as[String]}
-  lazy val axis = attributes.get("@axis") map { _.as[String]}
-  lazy val axes = attributes.get("@axes") map { _.as[String]}
-  lazy val nowrap = attributes.get("@nowrap") map { _.as[NowrapType2]}
-  lazy val rowspan = attributes.get("@rowspan") map { _.as[String]}
-  lazy val colspan = attributes.get("@colspan") map { _.as[String]}
-  lazy val align = attributes.get("@align") map { _.as[Align]}
-  lazy val char = attributes.get("@char") map { _.as[String]}
-  lazy val charoff = attributes.get("@charoff") map { _.as[String]}
-  lazy val valign = attributes.get("@valign") map { _.as[Valign]}
-}
-
+  id: Option[String] = None,
+  classValue: Option[String] = None,
+  style: Option[String] = None,
+  xmllang: Option[String] = None,
+  axis: Option[String] = None,
+  axes: Option[String] = None,
+  nowrap: Option[com.gu.nitf.model.NowrapType2] = None,
+  rowspan: Option[String] = None,
+  colspan: Option[String] = None,
+  align: Option[com.gu.nitf.model.Align] = None,
+  char: Option[String] = None,
+  charoff: Option[String] = None,
+  valign: Option[com.gu.nitf.model.Valign] = None) extends TrOption
       
 
 trait TdOption
 
 case class Chron(mixed: Seq[scalaxb.DataRecord[Any]] = Nil,
-  attributes: Map[String, scalaxb.DataRecord[Any]] = Map()) extends EnrichedTextOption {
-  lazy val id = attributes.get("@id") map { _.as[String]}
-  lazy val classValue = attributes.get("@class") map { _.as[String]}
-  lazy val style = attributes.get("@style") map { _.as[String]}
-  lazy val xmllang = attributes.get("@{http://www.w3.org/XML/1998/namespace}lang") map { _.as[String]}
-  lazy val norm = attributes.get("@norm") map { _.as[String]}
-}
-
+  id: Option[String] = None,
+  classValue: Option[String] = None,
+  style: Option[String] = None,
+  xmllang: Option[String] = None,
+  norm: Option[String] = None) extends EnrichedTextOption
       
 
 
 case class Event(mixed: Seq[scalaxb.DataRecord[Any]] = Nil,
-  attributes: Map[String, scalaxb.DataRecord[Any]] = Map()) extends EnrichedTextOption with IdentifiedContentOption {
-  lazy val id = attributes.get("@id") map { _.as[String]}
-  lazy val classValue = attributes.get("@class") map { _.as[String]}
-  lazy val style = attributes.get("@style") map { _.as[String]}
-  lazy val xmllang = attributes.get("@{http://www.w3.org/XML/1998/namespace}lang") map { _.as[String]}
-  lazy val startDate = attributes.get("@start-date") map { _.as[String]}
-  lazy val endDate = attributes.get("@end-date") map { _.as[String]}
-  lazy val idsrc = attributes.get("@idsrc") map { _.as[String]}
-  lazy val valueAttribute = attributes.get("@value") map { _.as[String]}
-}
-
+  id: Option[String] = None,
+  classValue: Option[String] = None,
+  style: Option[String] = None,
+  xmllang: Option[String] = None,
+  startDate: Option[String] = None,
+  endDate: Option[String] = None,
+  idsrc: Option[String] = None,
+  valueAttribute: Option[String] = None) extends EnrichedTextOption with IdentifiedContentOption
       
 
 trait EventOption
 
 case class FunctionType(mixed: Seq[scalaxb.DataRecord[Any]] = Nil,
-  attributes: Map[String, scalaxb.DataRecord[Any]] = Map()) extends EnrichedTextOption with IdentifiedContentOption with PersonOption {
-  lazy val id = attributes.get("@id") map { _.as[String]}
-  lazy val idsrc = attributes.get("@idsrc") map { _.as[String]}
-  lazy val valueAttribute = attributes.get("@value") map { _.as[String]}
-}
-
+  id: Option[String] = None,
+  idsrc: Option[String] = None,
+  valueAttribute: Option[String] = None) extends EnrichedTextOption with IdentifiedContentOption with PersonOption
       
 
 trait FunctionTypeOption
 
 case class Location(mixed: Seq[scalaxb.DataRecord[Any]] = Nil,
-  attributes: Map[String, scalaxb.DataRecord[Any]] = Map()) extends EnrichedTextOption with IdentifiedContentOption with BylineOption with DatelineOption {
-  lazy val id = attributes.get("@id") map { _.as[String]}
-  lazy val classValue = attributes.get("@class") map { _.as[String]}
-  lazy val style = attributes.get("@style") map { _.as[String]}
-  lazy val xmllang = attributes.get("@{http://www.w3.org/XML/1998/namespace}lang") map { _.as[String]}
-  lazy val locationCode = attributes.get("@location-code") map { _.as[String]}
-  lazy val codeSource = attributes.get("@code-source") map { _.as[String]}
-}
-
+  id: Option[String] = None,
+  classValue: Option[String] = None,
+  style: Option[String] = None,
+  xmllang: Option[String] = None,
+  locationCode: Option[String] = None,
+  codeSource: Option[String] = None) extends EnrichedTextOption with IdentifiedContentOption with BylineOption with DatelineOption
       
 
 trait LocationOption
 
 case class Sublocation(mixed: Seq[scalaxb.DataRecord[Any]] = Nil,
-  attributes: Map[String, scalaxb.DataRecord[Any]] = Map()) extends LocationOption {
-  lazy val id = attributes.get("@id") map { _.as[String]}
-  lazy val classValue = attributes.get("@class") map { _.as[String]}
-  lazy val style = attributes.get("@style") map { _.as[String]}
-  lazy val xmllang = attributes.get("@{http://www.w3.org/XML/1998/namespace}lang") map { _.as[String]}
-  lazy val locationCode = attributes.get("@location-code") map { _.as[String]}
-  lazy val codeSource = attributes.get("@code-source") map { _.as[String]}
-}
-
+  id: Option[String] = None,
+  classValue: Option[String] = None,
+  style: Option[String] = None,
+  xmllang: Option[String] = None,
+  locationCode: Option[String] = None,
+  codeSource: Option[String] = None) extends LocationOption
       
 
 trait SublocationOption
 
 case class City(mixed: Seq[scalaxb.DataRecord[Any]] = Nil,
-  attributes: Map[String, scalaxb.DataRecord[Any]] = Map()) extends LocationOption {
-  lazy val id = attributes.get("@id") map { _.as[String]}
-  lazy val classValue = attributes.get("@class") map { _.as[String]}
-  lazy val style = attributes.get("@style") map { _.as[String]}
-  lazy val xmllang = attributes.get("@{http://www.w3.org/XML/1998/namespace}lang") map { _.as[String]}
-  lazy val cityCode = attributes.get("@city-code") map { _.as[String]}
-  lazy val codeSource = attributes.get("@code-source") map { _.as[String]}
-}
-
+  id: Option[String] = None,
+  classValue: Option[String] = None,
+  style: Option[String] = None,
+  xmllang: Option[String] = None,
+  cityCode: Option[String] = None,
+  codeSource: Option[String] = None) extends LocationOption
       
 
 trait CityOption
 
 case class State(mixed: Seq[scalaxb.DataRecord[Any]] = Nil,
-  attributes: Map[String, scalaxb.DataRecord[Any]] = Map()) extends LocationOption {
-  lazy val id = attributes.get("@id") map { _.as[String]}
-  lazy val classValue = attributes.get("@class") map { _.as[String]}
-  lazy val style = attributes.get("@style") map { _.as[String]}
-  lazy val xmllang = attributes.get("@{http://www.w3.org/XML/1998/namespace}lang") map { _.as[String]}
-  lazy val stateCode = attributes.get("@state-code") map { _.as[String]}
-  lazy val codeSource = attributes.get("@code-source") map { _.as[String]}
-}
-
+  id: Option[String] = None,
+  classValue: Option[String] = None,
+  style: Option[String] = None,
+  xmllang: Option[String] = None,
+  stateCode: Option[String] = None,
+  codeSource: Option[String] = None) extends LocationOption
       
 
 trait StateOption
 
 case class Region(mixed: Seq[scalaxb.DataRecord[Any]] = Nil,
-  attributes: Map[String, scalaxb.DataRecord[Any]] = Map()) extends LocationOption with PostaddrOption {
-  lazy val id = attributes.get("@id") map { _.as[String]}
-  lazy val classValue = attributes.get("@class") map { _.as[String]}
-  lazy val style = attributes.get("@style") map { _.as[String]}
-  lazy val xmllang = attributes.get("@{http://www.w3.org/XML/1998/namespace}lang") map { _.as[String]}
-  lazy val regionCode = attributes.get("@region-code") map { _.as[String]}
-  lazy val codeSource = attributes.get("@code-source") map { _.as[String]}
-}
-
+  id: Option[String] = None,
+  classValue: Option[String] = None,
+  style: Option[String] = None,
+  xmllang: Option[String] = None,
+  regionCode: Option[String] = None,
+  codeSource: Option[String] = None) extends LocationOption with PostaddrOption
       
 
 trait RegionOption
 
 case class Country(mixed: Seq[scalaxb.DataRecord[Any]] = Nil,
-  attributes: Map[String, scalaxb.DataRecord[Any]] = Map()) extends LocationOption with PostaddrOption {
-  lazy val id = attributes.get("@id") map { _.as[String]}
-  lazy val classValue = attributes.get("@class") map { _.as[String]}
-  lazy val style = attributes.get("@style") map { _.as[String]}
-  lazy val xmllang = attributes.get("@{http://www.w3.org/XML/1998/namespace}lang") map { _.as[String]}
-  lazy val isoCc = attributes.get("@iso-cc") map { _.as[String]}
-}
-
+  id: Option[String] = None,
+  classValue: Option[String] = None,
+  style: Option[String] = None,
+  xmllang: Option[String] = None,
+  isoCc: Option[String] = None) extends LocationOption with PostaddrOption
       
 
 trait CountryOption
 
 case class Money(mixed: Seq[scalaxb.DataRecord[Any]] = Nil,
-  attributes: Map[String, scalaxb.DataRecord[Any]] = Map()) extends EnrichedTextOption {
-  lazy val id = attributes.get("@id") map { _.as[String]}
-  lazy val classValue = attributes.get("@class") map { _.as[String]}
-  lazy val style = attributes.get("@style") map { _.as[String]}
-  lazy val xmllang = attributes.get("@{http://www.w3.org/XML/1998/namespace}lang") map { _.as[String]}
-  lazy val unit = attributes.get("@unit") map { _.as[String]}
-  lazy val date = attributes.get("@date") map { _.as[String]}
-}
-
+  id: Option[String] = None,
+  classValue: Option[String] = None,
+  style: Option[String] = None,
+  xmllang: Option[String] = None,
+  unit: Option[String] = None,
+  date: Option[String] = None) extends EnrichedTextOption
       
 
 
 case class Num(mixed: Seq[scalaxb.DataRecord[Any]] = Nil,
-  attributes: Map[String, scalaxb.DataRecord[Any]] = Map()) extends EnrichedTextOption {
-  lazy val id = attributes.get("@id") map { _.as[String]}
-  lazy val classValue = attributes.get("@class") map { _.as[String]}
-  lazy val style = attributes.get("@style") map { _.as[String]}
-  lazy val xmllang = attributes.get("@{http://www.w3.org/XML/1998/namespace}lang") map { _.as[String]}
-  lazy val units = attributes.get("@units") map { _.as[String]}
-  lazy val decimalCh = attributes.get("@decimal-ch") map { _.as[String]}
-  lazy val thousandsCh = attributes.get("@thousands-ch") map { _.as[String]}
-}
-
+  id: Option[String] = None,
+  classValue: Option[String] = None,
+  style: Option[String] = None,
+  xmllang: Option[String] = None,
+  units: Option[String] = None,
+  decimalCh: Option[String] = None,
+  thousandsCh: Option[String] = None) extends EnrichedTextOption
       
 
 trait NumOption
@@ -1407,96 +1119,69 @@ trait NumOption
 case class Frac(numer: com.gu.nitf.model.Numer,
   fracSep: Option[com.gu.nitf.model.FracSep] = None,
   denom: com.gu.nitf.model.Denom,
-  attributes: Map[String, scalaxb.DataRecord[Any]] = Map()) extends NumOption {
-  lazy val id = attributes.get("@id") map { _.as[String]}
-  lazy val classValue = attributes.get("@class") map { _.as[String]}
-  lazy val style = attributes.get("@style") map { _.as[String]}
-  lazy val xmllang = attributes.get("@{http://www.w3.org/XML/1998/namespace}lang") map { _.as[String]}
-}
-
+  id: Option[String] = None,
+  classValue: Option[String] = None,
+  style: Option[String] = None,
+  xmllang: Option[String] = None) extends NumOption
       
 
 
 case class Numer(mixed: Seq[scalaxb.DataRecord[Any]] = Nil,
-  attributes: Map[String, scalaxb.DataRecord[Any]] = Map()) {
-  lazy val id = attributes.get("@id") map { _.as[String]}
-}
-
+  id: Option[String] = None)
       
 
 
 case class FracSep(mixed: Seq[scalaxb.DataRecord[Any]] = Nil,
-  attributes: Map[String, scalaxb.DataRecord[Any]] = Map()) {
-  lazy val id = attributes.get("@id") map { _.as[String]}
-}
-
+  id: Option[String] = None)
       
 
 
 case class Denom(mixed: Seq[scalaxb.DataRecord[Any]] = Nil,
-  attributes: Map[String, scalaxb.DataRecord[Any]] = Map()) {
-  lazy val id = attributes.get("@id") map { _.as[String]}
-}
-
+  id: Option[String] = None)
       
 
 
 case class Sub(mixed: Seq[scalaxb.DataRecord[Any]] = Nil,
-  attributes: Map[String, scalaxb.DataRecord[Any]] = Map()) extends NumOption {
-  lazy val id = attributes.get("@id") map { _.as[String]}
-  lazy val classValue = attributes.get("@class") map { _.as[String]}
-  lazy val style = attributes.get("@style") map { _.as[String]}
-  lazy val xmllang = attributes.get("@{http://www.w3.org/XML/1998/namespace}lang") map { _.as[String]}
-}
-
+  id: Option[String] = None,
+  classValue: Option[String] = None,
+  style: Option[String] = None,
+  xmllang: Option[String] = None) extends NumOption
       
 
 
 case class Sup(mixed: Seq[scalaxb.DataRecord[Any]] = Nil,
-  attributes: Map[String, scalaxb.DataRecord[Any]] = Map()) extends NumOption {
-  lazy val id = attributes.get("@id") map { _.as[String]}
-  lazy val classValue = attributes.get("@class") map { _.as[String]}
-  lazy val style = attributes.get("@style") map { _.as[String]}
-  lazy val xmllang = attributes.get("@{http://www.w3.org/XML/1998/namespace}lang") map { _.as[String]}
-}
-
+  id: Option[String] = None,
+  classValue: Option[String] = None,
+  style: Option[String] = None,
+  xmllang: Option[String] = None) extends NumOption
       
 
 
 case class ObjectTitle(mixed: Seq[scalaxb.DataRecord[Any]] = Nil,
-  attributes: Map[String, scalaxb.DataRecord[Any]] = Map()) extends EnrichedTextOption with IdentifiedContentOption {
-  lazy val id = attributes.get("@id") map { _.as[String]}
-  lazy val classValue = attributes.get("@class") map { _.as[String]}
-  lazy val style = attributes.get("@style") map { _.as[String]}
-  lazy val xmllang = attributes.get("@{http://www.w3.org/XML/1998/namespace}lang") map { _.as[String]}
-  lazy val idsrc = attributes.get("@idsrc") map { _.as[String]}
-  lazy val valueAttribute = attributes.get("@value") map { _.as[String]}
-}
-
+  id: Option[String] = None,
+  classValue: Option[String] = None,
+  style: Option[String] = None,
+  xmllang: Option[String] = None,
+  idsrc: Option[String] = None,
+  valueAttribute: Option[String] = None) extends EnrichedTextOption with IdentifiedContentOption
       
 
 trait ObjectTitleOption
 
 case class Org(mixed: Seq[scalaxb.DataRecord[Any]] = Nil,
-  attributes: Map[String, scalaxb.DataRecord[Any]] = Map()) extends EnrichedTextOption with IdentifiedContentOption with ByttlOption with DistributorOption {
-  lazy val id = attributes.get("@id") map { _.as[String]}
-  lazy val classValue = attributes.get("@class") map { _.as[String]}
-  lazy val style = attributes.get("@style") map { _.as[String]}
-  lazy val xmllang = attributes.get("@{http://www.w3.org/XML/1998/namespace}lang") map { _.as[String]}
-  lazy val idsrc = attributes.get("@idsrc") map { _.as[String]}
-  lazy val valueAttribute = attributes.get("@value") map { _.as[String]}
-}
-
+  id: Option[String] = None,
+  classValue: Option[String] = None,
+  style: Option[String] = None,
+  xmllang: Option[String] = None,
+  idsrc: Option[String] = None,
+  valueAttribute: Option[String] = None) extends EnrichedTextOption with IdentifiedContentOption with ByttlOption with DistributorOption
       
 
 trait OrgOption
 
-case class AltCode(attributes: Map[String, scalaxb.DataRecord[Any]] = Map()) extends EventOption with FunctionTypeOption with LocationOption with SublocationOption with CityOption with StateOption with RegionOption with CountryOption with ObjectTitleOption with OrgOption with PersonOption with VirtlocOption with ClassifierOption {
-  lazy val id = attributes.get("@id") map { _.as[String]}
-  lazy val idsrc = attributes("@idsrc").as[String]
-  lazy val valueAttribute = attributes("@value").as[String]
-}
-
+case class AltCode(id: Option[String] = None,
+  idsrc: String,
+  valueAttribute: String) extends EventOption with FunctionTypeOption with LocationOption with SublocationOption with CityOption with StateOption with RegionOption with CountryOption with ObjectTitleOption with OrgOption with PersonOption with VirtlocOption with ClassifierOption
       
 
 trait Gender
@@ -1514,143 +1199,110 @@ case object Female extends Gender { override def toString = "female" }
 
 
 case class Person(mixed: Seq[scalaxb.DataRecord[Any]] = Nil,
-  attributes: Map[String, scalaxb.DataRecord[Any]] = Map()) extends EnrichedTextOption with IdentifiedContentOption with BylineOption {
-  lazy val id = attributes.get("@id") map { _.as[String]}
-  lazy val classValue = attributes.get("@class") map { _.as[String]}
-  lazy val style = attributes.get("@style") map { _.as[String]}
-  lazy val xmllang = attributes.get("@{http://www.w3.org/XML/1998/namespace}lang") map { _.as[String]}
-  lazy val idsrc = attributes.get("@idsrc") map { _.as[String]}
-  lazy val valueAttribute = attributes.get("@value") map { _.as[String]}
-  lazy val gender = attributes.get("@gender") map { _.as[Gender]}
-}
-
+  id: Option[String] = None,
+  classValue: Option[String] = None,
+  style: Option[String] = None,
+  xmllang: Option[String] = None,
+  idsrc: Option[String] = None,
+  valueAttribute: Option[String] = None,
+  gender: Option[com.gu.nitf.model.Gender] = None) extends EnrichedTextOption with IdentifiedContentOption with BylineOption
       
 
 trait PersonOption
 
 case class NameGiven(mixed: Seq[scalaxb.DataRecord[Any]] = Nil,
-  attributes: Map[String, scalaxb.DataRecord[Any]] = Map()) extends PersonOption {
-  lazy val id = attributes.get("@id") map { _.as[String]}
-  lazy val classValue = attributes.get("@class") map { _.as[String]}
-  lazy val style = attributes.get("@style") map { _.as[String]}
-  lazy val xmllang = attributes.get("@{http://www.w3.org/XML/1998/namespace}lang") map { _.as[String]}
-}
-
+  id: Option[String] = None,
+  classValue: Option[String] = None,
+  style: Option[String] = None,
+  xmllang: Option[String] = None) extends PersonOption
       
 
 
 case class NameFamily(mixed: Seq[scalaxb.DataRecord[Any]] = Nil,
-  attributes: Map[String, scalaxb.DataRecord[Any]] = Map()) extends PersonOption {
-  lazy val id = attributes.get("@id") map { _.as[String]}
-  lazy val classValue = attributes.get("@class") map { _.as[String]}
-  lazy val style = attributes.get("@style") map { _.as[String]}
-  lazy val xmllang = attributes.get("@{http://www.w3.org/XML/1998/namespace}lang") map { _.as[String]}
-}
-
+  id: Option[String] = None,
+  classValue: Option[String] = None,
+  style: Option[String] = None,
+  xmllang: Option[String] = None) extends PersonOption
       
 
 
 case class Postaddr(addressee: com.gu.nitf.model.Addressee,
   deliveryPoint: Option[com.gu.nitf.model.DeliveryPoint] = None,
   postaddroption: Seq[scalaxb.DataRecord[com.gu.nitf.model.PostaddrOption]] = Nil,
-  attributes: Map[String, scalaxb.DataRecord[Any]] = Map()) extends EnrichedTextOption {
-  lazy val id = attributes.get("@id") map { _.as[String]}
-  lazy val classValue = attributes.get("@class") map { _.as[String]}
-  lazy val style = attributes.get("@style") map { _.as[String]}
-  lazy val xmllang = attributes.get("@{http://www.w3.org/XML/1998/namespace}lang") map { _.as[String]}
-}
-
+  id: Option[String] = None,
+  classValue: Option[String] = None,
+  style: Option[String] = None,
+  xmllang: Option[String] = None) extends EnrichedTextOption
       
 
 trait PostaddrOption
 
 case class Virtloc(mixed: Seq[scalaxb.DataRecord[Any]] = Nil,
-  attributes: Map[String, scalaxb.DataRecord[Any]] = Map()) extends EnrichedTextOption with IdentifiedContentOption with BylineOption {
-  lazy val id = attributes.get("@id") map { _.as[String]}
-  lazy val classValue = attributes.get("@class") map { _.as[String]}
-  lazy val style = attributes.get("@style") map { _.as[String]}
-  lazy val xmllang = attributes.get("@{http://www.w3.org/XML/1998/namespace}lang") map { _.as[String]}
-  lazy val idsrc = attributes.get("@idsrc") map { _.as[String]}
-  lazy val valueAttribute = attributes.get("@value") map { _.as[String]}
-}
-
+  id: Option[String] = None,
+  classValue: Option[String] = None,
+  style: Option[String] = None,
+  xmllang: Option[String] = None,
+  idsrc: Option[String] = None,
+  valueAttribute: Option[String] = None) extends EnrichedTextOption with IdentifiedContentOption with BylineOption
       
 
 trait VirtlocOption
 
 case class A(mixed: Seq[scalaxb.DataRecord[Any]] = Nil,
-  attributes: Map[String, scalaxb.DataRecord[Any]] = Map()) extends EnrichedTextOption {
-  lazy val id = attributes.get("@id") map { _.as[String]}
-  lazy val classValue = attributes.get("@class") map { _.as[String]}
-  lazy val style = attributes.get("@style") map { _.as[String]}
-  lazy val xmllang = attributes.get("@{http://www.w3.org/XML/1998/namespace}lang") map { _.as[String]}
-  lazy val href = attributes.get("@href") map { _.as[String]}
-  lazy val name = attributes.get("@name") map { _.as[String]}
-  lazy val rel = attributes.get("@rel") map { _.as[String]}
-  lazy val rev = attributes.get("@rev") map { _.as[String]}
-  lazy val title = attributes.get("@title") map { _.as[String]}
-}
-
+  id: Option[String] = None,
+  classValue: Option[String] = None,
+  style: Option[String] = None,
+  xmllang: Option[String] = None,
+  href: Option[String] = None,
+  name: Option[String] = None,
+  rel: Option[String] = None,
+  rev: Option[String] = None,
+  title: Option[String] = None) extends EnrichedTextOption
       
 
 trait AOption
 
-case class Br(attributes: Map[String, scalaxb.DataRecord[Any]] = Map()) extends EnrichedTextOption with DeliveryPointOption with DeliveryOfficeOption {
-  lazy val id = attributes.get("@id") map { _.as[String]}
-}
-
+case class Br(id: Option[String] = None) extends EnrichedTextOption with DeliveryPointOption with DeliveryOfficeOption
       
 
 
 case class Em(mixed: Seq[scalaxb.DataRecord[Any]] = Nil,
-  attributes: Map[String, scalaxb.DataRecord[Any]] = Map()) extends EnrichedTextOption {
-  lazy val id = attributes.get("@id") map { _.as[String]}
-  lazy val classValue = attributes.get("@class") map { _.as[String]}
-  lazy val style = attributes.get("@style") map { _.as[String]}
-  lazy val xmllang = attributes.get("@{http://www.w3.org/XML/1998/namespace}lang") map { _.as[String]}
-}
-
+  id: Option[String] = None,
+  classValue: Option[String] = None,
+  style: Option[String] = None,
+  xmllang: Option[String] = None) extends EnrichedTextOption
       
 
 trait EmOption
 
 case class Lang(mixed: Seq[scalaxb.DataRecord[Any]] = Nil,
-  attributes: Map[String, scalaxb.DataRecord[Any]] = Map()) extends EnrichedTextOption {
-  lazy val id = attributes.get("@id") map { _.as[String]}
-  lazy val classValue = attributes.get("@class") map { _.as[String]}
-  lazy val style = attributes.get("@style") map { _.as[String]}
-  lazy val xmllang = attributes.get("@{http://www.w3.org/XML/1998/namespace}lang") map { _.as[String]}
-  lazy val idsrc = attributes.get("@idsrc") map { _.as[String]}
-  lazy val valueAttribute = attributes.get("@value") map { _.as[String]}
-}
-
+  id: Option[String] = None,
+  classValue: Option[String] = None,
+  style: Option[String] = None,
+  xmllang: Option[String] = None,
+  idsrc: Option[String] = None,
+  valueAttribute: Option[String] = None) extends EnrichedTextOption
       
 
 trait LangOption
 
 case class Pronounce(mixed: Seq[scalaxb.DataRecord[Any]] = Nil,
-  attributes: Map[String, scalaxb.DataRecord[Any]] = Map()) extends EnrichedTextOption {
-  lazy val id = attributes.get("@id") map { _.as[String]}
-  lazy val classValue = attributes.get("@class") map { _.as[String]}
-  lazy val style = attributes.get("@style") map { _.as[String]}
-  lazy val xmllang = attributes.get("@{http://www.w3.org/XML/1998/namespace}lang") map { _.as[String]}
-  lazy val guide = attributes.get("@guide") map { _.as[String]}
-  lazy val phonetic = attributes.get("@phonetic") map { _.as[String]}
-}
-
+  id: Option[String] = None,
+  classValue: Option[String] = None,
+  style: Option[String] = None,
+  xmllang: Option[String] = None,
+  guide: Option[String] = None,
+  phonetic: Option[String] = None) extends EnrichedTextOption
       
 
 trait PronounceOption
 
 case class Q(mixed: Seq[scalaxb.DataRecord[Any]] = Nil,
-  attributes: Map[String, scalaxb.DataRecord[Any]] = Map()) extends EnrichedTextOption {
-  lazy val id = attributes.get("@id") map { _.as[String]}
-  lazy val classValue = attributes.get("@class") map { _.as[String]}
-  lazy val style = attributes.get("@style") map { _.as[String]}
-  lazy val xmllang = attributes.get("@{http://www.w3.org/XML/1998/namespace}lang") map { _.as[String]}
-  lazy val quoteSource = attributes.get("@quote-source") map { _.as[String]}
-}
-
+  id: Option[String] = None,
+  classValue: Option[String] = None,
+  style: Option[String] = None,
+  xmllang: Option[String] = None,
+  quoteSource: Option[String] = None) extends EnrichedTextOption
       
 
 trait QOption
@@ -1658,58 +1310,40 @@ trait QOption
 case class Addressee(person: com.gu.nitf.model.Person,
   function: Option[com.gu.nitf.model.FunctionType] = None,
   careOf: Option[com.gu.nitf.model.CareOf] = None,
-  attributes: Map[String, scalaxb.DataRecord[Any]] = Map()) {
-  lazy val id = attributes.get("@id") map { _.as[String]}
-}
-
+  id: Option[String] = None)
       
 
 
 case class CareOf(mixed: Seq[scalaxb.DataRecord[Any]] = Nil,
-  attributes: Map[String, scalaxb.DataRecord[Any]] = Map()) {
-  lazy val id = attributes.get("@id") map { _.as[String]}
-}
-
+  id: Option[String] = None)
       
 
 
 case class DeliveryPoint(mixed: Seq[scalaxb.DataRecord[Any]] = Nil,
-  attributes: Map[String, scalaxb.DataRecord[Any]] = Map()) {
-  lazy val id = attributes.get("@id") map { _.as[String]}
-  lazy val pointCode = attributes.get("@point-code") map { _.as[String]}
-  lazy val codeSource = attributes.get("@code-source") map { _.as[String]}
-}
-
+  id: Option[String] = None,
+  pointCode: Option[String] = None,
+  codeSource: Option[String] = None)
       
 
 trait DeliveryPointOption
 
 case class Postcode(mixed: Seq[scalaxb.DataRecord[Any]] = Nil,
-  attributes: Map[String, scalaxb.DataRecord[Any]] = Map()) extends PostaddrOption {
-  lazy val id = attributes.get("@id") map { _.as[String]}
-  lazy val codeSource = attributes.get("@code-source") map { _.as[String]}
-}
-
+  id: Option[String] = None,
+  codeSource: Option[String] = None) extends PostaddrOption
       
 
 
 case class DeliveryOffice(mixed: Seq[scalaxb.DataRecord[Any]] = Nil,
-  attributes: Map[String, scalaxb.DataRecord[Any]] = Map()) extends PostaddrOption {
-  lazy val id = attributes.get("@id") map { _.as[String]}
-  lazy val officeCode = attributes.get("@office-code") map { _.as[String]}
-  lazy val codeSource = attributes.get("@code-source") map { _.as[String]}
-}
-
+  id: Option[String] = None,
+  officeCode: Option[String] = None,
+  codeSource: Option[String] = None) extends PostaddrOption
       
 
 trait DeliveryOfficeOption
 
 case class BodyEnd(tagline: Option[com.gu.nitf.model.Tagline] = None,
   bibliography: Option[com.gu.nitf.model.Bibliography] = None,
-  attributes: Map[String, scalaxb.DataRecord[Any]] = Map()) {
-  lazy val id = attributes.get("@id") map { _.as[String]}
-}
-
+  id: Option[String] = None)
       
 
 trait TypeType3
@@ -1728,70 +1362,52 @@ case object NpaValue extends TypeType3 { override def toString = "npa" }
 
 
 case class Tagline(mixed: Seq[scalaxb.DataRecord[Any]] = Nil,
-  attributes: Map[String, scalaxb.DataRecord[Any]] = Map()) {
-  lazy val id = attributes.get("@id") map { _.as[String]}
-  lazy val classValue = attributes.get("@class") map { _.as[String]}
-  lazy val style = attributes.get("@style") map { _.as[String]}
-  lazy val xmllang = attributes.get("@{http://www.w3.org/XML/1998/namespace}lang") map { _.as[String]}
-  lazy val typeValue = attributes("@type").as[TypeType3]
-}
-
+  id: Option[String] = None,
+  classValue: Option[String] = None,
+  style: Option[String] = None,
+  xmllang: Option[String] = None,
+  typeValue: com.gu.nitf.model.TypeType3)
       
 
 trait TaglineOption
 
 case class Bibliography(mixed: Seq[scalaxb.DataRecord[Any]] = Nil,
-  attributes: Map[String, scalaxb.DataRecord[Any]] = Map()) {
-  lazy val id = attributes.get("@id") map { _.as[String]}
-  lazy val classValue = attributes.get("@class") map { _.as[String]}
-  lazy val style = attributes.get("@style") map { _.as[String]}
-  lazy val xmllang = attributes.get("@{http://www.w3.org/XML/1998/namespace}lang") map { _.as[String]}
-}
-
+  id: Option[String] = None,
+  classValue: Option[String] = None,
+  style: Option[String] = None,
+  xmllang: Option[String] = None)
       
 
 
 case class Classifier(mixed: Seq[scalaxb.DataRecord[Any]] = Nil,
-  attributes: Map[String, scalaxb.DataRecord[Any]] = Map()) extends EnrichedTextOption with IdentifiedContentOption {
-  lazy val id = attributes.get("@id") map { _.as[String]}
-  lazy val classValue = attributes.get("@class") map { _.as[String]}
-  lazy val style = attributes.get("@style") map { _.as[String]}
-  lazy val xmllang = attributes.get("@{http://www.w3.org/XML/1998/namespace}lang") map { _.as[String]}
-  lazy val typeValue = attributes.get("@type") map { _.as[String]}
-  lazy val idsrc = attributes.get("@idsrc") map { _.as[String]}
-  lazy val valueAttribute = attributes.get("@value") map { _.as[String]}
-}
-
+  id: Option[String] = None,
+  classValue: Option[String] = None,
+  style: Option[String] = None,
+  xmllang: Option[String] = None,
+  typeValue: Option[String] = None,
+  idsrc: Option[String] = None,
+  valueAttribute: Option[String] = None) extends EnrichedTextOption with IdentifiedContentOption
       
 
 trait ClassifierOption
 
 case class NitfTable(nitfTableMetadata: com.gu.nitf.model.NitfTableMetadata,
   nitftableoption: scalaxb.DataRecord[com.gu.nitf.model.NitfTableOption],
-  attributes: Map[String, scalaxb.DataRecord[Any]] = Map()) extends BlockContentOption {
-  lazy val id = attributes.get("@id") map { _.as[String]}
-}
-
+  id: Option[String] = None) extends BlockContentOption
       
 
 trait NitfTableOption
 
 case class CustomTable(mixed: Seq[scalaxb.DataRecord[Any]] = Nil,
-  attributes: Map[String, scalaxb.DataRecord[Any]] = Map()) extends NitfTableOption {
-  lazy val id = attributes.get("@id") map { _.as[String]}
-  lazy val classValue = attributes.get("@class") map { _.as[String]}
-  lazy val style = attributes.get("@style") map { _.as[String]}
-  lazy val xmllang = attributes.get("@{http://www.w3.org/XML/1998/namespace}lang") map { _.as[String]}
-}
-
+  id: Option[String] = None,
+  classValue: Option[String] = None,
+  style: Option[String] = None,
+  xmllang: Option[String] = None) extends NitfTableOption
       
 
 
-case class TableReference(attributes: Map[String, scalaxb.DataRecord[Any]] = Map()) extends NitfTableOption {
-  lazy val id = attributes.get("@id") map { _.as[String]}
-  lazy val idref = attributes("@idref").as[String]
-}
-
+case class TableReference(id: Option[String] = None,
+  idref: String) extends NitfTableOption
       
 
 trait Status
@@ -1813,42 +1429,33 @@ case object Official extends Status { override def toString = "official" }
 
 case class NitfTableMetadata(nitfTableSummary: Option[com.gu.nitf.model.NitfTableSummary] = None,
   nitftablemetadataoption: Seq[scalaxb.DataRecord[com.gu.nitf.model.NitfTableMetadataOption]] = Nil,
-  attributes: Map[String, scalaxb.DataRecord[Any]] = Map()) {
-  lazy val id = attributes.get("@id") map { _.as[String]}
-  lazy val classValue = attributes.get("@class") map { _.as[String]}
-  lazy val style = attributes.get("@style") map { _.as[String]}
-  lazy val xmllang = attributes.get("@{http://www.w3.org/XML/1998/namespace}lang") map { _.as[String]}
-  lazy val subclass = attributes.get("@subclass") map { _.as[String]}
-  lazy val idsrc = attributes.get("@idsrc") map { _.as[String]}
-  lazy val valueAttribute = attributes.get("@value") map { _.as[String]}
-  lazy val status = attributes.get("@status") map { _.as[Status]}
-  lazy val columnCount = attributes.get("@column-count") map { _.as[String]}
-  lazy val rowCount = attributes.get("@row-count") map { _.as[String]}
-}
-
+  id: Option[String] = None,
+  classValue: Option[String] = None,
+  style: Option[String] = None,
+  xmllang: Option[String] = None,
+  subclass: Option[String] = None,
+  idsrc: Option[String] = None,
+  valueAttribute: Option[String] = None,
+  status: Option[com.gu.nitf.model.Status] = None,
+  columnCount: Option[String] = None,
+  rowCount: Option[String] = None)
       
 
 trait NitfTableMetadataOption
 
 case class NitfTableSummary(p: Seq[com.gu.nitf.model.P] = Nil,
-  attributes: Map[String, scalaxb.DataRecord[Any]] = Map()) {
-  lazy val id = attributes.get("@id") map { _.as[String]}
-  lazy val classValue = attributes.get("@class") map { _.as[String]}
-  lazy val style = attributes.get("@style") map { _.as[String]}
-  lazy val xmllang = attributes.get("@{http://www.w3.org/XML/1998/namespace}lang") map { _.as[String]}
-}
-
+  id: Option[String] = None,
+  classValue: Option[String] = None,
+  style: Option[String] = None,
+  xmllang: Option[String] = None)
       
 
 
 case class NitfColgroup(nitfcolgroupsequence1: Seq[com.gu.nitf.model.NitfColgroupSequence1] = Nil,
-  attributes: Map[String, scalaxb.DataRecord[Any]] = Map()) extends NitfTableMetadataOption {
-  lazy val id = attributes.get("@id") map { _.as[String]}
-  lazy val idsrc = attributes.get("@idsrc") map { _.as[String]}
-  lazy val valueAttribute = attributes.get("@value") map { _.as[String]}
-  lazy val occurrences = attributes.get("@occurrences") map { _.as[String]}
-}
-
+  id: Option[String] = None,
+  idsrc: Option[String] = None,
+  valueAttribute: Option[String] = None,
+  occurrences: Option[String] = None) extends NitfTableMetadataOption
       
 
 case class NitfColgroupSequence1(nitfCol: com.gu.nitf.model.NitfCol)
@@ -1868,15 +1475,12 @@ case object Graphic extends DataType { override def toString = "graphic" }
 case object OtherValue3 extends DataType { override def toString = "other" }
 
 
-case class NitfCol(attributes: Map[String, scalaxb.DataRecord[Any]] = Map()) extends NitfTableMetadataOption {
-  lazy val id = attributes.get("@id") map { _.as[String]}
-  lazy val idsrc = attributes.get("@idsrc") map { _.as[String]}
-  lazy val valueAttribute = attributes.get("@value") map { _.as[String]}
-  lazy val occurrences = attributes.get("@occurrences") map { _.as[String]}
-  lazy val dataType = attributes.get("@data-type") map { _.as[DataType]}
-  lazy val dataFormat = attributes.get("@data-format") map { _.as[String]}
-}
-
+case class NitfCol(id: Option[String] = None,
+  idsrc: Option[String] = None,
+  valueAttribute: Option[String] = None,
+  occurrences: Option[String] = None,
+  dataType: Option[com.gu.nitf.model.DataType] = None,
+  dataFormat: Option[String] = None) extends NitfTableMetadataOption
       
 
 trait BlockContentOption

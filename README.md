@@ -49,14 +49,15 @@ The source files were generated using an
 [unreleased version of ScalaXB](https://github.com/hosamaly/scalaxb/archive/a54acf3d30f081dba5c12e7217556199952b7c2d.zip)
 that was built from source. Hopefully, it will be released in the main repository soon.
 
-The following command was used to generate the files for each version:
+The following command was used to generate the files:
 ```bash
 for v in 3.{3..6}; do
   scalaxb "schema/nitf-$v.xsd" \
     --outdir "$v" \
-    --symbol-encoding-strategy=discard \
-    --capitalize-words \
     --no-dispatch-client \
+    --named-attributes \
+    --capitalize-words \
+    --symbol-encoding-strategy=discard \
     --default-package com.gu.nitf.model \
     --protocol-package com.gu.nitf.scalaxb
 done

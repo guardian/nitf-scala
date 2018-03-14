@@ -30,12 +30,7 @@ object Build extends BuildDef with BuildCommon {
   override def rootProject = Some(
     Project(id = Metadata.projectName, base = file("."))
       .aggregate(leafProjects.map(Project.projectToRef): _*)
-      .settings(commonSettings ++ disabledPublishingSettings)
-      .settings(
-        crossScalaVersions := Dependencies.scalaVersions,
-        releaseCrossBuild := true,
-        releaseProcess := releasingProcess
-      )
+      .settings(commonSettings ++ releaseSettings ++ disabledPublishingSettings)
   )
 
   private def nitfProject(schemaVersion: String): Project = {
@@ -65,6 +60,7 @@ object BuildSettings {
     crossScalaVersions := Dependencies.scalaVersions,
     scalaVersion := Dependencies.scalaVersions.min,
     scalacOptions += "-target:jvm-1.8",
+    publishMavenStyle := true,
 
     dependencyCheckFailBuildOnCVSS := 4
   )
@@ -85,8 +81,15 @@ object BuildSettings {
     dependencyCheckSkip := true
   )
 
+  val releaseSettings: Seq[Setting[_]] = Seq(
+    releaseVcsSign := true,
+    releaseCrossBuild := true,
+    releaseProcess := releasingProcess,
+    releaseCommitMessage += "\n\n[ci skip]"
+  )
+
   val releasePublishAction: TaskKey[_] = PgpKeys.publishSigned
-  val releasingProcess: Seq[ReleaseStep] = Seq(ReleaseStep(identity)  /* no-op */
+  def releasingProcess: Seq[ReleaseStep] = Seq(ReleaseStep(identity)  /* no-op */
     , runClean
     , checkSnapshotDependencies
     , releaseStepTask(dependencyCheckAggregate)

@@ -69,14 +69,12 @@ class BuildersSpec extends FunSpec {
           .withTitle("News Article")
           .withDocData(docData)
           .withPublicationData(publicationData)
-          .build
         )
         .withBody(new BodyBuilder()
           .withHead(new BodyHeadBuilder()
             .withHeadline("News Article")
             .withByline("It took a lot of work to get there")
             .withAbstract(<p>It wasn't easy, but they <em>never</em> gave up!</p>)
-            .build
           )
           .withContent(new BodyContentBuilder()
             .withParagraph(new ParagraphBuilder().withText("It was done, really!"))
@@ -85,9 +83,7 @@ class BuildersSpec extends FunSpec {
               .withReference(new MediaReferenceBuilder()
                 .withSource(java.net.URI.create("https://upload.wikimedia.org/wikipedia/commons/7/70/Example.png"))
             ))
-            .build
           )
-          .build
         )
         .build
 

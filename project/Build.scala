@@ -2,6 +2,8 @@ import sbt._
 import sbt.Keys._
 import sbt.internal.BuildDef
 
+import scala.collection.breakOut
+
 import com.typesafe.sbt.SbtPgp.autoImport._
 import net.vonbuchholtz.sbt.dependencycheck.DependencyCheckPlugin.autoImport._
 import sbtrelease.ReleasePlugin.autoImport._
@@ -20,10 +22,13 @@ object Build extends BuildDef with BuildCommon {
   import BuildSettings._
 
   private val schemaVersions = Seq("3.3", "3.4", "3.5", "3.6")
+  private def projectsMap(factory: String => Project): Map[String, Project] =
+    schemaVersions.map(factory).map(p => p.id -> p)(breakOut)
 
-  lazy val mainProjects: Seq[Project] = schemaVersions.map(nitfProject)
-  lazy val testProjects: Seq[Project] = schemaVersions.map(testProject)
-  lazy val leafProjects: Seq[Project] = mainProjects ++ testProjects
+  lazy val mainProjects: Map[String, Project] = projectsMap(nitfProject)
+  lazy val testProjects: Map[String, Project] = projectsMap(testProject)
+  lazy val buildProjects: Map[String, Project] = Map("builders" -> buildersProject)
+  lazy val leafProjects: Seq[Project] = mainProjects.values.toSeq ++ buildProjects.values ++ testProjects.values
 
   override def projects: Seq[Project] = rootProject.toSeq ++ leafProjects
 
@@ -44,6 +49,13 @@ object Build extends BuildDef with BuildCommon {
       .settings(version := s"$schemaVersion.${(ThisBuild/version).value}")
   }
 
+  private def buildersProject: Project = {
+    val mainProjectId = projectId("3.3")  // TODO support all versions
+    Project(id = "builders", base = file("Builders"))
+      .settings(commonSettings ++ testSettings)
+      .dependsOn(mainProjects(mainProjectId))
+  }
+
   private def testProject(schemaVersion: String): Project = {
     val mainProjectId = projectId(schemaVersion)
     Project(id = mainProjectId + "Test", base = file("Tests"))
@@ -52,7 +64,7 @@ object Build extends BuildDef with BuildCommon {
         target := baseDirectory.value / s"target/$schemaVersion",
         javaOptions += s"-Dnitf.schema.version=$schemaVersion"
       )
-      .dependsOn(mainProjects.find(_.id == mainProjectId).get)
+      .dependsOn(mainProjects(mainProjectId))
   }
 
   private def projectId(schemaVersion: String) = "nitf" + schemaVersion.replaceAll("""\.""", "")

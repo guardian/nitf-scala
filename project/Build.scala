@@ -81,8 +81,9 @@ object BuildSettings {
 
   val testSettings: Seq[Setting[_]] = commonSettings ++ disabledPublishingSettings ++ Seq(
     fork := true,
+    dependencyCheckSkip := true,
     libraryDependencies ++= commonDependencies ++ Dependencies.testing,
-    dependencyCheckSkip := true
+    Test / testOptions += Tests.Argument(TestFrameworks.ScalaTest, "-oD")  // show individual test durations
   )
 
   val releasePublishAction: TaskKey[_] = PgpKeys.publishSigned

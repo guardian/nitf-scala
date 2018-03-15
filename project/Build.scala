@@ -27,8 +27,8 @@ object Build extends BuildDef with BuildCommon {
 
   lazy val mainProjects: Map[String, Project] = projectsMap(nitfProject)
   lazy val testProjects: Map[String, Project] = projectsMap(testProject)
-  lazy val buildProjects: Map[String, Project] = Map("builders" -> buildersProject)
-  lazy val leafProjects: Seq[Project] = mainProjects.values.toSeq ++ buildProjects.values ++ testProjects.values
+  lazy val builderProjects: Map[String, Project] = projectsMap(buildersProject)
+  lazy val leafProjects: Seq[Project] = mainProjects.values.toSeq ++ builderProjects.values ++ testProjects.values
 
   override def projects: Seq[Project] = rootProject.toSeq ++ leafProjects
 
@@ -49,10 +49,14 @@ object Build extends BuildDef with BuildCommon {
       .settings(version := s"$schemaVersion.${(ThisBuild/version).value}")
   }
 
-  private def buildersProject: Project = {
-    val mainProjectId = projectId("3.3")  // TODO support all versions
-    Project(id = "builders", base = file("Builders"))
+  private def buildersProject(schemaVersion: String): Project = {
+    val mainProjectId = projectId(schemaVersion)
+    Project(id = mainProjectId + "Builders", base = file("Builders"))
       .settings(commonSettings ++ testSettings)
+      .settings(
+        target := baseDirectory.value / s"target/$schemaVersion",
+        javaOptions += s"-Dnitf.schema.version=$schemaVersion"
+      )
       .dependsOn(mainProjects(mainProjectId))
   }
 

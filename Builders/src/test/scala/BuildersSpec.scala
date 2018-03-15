@@ -43,13 +43,16 @@ object BuildersSpec {
     abstract override def fatalError(ex: SAXParseException): Unit = { collect(ex); super.fatalError(ex) }
     protected def collect(ex: SAXParseException): Unit = { exceptions :+= ex }
   }
+
+  private val schemaVersion = System.getProperty("nitf.schema.version")  // defined in project/Build.scala
+  assume(Option(schemaVersion).getOrElse("") !== "")
 }
 
 class BuildersSpec extends FunSpec {
   import BuildersSpec._
 
   describe("builders") {
-    it("should produce valid NITF") {
+    it(s"should produce valid NITF (v$schemaVersion)") {
       val docData = new DocDataBuilder()
         .withUrgency(NewsUrgency.Two)
         .withManagementStatus(ManagementStatus.Usable)
@@ -89,7 +92,7 @@ class BuildersSpec extends FunSpec {
         .build
 
       val nitfXml = scalaxb.toXML(nitf, None, None, BareNitfNamespace).head
-      val validationErrors = validate(nitfXml, "../schema/nitf-3.3.xsd")
+      val validationErrors = validate(nitfXml, s"../schema/nitf-$schemaVersion.xsd")
       val formattedErrors = if (validationErrors.isEmpty) "" else validationErrors.mkString("\nValidation errors:\n", "\n", "\n")
       withClue(prettyPrint(nitfXml)) {
         formattedErrors shouldBe empty

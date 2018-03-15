@@ -21,7 +21,7 @@ libraryDependencies ++= Seq(
 )
 ```
 
-Example usage:
+This is an example of how to parse XML into NITF:
 ```scala
 import com.gu.nitf.model._
 import com.gu.nitf.scalaxb._
@@ -32,8 +32,21 @@ val doc = scalaxb.fromXML[Nitf](
     <body><body.content>World</body.content></body>
   </nitf>
 )
-// or
-val xml = scalaxb.toXML(doc, namespace = None, elementLabel = Some("nitf"), scope = defaultScope)
+```
+
+This is an example of how to create an NITF tree:
+```scala
+import com.gu.nitf.model.builders._
+
+val doc = new NitfBuilder()
+  .withHead(new HeadBuilder().withTitle("News Article"))
+  .withBody(new BodyBuilder()
+    .withContent(new BodyContentBuilder()
+      .withParagraph(new ParagraphBuilder().withText("That's it, really!"))
+  ))
+  .build
+
+val xml = scalaxb.toXML(doc, None, None, BareNitfNamespace)
 ```
 
 ## Specifications

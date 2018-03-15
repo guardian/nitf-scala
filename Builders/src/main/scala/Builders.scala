@@ -1,15 +1,17 @@
 package com.gu.nitf.model.builders
 
 import java.net.URI
-import java.time.{LocalDate, LocalDateTime}
+import java.time.LocalDate
+
+import scala.collection.breakOut
+import scala.collection.generic.CanBuildFrom
+import scala.xml.{NamespaceBinding, NodeSeq}
+
+import scalaxb._
 
 import com.gu.nitf.model._
 import com.gu.nitf.scalaxb._
-import com.gu.scalaxb.{dataRecord => dr}
-import com.gu.scalaxb._
-import scalaxb._
-
-import scala.xml.NodeSeq
+import com.gu.scalaxb.{dataRecord => dr, _}
 
 
 object `package` {
@@ -24,7 +26,7 @@ object `package` {
   type PublicationType = TypeType
   type TaglineType = TypeType3
 
-  val BareNitfNamespace = toScope(None -> defaultScope.uri)
+  val BareNitfNamespace: NamespaceBinding = toScope(None -> defaultScope.uri)
 
   private[builders] val DateTimeAttributeKey = "norm"
 }
@@ -150,7 +152,10 @@ class BodyHeadBuilder(var build: BodyHead = BodyHead()) extends Builder[BodyHead
   def withByline(x: Byline): this.type = { build = build.copy(byline = build.byline :+ x); this }
   def withHeadline(x: Hedline): this.type = { build = build.copy(hedline = build.hedline :+ x); this }
   def withDateline(x: Dateline): this.type = { build = build.copy(dateline = build.dateline :+ x); this }
-  def withAbstract(x: Abstract): this.type = { build = build.copy(abstractValue = Option(x)); this }
+  def withAbstract(x: Abstract): this.type = {
+    build = build.copy(abstractValue = Chooser.choose(build.abstractValue, x))
+    this
+  }
 }
 
 class HeadlineBuilder(var build: Hedline = Hedline(Hl1())) extends Builder[Hedline] {
@@ -207,7 +212,10 @@ class MediaBuilder(var build: Media = Media()) extends Builder[Media] {
   def withMetadata(key: String, value: String): this.type = withMetadata(new MediaMetadataBuilder(key, value))
   def withMetadata(x: MediaMetadata): this.type = { build = build.copy(mediaMetadata = build.mediaMetadata :+ x); this }
   def withCaption(x: MediaCaption): this.type = { build = build.copy(mediaCaption = build.mediaCaption :+ x); this }
-  def withProducer(x: MediaProducer): this.type = { build = build.copy(mediaProducer = Option(x)); this }
+  def withProducer(x: MediaProducer): this.type = {
+    build = build.copy(mediaProducer = Chooser.choose(build.mediaProducer, x))
+    this
+  }
   def withReference(x: MediaReference, y: Option[MediaObject] = None): this.type = {
     build = build.copy(mediasequence1 = build.mediasequence1 :+ MediaSequence1(x, y))
     this
@@ -262,5 +270,26 @@ class ParagraphBuilder(var build: P = P()) extends Builder[P] with EnrichedTextB
   }
   private def withAttribute(key: String, value: String): Unit = {
     build = build.copy(attributes = build.attributes ++ attrs(key -> value))
+  }
+}
+
+
+/** Encapsulates a strategy for choosing between (or combining) previous and new values.
+  *
+  * Used for cases when the API is different between two versions of NITF, in which case we rely on the compiler
+  * to resolve the correct chooser via implicit resolution.
+  */
+private[builders] trait Chooser[T, U] { def apply(previousValues: U, newValue: T): U }
+private[builders] object Chooser {
+  def choose[T, U](previousValues: U, newValue: T)(implicit chooser: Chooser[T, U]): U =
+    chooser(previousValues, newValue)
+
+  // when we only have room for one value, we choose the newer
+  implicit def optionChooser[T]: Chooser[T, Option[T]] = new Chooser[T, Option[T]] {
+    override def apply(previousValues: Option[T], newValue: T): Option[T] = Option(newValue)
+  }
+  // when we have room for multiple values, we concatenate them
+  implicit def collectionChooser[T, U <: Traversable[T]](implicit bf: CanBuildFrom[U, T, U]): Chooser[T, U] = new Chooser[T, U] {
+    override def apply(previousValues: U, newValue: T): U = previousValues.++(List(newValue))(breakOut)
   }
 }

@@ -1,25 +1,22 @@
-import java.time.LocalDate
-
-import org.scalatest.FunSpec
-import java.time._
 import java.io.{ByteArrayInputStream, StringReader}
 import java.nio.file.{Files, Path, Paths}
+import java.time.LocalDate
 
 import javax.xml.XMLConstants._
+import javax.xml.transform.Source
 import javax.xml.transform.stream.StreamSource
 import javax.xml.validation.SchemaFactory
-import javax.xml.parsers.SAXParserFactory
 
-import scala.xml.factory.XMLLoader
 import scala.xml._
+import scala.xml.parsing.ConsoleErrorHandler
+
+import org.scalatest.FunSpec
+import org.scalatest.Matchers._
+import org.xml.sax.ErrorHandler
+
 import com.gu.nitf.model._
 import com.gu.nitf.scalaxb._
 import com.gu.nitf.model.builders._
-import javax.xml.transform.Source
-import org.xml.sax.ErrorHandler
-import org.scalatest.Matchers._
-
-import scala.xml.parsing.ConsoleErrorHandler
 
 object BuildersSpec {
   def prettyPrint(n: scala.xml.Node): String = new PrettyPrinter(200, 2).format(n)
@@ -30,7 +27,7 @@ object BuildersSpec {
     val schema = SchemaFactory.newInstance(W3C_XML_SCHEMA_NS_URI).newSchema(xsdSources.toArray)
 
     val validator = schema.newValidator()
-    val errorHandler = new ConsoleErrorHandler with ExceptionSuppressingSaxErrorHandler
+    val errorHandler = new ConsoleErrorHandler with ExceptionCollectingSaxErrorHandler
     validator.setErrorHandler(errorHandler)
     validator.validate(new StreamSource(new StringReader(xmlContents.toString)))
     errorHandler.exceptions
@@ -39,12 +36,12 @@ object BuildersSpec {
   private def xsdSource(xsdPath: Path): Source =
     new StreamSource(new ByteArrayInputStream(Files.readAllBytes(xsdPath)))
 
-  private trait ExceptionSuppressingSaxErrorHandler extends ErrorHandler {
+  private trait ExceptionCollectingSaxErrorHandler extends ErrorHandler {
     var exceptions = Seq.empty[SAXParseException]
-    abstract override def warning   (ex: SAXParseException): Unit = { suppress(ex); super.warning(ex) }
-    abstract override def error     (ex: SAXParseException): Unit = { suppress(ex); super.error(ex) }
-    abstract override def fatalError(ex: SAXParseException): Unit = { suppress(ex); super.fatalError(ex) }
-    protected def suppress(ex: SAXParseException): Unit = { exceptions :+= ex }
+    abstract override def warning   (ex: SAXParseException): Unit = { collect(ex); super.warning(ex) }
+    abstract override def error     (ex: SAXParseException): Unit = { collect(ex); super.error(ex) }
+    abstract override def fatalError(ex: SAXParseException): Unit = { collect(ex); super.fatalError(ex) }
+    protected def collect(ex: SAXParseException): Unit = { exceptions :+= ex }
   }
 }
 
@@ -80,6 +77,11 @@ class BuildersSpec extends FunSpec {
           )
           .withContent(new BodyContentBuilder()
             .withParagraph(new ParagraphBuilder().withText("It was done, really!"))
+            .withMedia(new MediaBuilder()
+              .withType(MediaType.Image)
+              .withReference(new MediaReferenceBuilder()
+                .withSource(java.net.URI.create("https://upload.wikimedia.org/wikipedia/commons/7/70/Example.png"))
+            ))
             .build
           )
           .build
@@ -87,10 +89,11 @@ class BuildersSpec extends FunSpec {
         .build
 
       val nitfXml = scalaxb.toXML(nitf, None, None, BareNitfNamespace).head
-      // println("generated XML:\n" + prettyPrint(nitfXml))
       val validationErrors = validate(nitfXml, "../schema/nitf-3.3.xsd")
-      val formattedErrors = if (validationErrors.isEmpty) "" else validationErrors.mkString("Validation errors:\n", "\n", "\n")
-      formattedErrors shouldBe empty
+      val formattedErrors = if (validationErrors.isEmpty) "" else validationErrors.mkString("\nValidation errors:\n", "\n", "\n")
+      withClue(prettyPrint(nitfXml)) {
+        formattedErrors shouldBe empty
+      }
     }
   }
 }

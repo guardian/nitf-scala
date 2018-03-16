@@ -88,7 +88,7 @@ class BuildersSpec extends FunSpec {
         .build
 
       val nitfXml = scalaxb.toXML(nitf, None, None, BareNitfNamespace).head
-      val validationErrors = validate(nitfXml, s"../schema/nitf-$schemaVersion.xsd")
+      val validationErrors = validate(nitfXml, s"src/test/resources/nitf-$schemaVersion.xsd")
       val formattedErrors = if (validationErrors.isEmpty) "" else validationErrors.mkString("\nValidation errors:\n", "\n", "\n")
       withClue(prettyPrint(nitfXml)) {
         formattedErrors shouldBe empty

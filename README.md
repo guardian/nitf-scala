@@ -65,7 +65,7 @@ that was built from source. Hopefully, it will be released in the main repositor
 The following command was used to generate the files for each version:
 ```bash
 for v in 3.{3..6}; do
-  scalaxb "schema/nitf-$v.xsd" \
+  scalaxb "src/test/resources/nitf-$v.xsd" \
     --outdir "$v" \
     --symbol-encoding-strategy=discard \
     --capitalize-words \

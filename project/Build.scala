@@ -22,62 +22,41 @@ object Build extends BuildDef with BuildCommon {
   import BuildSettings._
 
   private val schemaVersions = Seq("3.3", "3.4", "3.5", "3.6")
-  private def projectsMap(factory: String => Project): Map[String, Project] =
-    schemaVersions.map(factory).map(p => p.id -> p)(breakOut)
+  lazy val mainProjects: Seq[Project] = schemaVersions.map(nitfProject)
 
-  lazy val mainProjects: Map[String, Project] = projectsMap(nitfProject)
-  lazy val testProjects: Map[String, Project] = projectsMap(testProject)
-  lazy val builderProjects: Map[String, Project] = projectsMap(buildersProject)
-  lazy val leafProjects: Seq[Project] = mainProjects.values.toSeq ++ builderProjects.values ++ testProjects.values
-
-  override def projects: Seq[Project] = rootProject.toSeq ++ leafProjects
+  override def projects: Seq[Project] = rootProject.toSeq ++ mainProjects
 
   override def rootProject = Some(
-    Project(id = Metadata.projectName, base = file("."))
-      .aggregate(leafProjects.map(Project.projectToRef): _*)
+    Project(id = "root", base = file("."))
+      .aggregate(mainProjects.map(Project.projectToRef): _*)
       .settings(commonSettings ++ disabledPublishingSettings)
       .settings(
-        crossScalaVersions := Dependencies.scalaVersions,
+        Compile / sources := Seq.empty,
+        Test    / sources := Seq.empty,
+        releaseVcsSign := true,
         releaseCrossBuild := true,
+        releaseCommitMessage += "\n\n[ci skip]",
         releaseProcess := releasingProcess
       )
   )
 
   private def nitfProject(schemaVersion: String): Project = {
-    Project(id = projectId(schemaVersion), base = file(schemaVersion))
+    Project(id = projectId(schemaVersion), base = file("."))
       .settings(mainSettings)
-      .settings(version := s"$schemaVersion.${(ThisBuild/version).value}")
-  }
-
-  private def buildersProject(schemaVersion: String): Project = {
-    val mainProjectId = projectId(schemaVersion)
-    Project(id = mainProjectId + "Builders", base = file("Builders"))
-      .settings(commonSettings ++ testSettings)
       .settings(
+        version := s"$schemaVersion.${(ThisBuild/version).value}",
         target := baseDirectory.value / s"target/$schemaVersion",
-        javaOptions += s"-Dnitf.schema.version=$schemaVersion"
+        Compile / unmanagedSourceDirectories += baseDirectory.value / s"src/main/$schemaVersion",
+        Test / javaOptions += s"-Dnitf.schema.version=$schemaVersion"
       )
-      .dependsOn(mainProjects(mainProjectId))
-  }
-
-  private def testProject(schemaVersion: String): Project = {
-    val mainProjectId = projectId(schemaVersion)
-    Project(id = mainProjectId + "Test", base = file("Tests"))
-      .settings(testSettings)
-      .settings(
-        target := baseDirectory.value / s"target/$schemaVersion",
-        javaOptions += s"-Dnitf.schema.version=$schemaVersion"
-      )
-      .dependsOn(mainProjects(mainProjectId))
   }
 
   private def projectId(schemaVersion: String) = "nitf" + schemaVersion.replaceAll("""\.""", "")
 }
 
 object BuildSettings {
-  val commonDependencies: Seq[ModuleID] = Dependencies.xmlParsing
-
   val commonSettings: Seq[Setting[_]] = Metadata.settings ++ Seq(
+    name := Metadata.projectName,
     crossScalaVersions := Dependencies.scalaVersions,
     scalaVersion := Dependencies.scalaVersions.min,
     scalacOptions += "-target:jvm-1.8",
@@ -90,15 +69,10 @@ object BuildSettings {
   )
 
   val mainSettings: Seq[Setting[_]] = commonSettings ++ Seq(
-    name := "nitf-scala",
     publishTo := sonatypePublishTo.value,
-    libraryDependencies ++= commonDependencies
-  )
+    libraryDependencies ++= Dependencies.xmlParsing ++ Dependencies.testing,
 
-  val testSettings: Seq[Setting[_]] = commonSettings ++ disabledPublishingSettings ++ Seq(
-    fork := true,
-    dependencyCheckSkip := true,
-    libraryDependencies ++= commonDependencies ++ Dependencies.testing,
+    Test / fork := true,
     Test / testOptions += Tests.Argument(TestFrameworks.ScalaTest, "-oD")  // show individual test durations
   )
 

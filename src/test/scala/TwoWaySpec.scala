@@ -1,32 +1,21 @@
 
-import java.net.URL
-import java.nio.file.{Files, Paths}
-
-import com.gu.nitf.model.Nitf
-import com.gu.nitf.scalaxb._
-
-import com.github.andyglow.xml.diff._
-import org.scalatest.Matchers._
-import org.scalatest._
-
 import scala.PartialFunction.condOpt
 import scala.xml._
 import scala.xml.transform._
 
-object ResourceUtils {
-  def resource(fileName: String): URL =
-    Option(Thread.currentThread.getContextClassLoader)
-      .getOrElse(classOf[TwoWaySpec].getClassLoader)
-      .getResource(fileName)
-}
+import com.github.andyglow.xml.diff._
+import org.scalatest._
+import org.scalatest.Matchers._
+import org.scalatest.xml.XmlMatchers._
+import Utils._
+
+import com.gu.nitf.model.Nitf
+import com.gu.nitf.scalaxb._
 
 /** This test is run for each version of the NITF specification
   * to test that we can read and (re)write the example that is distributed with the spec.
   */
 object TwoWaySpec {
-  private val schemaVersion = System.getProperty("nitf.schema.version")  // defined in project/Build.scala
-  assume(Option(schemaVersion).getOrElse("") !== "")
-
   // create a scope similar to `defaultScope` but without the "xs" namespace and with the extra namespace(s) in the example
   private val namespaces =
     flatten(defaultScope).map(s => s.prefix -> s.uri).toMap
@@ -39,22 +28,9 @@ object TwoWaySpec {
 
   private def flatten(scope: NamespaceBinding): Seq[NamespaceBinding] =
     NamespaceBinding(scope.prefix, scope.uri, TopScope) +: Option(scope.parent).toSeq.flatMap(flatten)
-
-  private def prettyPrint(n: Node) = new PrettyPrinter(200, 2).format(Utility.sort(Utility.trim(n)))
-
-  private implicit class RichMetaData(val metaData: MetaData) extends AnyVal {
-    def without(unwantedAttributes: Seq[String]): MetaData = unwantedAttributes.foldLeft(metaData)(_ remove _)
-  }
-
-  private implicit class RichElem(val e: Elem) extends AnyVal {
-    def withAttribute(prefix: String, key: String, value: String): Elem = e % Attribute(prefix, key, value, Null)
-    def withAttributes(attrs: Attribute*): Elem = attrs.foldLeft(e)(_ % _)
-    def withoutAttributes(unwanted: String*): Elem = e.copy(attributes = e.attributes.without(unwanted))
-  }
 }
 
 class TwoWaySpec extends FunSpec {
-  import ResourceUtils._
   import TwoWaySpec._
 
   describe("the parser") {
@@ -65,6 +41,7 @@ class TwoWaySpec extends FunSpec {
 
       val parsed = scalaxb.fromXML[Nitf](example)
       val generated = scalaxb.toXML(parsed, namespace = None, elementLabel = Some("nitf"), fullScope).head
+      validate(generated)
 
       // update the generated XML with unimportant properties in order to be able to compare it with the input
       // this is because ScalaXB doesn't emit fixed attributes or default values
@@ -87,20 +64,14 @@ class TwoWaySpec extends FunSpec {
       val actual = removeFixedAndAddDefaultAttrs(generated)
       val expected = example.withoutAttributes("version")  // some examples have it while others don't
 
-      // for debugging:
-      val outputDir = Files.createDirectories(Paths.get("target/tmp"))
-      Seq("actual" -> actual, "expected" -> expected).foreach { case (fileName, xml) =>
-        Files.write(outputDir.resolve(s"$fileName.xml"), prettyPrint(xml).getBytes("UTF8"))
-      }
+      // for debugging purposes:
+      writeTemporaryFile("actual", actual)
+      writeTemporaryFile("expected", expected)
 
       val diff = expected =#= actual.asInstanceOf[Elem]
-      if (!diff.successful) {
-        info(diff.toString)
-        info(diff.errorMessage)
+      withClue(diff.toString + "\n" + diff.errorMessage) {
+        actual should beXml(expected, ignoreWhitespace = true)
       }
-
-      import org.scalatest.xml.XmlMatchers._
-      actual should beXml(expected, ignoreWhitespace = true)
     }
   }
 }

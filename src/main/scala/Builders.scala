@@ -11,7 +11,7 @@ import scalaxb._
 
 import com.gu.nitf.model._
 import com.gu.nitf.scalaxb._
-import com.gu.scalaxb.{dataRecord => dr, _}
+import com.gu.scalaxb._
 
 
 object `package` {
@@ -43,8 +43,6 @@ trait Builder[T] {
 }
 
 trait EnrichedTextBuilder {
-  def withText(x: String): this.type = withContent(dr(x))
-  def withXml(x: NodeSeq): this.type = withContent(dr(x))
   def withAnchor(x: A): this.type = withEnrichedText(x)
   def withChron(x: Chron): this.type = withEnrichedText(x)
   def withEmphasis(x: Em): this.type = withEnrichedText(x)
@@ -64,8 +62,10 @@ trait EnrichedTextBuilder {
   def withObjectTitle(x: ObjectTitle): this.type = withEnrichedText(x)
   def withPronunciation(x: Pronounce): this.type = withEnrichedText(x)
   def withVirtualLocation(x: Virtloc): this.type = withEnrichedText(x)
+  def withXml(x: NodeSeq): this.type = withContent(dataRecord(x))
+  def withText(x: String): this.type = withContent(dataRecord(x))
 
-  protected def withEnrichedText[T <: EnrichedTextOption : CanWriteXML](x: T): this.type = withContent(dr(x))
+  protected def withEnrichedText[T <: EnrichedTextOption : CanWriteXML](x: T): this.type = withContent(dataRecord(x))
   protected def withContent(x: DataRecord[_]): this.type
 }
 
@@ -79,7 +79,7 @@ class NitfBuilder(var build: Nitf = Nitf(body = Body())) extends Builder[Nitf] {
 }
 
 class HeadBuilder(var build: Head = Head()) extends Builder[Head] {
-  def withTitle(x: String): this.type = { build = build.copy(title = Option(x).map(t => Title(Seq(dr(t))))); this }
+  def withTitle(x: String): this.type = { build = build.copy(title = Option(x).map(t => Title(Seq(dataRecord(t))))); this }
   def withDocData(x: Docdata): this.type = { build = build.copy(docdata = Option(x)); this }
   def withPublicationData(x: Pubdata): this.type = { build = build.copy(pubdata = build.pubdata :+ x); this }
 }
@@ -95,7 +95,7 @@ class DocDataBuilder(var build: Docdata = Docdata()) extends Builder[Docdata] {
     this
   }
   private def withDocDataOption[T <: DocdataOption : CanWriteXML](x: T): this.type = {
-    build = build.copy(docdataoption = build.docdataoption :+ dr(x))
+    build = build.copy(docdataoption = build.docdataoption :+ dataRecord(x))
     this
   }
 }
@@ -135,13 +135,13 @@ class BodyBuilder(var build: Body = Body()) extends Builder[Body] {
 }
 
 class BodyHeadBuilder(var build: BodyHead = BodyHead()) extends Builder[BodyHead] {
-  def withByline(x: String): this.type = withByline(Byline(Seq(dr(x))))
+  def withByline(x: String): this.type = withByline(Byline(Seq(dataRecord(x))))
   def withHeadline(x: String): this.type = withHeadline(new HeadlineBuilder().withPrimaryHeadline(x))
-  def withAbstract(x: NodeSeq): this.type = withAbstract(Abstract(Seq(dr(x))))
+  def withAbstract(x: NodeSeq): this.type = withAbstract(Abstract(Seq(dataRecord(x))))
   def withAbstract(x: String, markAsSummary: Boolean = true): this.type = {
     var paragraphBuilder = new ParagraphBuilder().withText(x)
     if (markAsSummary) paragraphBuilder = paragraphBuilder.asSummary
-    withAbstract(Abstract(Seq(dr(paragraphBuilder.build))))
+    withAbstract(Abstract(Seq(dataRecord(paragraphBuilder.build))))
   }
 
   def withRights(x: Rights): this.type = { build = build.copy(rights = Option(x)); this }
@@ -162,7 +162,7 @@ class HeadlineBuilder(var build: Hedline = Hedline(Hl1())) extends Builder[Hedli
   def withPrimaryHeadline(x: Hl1): this.type = { build = build.copy(hl1 = x); this }
   def withPrimaryHeadline(x: String): this.type = { withPrimaryHeadline(new PrimaryHeadlineBuilder(build.hl1).withText(x)) }
   def withSubordinateHeadline(x: Hl2): this.type = { build = build.copy(hl2 = build.hl2 :+ x); this }
-  def withSubordinateHeadline(x: String): this.type = { withSubordinateHeadline(Hl2(Seq(dr(x)))); this }
+  def withSubordinateHeadline(x: String): this.type = { withSubordinateHeadline(Hl2(Seq(dataRecord(x)))); this }
 }
 
 class PrimaryHeadlineBuilder(var build: Hl1 = Hl1()) extends Builder[Hl1] with EnrichedTextBuilder {
@@ -170,7 +170,6 @@ class PrimaryHeadlineBuilder(var build: Hl1 = Hl1()) extends Builder[Hl1] with E
 }
 
 trait BlockContentBuilder {
-  def withXml(x: NodeSeq): this.type = withContent(dr(x))
   def withNote(x: Note): this.type = withBlockContent(x)
   def withFootnote(x: Fn): this.type = withBlockContent(x)
   def withMedia(x: Media): this.type = withBlockContent(x)
@@ -184,13 +183,14 @@ trait BlockContentBuilder {
   def withHorizontalRule(x: Hr): this.type = withBlockContent(x)
   def withNitfTable(x: NitfTable): this.type = withBlockContent(x)
   def withSubordinateHeadline(x: Hl2): this.type = withBlockContent(x)
+  def withXml(x: NodeSeq): this.type = withContent(dataRecord(x))
 
-  protected def withBlockContent[T <: BlockContentOption : CanWriteXML](x: T): this.type = withContent(dr(x))
+  protected def withBlockContent[T <: BlockContentOption : CanWriteXML](x: T): this.type = withContent(dataRecord(x))
   protected def withContent(x: DataRecord[_]): this.type
 }
 
 class BodyContentBuilder(var build: BodyContent = BodyContent()) extends Builder[BodyContent] with BlockContentBuilder {
-  def withBlock(x: Block): this.type = withContent(dr(x))
+  def withBlock(x: Block): this.type = withContent(dataRecord(x))
   protected override def withContent(x: DataRecord[_]): this.type = {
     build = build.copy(bodycontentoption = build.bodycontentoption :+ x)
     this

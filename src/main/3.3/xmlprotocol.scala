@@ -392,28 +392,23 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
       { case p1 ~ p2 =>
       com.gu.nitf.model.Nitf(p1.headOption map { scalaxb.fromXML[com.gu.nitf.model.Head](_, scalaxb.ElemName(node) :: stack) },
         scalaxb.fromXML[com.gu.nitf.model.Body](p2, scalaxb.ElemName(node) :: stack),
-        scala.collection.immutable.ListMap(List(
-        (node \ "@id").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@id" -> _ },
-        (node \ "@uno").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@uno" -> _ },
-        Some(scalaxb.DataRecord(None, None, scalaxb.fromXML[String](scala.xml.Text("-//IPTC//DTD NITF 3.3//EN"), scalaxb.ElemName(node) :: stack))) map { "@version" -> _ },
-        Some(scalaxb.DataRecord(None, None, scalaxb.fromXML[String](scala.xml.Text("March 4, 2005"), scalaxb.ElemName(node) :: stack))) map { "@change.date" -> _ },
-        Some(scalaxb.DataRecord(None, None, scalaxb.fromXML[String](scala.xml.Text("19:30"), scalaxb.ElemName(node) :: stack))) map { "@change.time" -> _ },
-        (node \ "@baselang").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@baselang" -> _ },
-        (node \ "@class").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[Seq[String]](x, scalaxb.ElemName(node) :: stack)) } map { "@class" -> _ }
-        ).flatten[(String, scalaxb.DataRecord[Any])]: _*)) })
+        (node \ "@id").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@uno").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        scalaxb.fromXML[String](scala.xml.Text("-//IPTC//DTD NITF 3.3//EN"), scalaxb.ElemName(node) :: stack),
+        scalaxb.fromXML[String](scala.xml.Text("March 4, 2005"), scalaxb.ElemName(node) :: stack),
+        scalaxb.fromXML[String](scala.xml.Text("19:30"), scalaxb.ElemName(node) :: stack),
+        (node \ "@baselang").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@class").headOption map { scalaxb.fromXML[Seq[String]](_, scalaxb.ElemName(node) :: stack) }) })
     
     override def writesAttribute(__obj: com.gu.nitf.model.Nitf, __scope: scala.xml.NamespaceBinding): scala.xml.MetaData = {
       var attr: scala.xml.MetaData  = scala.xml.Null
-      __obj.attributes.toList map {
-        case ("@id", _) => __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
-        case ("@uno", _) => __obj.uno foreach { x => attr = scala.xml.Attribute(null, "uno", x.toString, attr) }
-        case ("@version", _) => attr = scala.xml.Attribute(null, "version", __obj.version.toString, attr)
-        case ("@change.date", _) => attr = scala.xml.Attribute(null, "change.date", __obj.changeDate.toString, attr)
-        case ("@change.time", _) => attr = scala.xml.Attribute(null, "change.time", __obj.changeTime.toString, attr)
-        case ("@baselang", _) => __obj.baselang foreach { x => attr = scala.xml.Attribute(null, "baselang", x.toString, attr) }
-        case ("@class", _) => __obj.classValue foreach { x => attr = scala.xml.Attribute(null, "class", x.toString, attr) }
-        case (key, x) => attr = scala.xml.Attribute((x.namespace map { __scope.getPrefix(_) }).orNull, x.key.orNull, x.value.toString, attr)
-      }
+      __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
+      __obj.uno foreach { x => attr = scala.xml.Attribute(null, "uno", x.toString, attr) }
+      attr = scala.xml.Attribute(null, "version", __obj.version.toString, attr)
+      attr = scala.xml.Attribute(null, "change.date", __obj.changeDate.toString, attr)
+      attr = scala.xml.Attribute(null, "change.time", __obj.changeTime.toString, attr)
+      __obj.baselang foreach { x => attr = scala.xml.Attribute(null, "baselang", x.toString, attr) }
+      __obj.classValue foreach { x => attr = scala.xml.Attribute(null, "class", x.toString, attr) }
       attr
     }
 
@@ -443,16 +438,11 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
         p5.headOption map { scalaxb.fromXML[com.gu.nitf.model.Docdata](_, scalaxb.ElemName(node) :: stack) },
         p6 map { scalaxb.fromXML[com.gu.nitf.model.Pubdata](_, scalaxb.ElemName(node) :: stack) },
         p7 map { scalaxb.fromXML[com.gu.nitf.model.RevisionHistory](_, scalaxb.ElemName(node) :: stack) },
-        scala.collection.immutable.ListMap(List(
-        (node \ "@id").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@id" -> _ }
-        ).flatten[(String, scalaxb.DataRecord[Any])]: _*)) })
+        (node \ "@id").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) }) })
     
     override def writesAttribute(__obj: com.gu.nitf.model.Head, __scope: scala.xml.NamespaceBinding): scala.xml.MetaData = {
       var attr: scala.xml.MetaData  = scala.xml.Null
-      __obj.attributes.toList map {
-        case ("@id", _) => __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
-        case (key, x) => attr = scala.xml.Attribute((x.namespace map { __scope.getPrefix(_) }).orNull, x.key.orNull, x.value.toString, attr)
-      }
+      __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
       attr
     }
 
@@ -504,18 +494,13 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
       phrase(optTextRecord ^^
       { case p1 =>
       com.gu.nitf.model.Title(Seq.concat(p1.toList),
-        scala.collection.immutable.ListMap(List(
-        (node \ "@id").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@id" -> _ },
-        (node \ "@type").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[com.gu.nitf.model.Type](x, scalaxb.ElemName(node) :: stack)) } map { "@type" -> _ }
-        ).flatten[(String, scalaxb.DataRecord[Any])]: _*)) })
+        (node \ "@id").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@type").headOption map { scalaxb.fromXML[com.gu.nitf.model.Type](_, scalaxb.ElemName(node) :: stack) }) })
     
     override def writesAttribute(__obj: com.gu.nitf.model.Title, __scope: scala.xml.NamespaceBinding): scala.xml.MetaData = {
       var attr: scala.xml.MetaData  = scala.xml.Null
-      __obj.attributes.toList map {
-        case ("@id", _) => __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
-        case ("@type", _) => __obj.typeValue foreach { x => attr = scala.xml.Attribute(null, "type", x.toString, attr) }
-        case (key, x) => attr = scala.xml.Attribute((x.namespace map { __scope.getPrefix(_) }).orNull, x.key.orNull, x.value.toString, attr)
-      }
+      __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
+      __obj.typeValue foreach { x => attr = scala.xml.Attribute(null, "type", x.toString, attr) }
       attr
     }
 
@@ -530,24 +515,19 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
     import scalaxb.ElemName._
     
     def reads(seq: scala.xml.NodeSeq, stack: List[scalaxb.ElemName]): Either[String, com.gu.nitf.model.Meta] = seq match {
-      case node: scala.xml.Node => Right(com.gu.nitf.model.Meta(scala.collection.immutable.ListMap(List(
-        (node \ "@id").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@id" -> _ },
-        (node \ "@http-equiv").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@http-equiv" -> _ },
-        (node \ "@name").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@name" -> _ },
-        (node \ "@content").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@content" -> _ }
-        ).flatten[(String, scalaxb.DataRecord[Any])]: _*)))
+      case node: scala.xml.Node => Right(com.gu.nitf.model.Meta((node \ "@id").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@http-equiv").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@name").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        scalaxb.fromXML[String]((node \ "@content"), scalaxb.ElemName(node) :: stack)))
       case _ => Left("reads failed: seq must be scala.xml.Node")
     }
     
     override def writesAttribute(__obj: com.gu.nitf.model.Meta, __scope: scala.xml.NamespaceBinding): scala.xml.MetaData = {
       var attr: scala.xml.MetaData  = scala.xml.Null
-      __obj.attributes.toList map {
-        case ("@id", _) => __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
-        case ("@http-equiv", _) => __obj.httpEquiv foreach { x => attr = scala.xml.Attribute(null, "http-equiv", x.toString, attr) }
-        case ("@name", _) => __obj.name foreach { x => attr = scala.xml.Attribute(null, "name", x.toString, attr) }
-        case ("@content", _) => attr = scala.xml.Attribute(null, "content", __obj.content.toString, attr)
-        case (key, x) => attr = scala.xml.Attribute((x.namespace map { __scope.getPrefix(_) }).orNull, x.key.orNull, x.value.toString, attr)
-      }
+      __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
+      __obj.httpEquiv foreach { x => attr = scala.xml.Attribute(null, "http-equiv", x.toString, attr) }
+      __obj.name foreach { x => attr = scala.xml.Attribute(null, "name", x.toString, attr) }
+      attr = scala.xml.Attribute(null, "content", __obj.content.toString, attr)
       attr
     }
 
@@ -567,18 +547,13 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
       { case p1 ~ p2 =>
       com.gu.nitf.model.Tobject(p1 map { scalaxb.fromXML[com.gu.nitf.model.TobjectProperty](_, scalaxb.ElemName(node) :: stack) },
         p2 map { scalaxb.fromXML[com.gu.nitf.model.TobjectSubject](_, scalaxb.ElemName(node) :: stack) },
-        scala.collection.immutable.ListMap(List(
-        (node \ "@id").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@id" -> _ },
-        (node \ "@tobject.type").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } orElse Some(scalaxb.DataRecord(None, None, scalaxb.fromXML[String](scala.xml.Text("news"), scalaxb.ElemName(node) :: stack))) map { "@tobject.type" -> _ }
-        ).flatten[(String, scalaxb.DataRecord[Any])]: _*)) })
+        (node \ "@id").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@tobject.type").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) } getOrElse { scalaxb.fromXML[String](scala.xml.Text("news"), scalaxb.ElemName(node) :: stack) }) })
     
     override def writesAttribute(__obj: com.gu.nitf.model.Tobject, __scope: scala.xml.NamespaceBinding): scala.xml.MetaData = {
       var attr: scala.xml.MetaData  = scala.xml.Null
-      __obj.attributes.toList map {
-        case ("@id", _) => __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
-        case ("@tobject.type", _) => if (__obj.tobjectType.toString != "news") attr = scala.xml.Attribute(null, "tobject.type", __obj.tobjectType.toString, attr)
-        case (key, x) => attr = scala.xml.Attribute((x.namespace map { __scope.getPrefix(_) }).orNull, x.key.orNull, x.value.toString, attr)
-      }
+      __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
+      if (__obj.tobjectType.toString != "news") attr = scala.xml.Attribute(null, "tobject.type", __obj.tobjectType.toString, attr)
       attr
     }
 
@@ -594,20 +569,15 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
     import scalaxb.ElemName._
     
     def reads(seq: scala.xml.NodeSeq, stack: List[scalaxb.ElemName]): Either[String, com.gu.nitf.model.TobjectProperty] = seq match {
-      case node: scala.xml.Node => Right(com.gu.nitf.model.TobjectProperty(scala.collection.immutable.ListMap(List(
-        (node \ "@id").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@id" -> _ },
-        (node \ "@tobject.property.type").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } orElse Some(scalaxb.DataRecord(None, None, scalaxb.fromXML[String](scala.xml.Text("current"), scalaxb.ElemName(node) :: stack))) map { "@tobject.property.type" -> _ }
-        ).flatten[(String, scalaxb.DataRecord[Any])]: _*)))
+      case node: scala.xml.Node => Right(com.gu.nitf.model.TobjectProperty((node \ "@id").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@tobject.property.type").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) } getOrElse { scalaxb.fromXML[String](scala.xml.Text("current"), scalaxb.ElemName(node) :: stack) }))
       case _ => Left("reads failed: seq must be scala.xml.Node")
     }
     
     override def writesAttribute(__obj: com.gu.nitf.model.TobjectProperty, __scope: scala.xml.NamespaceBinding): scala.xml.MetaData = {
       var attr: scala.xml.MetaData  = scala.xml.Null
-      __obj.attributes.toList map {
-        case ("@id", _) => __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
-        case ("@tobject.property.type", _) => if (__obj.tobjectPropertyType.toString != "current") attr = scala.xml.Attribute(null, "tobject.property.type", __obj.tobjectPropertyType.toString, attr)
-        case (key, x) => attr = scala.xml.Attribute((x.namespace map { __scope.getPrefix(_) }).orNull, x.key.orNull, x.value.toString, attr)
-      }
+      __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
+      if (__obj.tobjectPropertyType.toString != "current") attr = scala.xml.Attribute(null, "tobject.property.type", __obj.tobjectPropertyType.toString, attr)
       attr
     }
 
@@ -623,30 +593,25 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
     import scalaxb.ElemName._
     
     def reads(seq: scala.xml.NodeSeq, stack: List[scalaxb.ElemName]): Either[String, com.gu.nitf.model.TobjectSubject] = seq match {
-      case node: scala.xml.Node => Right(com.gu.nitf.model.TobjectSubject(scala.collection.immutable.ListMap(List(
-        (node \ "@id").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@id" -> _ },
-        (node \ "@tobject.subject.ipr").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } orElse Some(scalaxb.DataRecord(None, None, scalaxb.fromXML[String](scala.xml.Text("IPTC"), scalaxb.ElemName(node) :: stack))) map { "@tobject.subject.ipr" -> _ },
-        (node \ "@tobject.subject.refnum").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@tobject.subject.refnum" -> _ },
-        (node \ "@tobject.subject.code").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@tobject.subject.code" -> _ },
-        (node \ "@tobject.subject.type").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@tobject.subject.type" -> _ },
-        (node \ "@tobject.subject.matter").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@tobject.subject.matter" -> _ },
-        (node \ "@tobject.subject.detail").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@tobject.subject.detail" -> _ }
-        ).flatten[(String, scalaxb.DataRecord[Any])]: _*)))
+      case node: scala.xml.Node => Right(com.gu.nitf.model.TobjectSubject((node \ "@id").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@tobject.subject.ipr").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) } getOrElse { scalaxb.fromXML[String](scala.xml.Text("IPTC"), scalaxb.ElemName(node) :: stack) },
+        scalaxb.fromXML[String]((node \ "@tobject.subject.refnum"), scalaxb.ElemName(node) :: stack),
+        (node \ "@tobject.subject.code").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@tobject.subject.type").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@tobject.subject.matter").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@tobject.subject.detail").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) }))
       case _ => Left("reads failed: seq must be scala.xml.Node")
     }
     
     override def writesAttribute(__obj: com.gu.nitf.model.TobjectSubject, __scope: scala.xml.NamespaceBinding): scala.xml.MetaData = {
       var attr: scala.xml.MetaData  = scala.xml.Null
-      __obj.attributes.toList map {
-        case ("@id", _) => __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
-        case ("@tobject.subject.ipr", _) => if (__obj.tobjectSubjectIpr.toString != "IPTC") attr = scala.xml.Attribute(null, "tobject.subject.ipr", __obj.tobjectSubjectIpr.toString, attr)
-        case ("@tobject.subject.refnum", _) => attr = scala.xml.Attribute(null, "tobject.subject.refnum", __obj.tobjectSubjectRefnum.toString, attr)
-        case ("@tobject.subject.code", _) => __obj.tobjectSubjectCode foreach { x => attr = scala.xml.Attribute(null, "tobject.subject.code", x.toString, attr) }
-        case ("@tobject.subject.type", _) => __obj.tobjectSubjectType foreach { x => attr = scala.xml.Attribute(null, "tobject.subject.type", x.toString, attr) }
-        case ("@tobject.subject.matter", _) => __obj.tobjectSubjectMatter foreach { x => attr = scala.xml.Attribute(null, "tobject.subject.matter", x.toString, attr) }
-        case ("@tobject.subject.detail", _) => __obj.tobjectSubjectDetail foreach { x => attr = scala.xml.Attribute(null, "tobject.subject.detail", x.toString, attr) }
-        case (key, x) => attr = scala.xml.Attribute((x.namespace map { __scope.getPrefix(_) }).orNull, x.key.orNull, x.value.toString, attr)
-      }
+      __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
+      if (__obj.tobjectSubjectIpr.toString != "IPTC") attr = scala.xml.Attribute(null, "tobject.subject.ipr", __obj.tobjectSubjectIpr.toString, attr)
+      attr = scala.xml.Attribute(null, "tobject.subject.refnum", __obj.tobjectSubjectRefnum.toString, attr)
+      __obj.tobjectSubjectCode foreach { x => attr = scala.xml.Attribute(null, "tobject.subject.code", x.toString, attr) }
+      __obj.tobjectSubjectType foreach { x => attr = scala.xml.Attribute(null, "tobject.subject.type", x.toString, attr) }
+      __obj.tobjectSubjectMatter foreach { x => attr = scala.xml.Attribute(null, "tobject.subject.matter", x.toString, attr) }
+      __obj.tobjectSubjectDetail foreach { x => attr = scala.xml.Attribute(null, "tobject.subject.detail", x.toString, attr) }
       attr
     }
 
@@ -664,18 +629,13 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
       phrase(safeRep(scalaxb.ElemName(Some("http://iptc.org/std/nitf/2006-03-01/"), "ds")) ^^
       { case p1 =>
       com.gu.nitf.model.Iim(p1 map { scalaxb.fromXML[com.gu.nitf.model.Ds](_, scalaxb.ElemName(node) :: stack) },
-        scala.collection.immutable.ListMap(List(
-        (node \ "@id").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@id" -> _ },
-        (node \ "@ver").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@ver" -> _ }
-        ).flatten[(String, scalaxb.DataRecord[Any])]: _*)) })
+        (node \ "@id").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@ver").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) }) })
     
     override def writesAttribute(__obj: com.gu.nitf.model.Iim, __scope: scala.xml.NamespaceBinding): scala.xml.MetaData = {
       var attr: scala.xml.MetaData  = scala.xml.Null
-      __obj.attributes.toList map {
-        case ("@id", _) => __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
-        case ("@ver", _) => __obj.ver foreach { x => attr = scala.xml.Attribute(null, "ver", x.toString, attr) }
-        case (key, x) => attr = scala.xml.Attribute((x.namespace map { __scope.getPrefix(_) }).orNull, x.key.orNull, x.value.toString, attr)
-      }
+      __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
+      __obj.ver foreach { x => attr = scala.xml.Attribute(null, "ver", x.toString, attr) }
       attr
     }
 
@@ -690,22 +650,17 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
     import scalaxb.ElemName._
     
     def reads(seq: scala.xml.NodeSeq, stack: List[scalaxb.ElemName]): Either[String, com.gu.nitf.model.Ds] = seq match {
-      case node: scala.xml.Node => Right(com.gu.nitf.model.Ds(scala.collection.immutable.ListMap(List(
-        (node \ "@id").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@id" -> _ },
-        (node \ "@num").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@num" -> _ },
-        (node \ "@value").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@value" -> _ }
-        ).flatten[(String, scalaxb.DataRecord[Any])]: _*)))
+      case node: scala.xml.Node => Right(com.gu.nitf.model.Ds((node \ "@id").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        scalaxb.fromXML[String]((node \ "@num"), scalaxb.ElemName(node) :: stack),
+        (node \ "@value").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) }))
       case _ => Left("reads failed: seq must be scala.xml.Node")
     }
     
     override def writesAttribute(__obj: com.gu.nitf.model.Ds, __scope: scala.xml.NamespaceBinding): scala.xml.MetaData = {
       var attr: scala.xml.MetaData  = scala.xml.Null
-      __obj.attributes.toList map {
-        case ("@id", _) => __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
-        case ("@num", _) => attr = scala.xml.Attribute(null, "num", __obj.num.toString, attr)
-        case ("@value", _) => __obj.valueAttribute foreach { x => attr = scala.xml.Attribute(null, "value", x.toString, attr) }
-        case (key, x) => attr = scala.xml.Attribute((x.namespace map { __scope.getPrefix(_) }).orNull, x.key.orNull, x.value.toString, attr)
-      }
+      __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
+      attr = scala.xml.Attribute(null, "num", __obj.num.toString, attr)
+      __obj.valueAttribute foreach { x => attr = scala.xml.Attribute(null, "value", x.toString, attr) }
       attr
     }
 
@@ -756,22 +711,17 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
       (x => scalaxb.DataRecord(x.namespace, Some(x.name), scalaxb.fromXML[com.gu.nitf.model.IdentifiedContent](x, scalaxb.ElemName(node) :: stack))))) ^^
       { case p1 =>
       com.gu.nitf.model.Docdata(p1,
-        scala.collection.immutable.ListMap(List(
-        (node \ "@id").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@id" -> _ },
-        (node \ "@management-status").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@management-status" -> _ },
-        (node \ "@management-doc-idref").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@management-doc-idref" -> _ },
-        (node \ "@management-idref-status").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@management-idref-status" -> _ }
-        ).flatten[(String, scalaxb.DataRecord[Any])]: _*)) })
+        (node \ "@id").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@management-status").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@management-doc-idref").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@management-idref-status").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) }) })
     
     override def writesAttribute(__obj: com.gu.nitf.model.Docdata, __scope: scala.xml.NamespaceBinding): scala.xml.MetaData = {
       var attr: scala.xml.MetaData  = scala.xml.Null
-      __obj.attributes.toList map {
-        case ("@id", _) => __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
-        case ("@management-status", _) => __obj.managementStatus foreach { x => attr = scala.xml.Attribute(null, "management-status", x.toString, attr) }
-        case ("@management-doc-idref", _) => __obj.managementDocIdref foreach { x => attr = scala.xml.Attribute(null, "management-doc-idref", x.toString, attr) }
-        case ("@management-idref-status", _) => __obj.managementIdrefStatus foreach { x => attr = scala.xml.Attribute(null, "management-idref-status", x.toString, attr) }
-        case (key, x) => attr = scala.xml.Attribute((x.namespace map { __scope.getPrefix(_) }).orNull, x.key.orNull, x.value.toString, attr)
-      }
+      __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
+      __obj.managementStatus foreach { x => attr = scala.xml.Attribute(null, "management-status", x.toString, attr) }
+      __obj.managementDocIdref foreach { x => attr = scala.xml.Attribute(null, "management-doc-idref", x.toString, attr) }
+      __obj.managementIdrefStatus foreach { x => attr = scala.xml.Attribute(null, "management-idref-status", x.toString, attr) }
       attr
     }
 
@@ -786,24 +736,19 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
     import scalaxb.ElemName._
     
     def reads(seq: scala.xml.NodeSeq, stack: List[scalaxb.ElemName]): Either[String, com.gu.nitf.model.Correction] = seq match {
-      case node: scala.xml.Node => Right(com.gu.nitf.model.Correction(scala.collection.immutable.ListMap(List(
-        (node \ "@id").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@id" -> _ },
-        (node \ "@info").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@info" -> _ },
-        (node \ "@id-string").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@id-string" -> _ },
-        (node \ "@regsrc").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@regsrc" -> _ }
-        ).flatten[(String, scalaxb.DataRecord[Any])]: _*)))
+      case node: scala.xml.Node => Right(com.gu.nitf.model.Correction((node \ "@id").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@info").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@id-string").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@regsrc").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) }))
       case _ => Left("reads failed: seq must be scala.xml.Node")
     }
     
     override def writesAttribute(__obj: com.gu.nitf.model.Correction, __scope: scala.xml.NamespaceBinding): scala.xml.MetaData = {
       var attr: scala.xml.MetaData  = scala.xml.Null
-      __obj.attributes.toList map {
-        case ("@id", _) => __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
-        case ("@info", _) => __obj.info foreach { x => attr = scala.xml.Attribute(null, "info", x.toString, attr) }
-        case ("@id-string", _) => __obj.idString foreach { x => attr = scala.xml.Attribute(null, "id-string", x.toString, attr) }
-        case ("@regsrc", _) => __obj.regsrc foreach { x => attr = scala.xml.Attribute(null, "regsrc", x.toString, attr) }
-        case (key, x) => attr = scala.xml.Attribute((x.namespace map { __scope.getPrefix(_) }).orNull, x.key.orNull, x.value.toString, attr)
-      }
+      __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
+      __obj.info foreach { x => attr = scala.xml.Attribute(null, "info", x.toString, attr) }
+      __obj.idString foreach { x => attr = scala.xml.Attribute(null, "id-string", x.toString, attr) }
+      __obj.regsrc foreach { x => attr = scala.xml.Attribute(null, "regsrc", x.toString, attr) }
       attr
     }
 
@@ -819,26 +764,21 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
     import scalaxb.ElemName._
     
     def reads(seq: scala.xml.NodeSeq, stack: List[scalaxb.ElemName]): Either[String, com.gu.nitf.model.Evloc] = seq match {
-      case node: scala.xml.Node => Right(com.gu.nitf.model.Evloc(scala.collection.immutable.ListMap(List(
-        (node \ "@id").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@id" -> _ },
-        (node \ "@iso-cc").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@iso-cc" -> _ },
-        (node \ "@state-prov").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@state-prov" -> _ },
-        (node \ "@county-dist").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@county-dist" -> _ },
-        (node \ "@city").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@city" -> _ }
-        ).flatten[(String, scalaxb.DataRecord[Any])]: _*)))
+      case node: scala.xml.Node => Right(com.gu.nitf.model.Evloc((node \ "@id").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@iso-cc").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@state-prov").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@county-dist").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@city").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) }))
       case _ => Left("reads failed: seq must be scala.xml.Node")
     }
     
     override def writesAttribute(__obj: com.gu.nitf.model.Evloc, __scope: scala.xml.NamespaceBinding): scala.xml.MetaData = {
       var attr: scala.xml.MetaData  = scala.xml.Null
-      __obj.attributes.toList map {
-        case ("@id", _) => __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
-        case ("@iso-cc", _) => __obj.isoCc foreach { x => attr = scala.xml.Attribute(null, "iso-cc", x.toString, attr) }
-        case ("@state-prov", _) => __obj.stateProv foreach { x => attr = scala.xml.Attribute(null, "state-prov", x.toString, attr) }
-        case ("@county-dist", _) => __obj.countyDist foreach { x => attr = scala.xml.Attribute(null, "county-dist", x.toString, attr) }
-        case ("@city", _) => __obj.city foreach { x => attr = scala.xml.Attribute(null, "city", x.toString, attr) }
-        case (key, x) => attr = scala.xml.Attribute((x.namespace map { __scope.getPrefix(_) }).orNull, x.key.orNull, x.value.toString, attr)
-      }
+      __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
+      __obj.isoCc foreach { x => attr = scala.xml.Attribute(null, "iso-cc", x.toString, attr) }
+      __obj.stateProv foreach { x => attr = scala.xml.Attribute(null, "state-prov", x.toString, attr) }
+      __obj.countyDist foreach { x => attr = scala.xml.Attribute(null, "county-dist", x.toString, attr) }
+      __obj.city foreach { x => attr = scala.xml.Attribute(null, "city", x.toString, attr) }
       attr
     }
 
@@ -854,22 +794,17 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
     import scalaxb.ElemName._
     
     def reads(seq: scala.xml.NodeSeq, stack: List[scalaxb.ElemName]): Either[String, com.gu.nitf.model.DocId] = seq match {
-      case node: scala.xml.Node => Right(com.gu.nitf.model.DocId(scala.collection.immutable.ListMap(List(
-        (node \ "@id").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@id" -> _ },
-        (node \ "@regsrc").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@regsrc" -> _ },
-        (node \ "@id-string").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@id-string" -> _ }
-        ).flatten[(String, scalaxb.DataRecord[Any])]: _*)))
+      case node: scala.xml.Node => Right(com.gu.nitf.model.DocId((node \ "@id").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@regsrc").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@id-string").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) }))
       case _ => Left("reads failed: seq must be scala.xml.Node")
     }
     
     override def writesAttribute(__obj: com.gu.nitf.model.DocId, __scope: scala.xml.NamespaceBinding): scala.xml.MetaData = {
       var attr: scala.xml.MetaData  = scala.xml.Null
-      __obj.attributes.toList map {
-        case ("@id", _) => __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
-        case ("@regsrc", _) => __obj.regsrc foreach { x => attr = scala.xml.Attribute(null, "regsrc", x.toString, attr) }
-        case ("@id-string", _) => __obj.idString foreach { x => attr = scala.xml.Attribute(null, "id-string", x.toString, attr) }
-        case (key, x) => attr = scala.xml.Attribute((x.namespace map { __scope.getPrefix(_) }).orNull, x.key.orNull, x.value.toString, attr)
-      }
+      __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
+      __obj.regsrc foreach { x => attr = scala.xml.Attribute(null, "regsrc", x.toString, attr) }
+      __obj.idString foreach { x => attr = scala.xml.Attribute(null, "id-string", x.toString, attr) }
       attr
     }
 
@@ -888,16 +823,11 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
         { case p1 => com.gu.nitf.model.DelListSequence1(scalaxb.fromXML[com.gu.nitf.model.FromSrc](p1, scalaxb.ElemName(node) :: stack)) }) ^^
       { case p1 =>
       com.gu.nitf.model.DelList(p1,
-        scala.collection.immutable.ListMap(List(
-        (node \ "@id").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@id" -> _ }
-        ).flatten[(String, scalaxb.DataRecord[Any])]: _*)) })
+        (node \ "@id").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) }) })
     
     override def writesAttribute(__obj: com.gu.nitf.model.DelList, __scope: scala.xml.NamespaceBinding): scala.xml.MetaData = {
       var attr: scala.xml.MetaData  = scala.xml.Null
-      __obj.attributes.toList map {
-        case ("@id", _) => __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
-        case (key, x) => attr = scala.xml.Attribute((x.namespace map { __scope.getPrefix(_) }).orNull, x.key.orNull, x.value.toString, attr)
-      }
+      __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
       attr
     }
 
@@ -923,22 +853,17 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
     import scalaxb.ElemName._
     
     def reads(seq: scala.xml.NodeSeq, stack: List[scalaxb.ElemName]): Either[String, com.gu.nitf.model.FromSrc] = seq match {
-      case node: scala.xml.Node => Right(com.gu.nitf.model.FromSrc(scala.collection.immutable.ListMap(List(
-        (node \ "@id").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@id" -> _ },
-        (node \ "@src-name").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@src-name" -> _ },
-        (node \ "@level-number").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@level-number" -> _ }
-        ).flatten[(String, scalaxb.DataRecord[Any])]: _*)))
+      case node: scala.xml.Node => Right(com.gu.nitf.model.FromSrc((node \ "@id").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@src-name").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@level-number").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) }))
       case _ => Left("reads failed: seq must be scala.xml.Node")
     }
     
     override def writesAttribute(__obj: com.gu.nitf.model.FromSrc, __scope: scala.xml.NamespaceBinding): scala.xml.MetaData = {
       var attr: scala.xml.MetaData  = scala.xml.Null
-      __obj.attributes.toList map {
-        case ("@id", _) => __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
-        case ("@src-name", _) => __obj.srcName foreach { x => attr = scala.xml.Attribute(null, "src-name", x.toString, attr) }
-        case ("@level-number", _) => __obj.levelNumber foreach { x => attr = scala.xml.Attribute(null, "level-number", x.toString, attr) }
-        case (key, x) => attr = scala.xml.Attribute((x.namespace map { __scope.getPrefix(_) }).orNull, x.key.orNull, x.value.toString, attr)
-      }
+      __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
+      __obj.srcName foreach { x => attr = scala.xml.Attribute(null, "src-name", x.toString, attr) }
+      __obj.levelNumber foreach { x => attr = scala.xml.Attribute(null, "level-number", x.toString, attr) }
       attr
     }
 
@@ -954,20 +879,15 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
     import scalaxb.ElemName._
     
     def reads(seq: scala.xml.NodeSeq, stack: List[scalaxb.ElemName]): Either[String, com.gu.nitf.model.Urgency] = seq match {
-      case node: scala.xml.Node => Right(com.gu.nitf.model.Urgency(scala.collection.immutable.ListMap(List(
-        (node \ "@id").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@id" -> _ },
-        (node \ "@ed-urg").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@ed-urg" -> _ }
-        ).flatten[(String, scalaxb.DataRecord[Any])]: _*)))
+      case node: scala.xml.Node => Right(com.gu.nitf.model.Urgency((node \ "@id").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@ed-urg").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) }))
       case _ => Left("reads failed: seq must be scala.xml.Node")
     }
     
     override def writesAttribute(__obj: com.gu.nitf.model.Urgency, __scope: scala.xml.NamespaceBinding): scala.xml.MetaData = {
       var attr: scala.xml.MetaData  = scala.xml.Null
-      __obj.attributes.toList map {
-        case ("@id", _) => __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
-        case ("@ed-urg", _) => __obj.edUrg foreach { x => attr = scala.xml.Attribute(null, "ed-urg", x.toString, attr) }
-        case (key, x) => attr = scala.xml.Attribute((x.namespace map { __scope.getPrefix(_) }).orNull, x.key.orNull, x.value.toString, attr)
-      }
+      __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
+      __obj.edUrg foreach { x => attr = scala.xml.Attribute(null, "ed-urg", x.toString, attr) }
       attr
     }
 
@@ -983,20 +903,15 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
     import scalaxb.ElemName._
     
     def reads(seq: scala.xml.NodeSeq, stack: List[scalaxb.ElemName]): Either[String, com.gu.nitf.model.Fixture] = seq match {
-      case node: scala.xml.Node => Right(com.gu.nitf.model.Fixture(scala.collection.immutable.ListMap(List(
-        (node \ "@id").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@id" -> _ },
-        (node \ "@fix-id").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@fix-id" -> _ }
-        ).flatten[(String, scalaxb.DataRecord[Any])]: _*)))
+      case node: scala.xml.Node => Right(com.gu.nitf.model.Fixture((node \ "@id").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@fix-id").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) }))
       case _ => Left("reads failed: seq must be scala.xml.Node")
     }
     
     override def writesAttribute(__obj: com.gu.nitf.model.Fixture, __scope: scala.xml.NamespaceBinding): scala.xml.MetaData = {
       var attr: scala.xml.MetaData  = scala.xml.Null
-      __obj.attributes.toList map {
-        case ("@id", _) => __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
-        case ("@fix-id", _) => __obj.fixId foreach { x => attr = scala.xml.Attribute(null, "fix-id", x.toString, attr) }
-        case (key, x) => attr = scala.xml.Attribute((x.namespace map { __scope.getPrefix(_) }).orNull, x.key.orNull, x.value.toString, attr)
-      }
+      __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
+      __obj.fixId foreach { x => attr = scala.xml.Attribute(null, "fix-id", x.toString, attr) }
       attr
     }
 
@@ -1012,20 +927,15 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
     import scalaxb.ElemName._
     
     def reads(seq: scala.xml.NodeSeq, stack: List[scalaxb.ElemName]): Either[String, com.gu.nitf.model.DateIssue] = seq match {
-      case node: scala.xml.Node => Right(com.gu.nitf.model.DateIssue(scala.collection.immutable.ListMap(List(
-        (node \ "@id").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@id" -> _ },
-        (node \ "@norm").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@norm" -> _ }
-        ).flatten[(String, scalaxb.DataRecord[Any])]: _*)))
+      case node: scala.xml.Node => Right(com.gu.nitf.model.DateIssue((node \ "@id").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@norm").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) }))
       case _ => Left("reads failed: seq must be scala.xml.Node")
     }
     
     override def writesAttribute(__obj: com.gu.nitf.model.DateIssue, __scope: scala.xml.NamespaceBinding): scala.xml.MetaData = {
       var attr: scala.xml.MetaData  = scala.xml.Null
-      __obj.attributes.toList map {
-        case ("@id", _) => __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
-        case ("@norm", _) => __obj.norm foreach { x => attr = scala.xml.Attribute(null, "norm", x.toString, attr) }
-        case (key, x) => attr = scala.xml.Attribute((x.namespace map { __scope.getPrefix(_) }).orNull, x.key.orNull, x.value.toString, attr)
-      }
+      __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
+      __obj.norm foreach { x => attr = scala.xml.Attribute(null, "norm", x.toString, attr) }
       attr
     }
 
@@ -1041,20 +951,15 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
     import scalaxb.ElemName._
     
     def reads(seq: scala.xml.NodeSeq, stack: List[scalaxb.ElemName]): Either[String, com.gu.nitf.model.DateRelease] = seq match {
-      case node: scala.xml.Node => Right(com.gu.nitf.model.DateRelease(scala.collection.immutable.ListMap(List(
-        (node \ "@id").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@id" -> _ },
-        (node \ "@norm").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@norm" -> _ }
-        ).flatten[(String, scalaxb.DataRecord[Any])]: _*)))
+      case node: scala.xml.Node => Right(com.gu.nitf.model.DateRelease((node \ "@id").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@norm").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) }))
       case _ => Left("reads failed: seq must be scala.xml.Node")
     }
     
     override def writesAttribute(__obj: com.gu.nitf.model.DateRelease, __scope: scala.xml.NamespaceBinding): scala.xml.MetaData = {
       var attr: scala.xml.MetaData  = scala.xml.Null
-      __obj.attributes.toList map {
-        case ("@id", _) => __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
-        case ("@norm", _) => __obj.norm foreach { x => attr = scala.xml.Attribute(null, "norm", x.toString, attr) }
-        case (key, x) => attr = scala.xml.Attribute((x.namespace map { __scope.getPrefix(_) }).orNull, x.key.orNull, x.value.toString, attr)
-      }
+      __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
+      __obj.norm foreach { x => attr = scala.xml.Attribute(null, "norm", x.toString, attr) }
       attr
     }
 
@@ -1070,20 +975,15 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
     import scalaxb.ElemName._
     
     def reads(seq: scala.xml.NodeSeq, stack: List[scalaxb.ElemName]): Either[String, com.gu.nitf.model.DateExpire] = seq match {
-      case node: scala.xml.Node => Right(com.gu.nitf.model.DateExpire(scala.collection.immutable.ListMap(List(
-        (node \ "@id").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@id" -> _ },
-        (node \ "@norm").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@norm" -> _ }
-        ).flatten[(String, scalaxb.DataRecord[Any])]: _*)))
+      case node: scala.xml.Node => Right(com.gu.nitf.model.DateExpire((node \ "@id").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@norm").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) }))
       case _ => Left("reads failed: seq must be scala.xml.Node")
     }
     
     override def writesAttribute(__obj: com.gu.nitf.model.DateExpire, __scope: scala.xml.NamespaceBinding): scala.xml.MetaData = {
       var attr: scala.xml.MetaData  = scala.xml.Null
-      __obj.attributes.toList map {
-        case ("@id", _) => __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
-        case ("@norm", _) => __obj.norm foreach { x => attr = scala.xml.Attribute(null, "norm", x.toString, attr) }
-        case (key, x) => attr = scala.xml.Attribute((x.namespace map { __scope.getPrefix(_) }).orNull, x.key.orNull, x.value.toString, attr)
-      }
+      __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
+      __obj.norm foreach { x => attr = scala.xml.Attribute(null, "norm", x.toString, attr) }
       attr
     }
 
@@ -1099,20 +999,15 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
     import scalaxb.ElemName._
     
     def reads(seq: scala.xml.NodeSeq, stack: List[scalaxb.ElemName]): Either[String, com.gu.nitf.model.DocScope] = seq match {
-      case node: scala.xml.Node => Right(com.gu.nitf.model.DocScope(scala.collection.immutable.ListMap(List(
-        (node \ "@id").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@id" -> _ },
-        (node \ "@scope").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@scope" -> _ }
-        ).flatten[(String, scalaxb.DataRecord[Any])]: _*)))
+      case node: scala.xml.Node => Right(com.gu.nitf.model.DocScope((node \ "@id").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@scope").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) }))
       case _ => Left("reads failed: seq must be scala.xml.Node")
     }
     
     override def writesAttribute(__obj: com.gu.nitf.model.DocScope, __scope: scala.xml.NamespaceBinding): scala.xml.MetaData = {
       var attr: scala.xml.MetaData  = scala.xml.Null
-      __obj.attributes.toList map {
-        case ("@id", _) => __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
-        case ("@scope", _) => __obj.scope foreach { x => attr = scala.xml.Attribute(null, "scope", x.toString, attr) }
-        case (key, x) => attr = scala.xml.Attribute((x.namespace map { __scope.getPrefix(_) }).orNull, x.key.orNull, x.value.toString, attr)
-      }
+      __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
+      __obj.scope foreach { x => attr = scala.xml.Attribute(null, "scope", x.toString, attr) }
       attr
     }
 
@@ -1128,24 +1023,19 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
     import scalaxb.ElemName._
     
     def reads(seq: scala.xml.NodeSeq, stack: List[scalaxb.ElemName]): Either[String, com.gu.nitf.model.Series] = seq match {
-      case node: scala.xml.Node => Right(com.gu.nitf.model.Series(scala.collection.immutable.ListMap(List(
-        (node \ "@id").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@id" -> _ },
-        (node \ "@series.name").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@series.name" -> _ },
-        (node \ "@series.part").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } orElse Some(scalaxb.DataRecord(None, None, scalaxb.fromXML[String](scala.xml.Text("0"), scalaxb.ElemName(node) :: stack))) map { "@series.part" -> _ },
-        (node \ "@series.totalpart").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } orElse Some(scalaxb.DataRecord(None, None, scalaxb.fromXML[String](scala.xml.Text("0"), scalaxb.ElemName(node) :: stack))) map { "@series.totalpart" -> _ }
-        ).flatten[(String, scalaxb.DataRecord[Any])]: _*)))
+      case node: scala.xml.Node => Right(com.gu.nitf.model.Series((node \ "@id").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@series.name").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@series.part").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) } getOrElse { scalaxb.fromXML[String](scala.xml.Text("0"), scalaxb.ElemName(node) :: stack) },
+        (node \ "@series.totalpart").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) } getOrElse { scalaxb.fromXML[String](scala.xml.Text("0"), scalaxb.ElemName(node) :: stack) }))
       case _ => Left("reads failed: seq must be scala.xml.Node")
     }
     
     override def writesAttribute(__obj: com.gu.nitf.model.Series, __scope: scala.xml.NamespaceBinding): scala.xml.MetaData = {
       var attr: scala.xml.MetaData  = scala.xml.Null
-      __obj.attributes.toList map {
-        case ("@id", _) => __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
-        case ("@series.name", _) => __obj.seriesName foreach { x => attr = scala.xml.Attribute(null, "series.name", x.toString, attr) }
-        case ("@series.part", _) => if (__obj.seriesPart.toString != "0") attr = scala.xml.Attribute(null, "series.part", __obj.seriesPart.toString, attr)
-        case ("@series.totalpart", _) => if (__obj.seriesTotalpart.toString != "0") attr = scala.xml.Attribute(null, "series.totalpart", __obj.seriesTotalpart.toString, attr)
-        case (key, x) => attr = scala.xml.Attribute((x.namespace map { __scope.getPrefix(_) }).orNull, x.key.orNull, x.value.toString, attr)
-      }
+      __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
+      __obj.seriesName foreach { x => attr = scala.xml.Attribute(null, "series.name", x.toString, attr) }
+      if (__obj.seriesPart.toString != "0") attr = scala.xml.Attribute(null, "series.part", __obj.seriesPart.toString, attr)
+      if (__obj.seriesTotalpart.toString != "0") attr = scala.xml.Attribute(null, "series.totalpart", __obj.seriesTotalpart.toString, attr)
       attr
     }
 
@@ -1161,22 +1051,17 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
     import scalaxb.ElemName._
     
     def reads(seq: scala.xml.NodeSeq, stack: List[scalaxb.ElemName]): Either[String, com.gu.nitf.model.EdMsg] = seq match {
-      case node: scala.xml.Node => Right(com.gu.nitf.model.EdMsg(scala.collection.immutable.ListMap(List(
-        (node \ "@id").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@id" -> _ },
-        (node \ "@msg-type").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@msg-type" -> _ },
-        (node \ "@info").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@info" -> _ }
-        ).flatten[(String, scalaxb.DataRecord[Any])]: _*)))
+      case node: scala.xml.Node => Right(com.gu.nitf.model.EdMsg((node \ "@id").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@msg-type").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@info").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) }))
       case _ => Left("reads failed: seq must be scala.xml.Node")
     }
     
     override def writesAttribute(__obj: com.gu.nitf.model.EdMsg, __scope: scala.xml.NamespaceBinding): scala.xml.MetaData = {
       var attr: scala.xml.MetaData  = scala.xml.Null
-      __obj.attributes.toList map {
-        case ("@id", _) => __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
-        case ("@msg-type", _) => __obj.msgType foreach { x => attr = scala.xml.Attribute(null, "msg-type", x.toString, attr) }
-        case ("@info", _) => __obj.info foreach { x => attr = scala.xml.Attribute(null, "info", x.toString, attr) }
-        case (key, x) => attr = scala.xml.Attribute((x.namespace map { __scope.getPrefix(_) }).orNull, x.key.orNull, x.value.toString, attr)
-      }
+      __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
+      __obj.msgType foreach { x => attr = scala.xml.Attribute(null, "msg-type", x.toString, attr) }
+      __obj.info foreach { x => attr = scala.xml.Attribute(null, "info", x.toString, attr) }
       attr
     }
 
@@ -1192,26 +1077,21 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
     import scalaxb.ElemName._
     
     def reads(seq: scala.xml.NodeSeq, stack: List[scalaxb.ElemName]): Either[String, com.gu.nitf.model.DuKey] = seq match {
-      case node: scala.xml.Node => Right(com.gu.nitf.model.DuKey(scala.collection.immutable.ListMap(List(
-        (node \ "@id").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@id" -> _ },
-        (node \ "@generation").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@generation" -> _ },
-        (node \ "@part").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@part" -> _ },
-        (node \ "@version").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@version" -> _ },
-        (node \ "@key").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@key" -> _ }
-        ).flatten[(String, scalaxb.DataRecord[Any])]: _*)))
+      case node: scala.xml.Node => Right(com.gu.nitf.model.DuKey((node \ "@id").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@generation").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@part").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@version").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@key").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) }))
       case _ => Left("reads failed: seq must be scala.xml.Node")
     }
     
     override def writesAttribute(__obj: com.gu.nitf.model.DuKey, __scope: scala.xml.NamespaceBinding): scala.xml.MetaData = {
       var attr: scala.xml.MetaData  = scala.xml.Null
-      __obj.attributes.toList map {
-        case ("@id", _) => __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
-        case ("@generation", _) => __obj.generation foreach { x => attr = scala.xml.Attribute(null, "generation", x.toString, attr) }
-        case ("@part", _) => __obj.part foreach { x => attr = scala.xml.Attribute(null, "part", x.toString, attr) }
-        case ("@version", _) => __obj.version foreach { x => attr = scala.xml.Attribute(null, "version", x.toString, attr) }
-        case ("@key", _) => __obj.key foreach { x => attr = scala.xml.Attribute(null, "key", x.toString, attr) }
-        case (key, x) => attr = scala.xml.Attribute((x.namespace map { __scope.getPrefix(_) }).orNull, x.key.orNull, x.value.toString, attr)
-      }
+      __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
+      __obj.generation foreach { x => attr = scala.xml.Attribute(null, "generation", x.toString, attr) }
+      __obj.part foreach { x => attr = scala.xml.Attribute(null, "part", x.toString, attr) }
+      __obj.version foreach { x => attr = scala.xml.Attribute(null, "version", x.toString, attr) }
+      __obj.key foreach { x => attr = scala.xml.Attribute(null, "key", x.toString, attr) }
       attr
     }
 
@@ -1227,22 +1107,17 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
     import scalaxb.ElemName._
     
     def reads(seq: scala.xml.NodeSeq, stack: List[scalaxb.ElemName]): Either[String, com.gu.nitf.model.DocCopyright] = seq match {
-      case node: scala.xml.Node => Right(com.gu.nitf.model.DocCopyright(scala.collection.immutable.ListMap(List(
-        (node \ "@id").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@id" -> _ },
-        (node \ "@year").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@year" -> _ },
-        (node \ "@holder").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@holder" -> _ }
-        ).flatten[(String, scalaxb.DataRecord[Any])]: _*)))
+      case node: scala.xml.Node => Right(com.gu.nitf.model.DocCopyright((node \ "@id").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@year").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@holder").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) }))
       case _ => Left("reads failed: seq must be scala.xml.Node")
     }
     
     override def writesAttribute(__obj: com.gu.nitf.model.DocCopyright, __scope: scala.xml.NamespaceBinding): scala.xml.MetaData = {
       var attr: scala.xml.MetaData  = scala.xml.Null
-      __obj.attributes.toList map {
-        case ("@id", _) => __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
-        case ("@year", _) => __obj.year foreach { x => attr = scala.xml.Attribute(null, "year", x.toString, attr) }
-        case ("@holder", _) => __obj.holder foreach { x => attr = scala.xml.Attribute(null, "holder", x.toString, attr) }
-        case (key, x) => attr = scala.xml.Attribute((x.namespace map { __scope.getPrefix(_) }).orNull, x.key.orNull, x.value.toString, attr)
-      }
+      __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
+      __obj.year foreach { x => attr = scala.xml.Attribute(null, "year", x.toString, attr) }
+      __obj.holder foreach { x => attr = scala.xml.Attribute(null, "holder", x.toString, attr) }
       attr
     }
 
@@ -1258,36 +1133,31 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
     import scalaxb.ElemName._
     
     def reads(seq: scala.xml.NodeSeq, stack: List[scalaxb.ElemName]): Either[String, com.gu.nitf.model.DocRights] = seq match {
-      case node: scala.xml.Node => Right(com.gu.nitf.model.DocRights(scala.collection.immutable.ListMap(List(
-        (node \ "@id").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@id" -> _ },
-        (node \ "@owner").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@owner" -> _ },
-        (node \ "@startdate").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@startdate" -> _ },
-        (node \ "@enddate").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@enddate" -> _ },
-        (node \ "@agent").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@agent" -> _ },
-        (node \ "@geography").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@geography" -> _ },
-        (node \ "@location-code").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@location-code" -> _ },
-        (node \ "@code-source").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@code-source" -> _ },
-        (node \ "@type").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@type" -> _ },
-        (node \ "@limitations").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@limitations" -> _ }
-        ).flatten[(String, scalaxb.DataRecord[Any])]: _*)))
+      case node: scala.xml.Node => Right(com.gu.nitf.model.DocRights((node \ "@id").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@owner").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@startdate").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@enddate").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@agent").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@geography").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@location-code").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@code-source").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@type").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@limitations").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) }))
       case _ => Left("reads failed: seq must be scala.xml.Node")
     }
     
     override def writesAttribute(__obj: com.gu.nitf.model.DocRights, __scope: scala.xml.NamespaceBinding): scala.xml.MetaData = {
       var attr: scala.xml.MetaData  = scala.xml.Null
-      __obj.attributes.toList map {
-        case ("@id", _) => __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
-        case ("@owner", _) => __obj.owner foreach { x => attr = scala.xml.Attribute(null, "owner", x.toString, attr) }
-        case ("@startdate", _) => __obj.startdate foreach { x => attr = scala.xml.Attribute(null, "startdate", x.toString, attr) }
-        case ("@enddate", _) => __obj.enddate foreach { x => attr = scala.xml.Attribute(null, "enddate", x.toString, attr) }
-        case ("@agent", _) => __obj.agent foreach { x => attr = scala.xml.Attribute(null, "agent", x.toString, attr) }
-        case ("@geography", _) => __obj.geography foreach { x => attr = scala.xml.Attribute(null, "geography", x.toString, attr) }
-        case ("@location-code", _) => __obj.locationCode foreach { x => attr = scala.xml.Attribute(null, "location-code", x.toString, attr) }
-        case ("@code-source", _) => __obj.codeSource foreach { x => attr = scala.xml.Attribute(null, "code-source", x.toString, attr) }
-        case ("@type", _) => __obj.typeValue foreach { x => attr = scala.xml.Attribute(null, "type", x.toString, attr) }
-        case ("@limitations", _) => __obj.limitations foreach { x => attr = scala.xml.Attribute(null, "limitations", x.toString, attr) }
-        case (key, x) => attr = scala.xml.Attribute((x.namespace map { __scope.getPrefix(_) }).orNull, x.key.orNull, x.value.toString, attr)
-      }
+      __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
+      __obj.owner foreach { x => attr = scala.xml.Attribute(null, "owner", x.toString, attr) }
+      __obj.startdate foreach { x => attr = scala.xml.Attribute(null, "startdate", x.toString, attr) }
+      __obj.enddate foreach { x => attr = scala.xml.Attribute(null, "enddate", x.toString, attr) }
+      __obj.agent foreach { x => attr = scala.xml.Attribute(null, "agent", x.toString, attr) }
+      __obj.geography foreach { x => attr = scala.xml.Attribute(null, "geography", x.toString, attr) }
+      __obj.locationCode foreach { x => attr = scala.xml.Attribute(null, "location-code", x.toString, attr) }
+      __obj.codeSource foreach { x => attr = scala.xml.Attribute(null, "code-source", x.toString, attr) }
+      __obj.typeValue foreach { x => attr = scala.xml.Attribute(null, "type", x.toString, attr) }
+      __obj.limitations foreach { x => attr = scala.xml.Attribute(null, "limitations", x.toString, attr) }
       attr
     }
 
@@ -1306,16 +1176,11 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
         { case p1 => com.gu.nitf.model.KeyListSequence1(scalaxb.fromXML[com.gu.nitf.model.Keyword](p1, scalaxb.ElemName(node) :: stack)) }) ^^
       { case p1 =>
       com.gu.nitf.model.KeyList(p1,
-        scala.collection.immutable.ListMap(List(
-        (node \ "@id").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@id" -> _ }
-        ).flatten[(String, scalaxb.DataRecord[Any])]: _*)) })
+        (node \ "@id").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) }) })
     
     override def writesAttribute(__obj: com.gu.nitf.model.KeyList, __scope: scala.xml.NamespaceBinding): scala.xml.MetaData = {
       var attr: scala.xml.MetaData  = scala.xml.Null
-      __obj.attributes.toList map {
-        case ("@id", _) => __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
-        case (key, x) => attr = scala.xml.Attribute((x.namespace map { __scope.getPrefix(_) }).orNull, x.key.orNull, x.value.toString, attr)
-      }
+      __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
       attr
     }
 
@@ -1341,20 +1206,15 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
     import scalaxb.ElemName._
     
     def reads(seq: scala.xml.NodeSeq, stack: List[scalaxb.ElemName]): Either[String, com.gu.nitf.model.Keyword] = seq match {
-      case node: scala.xml.Node => Right(com.gu.nitf.model.Keyword(scala.collection.immutable.ListMap(List(
-        (node \ "@id").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@id" -> _ },
-        (node \ "@key").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@key" -> _ }
-        ).flatten[(String, scalaxb.DataRecord[Any])]: _*)))
+      case node: scala.xml.Node => Right(com.gu.nitf.model.Keyword((node \ "@id").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@key").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) }))
       case _ => Left("reads failed: seq must be scala.xml.Node")
     }
     
     override def writesAttribute(__obj: com.gu.nitf.model.Keyword, __scope: scala.xml.NamespaceBinding): scala.xml.MetaData = {
       var attr: scala.xml.MetaData  = scala.xml.Null
-      __obj.attributes.toList map {
-        case ("@id", _) => __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
-        case ("@key", _) => __obj.key foreach { x => attr = scala.xml.Attribute(null, "key", x.toString, attr) }
-        case (key, x) => attr = scala.xml.Attribute((x.namespace map { __scope.getPrefix(_) }).orNull, x.key.orNull, x.value.toString, attr)
-      }
+      __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
+      __obj.key foreach { x => attr = scala.xml.Attribute(null, "key", x.toString, attr) }
       attr
     }
 
@@ -1387,16 +1247,11 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
       (x => scalaxb.DataRecord(x.namespace, Some(x.name), scalaxb.fromXML[com.gu.nitf.model.Classifier](x, scalaxb.ElemName(node) :: stack))))) ^^
       { case p1 =>
       com.gu.nitf.model.IdentifiedContent(p1,
-        scala.collection.immutable.ListMap(List(
-        (node \ "@id").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@id" -> _ }
-        ).flatten[(String, scalaxb.DataRecord[Any])]: _*)) })
+        (node \ "@id").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) }) })
     
     override def writesAttribute(__obj: com.gu.nitf.model.IdentifiedContent, __scope: scala.xml.NamespaceBinding): scala.xml.MetaData = {
       var attr: scala.xml.MetaData  = scala.xml.Null
-      __obj.attributes.toList map {
-        case ("@id", _) => __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
-        case (key, x) => attr = scala.xml.Attribute((x.namespace map { __scope.getPrefix(_) }).orNull, x.key.orNull, x.value.toString, attr)
-      }
+      __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
       attr
     }
 
@@ -1438,46 +1293,41 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
     import scalaxb.ElemName._
     
     def reads(seq: scala.xml.NodeSeq, stack: List[scalaxb.ElemName]): Either[String, com.gu.nitf.model.Pubdata] = seq match {
-      case node: scala.xml.Node => Right(com.gu.nitf.model.Pubdata(scala.collection.immutable.ListMap(List(
-        (node \ "@id").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@id" -> _ },
-        (node \ "@type").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[com.gu.nitf.model.TypeType](x, scalaxb.ElemName(node) :: stack)) } map { "@type" -> _ },
-        (node \ "@item-length").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@item-length" -> _ },
-        (node \ "@unit-of-measure").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@unit-of-measure" -> _ },
-        (node \ "@date.publication").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@date.publication" -> _ },
-        (node \ "@name").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@name" -> _ },
-        (node \ "@issn").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@issn" -> _ },
-        (node \ "@volume").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@volume" -> _ },
-        (node \ "@number").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@number" -> _ },
-        (node \ "@issue").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@issue" -> _ },
-        (node \ "@edition.name").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@edition.name" -> _ },
-        (node \ "@edition.area").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@edition.area" -> _ },
-        (node \ "@position.section").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@position.section" -> _ },
-        (node \ "@position.sequence").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@position.sequence" -> _ },
-        (node \ "@ex-ref").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@ex-ref" -> _ }
-        ).flatten[(String, scalaxb.DataRecord[Any])]: _*)))
+      case node: scala.xml.Node => Right(com.gu.nitf.model.Pubdata((node \ "@id").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@type").headOption map { scalaxb.fromXML[com.gu.nitf.model.TypeType](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@item-length").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@unit-of-measure").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@date.publication").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@name").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@issn").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@volume").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@number").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@issue").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@edition.name").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@edition.area").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@position.section").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@position.sequence").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@ex-ref").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) }))
       case _ => Left("reads failed: seq must be scala.xml.Node")
     }
     
     override def writesAttribute(__obj: com.gu.nitf.model.Pubdata, __scope: scala.xml.NamespaceBinding): scala.xml.MetaData = {
       var attr: scala.xml.MetaData  = scala.xml.Null
-      __obj.attributes.toList map {
-        case ("@id", _) => __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
-        case ("@type", _) => __obj.typeValue foreach { x => attr = scala.xml.Attribute(null, "type", x.toString, attr) }
-        case ("@item-length", _) => __obj.itemLength foreach { x => attr = scala.xml.Attribute(null, "item-length", x.toString, attr) }
-        case ("@unit-of-measure", _) => __obj.unitOfMeasure foreach { x => attr = scala.xml.Attribute(null, "unit-of-measure", x.toString, attr) }
-        case ("@date.publication", _) => __obj.datePublication foreach { x => attr = scala.xml.Attribute(null, "date.publication", x.toString, attr) }
-        case ("@name", _) => __obj.name foreach { x => attr = scala.xml.Attribute(null, "name", x.toString, attr) }
-        case ("@issn", _) => __obj.issn foreach { x => attr = scala.xml.Attribute(null, "issn", x.toString, attr) }
-        case ("@volume", _) => __obj.volume foreach { x => attr = scala.xml.Attribute(null, "volume", x.toString, attr) }
-        case ("@number", _) => __obj.number foreach { x => attr = scala.xml.Attribute(null, "number", x.toString, attr) }
-        case ("@issue", _) => __obj.issue foreach { x => attr = scala.xml.Attribute(null, "issue", x.toString, attr) }
-        case ("@edition.name", _) => __obj.editionName foreach { x => attr = scala.xml.Attribute(null, "edition.name", x.toString, attr) }
-        case ("@edition.area", _) => __obj.editionArea foreach { x => attr = scala.xml.Attribute(null, "edition.area", x.toString, attr) }
-        case ("@position.section", _) => __obj.positionSection foreach { x => attr = scala.xml.Attribute(null, "position.section", x.toString, attr) }
-        case ("@position.sequence", _) => __obj.positionSequence foreach { x => attr = scala.xml.Attribute(null, "position.sequence", x.toString, attr) }
-        case ("@ex-ref", _) => __obj.exRef foreach { x => attr = scala.xml.Attribute(null, "ex-ref", x.toString, attr) }
-        case (key, x) => attr = scala.xml.Attribute((x.namespace map { __scope.getPrefix(_) }).orNull, x.key.orNull, x.value.toString, attr)
-      }
+      __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
+      __obj.typeValue foreach { x => attr = scala.xml.Attribute(null, "type", x.toString, attr) }
+      __obj.itemLength foreach { x => attr = scala.xml.Attribute(null, "item-length", x.toString, attr) }
+      __obj.unitOfMeasure foreach { x => attr = scala.xml.Attribute(null, "unit-of-measure", x.toString, attr) }
+      __obj.datePublication foreach { x => attr = scala.xml.Attribute(null, "date.publication", x.toString, attr) }
+      __obj.name foreach { x => attr = scala.xml.Attribute(null, "name", x.toString, attr) }
+      __obj.issn foreach { x => attr = scala.xml.Attribute(null, "issn", x.toString, attr) }
+      __obj.volume foreach { x => attr = scala.xml.Attribute(null, "volume", x.toString, attr) }
+      __obj.number foreach { x => attr = scala.xml.Attribute(null, "number", x.toString, attr) }
+      __obj.issue foreach { x => attr = scala.xml.Attribute(null, "issue", x.toString, attr) }
+      __obj.editionName foreach { x => attr = scala.xml.Attribute(null, "edition.name", x.toString, attr) }
+      __obj.editionArea foreach { x => attr = scala.xml.Attribute(null, "edition.area", x.toString, attr) }
+      __obj.positionSection foreach { x => attr = scala.xml.Attribute(null, "position.section", x.toString, attr) }
+      __obj.positionSequence foreach { x => attr = scala.xml.Attribute(null, "position.sequence", x.toString, attr) }
+      __obj.exRef foreach { x => attr = scala.xml.Attribute(null, "ex-ref", x.toString, attr) }
       attr
     }
 
@@ -1523,26 +1373,21 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
     import scalaxb.ElemName._
     
     def reads(seq: scala.xml.NodeSeq, stack: List[scalaxb.ElemName]): Either[String, com.gu.nitf.model.RevisionHistory] = seq match {
-      case node: scala.xml.Node => Right(com.gu.nitf.model.RevisionHistory(scala.collection.immutable.ListMap(List(
-        (node \ "@id").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@id" -> _ },
-        (node \ "@name").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@name" -> _ },
-        (node \ "@function").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[com.gu.nitf.model.FunctionTypeType](x, scalaxb.ElemName(node) :: stack)) } map { "@function" -> _ },
-        (node \ "@norm").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@norm" -> _ },
-        (node \ "@comment").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@comment" -> _ }
-        ).flatten[(String, scalaxb.DataRecord[Any])]: _*)))
+      case node: scala.xml.Node => Right(com.gu.nitf.model.RevisionHistory((node \ "@id").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@name").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@function").headOption map { scalaxb.fromXML[com.gu.nitf.model.FunctionTypeType](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@norm").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@comment").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) }))
       case _ => Left("reads failed: seq must be scala.xml.Node")
     }
     
     override def writesAttribute(__obj: com.gu.nitf.model.RevisionHistory, __scope: scala.xml.NamespaceBinding): scala.xml.MetaData = {
       var attr: scala.xml.MetaData  = scala.xml.Null
-      __obj.attributes.toList map {
-        case ("@id", _) => __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
-        case ("@name", _) => __obj.name foreach { x => attr = scala.xml.Attribute(null, "name", x.toString, attr) }
-        case ("@function", _) => __obj.function foreach { x => attr = scala.xml.Attribute(null, "function", x.toString, attr) }
-        case ("@norm", _) => __obj.norm foreach { x => attr = scala.xml.Attribute(null, "norm", x.toString, attr) }
-        case ("@comment", _) => __obj.comment foreach { x => attr = scala.xml.Attribute(null, "comment", x.toString, attr) }
-        case (key, x) => attr = scala.xml.Attribute((x.namespace map { __scope.getPrefix(_) }).orNull, x.key.orNull, x.value.toString, attr)
-      }
+      __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
+      __obj.name foreach { x => attr = scala.xml.Attribute(null, "name", x.toString, attr) }
+      __obj.function foreach { x => attr = scala.xml.Attribute(null, "function", x.toString, attr) }
+      __obj.norm foreach { x => attr = scala.xml.Attribute(null, "norm", x.toString, attr) }
+      __obj.comment foreach { x => attr = scala.xml.Attribute(null, "comment", x.toString, attr) }
       attr
     }
 
@@ -1564,22 +1409,17 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
       com.gu.nitf.model.Body(p1.headOption map { scalaxb.fromXML[com.gu.nitf.model.BodyHead](_, scalaxb.ElemName(node) :: stack) },
         p2 map { scalaxb.fromXML[com.gu.nitf.model.BodyContent](_, scalaxb.ElemName(node) :: stack) },
         p3.headOption map { scalaxb.fromXML[com.gu.nitf.model.BodyEnd](_, scalaxb.ElemName(node) :: stack) },
-        scala.collection.immutable.ListMap(List(
-        (node \ "@id").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@id" -> _ },
-        (node \ "@class").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@class" -> _ },
-        (node \ "@style").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@style" -> _ },
-        (node \ "@{http://www.w3.org/XML/1998/namespace}lang").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@{http://www.w3.org/XML/1998/namespace}lang" -> _ }
-        ).flatten[(String, scalaxb.DataRecord[Any])]: _*)) })
+        (node \ "@id").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@class").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@style").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@{http://www.w3.org/XML/1998/namespace}lang").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) }) })
     
     override def writesAttribute(__obj: com.gu.nitf.model.Body, __scope: scala.xml.NamespaceBinding): scala.xml.MetaData = {
       var attr: scala.xml.MetaData  = scala.xml.Null
-      __obj.attributes.toList map {
-        case ("@id", _) => __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
-        case ("@class", _) => __obj.classValue foreach { x => attr = scala.xml.Attribute(null, "class", x.toString, attr) }
-        case ("@style", _) => __obj.style foreach { x => attr = scala.xml.Attribute(null, "style", x.toString, attr) }
-        case ("@{http://www.w3.org/XML/1998/namespace}lang", _) => __obj.xmllang foreach { x => attr = scala.xml.Attribute(__scope.getPrefix("http://www.w3.org/XML/1998/namespace"), "lang", x.toString, attr) }
-        case (key, x) => attr = scala.xml.Attribute((x.namespace map { __scope.getPrefix(_) }).orNull, x.key.orNull, x.value.toString, attr)
-      }
+      __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
+      __obj.classValue foreach { x => attr = scala.xml.Attribute(null, "class", x.toString, attr) }
+      __obj.style foreach { x => attr = scala.xml.Attribute(null, "style", x.toString, attr) }
+      __obj.xmllang foreach { x => attr = scala.xml.Attribute(__scope.getPrefix("http://www.w3.org/XML/1998/namespace"), "lang", x.toString, attr) }
       attr
     }
 
@@ -1612,16 +1452,11 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
         p6 map { scalaxb.fromXML[com.gu.nitf.model.Dateline](_, scalaxb.ElemName(node) :: stack) },
         p7.headOption map { scalaxb.fromXML[com.gu.nitf.model.Abstract](_, scalaxb.ElemName(node) :: stack) },
         p8.headOption map { scalaxb.fromXML[com.gu.nitf.model.Series](_, scalaxb.ElemName(node) :: stack) },
-        scala.collection.immutable.ListMap(List(
-        (node \ "@id").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@id" -> _ }
-        ).flatten[(String, scalaxb.DataRecord[Any])]: _*)) })
+        (node \ "@id").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) }) })
     
     override def writesAttribute(__obj: com.gu.nitf.model.BodyHead, __scope: scala.xml.NamespaceBinding): scala.xml.MetaData = {
       var attr: scala.xml.MetaData  = scala.xml.Null
-      __obj.attributes.toList map {
-        case ("@id", _) => __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
-        case (key, x) => attr = scala.xml.Attribute((x.namespace map { __scope.getPrefix(_) }).orNull, x.key.orNull, x.value.toString, attr)
-      }
+      __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
       attr
     }
 
@@ -1647,22 +1482,17 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
       { case p1 ~ p2 =>
       com.gu.nitf.model.Hedline(scalaxb.fromXML[com.gu.nitf.model.Hl1](p1, scalaxb.ElemName(node) :: stack),
         p2 map { scalaxb.fromXML[com.gu.nitf.model.Hl2](_, scalaxb.ElemName(node) :: stack) },
-        scala.collection.immutable.ListMap(List(
-        (node \ "@id").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@id" -> _ },
-        (node \ "@class").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@class" -> _ },
-        (node \ "@style").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@style" -> _ },
-        (node \ "@{http://www.w3.org/XML/1998/namespace}lang").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@{http://www.w3.org/XML/1998/namespace}lang" -> _ }
-        ).flatten[(String, scalaxb.DataRecord[Any])]: _*)) })
+        (node \ "@id").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@class").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@style").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@{http://www.w3.org/XML/1998/namespace}lang").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) }) })
     
     override def writesAttribute(__obj: com.gu.nitf.model.Hedline, __scope: scala.xml.NamespaceBinding): scala.xml.MetaData = {
       var attr: scala.xml.MetaData  = scala.xml.Null
-      __obj.attributes.toList map {
-        case ("@id", _) => __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
-        case ("@class", _) => __obj.classValue foreach { x => attr = scala.xml.Attribute(null, "class", x.toString, attr) }
-        case ("@style", _) => __obj.style foreach { x => attr = scala.xml.Attribute(null, "style", x.toString, attr) }
-        case ("@{http://www.w3.org/XML/1998/namespace}lang", _) => __obj.xmllang foreach { x => attr = scala.xml.Attribute(__scope.getPrefix("http://www.w3.org/XML/1998/namespace"), "lang", x.toString, attr) }
-        case (key, x) => attr = scala.xml.Attribute((x.namespace map { __scope.getPrefix(_) }).orNull, x.key.orNull, x.value.toString, attr)
-      }
+      __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
+      __obj.classValue foreach { x => attr = scala.xml.Attribute(null, "class", x.toString, attr) }
+      __obj.style foreach { x => attr = scala.xml.Attribute(null, "style", x.toString, attr) }
+      __obj.xmllang foreach { x => attr = scala.xml.Attribute(__scope.getPrefix("http://www.w3.org/XML/1998/namespace"), "lang", x.toString, attr) }
       attr
     }
 
@@ -1686,22 +1516,17 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
       com.gu.nitf.model.Hl1(Seq.concat(p1.toList,
         p2.flatten,
         p3.toList),
-        scala.collection.immutable.ListMap(List(
-        (node \ "@id").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@id" -> _ },
-        (node \ "@class").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@class" -> _ },
-        (node \ "@style").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@style" -> _ },
-        (node \ "@{http://www.w3.org/XML/1998/namespace}lang").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@{http://www.w3.org/XML/1998/namespace}lang" -> _ }
-        ).flatten[(String, scalaxb.DataRecord[Any])]: _*)) })
+        (node \ "@id").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@class").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@style").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@{http://www.w3.org/XML/1998/namespace}lang").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) }) })
     
     override def writesAttribute(__obj: com.gu.nitf.model.Hl1, __scope: scala.xml.NamespaceBinding): scala.xml.MetaData = {
       var attr: scala.xml.MetaData  = scala.xml.Null
-      __obj.attributes.toList map {
-        case ("@id", _) => __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
-        case ("@class", _) => __obj.classValue foreach { x => attr = scala.xml.Attribute(null, "class", x.toString, attr) }
-        case ("@style", _) => __obj.style foreach { x => attr = scala.xml.Attribute(null, "style", x.toString, attr) }
-        case ("@{http://www.w3.org/XML/1998/namespace}lang", _) => __obj.xmllang foreach { x => attr = scala.xml.Attribute(__scope.getPrefix("http://www.w3.org/XML/1998/namespace"), "lang", x.toString, attr) }
-        case (key, x) => attr = scala.xml.Attribute((x.namespace map { __scope.getPrefix(_) }).orNull, x.key.orNull, x.value.toString, attr)
-      }
+      __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
+      __obj.classValue foreach { x => attr = scala.xml.Attribute(null, "class", x.toString, attr) }
+      __obj.style foreach { x => attr = scala.xml.Attribute(null, "style", x.toString, attr) }
+      __obj.xmllang foreach { x => attr = scala.xml.Attribute(__scope.getPrefix("http://www.w3.org/XML/1998/namespace"), "lang", x.toString, attr) }
       attr
     }
 
@@ -1818,22 +1643,17 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
       com.gu.nitf.model.Hl2(Seq.concat(p1.toList,
         p2.flatten,
         p3.toList),
-        scala.collection.immutable.ListMap(List(
-        (node \ "@id").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@id" -> _ },
-        (node \ "@class").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@class" -> _ },
-        (node \ "@style").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@style" -> _ },
-        (node \ "@{http://www.w3.org/XML/1998/namespace}lang").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@{http://www.w3.org/XML/1998/namespace}lang" -> _ }
-        ).flatten[(String, scalaxb.DataRecord[Any])]: _*)) })
+        (node \ "@id").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@class").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@style").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@{http://www.w3.org/XML/1998/namespace}lang").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) }) })
     
     override def writesAttribute(__obj: com.gu.nitf.model.Hl2, __scope: scala.xml.NamespaceBinding): scala.xml.MetaData = {
       var attr: scala.xml.MetaData  = scala.xml.Null
-      __obj.attributes.toList map {
-        case ("@id", _) => __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
-        case ("@class", _) => __obj.classValue foreach { x => attr = scala.xml.Attribute(null, "class", x.toString, attr) }
-        case ("@style", _) => __obj.style foreach { x => attr = scala.xml.Attribute(null, "style", x.toString, attr) }
-        case ("@{http://www.w3.org/XML/1998/namespace}lang", _) => __obj.xmllang foreach { x => attr = scala.xml.Attribute(__scope.getPrefix("http://www.w3.org/XML/1998/namespace"), "lang", x.toString, attr) }
-        case (key, x) => attr = scala.xml.Attribute((x.namespace map { __scope.getPrefix(_) }).orNull, x.key.orNull, x.value.toString, attr)
-      }
+      __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
+      __obj.classValue foreach { x => attr = scala.xml.Attribute(null, "class", x.toString, attr) }
+      __obj.style foreach { x => attr = scala.xml.Attribute(null, "style", x.toString, attr) }
+      __obj.xmllang foreach { x => attr = scala.xml.Attribute(__scope.getPrefix("http://www.w3.org/XML/1998/namespace"), "lang", x.toString, attr) }
       attr
     }
 
@@ -1902,26 +1722,21 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
         { case p1 => com.gu.nitf.model.NoteSequence1(scalaxb.fromXML[com.gu.nitf.model.BodyContent](p1, scalaxb.ElemName(node) :: stack)) }) ^^
       { case p1 =>
       com.gu.nitf.model.Note(p1,
-        scala.collection.immutable.ListMap(List(
-        (node \ "@id").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@id" -> _ },
-        (node \ "@class").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@class" -> _ },
-        (node \ "@style").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@style" -> _ },
-        (node \ "@{http://www.w3.org/XML/1998/namespace}lang").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@{http://www.w3.org/XML/1998/namespace}lang" -> _ },
-        (node \ "@noteclass").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[com.gu.nitf.model.Noteclass](x, scalaxb.ElemName(node) :: stack)) } map { "@noteclass" -> _ },
-        (node \ "@type").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[com.gu.nitf.model.TypeType2](x, scalaxb.ElemName(node) :: stack)) } orElse Some(scalaxb.DataRecord(None, None, scalaxb.fromXML[com.gu.nitf.model.TypeType2](scala.xml.Text("std"), scalaxb.ElemName(node) :: stack))) map { "@type" -> _ }
-        ).flatten[(String, scalaxb.DataRecord[Any])]: _*)) })
+        (node \ "@id").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@class").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@style").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@{http://www.w3.org/XML/1998/namespace}lang").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@noteclass").headOption map { scalaxb.fromXML[com.gu.nitf.model.Noteclass](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@type").headOption map { scalaxb.fromXML[com.gu.nitf.model.TypeType2](_, scalaxb.ElemName(node) :: stack) } getOrElse { scalaxb.fromXML[com.gu.nitf.model.TypeType2](scala.xml.Text("std"), scalaxb.ElemName(node) :: stack) }) })
     
     override def writesAttribute(__obj: com.gu.nitf.model.Note, __scope: scala.xml.NamespaceBinding): scala.xml.MetaData = {
       var attr: scala.xml.MetaData  = scala.xml.Null
-      __obj.attributes.toList map {
-        case ("@id", _) => __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
-        case ("@class", _) => __obj.classValue foreach { x => attr = scala.xml.Attribute(null, "class", x.toString, attr) }
-        case ("@style", _) => __obj.style foreach { x => attr = scala.xml.Attribute(null, "style", x.toString, attr) }
-        case ("@{http://www.w3.org/XML/1998/namespace}lang", _) => __obj.xmllang foreach { x => attr = scala.xml.Attribute(__scope.getPrefix("http://www.w3.org/XML/1998/namespace"), "lang", x.toString, attr) }
-        case ("@noteclass", _) => __obj.noteclass foreach { x => attr = scala.xml.Attribute(null, "noteclass", x.toString, attr) }
-        case ("@type", _) => if (__obj.typeValue.toString != "std") attr = scala.xml.Attribute(null, "type", __obj.typeValue.toString, attr)
-        case (key, x) => attr = scala.xml.Attribute((x.namespace map { __scope.getPrefix(_) }).orNull, x.key.orNull, x.value.toString, attr)
-      }
+      __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
+      __obj.classValue foreach { x => attr = scala.xml.Attribute(null, "class", x.toString, attr) }
+      __obj.style foreach { x => attr = scala.xml.Attribute(null, "style", x.toString, attr) }
+      __obj.xmllang foreach { x => attr = scala.xml.Attribute(__scope.getPrefix("http://www.w3.org/XML/1998/namespace"), "lang", x.toString, attr) }
+      __obj.noteclass foreach { x => attr = scala.xml.Attribute(null, "noteclass", x.toString, attr) }
+      if (__obj.typeValue.toString != "std") attr = scala.xml.Attribute(null, "type", __obj.typeValue.toString, attr)
       attr
     }
 
@@ -1989,16 +1804,11 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
       com.gu.nitf.model.Rights(Seq.concat(p1.toList,
         p2.flatten,
         p3.toList),
-        scala.collection.immutable.ListMap(List(
-        (node \ "@id").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@id" -> _ }
-        ).flatten[(String, scalaxb.DataRecord[Any])]: _*)) })
+        (node \ "@id").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) }) })
     
     override def writesAttribute(__obj: com.gu.nitf.model.Rights, __scope: scala.xml.NamespaceBinding): scala.xml.MetaData = {
       var attr: scala.xml.MetaData  = scala.xml.Null
-      __obj.attributes.toList map {
-        case ("@id", _) => __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
-        case (key, x) => attr = scala.xml.Attribute((x.namespace map { __scope.getPrefix(_) }).orNull, x.key.orNull, x.value.toString, attr)
-      }
+      __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
       attr
     }
 
@@ -2017,18 +1827,13 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
       phrase(optTextRecord ^^
       { case p1 =>
       com.gu.nitf.model.RightsOwner(Seq.concat(p1.toList),
-        scala.collection.immutable.ListMap(List(
-        (node \ "@id").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@id" -> _ },
-        (node \ "@contact").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@contact" -> _ }
-        ).flatten[(String, scalaxb.DataRecord[Any])]: _*)) })
+        (node \ "@id").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@contact").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) }) })
     
     override def writesAttribute(__obj: com.gu.nitf.model.RightsOwner, __scope: scala.xml.NamespaceBinding): scala.xml.MetaData = {
       var attr: scala.xml.MetaData  = scala.xml.Null
-      __obj.attributes.toList map {
-        case ("@id", _) => __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
-        case ("@contact", _) => __obj.contact foreach { x => attr = scala.xml.Attribute(null, "contact", x.toString, attr) }
-        case (key, x) => attr = scala.xml.Attribute((x.namespace map { __scope.getPrefix(_) }).orNull, x.key.orNull, x.value.toString, attr)
-      }
+      __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
+      __obj.contact foreach { x => attr = scala.xml.Attribute(null, "contact", x.toString, attr) }
       attr
     }
 
@@ -2047,18 +1852,13 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
       phrase(optTextRecord ^^
       { case p1 =>
       com.gu.nitf.model.RightsStartdate(Seq.concat(p1.toList),
-        scala.collection.immutable.ListMap(List(
-        (node \ "@id").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@id" -> _ },
-        (node \ "@norm").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@norm" -> _ }
-        ).flatten[(String, scalaxb.DataRecord[Any])]: _*)) })
+        (node \ "@id").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@norm").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) }) })
     
     override def writesAttribute(__obj: com.gu.nitf.model.RightsStartdate, __scope: scala.xml.NamespaceBinding): scala.xml.MetaData = {
       var attr: scala.xml.MetaData  = scala.xml.Null
-      __obj.attributes.toList map {
-        case ("@id", _) => __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
-        case ("@norm", _) => __obj.norm foreach { x => attr = scala.xml.Attribute(null, "norm", x.toString, attr) }
-        case (key, x) => attr = scala.xml.Attribute((x.namespace map { __scope.getPrefix(_) }).orNull, x.key.orNull, x.value.toString, attr)
-      }
+      __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
+      __obj.norm foreach { x => attr = scala.xml.Attribute(null, "norm", x.toString, attr) }
       attr
     }
 
@@ -2077,18 +1877,13 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
       phrase(optTextRecord ^^
       { case p1 =>
       com.gu.nitf.model.RightsEnddate(Seq.concat(p1.toList),
-        scala.collection.immutable.ListMap(List(
-        (node \ "@id").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@id" -> _ },
-        (node \ "@norm").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@norm" -> _ }
-        ).flatten[(String, scalaxb.DataRecord[Any])]: _*)) })
+        (node \ "@id").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@norm").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) }) })
     
     override def writesAttribute(__obj: com.gu.nitf.model.RightsEnddate, __scope: scala.xml.NamespaceBinding): scala.xml.MetaData = {
       var attr: scala.xml.MetaData  = scala.xml.Null
-      __obj.attributes.toList map {
-        case ("@id", _) => __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
-        case ("@norm", _) => __obj.norm foreach { x => attr = scala.xml.Attribute(null, "norm", x.toString, attr) }
-        case (key, x) => attr = scala.xml.Attribute((x.namespace map { __scope.getPrefix(_) }).orNull, x.key.orNull, x.value.toString, attr)
-      }
+      __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
+      __obj.norm foreach { x => attr = scala.xml.Attribute(null, "norm", x.toString, attr) }
       attr
     }
 
@@ -2107,18 +1902,13 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
       phrase(optTextRecord ^^
       { case p1 =>
       com.gu.nitf.model.RightsAgent(Seq.concat(p1.toList),
-        scala.collection.immutable.ListMap(List(
-        (node \ "@id").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@id" -> _ },
-        (node \ "@contact").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@contact" -> _ }
-        ).flatten[(String, scalaxb.DataRecord[Any])]: _*)) })
+        (node \ "@id").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@contact").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) }) })
     
     override def writesAttribute(__obj: com.gu.nitf.model.RightsAgent, __scope: scala.xml.NamespaceBinding): scala.xml.MetaData = {
       var attr: scala.xml.MetaData  = scala.xml.Null
-      __obj.attributes.toList map {
-        case ("@id", _) => __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
-        case ("@contact", _) => __obj.contact foreach { x => attr = scala.xml.Attribute(null, "contact", x.toString, attr) }
-        case (key, x) => attr = scala.xml.Attribute((x.namespace map { __scope.getPrefix(_) }).orNull, x.key.orNull, x.value.toString, attr)
-      }
+      __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
+      __obj.contact foreach { x => attr = scala.xml.Attribute(null, "contact", x.toString, attr) }
       attr
     }
 
@@ -2137,20 +1927,15 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
       phrase(optTextRecord ^^
       { case p1 =>
       com.gu.nitf.model.RightsGeography(Seq.concat(p1.toList),
-        scala.collection.immutable.ListMap(List(
-        (node \ "@id").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@id" -> _ },
-        (node \ "@location-code").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@location-code" -> _ },
-        (node \ "@code-source").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@code-source" -> _ }
-        ).flatten[(String, scalaxb.DataRecord[Any])]: _*)) })
+        (node \ "@id").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@location-code").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@code-source").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) }) })
     
     override def writesAttribute(__obj: com.gu.nitf.model.RightsGeography, __scope: scala.xml.NamespaceBinding): scala.xml.MetaData = {
       var attr: scala.xml.MetaData  = scala.xml.Null
-      __obj.attributes.toList map {
-        case ("@id", _) => __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
-        case ("@location-code", _) => __obj.locationCode foreach { x => attr = scala.xml.Attribute(null, "location-code", x.toString, attr) }
-        case ("@code-source", _) => __obj.codeSource foreach { x => attr = scala.xml.Attribute(null, "code-source", x.toString, attr) }
-        case (key, x) => attr = scala.xml.Attribute((x.namespace map { __scope.getPrefix(_) }).orNull, x.key.orNull, x.value.toString, attr)
-      }
+      __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
+      __obj.locationCode foreach { x => attr = scala.xml.Attribute(null, "location-code", x.toString, attr) }
+      __obj.codeSource foreach { x => attr = scala.xml.Attribute(null, "code-source", x.toString, attr) }
       attr
     }
 
@@ -2169,16 +1954,11 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
       phrase(optTextRecord ^^
       { case p1 =>
       com.gu.nitf.model.RightsType(Seq.concat(p1.toList),
-        scala.collection.immutable.ListMap(List(
-        (node \ "@id").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@id" -> _ }
-        ).flatten[(String, scalaxb.DataRecord[Any])]: _*)) })
+        (node \ "@id").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) }) })
     
     override def writesAttribute(__obj: com.gu.nitf.model.RightsType, __scope: scala.xml.NamespaceBinding): scala.xml.MetaData = {
       var attr: scala.xml.MetaData  = scala.xml.Null
-      __obj.attributes.toList map {
-        case ("@id", _) => __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
-        case (key, x) => attr = scala.xml.Attribute((x.namespace map { __scope.getPrefix(_) }).orNull, x.key.orNull, x.value.toString, attr)
-      }
+      __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
       attr
     }
 
@@ -2197,16 +1977,11 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
       phrase(optTextRecord ^^
       { case p1 =>
       com.gu.nitf.model.RightsLimitations(Seq.concat(p1.toList),
-        scala.collection.immutable.ListMap(List(
-        (node \ "@id").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@id" -> _ }
-        ).flatten[(String, scalaxb.DataRecord[Any])]: _*)) })
+        (node \ "@id").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) }) })
     
     override def writesAttribute(__obj: com.gu.nitf.model.RightsLimitations, __scope: scala.xml.NamespaceBinding): scala.xml.MetaData = {
       var attr: scala.xml.MetaData  = scala.xml.Null
-      __obj.attributes.toList map {
-        case ("@id", _) => __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
-        case (key, x) => attr = scala.xml.Attribute((x.namespace map { __scope.getPrefix(_) }).orNull, x.key.orNull, x.value.toString, attr)
-      }
+      __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
       attr
     }
 
@@ -2248,22 +2023,17 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
       com.gu.nitf.model.Byline(Seq.concat(p1.toList,
         p2.flatten,
         p3.toList),
-        scala.collection.immutable.ListMap(List(
-        (node \ "@id").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@id" -> _ },
-        (node \ "@class").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@class" -> _ },
-        (node \ "@style").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@style" -> _ },
-        (node \ "@{http://www.w3.org/XML/1998/namespace}lang").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@{http://www.w3.org/XML/1998/namespace}lang" -> _ }
-        ).flatten[(String, scalaxb.DataRecord[Any])]: _*)) })
+        (node \ "@id").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@class").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@style").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@{http://www.w3.org/XML/1998/namespace}lang").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) }) })
     
     override def writesAttribute(__obj: com.gu.nitf.model.Byline, __scope: scala.xml.NamespaceBinding): scala.xml.MetaData = {
       var attr: scala.xml.MetaData  = scala.xml.Null
-      __obj.attributes.toList map {
-        case ("@id", _) => __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
-        case ("@class", _) => __obj.classValue foreach { x => attr = scala.xml.Attribute(null, "class", x.toString, attr) }
-        case ("@style", _) => __obj.style foreach { x => attr = scala.xml.Attribute(null, "style", x.toString, attr) }
-        case ("@{http://www.w3.org/XML/1998/namespace}lang", _) => __obj.xmllang foreach { x => attr = scala.xml.Attribute(__scope.getPrefix("http://www.w3.org/XML/1998/namespace"), "lang", x.toString, attr) }
-        case (key, x) => attr = scala.xml.Attribute((x.namespace map { __scope.getPrefix(_) }).orNull, x.key.orNull, x.value.toString, attr)
-      }
+      __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
+      __obj.classValue foreach { x => attr = scala.xml.Attribute(null, "class", x.toString, attr) }
+      __obj.style foreach { x => attr = scala.xml.Attribute(null, "style", x.toString, attr) }
+      __obj.xmllang foreach { x => attr = scala.xml.Attribute(__scope.getPrefix("http://www.w3.org/XML/1998/namespace"), "lang", x.toString, attr) }
       attr
     }
 
@@ -2290,16 +2060,11 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
       com.gu.nitf.model.Byttl(Seq.concat(p1.toList,
         p2.flatten,
         p3.toList),
-        scala.collection.immutable.ListMap(List(
-        (node \ "@id").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@id" -> _ }
-        ).flatten[(String, scalaxb.DataRecord[Any])]: _*)) })
+        (node \ "@id").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) }) })
     
     override def writesAttribute(__obj: com.gu.nitf.model.Byttl, __scope: scala.xml.NamespaceBinding): scala.xml.MetaData = {
       var attr: scala.xml.MetaData  = scala.xml.Null
-      __obj.attributes.toList map {
-        case ("@id", _) => __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
-        case (key, x) => attr = scala.xml.Attribute((x.namespace map { __scope.getPrefix(_) }).orNull, x.key.orNull, x.value.toString, attr)
-      }
+      __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
       attr
     }
 
@@ -2326,22 +2091,17 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
       com.gu.nitf.model.Distributor(Seq.concat(p1.toList,
         p2.flatten,
         p3.toList),
-        scala.collection.immutable.ListMap(List(
-        (node \ "@id").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@id" -> _ },
-        (node \ "@class").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@class" -> _ },
-        (node \ "@style").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@style" -> _ },
-        (node \ "@{http://www.w3.org/XML/1998/namespace}lang").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@{http://www.w3.org/XML/1998/namespace}lang" -> _ }
-        ).flatten[(String, scalaxb.DataRecord[Any])]: _*)) })
+        (node \ "@id").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@class").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@style").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@{http://www.w3.org/XML/1998/namespace}lang").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) }) })
     
     override def writesAttribute(__obj: com.gu.nitf.model.Distributor, __scope: scala.xml.NamespaceBinding): scala.xml.MetaData = {
       var attr: scala.xml.MetaData  = scala.xml.Null
-      __obj.attributes.toList map {
-        case ("@id", _) => __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
-        case ("@class", _) => __obj.classValue foreach { x => attr = scala.xml.Attribute(null, "class", x.toString, attr) }
-        case ("@style", _) => __obj.style foreach { x => attr = scala.xml.Attribute(null, "style", x.toString, attr) }
-        case ("@{http://www.w3.org/XML/1998/namespace}lang", _) => __obj.xmllang foreach { x => attr = scala.xml.Attribute(__scope.getPrefix("http://www.w3.org/XML/1998/namespace"), "lang", x.toString, attr) }
-        case (key, x) => attr = scala.xml.Attribute((x.namespace map { __scope.getPrefix(_) }).orNull, x.key.orNull, x.value.toString, attr)
-      }
+      __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
+      __obj.classValue foreach { x => attr = scala.xml.Attribute(null, "class", x.toString, attr) }
+      __obj.style foreach { x => attr = scala.xml.Attribute(null, "style", x.toString, attr) }
+      __obj.xmllang foreach { x => attr = scala.xml.Attribute(__scope.getPrefix("http://www.w3.org/XML/1998/namespace"), "lang", x.toString, attr) }
       attr
     }
 
@@ -2373,22 +2133,17 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
       com.gu.nitf.model.Dateline(Seq.concat(p1.toList,
         p2.flatten,
         p3.toList),
-        scala.collection.immutable.ListMap(List(
-        (node \ "@id").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@id" -> _ },
-        (node \ "@class").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@class" -> _ },
-        (node \ "@style").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@style" -> _ },
-        (node \ "@{http://www.w3.org/XML/1998/namespace}lang").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@{http://www.w3.org/XML/1998/namespace}lang" -> _ }
-        ).flatten[(String, scalaxb.DataRecord[Any])]: _*)) })
+        (node \ "@id").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@class").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@style").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@{http://www.w3.org/XML/1998/namespace}lang").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) }) })
     
     override def writesAttribute(__obj: com.gu.nitf.model.Dateline, __scope: scala.xml.NamespaceBinding): scala.xml.MetaData = {
       var attr: scala.xml.MetaData  = scala.xml.Null
-      __obj.attributes.toList map {
-        case ("@id", _) => __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
-        case ("@class", _) => __obj.classValue foreach { x => attr = scala.xml.Attribute(null, "class", x.toString, attr) }
-        case ("@style", _) => __obj.style foreach { x => attr = scala.xml.Attribute(null, "style", x.toString, attr) }
-        case ("@{http://www.w3.org/XML/1998/namespace}lang", _) => __obj.xmllang foreach { x => attr = scala.xml.Attribute(__scope.getPrefix("http://www.w3.org/XML/1998/namespace"), "lang", x.toString, attr) }
-        case (key, x) => attr = scala.xml.Attribute((x.namespace map { __scope.getPrefix(_) }).orNull, x.key.orNull, x.value.toString, attr)
-      }
+      __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
+      __obj.classValue foreach { x => attr = scala.xml.Attribute(null, "class", x.toString, attr) }
+      __obj.style foreach { x => attr = scala.xml.Attribute(null, "style", x.toString, attr) }
+      __obj.xmllang foreach { x => attr = scala.xml.Attribute(__scope.getPrefix("http://www.w3.org/XML/1998/namespace"), "lang", x.toString, attr) }
       attr
     }
 
@@ -2407,18 +2162,13 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
       phrase(optTextRecord ^^
       { case p1 =>
       com.gu.nitf.model.StoryDate(Seq.concat(p1.toList),
-        scala.collection.immutable.ListMap(List(
-        (node \ "@id").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@id" -> _ },
-        (node \ "@norm").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@norm" -> _ }
-        ).flatten[(String, scalaxb.DataRecord[Any])]: _*)) })
+        (node \ "@id").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@norm").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) }) })
     
     override def writesAttribute(__obj: com.gu.nitf.model.StoryDate, __scope: scala.xml.NamespaceBinding): scala.xml.MetaData = {
       var attr: scala.xml.MetaData  = scala.xml.Null
-      __obj.attributes.toList map {
-        case ("@id", _) => __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
-        case ("@norm", _) => __obj.norm foreach { x => attr = scala.xml.Attribute(null, "norm", x.toString, attr) }
-        case (key, x) => attr = scala.xml.Attribute((x.namespace map { __scope.getPrefix(_) }).orNull, x.key.orNull, x.value.toString, attr)
-      }
+      __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
+      __obj.norm foreach { x => attr = scala.xml.Attribute(null, "norm", x.toString, attr) }
       attr
     }
 
@@ -2435,16 +2185,11 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
       phrase(safeRep((parseBlockContentGroup(node, scalaxb.ElemName(node) :: stack, true))) ^^
       { case p1 =>
       com.gu.nitf.model.Abstract(p1,
-        scala.collection.immutable.ListMap(List(
-        (node \ "@id").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@id" -> _ }
-        ).flatten[(String, scalaxb.DataRecord[Any])]: _*)) })
+        (node \ "@id").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) }) })
     
     override def writesAttribute(__obj: com.gu.nitf.model.Abstract, __scope: scala.xml.NamespaceBinding): scala.xml.MetaData = {
       var attr: scala.xml.MetaData  = scala.xml.Null
-      __obj.attributes.toList map {
-        case ("@id", _) => __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
-        case (key, x) => attr = scala.xml.Attribute((x.namespace map { __scope.getPrefix(_) }).orNull, x.key.orNull, x.value.toString, attr)
-      }
+      __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
       attr
     }
 
@@ -2476,16 +2221,11 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
       com.gu.nitf.model.Copyrite(Seq.concat(p1.toList,
         p2.flatten,
         p3.toList),
-        scala.collection.immutable.ListMap(List(
-        (node \ "@id").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@id" -> _ }
-        ).flatten[(String, scalaxb.DataRecord[Any])]: _*)) })
+        (node \ "@id").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) }) })
     
     override def writesAttribute(__obj: com.gu.nitf.model.Copyrite, __scope: scala.xml.NamespaceBinding): scala.xml.MetaData = {
       var attr: scala.xml.MetaData  = scala.xml.Null
-      __obj.attributes.toList map {
-        case ("@id", _) => __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
-        case (key, x) => attr = scala.xml.Attribute((x.namespace map { __scope.getPrefix(_) }).orNull, x.key.orNull, x.value.toString, attr)
-      }
+      __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
       attr
     }
 
@@ -2504,16 +2244,11 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
       phrase(optTextRecord ^^
       { case p1 =>
       com.gu.nitf.model.CopyriteYear(Seq.concat(p1.toList),
-        scala.collection.immutable.ListMap(List(
-        (node \ "@id").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@id" -> _ }
-        ).flatten[(String, scalaxb.DataRecord[Any])]: _*)) })
+        (node \ "@id").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) }) })
     
     override def writesAttribute(__obj: com.gu.nitf.model.CopyriteYear, __scope: scala.xml.NamespaceBinding): scala.xml.MetaData = {
       var attr: scala.xml.MetaData  = scala.xml.Null
-      __obj.attributes.toList map {
-        case ("@id", _) => __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
-        case (key, x) => attr = scala.xml.Attribute((x.namespace map { __scope.getPrefix(_) }).orNull, x.key.orNull, x.value.toString, attr)
-      }
+      __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
       attr
     }
 
@@ -2532,16 +2267,11 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
       phrase(optTextRecord ^^
       { case p1 =>
       com.gu.nitf.model.CopyriteHolder(Seq.concat(p1.toList),
-        scala.collection.immutable.ListMap(List(
-        (node \ "@id").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@id" -> _ }
-        ).flatten[(String, scalaxb.DataRecord[Any])]: _*)) })
+        (node \ "@id").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) }) })
     
     override def writesAttribute(__obj: com.gu.nitf.model.CopyriteHolder, __scope: scala.xml.NamespaceBinding): scala.xml.MetaData = {
       var attr: scala.xml.MetaData  = scala.xml.Null
-      __obj.attributes.toList map {
-        case ("@id", _) => __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
-        case (key, x) => attr = scala.xml.Attribute((x.namespace map { __scope.getPrefix(_) }).orNull, x.key.orNull, x.value.toString, attr)
-      }
+      __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
       attr
     }
 
@@ -2560,16 +2290,11 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
       (parseBlockContentGroup(node, scalaxb.ElemName(node) :: stack, true))) ^^
       { case p1 =>
       com.gu.nitf.model.BodyContent(p1,
-        scala.collection.immutable.ListMap(List(
-        (node \ "@id").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@id" -> _ }
-        ).flatten[(String, scalaxb.DataRecord[Any])]: _*)) })
+        (node \ "@id").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) }) })
     
     override def writesAttribute(__obj: com.gu.nitf.model.BodyContent, __scope: scala.xml.NamespaceBinding): scala.xml.MetaData = {
       var attr: scala.xml.MetaData  = scala.xml.Null
-      __obj.attributes.toList map {
-        case ("@id", _) => __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
-        case (key, x) => attr = scala.xml.Attribute((x.namespace map { __scope.getPrefix(_) }).orNull, x.key.orNull, x.value.toString, attr)
-      }
+      __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
       attr
     }
 
@@ -2604,22 +2329,17 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
       com.gu.nitf.model.Block(p1,
         p2,
         p3,
-        scala.collection.immutable.ListMap(List(
-        (node \ "@id").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@id" -> _ },
-        (node \ "@class").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@class" -> _ },
-        (node \ "@style").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@style" -> _ },
-        (node \ "@{http://www.w3.org/XML/1998/namespace}lang").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@{http://www.w3.org/XML/1998/namespace}lang" -> _ }
-        ).flatten[(String, scalaxb.DataRecord[Any])]: _*)) })
+        (node \ "@id").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@class").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@style").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@{http://www.w3.org/XML/1998/namespace}lang").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) }) })
     
     override def writesAttribute(__obj: com.gu.nitf.model.Block, __scope: scala.xml.NamespaceBinding): scala.xml.MetaData = {
       var attr: scala.xml.MetaData  = scala.xml.Null
-      __obj.attributes.toList map {
-        case ("@id", _) => __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
-        case ("@class", _) => __obj.classValue foreach { x => attr = scala.xml.Attribute(null, "class", x.toString, attr) }
-        case ("@style", _) => __obj.style foreach { x => attr = scala.xml.Attribute(null, "style", x.toString, attr) }
-        case ("@{http://www.w3.org/XML/1998/namespace}lang", _) => __obj.xmllang foreach { x => attr = scala.xml.Attribute(__scope.getPrefix("http://www.w3.org/XML/1998/namespace"), "lang", x.toString, attr) }
-        case (key, x) => attr = scala.xml.Attribute((x.namespace map { __scope.getPrefix(_) }).orNull, x.key.orNull, x.value.toString, attr)
-      }
+      __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
+      __obj.classValue foreach { x => attr = scala.xml.Attribute(null, "class", x.toString, attr) }
+      __obj.style foreach { x => attr = scala.xml.Attribute(null, "style", x.toString, attr) }
+      __obj.xmllang foreach { x => attr = scala.xml.Attribute(__scope.getPrefix("http://www.w3.org/XML/1998/namespace"), "lang", x.toString, attr) }
       attr
     }
 
@@ -2766,28 +2486,23 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
       com.gu.nitf.model.P(Seq.concat(p1.toList,
         p2.flatten,
         p3.toList),
-        scala.collection.immutable.ListMap(List(
-        (node \ "@id").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@id" -> _ },
-        (node \ "@class").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@class" -> _ },
-        (node \ "@style").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@style" -> _ },
-        (node \ "@{http://www.w3.org/XML/1998/namespace}lang").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@{http://www.w3.org/XML/1998/namespace}lang" -> _ },
-        (node \ "@lede").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@lede" -> _ },
-        (node \ "@summary").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@summary" -> _ },
-        (node \ "@optional-text").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@optional-text" -> _ }
-        ).flatten[(String, scalaxb.DataRecord[Any])]: _*)) })
+        (node \ "@id").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@class").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@style").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@{http://www.w3.org/XML/1998/namespace}lang").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@lede").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@summary").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@optional-text").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) }) })
     
     override def writesAttribute(__obj: com.gu.nitf.model.P, __scope: scala.xml.NamespaceBinding): scala.xml.MetaData = {
       var attr: scala.xml.MetaData  = scala.xml.Null
-      __obj.attributes.toList map {
-        case ("@id", _) => __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
-        case ("@class", _) => __obj.classValue foreach { x => attr = scala.xml.Attribute(null, "class", x.toString, attr) }
-        case ("@style", _) => __obj.style foreach { x => attr = scala.xml.Attribute(null, "style", x.toString, attr) }
-        case ("@{http://www.w3.org/XML/1998/namespace}lang", _) => __obj.xmllang foreach { x => attr = scala.xml.Attribute(__scope.getPrefix("http://www.w3.org/XML/1998/namespace"), "lang", x.toString, attr) }
-        case ("@lede", _) => __obj.lede foreach { x => attr = scala.xml.Attribute(null, "lede", x.toString, attr) }
-        case ("@summary", _) => __obj.summary foreach { x => attr = scala.xml.Attribute(null, "summary", x.toString, attr) }
-        case ("@optional-text", _) => __obj.optionalText foreach { x => attr = scala.xml.Attribute(null, "optional-text", x.toString, attr) }
-        case (key, x) => attr = scala.xml.Attribute((x.namespace map { __scope.getPrefix(_) }).orNull, x.key.orNull, x.value.toString, attr)
-      }
+      __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
+      __obj.classValue foreach { x => attr = scala.xml.Attribute(null, "class", x.toString, attr) }
+      __obj.style foreach { x => attr = scala.xml.Attribute(null, "style", x.toString, attr) }
+      __obj.xmllang foreach { x => attr = scala.xml.Attribute(__scope.getPrefix("http://www.w3.org/XML/1998/namespace"), "lang", x.toString, attr) }
+      __obj.lede foreach { x => attr = scala.xml.Attribute(null, "lede", x.toString, attr) }
+      __obj.summary foreach { x => attr = scala.xml.Attribute(null, "summary", x.toString, attr) }
+      __obj.optionalText foreach { x => attr = scala.xml.Attribute(null, "optional-text", x.toString, attr) }
       attr
     }
 
@@ -2898,40 +2613,35 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
         p3.headOption map { scalaxb.fromXML[com.gu.nitf.model.Thead](_, scalaxb.ElemName(node) :: stack) },
         p4.headOption map { scalaxb.fromXML[com.gu.nitf.model.Tfoot](_, scalaxb.ElemName(node) :: stack) },
         p5,
-        scala.collection.immutable.ListMap(List(
-        (node \ "@id").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@id" -> _ },
-        (node \ "@class").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@class" -> _ },
-        (node \ "@style").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@style" -> _ },
-        (node \ "@{http://www.w3.org/XML/1998/namespace}lang").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@{http://www.w3.org/XML/1998/namespace}lang" -> _ },
-        (node \ "@tabletype").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@tabletype" -> _ },
-        (node \ "@align").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[com.gu.nitf.model.AlignType](x, scalaxb.ElemName(node) :: stack)) } map { "@align" -> _ },
-        (node \ "@width").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@width" -> _ },
-        (node \ "@cols").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@cols" -> _ },
-        (node \ "@border").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@border" -> _ },
-        (node \ "@frame").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[com.gu.nitf.model.Frame](x, scalaxb.ElemName(node) :: stack)) } map { "@frame" -> _ },
-        (node \ "@rules").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[com.gu.nitf.model.Rules](x, scalaxb.ElemName(node) :: stack)) } map { "@rules" -> _ },
-        (node \ "@cellspacing").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@cellspacing" -> _ },
-        (node \ "@cellpadding").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@cellpadding" -> _ }
-        ).flatten[(String, scalaxb.DataRecord[Any])]: _*)) })
+        (node \ "@id").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@class").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@style").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@{http://www.w3.org/XML/1998/namespace}lang").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@tabletype").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@align").headOption map { scalaxb.fromXML[com.gu.nitf.model.AlignType](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@width").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@cols").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@border").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@frame").headOption map { scalaxb.fromXML[com.gu.nitf.model.Frame](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@rules").headOption map { scalaxb.fromXML[com.gu.nitf.model.Rules](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@cellspacing").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@cellpadding").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) }) })
     
     override def writesAttribute(__obj: com.gu.nitf.model.Table, __scope: scala.xml.NamespaceBinding): scala.xml.MetaData = {
       var attr: scala.xml.MetaData  = scala.xml.Null
-      __obj.attributes.toList map {
-        case ("@id", _) => __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
-        case ("@class", _) => __obj.classValue foreach { x => attr = scala.xml.Attribute(null, "class", x.toString, attr) }
-        case ("@style", _) => __obj.style foreach { x => attr = scala.xml.Attribute(null, "style", x.toString, attr) }
-        case ("@{http://www.w3.org/XML/1998/namespace}lang", _) => __obj.xmllang foreach { x => attr = scala.xml.Attribute(__scope.getPrefix("http://www.w3.org/XML/1998/namespace"), "lang", x.toString, attr) }
-        case ("@tabletype", _) => __obj.tabletype foreach { x => attr = scala.xml.Attribute(null, "tabletype", x.toString, attr) }
-        case ("@align", _) => __obj.align foreach { x => attr = scala.xml.Attribute(null, "align", x.toString, attr) }
-        case ("@width", _) => __obj.width foreach { x => attr = scala.xml.Attribute(null, "width", x.toString, attr) }
-        case ("@cols", _) => __obj.cols foreach { x => attr = scala.xml.Attribute(null, "cols", x.toString, attr) }
-        case ("@border", _) => __obj.border foreach { x => attr = scala.xml.Attribute(null, "border", x.toString, attr) }
-        case ("@frame", _) => __obj.frame foreach { x => attr = scala.xml.Attribute(null, "frame", x.toString, attr) }
-        case ("@rules", _) => __obj.rules foreach { x => attr = scala.xml.Attribute(null, "rules", x.toString, attr) }
-        case ("@cellspacing", _) => __obj.cellspacing foreach { x => attr = scala.xml.Attribute(null, "cellspacing", x.toString, attr) }
-        case ("@cellpadding", _) => __obj.cellpadding foreach { x => attr = scala.xml.Attribute(null, "cellpadding", x.toString, attr) }
-        case (key, x) => attr = scala.xml.Attribute((x.namespace map { __scope.getPrefix(_) }).orNull, x.key.orNull, x.value.toString, attr)
-      }
+      __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
+      __obj.classValue foreach { x => attr = scala.xml.Attribute(null, "class", x.toString, attr) }
+      __obj.style foreach { x => attr = scala.xml.Attribute(null, "style", x.toString, attr) }
+      __obj.xmllang foreach { x => attr = scala.xml.Attribute(__scope.getPrefix("http://www.w3.org/XML/1998/namespace"), "lang", x.toString, attr) }
+      __obj.tabletype foreach { x => attr = scala.xml.Attribute(null, "tabletype", x.toString, attr) }
+      __obj.align foreach { x => attr = scala.xml.Attribute(null, "align", x.toString, attr) }
+      __obj.width foreach { x => attr = scala.xml.Attribute(null, "width", x.toString, attr) }
+      __obj.cols foreach { x => attr = scala.xml.Attribute(null, "cols", x.toString, attr) }
+      __obj.border foreach { x => attr = scala.xml.Attribute(null, "border", x.toString, attr) }
+      __obj.frame foreach { x => attr = scala.xml.Attribute(null, "frame", x.toString, attr) }
+      __obj.rules foreach { x => attr = scala.xml.Attribute(null, "rules", x.toString, attr) }
+      __obj.cellspacing foreach { x => attr = scala.xml.Attribute(null, "cellspacing", x.toString, attr) }
+      __obj.cellpadding foreach { x => attr = scala.xml.Attribute(null, "cellpadding", x.toString, attr) }
       attr
     }
 
@@ -2961,24 +2671,19 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
         p2,
         p3 map { scalaxb.fromXML[com.gu.nitf.model.MediaCaption](_, scalaxb.ElemName(node) :: stack) },
         p4.headOption map { scalaxb.fromXML[com.gu.nitf.model.MediaProducer](_, scalaxb.ElemName(node) :: stack) },
-        scala.collection.immutable.ListMap(List(
-        (node \ "@id").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@id" -> _ },
-        (node \ "@class").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@class" -> _ },
-        (node \ "@style").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@style" -> _ },
-        (node \ "@{http://www.w3.org/XML/1998/namespace}lang").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@{http://www.w3.org/XML/1998/namespace}lang" -> _ },
-        (node \ "@media-type").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@media-type" -> _ }
-        ).flatten[(String, scalaxb.DataRecord[Any])]: _*)) })
+        (node \ "@id").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@class").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@style").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@{http://www.w3.org/XML/1998/namespace}lang").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        scalaxb.fromXML[String]((node \ "@media-type"), scalaxb.ElemName(node) :: stack)) })
     
     override def writesAttribute(__obj: com.gu.nitf.model.Media, __scope: scala.xml.NamespaceBinding): scala.xml.MetaData = {
       var attr: scala.xml.MetaData  = scala.xml.Null
-      __obj.attributes.toList map {
-        case ("@id", _) => __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
-        case ("@class", _) => __obj.classValue foreach { x => attr = scala.xml.Attribute(null, "class", x.toString, attr) }
-        case ("@style", _) => __obj.style foreach { x => attr = scala.xml.Attribute(null, "style", x.toString, attr) }
-        case ("@{http://www.w3.org/XML/1998/namespace}lang", _) => __obj.xmllang foreach { x => attr = scala.xml.Attribute(__scope.getPrefix("http://www.w3.org/XML/1998/namespace"), "lang", x.toString, attr) }
-        case ("@media-type", _) => attr = scala.xml.Attribute(null, "media-type", __obj.mediaType.toString, attr)
-        case (key, x) => attr = scala.xml.Attribute((x.namespace map { __scope.getPrefix(_) }).orNull, x.key.orNull, x.value.toString, attr)
-      }
+      __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
+      __obj.classValue foreach { x => attr = scala.xml.Attribute(null, "class", x.toString, attr) }
+      __obj.style foreach { x => attr = scala.xml.Attribute(null, "style", x.toString, attr) }
+      __obj.xmllang foreach { x => attr = scala.xml.Attribute(__scope.getPrefix("http://www.w3.org/XML/1998/namespace"), "lang", x.toString, attr) }
+      attr = scala.xml.Attribute(null, "media-type", __obj.mediaType.toString, attr)
       attr
     }
 
@@ -3056,48 +2761,43 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
       phrase(optTextRecord ^^
       { case p1 =>
       com.gu.nitf.model.MediaReference(Seq.concat(p1.toList),
-        scala.collection.immutable.ListMap(List(
-        (node \ "@id").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@id" -> _ },
-        (node \ "@source").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@source" -> _ },
-        (node \ "@name").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@name" -> _ },
-        (node \ "@mime-type").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@mime-type" -> _ },
-        (node \ "@coding").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@coding" -> _ },
-        (node \ "@time").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@time" -> _ },
-        (node \ "@time-unit-of-measure").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@time-unit-of-measure" -> _ },
-        (node \ "@outcue").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@outcue" -> _ },
-        (node \ "@source-credit").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@source-credit" -> _ },
-        (node \ "@copyright").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@copyright" -> _ },
-        (node \ "@alternate-text").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@alternate-text" -> _ },
-        (node \ "@height").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@height" -> _ },
-        (node \ "@width").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@width" -> _ },
-        (node \ "@units").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[com.gu.nitf.model.Units](x, scalaxb.ElemName(node) :: stack)) } map { "@units" -> _ },
-        (node \ "@imagemap").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@imagemap" -> _ },
-        (node \ "@noflow").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[com.gu.nitf.model.Noflow](x, scalaxb.ElemName(node) :: stack)) } map { "@noflow" -> _ },
-        (node \ "@data-location").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@data-location" -> _ }
-        ).flatten[(String, scalaxb.DataRecord[Any])]: _*)) })
+        (node \ "@id").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@source").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@name").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@mime-type").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@coding").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@time").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@time-unit-of-measure").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@outcue").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@source-credit").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@copyright").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@alternate-text").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@height").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@width").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@units").headOption map { scalaxb.fromXML[com.gu.nitf.model.Units](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@imagemap").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@noflow").headOption map { scalaxb.fromXML[com.gu.nitf.model.Noflow](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@data-location").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) }) })
     
     override def writesAttribute(__obj: com.gu.nitf.model.MediaReference, __scope: scala.xml.NamespaceBinding): scala.xml.MetaData = {
       var attr: scala.xml.MetaData  = scala.xml.Null
-      __obj.attributes.toList map {
-        case ("@id", _) => __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
-        case ("@source", _) => __obj.source foreach { x => attr = scala.xml.Attribute(null, "source", x.toString, attr) }
-        case ("@name", _) => __obj.name foreach { x => attr = scala.xml.Attribute(null, "name", x.toString, attr) }
-        case ("@mime-type", _) => __obj.mimeType foreach { x => attr = scala.xml.Attribute(null, "mime-type", x.toString, attr) }
-        case ("@coding", _) => __obj.coding foreach { x => attr = scala.xml.Attribute(null, "coding", x.toString, attr) }
-        case ("@time", _) => __obj.time foreach { x => attr = scala.xml.Attribute(null, "time", x.toString, attr) }
-        case ("@time-unit-of-measure", _) => __obj.timeUnitOfMeasure foreach { x => attr = scala.xml.Attribute(null, "time-unit-of-measure", x.toString, attr) }
-        case ("@outcue", _) => __obj.outcue foreach { x => attr = scala.xml.Attribute(null, "outcue", x.toString, attr) }
-        case ("@source-credit", _) => __obj.sourceCredit foreach { x => attr = scala.xml.Attribute(null, "source-credit", x.toString, attr) }
-        case ("@copyright", _) => __obj.copyright foreach { x => attr = scala.xml.Attribute(null, "copyright", x.toString, attr) }
-        case ("@alternate-text", _) => __obj.alternateText foreach { x => attr = scala.xml.Attribute(null, "alternate-text", x.toString, attr) }
-        case ("@height", _) => __obj.height foreach { x => attr = scala.xml.Attribute(null, "height", x.toString, attr) }
-        case ("@width", _) => __obj.width foreach { x => attr = scala.xml.Attribute(null, "width", x.toString, attr) }
-        case ("@units", _) => __obj.units foreach { x => attr = scala.xml.Attribute(null, "units", x.toString, attr) }
-        case ("@imagemap", _) => __obj.imagemap foreach { x => attr = scala.xml.Attribute(null, "imagemap", x.toString, attr) }
-        case ("@noflow", _) => __obj.noflow foreach { x => attr = scala.xml.Attribute(null, "noflow", x.toString, attr) }
-        case ("@data-location", _) => __obj.dataLocation foreach { x => attr = scala.xml.Attribute(null, "data-location", x.toString, attr) }
-        case (key, x) => attr = scala.xml.Attribute((x.namespace map { __scope.getPrefix(_) }).orNull, x.key.orNull, x.value.toString, attr)
-      }
+      __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
+      __obj.source foreach { x => attr = scala.xml.Attribute(null, "source", x.toString, attr) }
+      __obj.name foreach { x => attr = scala.xml.Attribute(null, "name", x.toString, attr) }
+      __obj.mimeType foreach { x => attr = scala.xml.Attribute(null, "mime-type", x.toString, attr) }
+      __obj.coding foreach { x => attr = scala.xml.Attribute(null, "coding", x.toString, attr) }
+      __obj.time foreach { x => attr = scala.xml.Attribute(null, "time", x.toString, attr) }
+      __obj.timeUnitOfMeasure foreach { x => attr = scala.xml.Attribute(null, "time-unit-of-measure", x.toString, attr) }
+      __obj.outcue foreach { x => attr = scala.xml.Attribute(null, "outcue", x.toString, attr) }
+      __obj.sourceCredit foreach { x => attr = scala.xml.Attribute(null, "source-credit", x.toString, attr) }
+      __obj.copyright foreach { x => attr = scala.xml.Attribute(null, "copyright", x.toString, attr) }
+      __obj.alternateText foreach { x => attr = scala.xml.Attribute(null, "alternate-text", x.toString, attr) }
+      __obj.height foreach { x => attr = scala.xml.Attribute(null, "height", x.toString, attr) }
+      __obj.width foreach { x => attr = scala.xml.Attribute(null, "width", x.toString, attr) }
+      __obj.units foreach { x => attr = scala.xml.Attribute(null, "units", x.toString, attr) }
+      __obj.imagemap foreach { x => attr = scala.xml.Attribute(null, "imagemap", x.toString, attr) }
+      __obj.noflow foreach { x => attr = scala.xml.Attribute(null, "noflow", x.toString, attr) }
+      __obj.dataLocation foreach { x => attr = scala.xml.Attribute(null, "data-location", x.toString, attr) }
       attr
     }
 
@@ -3112,22 +2812,17 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
     import scalaxb.ElemName._
     
     def reads(seq: scala.xml.NodeSeq, stack: List[scalaxb.ElemName]): Either[String, com.gu.nitf.model.MediaMetadata] = seq match {
-      case node: scala.xml.Node => Right(com.gu.nitf.model.MediaMetadata(scala.collection.immutable.ListMap(List(
-        (node \ "@id").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@id" -> _ },
-        (node \ "@name").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@name" -> _ },
-        (node \ "@value").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@value" -> _ }
-        ).flatten[(String, scalaxb.DataRecord[Any])]: _*)))
+      case node: scala.xml.Node => Right(com.gu.nitf.model.MediaMetadata((node \ "@id").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        scalaxb.fromXML[String]((node \ "@name"), scalaxb.ElemName(node) :: stack),
+        (node \ "@value").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) }))
       case _ => Left("reads failed: seq must be scala.xml.Node")
     }
     
     override def writesAttribute(__obj: com.gu.nitf.model.MediaMetadata, __scope: scala.xml.NamespaceBinding): scala.xml.MetaData = {
       var attr: scala.xml.MetaData  = scala.xml.Null
-      __obj.attributes.toList map {
-        case ("@id", _) => __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
-        case ("@name", _) => attr = scala.xml.Attribute(null, "name", __obj.name.toString, attr)
-        case ("@value", _) => __obj.valueAttribute foreach { x => attr = scala.xml.Attribute(null, "value", x.toString, attr) }
-        case (key, x) => attr = scala.xml.Attribute((x.namespace map { __scope.getPrefix(_) }).orNull, x.key.orNull, x.value.toString, attr)
-      }
+      __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
+      attr = scala.xml.Attribute(null, "name", __obj.name.toString, attr)
+      __obj.valueAttribute foreach { x => attr = scala.xml.Attribute(null, "value", x.toString, attr) }
       attr
     }
 
@@ -3147,24 +2842,19 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
       phrase(optTextRecord ^^
       { case p1 =>
       com.gu.nitf.model.MediaObject(Seq.concat(p1.toList),
-        scala.collection.immutable.ListMap(List(
-        (node \ "@id").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@id" -> _ },
-        (node \ "@class").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@class" -> _ },
-        (node \ "@style").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@style" -> _ },
-        (node \ "@{http://www.w3.org/XML/1998/namespace}lang").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@{http://www.w3.org/XML/1998/namespace}lang" -> _ },
-        (node \ "@encoding").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@encoding" -> _ }
-        ).flatten[(String, scalaxb.DataRecord[Any])]: _*)) })
+        (node \ "@id").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@class").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@style").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@{http://www.w3.org/XML/1998/namespace}lang").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        scalaxb.fromXML[String]((node \ "@encoding"), scalaxb.ElemName(node) :: stack)) })
     
     override def writesAttribute(__obj: com.gu.nitf.model.MediaObject, __scope: scala.xml.NamespaceBinding): scala.xml.MetaData = {
       var attr: scala.xml.MetaData  = scala.xml.Null
-      __obj.attributes.toList map {
-        case ("@id", _) => __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
-        case ("@class", _) => __obj.classValue foreach { x => attr = scala.xml.Attribute(null, "class", x.toString, attr) }
-        case ("@style", _) => __obj.style foreach { x => attr = scala.xml.Attribute(null, "style", x.toString, attr) }
-        case ("@{http://www.w3.org/XML/1998/namespace}lang", _) => __obj.xmllang foreach { x => attr = scala.xml.Attribute(__scope.getPrefix("http://www.w3.org/XML/1998/namespace"), "lang", x.toString, attr) }
-        case ("@encoding", _) => attr = scala.xml.Attribute(null, "encoding", __obj.encoding.toString, attr)
-        case (key, x) => attr = scala.xml.Attribute((x.namespace map { __scope.getPrefix(_) }).orNull, x.key.orNull, x.value.toString, attr)
-      }
+      __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
+      __obj.classValue foreach { x => attr = scala.xml.Attribute(null, "class", x.toString, attr) }
+      __obj.style foreach { x => attr = scala.xml.Attribute(null, "style", x.toString, attr) }
+      __obj.xmllang foreach { x => attr = scala.xml.Attribute(__scope.getPrefix("http://www.w3.org/XML/1998/namespace"), "lang", x.toString, attr) }
+      attr = scala.xml.Attribute(null, "encoding", __obj.encoding.toString, attr)
       attr
     }
 
@@ -3188,22 +2878,17 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
       com.gu.nitf.model.MediaCaption(Seq.concat(p1.toList,
         p2.flatten,
         p3.toList),
-        scala.collection.immutable.ListMap(List(
-        (node \ "@id").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@id" -> _ },
-        (node \ "@class").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@class" -> _ },
-        (node \ "@style").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@style" -> _ },
-        (node \ "@{http://www.w3.org/XML/1998/namespace}lang").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@{http://www.w3.org/XML/1998/namespace}lang" -> _ }
-        ).flatten[(String, scalaxb.DataRecord[Any])]: _*)) })
+        (node \ "@id").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@class").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@style").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@{http://www.w3.org/XML/1998/namespace}lang").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) }) })
     
     override def writesAttribute(__obj: com.gu.nitf.model.MediaCaption, __scope: scala.xml.NamespaceBinding): scala.xml.MetaData = {
       var attr: scala.xml.MetaData  = scala.xml.Null
-      __obj.attributes.toList map {
-        case ("@id", _) => __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
-        case ("@class", _) => __obj.classValue foreach { x => attr = scala.xml.Attribute(null, "class", x.toString, attr) }
-        case ("@style", _) => __obj.style foreach { x => attr = scala.xml.Attribute(null, "style", x.toString, attr) }
-        case ("@{http://www.w3.org/XML/1998/namespace}lang", _) => __obj.xmllang foreach { x => attr = scala.xml.Attribute(__scope.getPrefix("http://www.w3.org/XML/1998/namespace"), "lang", x.toString, attr) }
-        case (key, x) => attr = scala.xml.Attribute((x.namespace map { __scope.getPrefix(_) }).orNull, x.key.orNull, x.value.toString, attr)
-      }
+      __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
+      __obj.classValue foreach { x => attr = scala.xml.Attribute(null, "class", x.toString, attr) }
+      __obj.style foreach { x => attr = scala.xml.Attribute(null, "style", x.toString, attr) }
+      __obj.xmllang foreach { x => attr = scala.xml.Attribute(__scope.getPrefix("http://www.w3.org/XML/1998/namespace"), "lang", x.toString, attr) }
       attr
     }
 
@@ -3226,22 +2911,17 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
       com.gu.nitf.model.MediaProducer(Seq.concat(p1.toList,
         p2.flatten,
         p3.toList),
-        scala.collection.immutable.ListMap(List(
-        (node \ "@id").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@id" -> _ },
-        (node \ "@class").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@class" -> _ },
-        (node \ "@style").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@style" -> _ },
-        (node \ "@{http://www.w3.org/XML/1998/namespace}lang").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@{http://www.w3.org/XML/1998/namespace}lang" -> _ }
-        ).flatten[(String, scalaxb.DataRecord[Any])]: _*)) })
+        (node \ "@id").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@class").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@style").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@{http://www.w3.org/XML/1998/namespace}lang").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) }) })
     
     override def writesAttribute(__obj: com.gu.nitf.model.MediaProducer, __scope: scala.xml.NamespaceBinding): scala.xml.MetaData = {
       var attr: scala.xml.MetaData  = scala.xml.Null
-      __obj.attributes.toList map {
-        case ("@id", _) => __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
-        case ("@class", _) => __obj.classValue foreach { x => attr = scala.xml.Attribute(null, "class", x.toString, attr) }
-        case ("@style", _) => __obj.style foreach { x => attr = scala.xml.Attribute(null, "style", x.toString, attr) }
-        case ("@{http://www.w3.org/XML/1998/namespace}lang", _) => __obj.xmllang foreach { x => attr = scala.xml.Attribute(__scope.getPrefix("http://www.w3.org/XML/1998/namespace"), "lang", x.toString, attr) }
-        case (key, x) => attr = scala.xml.Attribute((x.namespace map { __scope.getPrefix(_) }).orNull, x.key.orNull, x.value.toString, attr)
-      }
+      __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
+      __obj.classValue foreach { x => attr = scala.xml.Attribute(null, "class", x.toString, attr) }
+      __obj.style foreach { x => attr = scala.xml.Attribute(null, "style", x.toString, attr) }
+      __obj.xmllang foreach { x => attr = scala.xml.Attribute(__scope.getPrefix("http://www.w3.org/XML/1998/namespace"), "lang", x.toString, attr) }
       attr
     }
 
@@ -3259,24 +2939,19 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
         { case p1 => com.gu.nitf.model.OlSequence1(scalaxb.fromXML[com.gu.nitf.model.Li](p1, scalaxb.ElemName(node) :: stack)) }) ^^
       { case p1 =>
       com.gu.nitf.model.Ol(p1,
-        scala.collection.immutable.ListMap(List(
-        (node \ "@id").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@id" -> _ },
-        (node \ "@class").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@class" -> _ },
-        (node \ "@style").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@style" -> _ },
-        (node \ "@{http://www.w3.org/XML/1998/namespace}lang").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@{http://www.w3.org/XML/1998/namespace}lang" -> _ },
-        (node \ "@seqnum").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@seqnum" -> _ }
-        ).flatten[(String, scalaxb.DataRecord[Any])]: _*)) })
+        (node \ "@id").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@class").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@style").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@{http://www.w3.org/XML/1998/namespace}lang").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@seqnum").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) }) })
     
     override def writesAttribute(__obj: com.gu.nitf.model.Ol, __scope: scala.xml.NamespaceBinding): scala.xml.MetaData = {
       var attr: scala.xml.MetaData  = scala.xml.Null
-      __obj.attributes.toList map {
-        case ("@id", _) => __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
-        case ("@class", _) => __obj.classValue foreach { x => attr = scala.xml.Attribute(null, "class", x.toString, attr) }
-        case ("@style", _) => __obj.style foreach { x => attr = scala.xml.Attribute(null, "style", x.toString, attr) }
-        case ("@{http://www.w3.org/XML/1998/namespace}lang", _) => __obj.xmllang foreach { x => attr = scala.xml.Attribute(__scope.getPrefix("http://www.w3.org/XML/1998/namespace"), "lang", x.toString, attr) }
-        case ("@seqnum", _) => __obj.seqnum foreach { x => attr = scala.xml.Attribute(null, "seqnum", x.toString, attr) }
-        case (key, x) => attr = scala.xml.Attribute((x.namespace map { __scope.getPrefix(_) }).orNull, x.key.orNull, x.value.toString, attr)
-      }
+      __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
+      __obj.classValue foreach { x => attr = scala.xml.Attribute(null, "class", x.toString, attr) }
+      __obj.style foreach { x => attr = scala.xml.Attribute(null, "style", x.toString, attr) }
+      __obj.xmllang foreach { x => attr = scala.xml.Attribute(__scope.getPrefix("http://www.w3.org/XML/1998/namespace"), "lang", x.toString, attr) }
+      __obj.seqnum foreach { x => attr = scala.xml.Attribute(null, "seqnum", x.toString, attr) }
       attr
     }
 
@@ -3305,22 +2980,17 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
         { case p1 => com.gu.nitf.model.UlSequence1(scalaxb.fromXML[com.gu.nitf.model.Li](p1, scalaxb.ElemName(node) :: stack)) }) ^^
       { case p1 =>
       com.gu.nitf.model.Ul(p1,
-        scala.collection.immutable.ListMap(List(
-        (node \ "@id").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@id" -> _ },
-        (node \ "@class").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@class" -> _ },
-        (node \ "@style").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@style" -> _ },
-        (node \ "@{http://www.w3.org/XML/1998/namespace}lang").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@{http://www.w3.org/XML/1998/namespace}lang" -> _ }
-        ).flatten[(String, scalaxb.DataRecord[Any])]: _*)) })
+        (node \ "@id").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@class").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@style").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@{http://www.w3.org/XML/1998/namespace}lang").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) }) })
     
     override def writesAttribute(__obj: com.gu.nitf.model.Ul, __scope: scala.xml.NamespaceBinding): scala.xml.MetaData = {
       var attr: scala.xml.MetaData  = scala.xml.Null
-      __obj.attributes.toList map {
-        case ("@id", _) => __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
-        case ("@class", _) => __obj.classValue foreach { x => attr = scala.xml.Attribute(null, "class", x.toString, attr) }
-        case ("@style", _) => __obj.style foreach { x => attr = scala.xml.Attribute(null, "style", x.toString, attr) }
-        case ("@{http://www.w3.org/XML/1998/namespace}lang", _) => __obj.xmllang foreach { x => attr = scala.xml.Attribute(__scope.getPrefix("http://www.w3.org/XML/1998/namespace"), "lang", x.toString, attr) }
-        case (key, x) => attr = scala.xml.Attribute((x.namespace map { __scope.getPrefix(_) }).orNull, x.key.orNull, x.value.toString, attr)
-      }
+      __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
+      __obj.classValue foreach { x => attr = scala.xml.Attribute(null, "class", x.toString, attr) }
+      __obj.style foreach { x => attr = scala.xml.Attribute(null, "style", x.toString, attr) }
+      __obj.xmllang foreach { x => attr = scala.xml.Attribute(__scope.getPrefix("http://www.w3.org/XML/1998/namespace"), "lang", x.toString, attr) }
       attr
     }
 
@@ -3355,22 +3025,17 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
       com.gu.nitf.model.Li(Seq.concat(p1.toList,
         p2.flatten,
         p3.toList),
-        scala.collection.immutable.ListMap(List(
-        (node \ "@id").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@id" -> _ },
-        (node \ "@class").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@class" -> _ },
-        (node \ "@style").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@style" -> _ },
-        (node \ "@{http://www.w3.org/XML/1998/namespace}lang").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@{http://www.w3.org/XML/1998/namespace}lang" -> _ }
-        ).flatten[(String, scalaxb.DataRecord[Any])]: _*)) })
+        (node \ "@id").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@class").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@style").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@{http://www.w3.org/XML/1998/namespace}lang").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) }) })
     
     override def writesAttribute(__obj: com.gu.nitf.model.Li, __scope: scala.xml.NamespaceBinding): scala.xml.MetaData = {
       var attr: scala.xml.MetaData  = scala.xml.Null
-      __obj.attributes.toList map {
-        case ("@id", _) => __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
-        case ("@class", _) => __obj.classValue foreach { x => attr = scala.xml.Attribute(null, "class", x.toString, attr) }
-        case ("@style", _) => __obj.style foreach { x => attr = scala.xml.Attribute(null, "style", x.toString, attr) }
-        case ("@{http://www.w3.org/XML/1998/namespace}lang", _) => __obj.xmllang foreach { x => attr = scala.xml.Attribute(__scope.getPrefix("http://www.w3.org/XML/1998/namespace"), "lang", x.toString, attr) }
-        case (key, x) => attr = scala.xml.Attribute((x.namespace map { __scope.getPrefix(_) }).orNull, x.key.orNull, x.value.toString, attr)
-      }
+      __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
+      __obj.classValue foreach { x => attr = scala.xml.Attribute(null, "class", x.toString, attr) }
+      __obj.style foreach { x => attr = scala.xml.Attribute(null, "style", x.toString, attr) }
+      __obj.xmllang foreach { x => attr = scala.xml.Attribute(__scope.getPrefix("http://www.w3.org/XML/1998/namespace"), "lang", x.toString, attr) }
       attr
     }
 
@@ -3390,22 +3055,17 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
       (x => scalaxb.DataRecord(x.namespace, Some(x.name), scalaxb.fromXML[com.gu.nitf.model.Dd](x, scalaxb.ElemName(node) :: stack))))) ^^
       { case p1 =>
       com.gu.nitf.model.Dl(p1,
-        scala.collection.immutable.ListMap(List(
-        (node \ "@id").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@id" -> _ },
-        (node \ "@class").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@class" -> _ },
-        (node \ "@style").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@style" -> _ },
-        (node \ "@{http://www.w3.org/XML/1998/namespace}lang").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@{http://www.w3.org/XML/1998/namespace}lang" -> _ }
-        ).flatten[(String, scalaxb.DataRecord[Any])]: _*)) })
+        (node \ "@id").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@class").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@style").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@{http://www.w3.org/XML/1998/namespace}lang").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) }) })
     
     override def writesAttribute(__obj: com.gu.nitf.model.Dl, __scope: scala.xml.NamespaceBinding): scala.xml.MetaData = {
       var attr: scala.xml.MetaData  = scala.xml.Null
-      __obj.attributes.toList map {
-        case ("@id", _) => __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
-        case ("@class", _) => __obj.classValue foreach { x => attr = scala.xml.Attribute(null, "class", x.toString, attr) }
-        case ("@style", _) => __obj.style foreach { x => attr = scala.xml.Attribute(null, "style", x.toString, attr) }
-        case ("@{http://www.w3.org/XML/1998/namespace}lang", _) => __obj.xmllang foreach { x => attr = scala.xml.Attribute(__scope.getPrefix("http://www.w3.org/XML/1998/namespace"), "lang", x.toString, attr) }
-        case (key, x) => attr = scala.xml.Attribute((x.namespace map { __scope.getPrefix(_) }).orNull, x.key.orNull, x.value.toString, attr)
-      }
+      __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
+      __obj.classValue foreach { x => attr = scala.xml.Attribute(null, "class", x.toString, attr) }
+      __obj.style foreach { x => attr = scala.xml.Attribute(null, "style", x.toString, attr) }
+      __obj.xmllang foreach { x => attr = scala.xml.Attribute(__scope.getPrefix("http://www.w3.org/XML/1998/namespace"), "lang", x.toString, attr) }
       attr
     }
 
@@ -3428,22 +3088,17 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
       com.gu.nitf.model.Dt(Seq.concat(p1.toList,
         p2.flatten,
         p3.toList),
-        scala.collection.immutable.ListMap(List(
-        (node \ "@id").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@id" -> _ },
-        (node \ "@class").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@class" -> _ },
-        (node \ "@style").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@style" -> _ },
-        (node \ "@{http://www.w3.org/XML/1998/namespace}lang").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@{http://www.w3.org/XML/1998/namespace}lang" -> _ }
-        ).flatten[(String, scalaxb.DataRecord[Any])]: _*)) })
+        (node \ "@id").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@class").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@style").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@{http://www.w3.org/XML/1998/namespace}lang").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) }) })
     
     override def writesAttribute(__obj: com.gu.nitf.model.Dt, __scope: scala.xml.NamespaceBinding): scala.xml.MetaData = {
       var attr: scala.xml.MetaData  = scala.xml.Null
-      __obj.attributes.toList map {
-        case ("@id", _) => __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
-        case ("@class", _) => __obj.classValue foreach { x => attr = scala.xml.Attribute(null, "class", x.toString, attr) }
-        case ("@style", _) => __obj.style foreach { x => attr = scala.xml.Attribute(null, "style", x.toString, attr) }
-        case ("@{http://www.w3.org/XML/1998/namespace}lang", _) => __obj.xmllang foreach { x => attr = scala.xml.Attribute(__scope.getPrefix("http://www.w3.org/XML/1998/namespace"), "lang", x.toString, attr) }
-        case (key, x) => attr = scala.xml.Attribute((x.namespace map { __scope.getPrefix(_) }).orNull, x.key.orNull, x.value.toString, attr)
-      }
+      __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
+      __obj.classValue foreach { x => attr = scala.xml.Attribute(null, "class", x.toString, attr) }
+      __obj.style foreach { x => attr = scala.xml.Attribute(null, "style", x.toString, attr) }
+      __obj.xmllang foreach { x => attr = scala.xml.Attribute(__scope.getPrefix("http://www.w3.org/XML/1998/namespace"), "lang", x.toString, attr) }
       attr
     }
 
@@ -3463,22 +3118,17 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
       (x => scalaxb.DataRecord(x.namespace, Some(x.name), scalaxb.fromXML[com.gu.nitf.model.Block](x, scalaxb.ElemName(node) :: stack))))) ^^
       { case p1 =>
       com.gu.nitf.model.Dd(p1,
-        scala.collection.immutable.ListMap(List(
-        (node \ "@id").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@id" -> _ },
-        (node \ "@class").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@class" -> _ },
-        (node \ "@style").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@style" -> _ },
-        (node \ "@{http://www.w3.org/XML/1998/namespace}lang").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@{http://www.w3.org/XML/1998/namespace}lang" -> _ }
-        ).flatten[(String, scalaxb.DataRecord[Any])]: _*)) })
+        (node \ "@id").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@class").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@style").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@{http://www.w3.org/XML/1998/namespace}lang").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) }) })
     
     override def writesAttribute(__obj: com.gu.nitf.model.Dd, __scope: scala.xml.NamespaceBinding): scala.xml.MetaData = {
       var attr: scala.xml.MetaData  = scala.xml.Null
-      __obj.attributes.toList map {
-        case ("@id", _) => __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
-        case ("@class", _) => __obj.classValue foreach { x => attr = scala.xml.Attribute(null, "class", x.toString, attr) }
-        case ("@style", _) => __obj.style foreach { x => attr = scala.xml.Attribute(null, "style", x.toString, attr) }
-        case ("@{http://www.w3.org/XML/1998/namespace}lang", _) => __obj.xmllang foreach { x => attr = scala.xml.Attribute(__scope.getPrefix("http://www.w3.org/XML/1998/namespace"), "lang", x.toString, attr) }
-        case (key, x) => attr = scala.xml.Attribute((x.namespace map { __scope.getPrefix(_) }).orNull, x.key.orNull, x.value.toString, attr)
-      }
+      __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
+      __obj.classValue foreach { x => attr = scala.xml.Attribute(null, "class", x.toString, attr) }
+      __obj.style foreach { x => attr = scala.xml.Attribute(null, "style", x.toString, attr) }
+      __obj.xmllang foreach { x => attr = scala.xml.Attribute(__scope.getPrefix("http://www.w3.org/XML/1998/namespace"), "lang", x.toString, attr) }
       attr
     }
 
@@ -3520,26 +3170,21 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
         p2.headOption map { scalaxb.fromXML[com.gu.nitf.model.Credit](_, scalaxb.ElemName(node) :: stack) }) }) ^^
       { case p1 =>
       com.gu.nitf.model.Bq(p1,
-        scala.collection.immutable.ListMap(List(
-        (node \ "@id").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@id" -> _ },
-        (node \ "@class").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@class" -> _ },
-        (node \ "@style").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@style" -> _ },
-        (node \ "@{http://www.w3.org/XML/1998/namespace}lang").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@{http://www.w3.org/XML/1998/namespace}lang" -> _ },
-        (node \ "@nowrap").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[com.gu.nitf.model.Nowrap](x, scalaxb.ElemName(node) :: stack)) } map { "@nowrap" -> _ },
-        (node \ "@quote-source").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@quote-source" -> _ }
-        ).flatten[(String, scalaxb.DataRecord[Any])]: _*)) })
+        (node \ "@id").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@class").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@style").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@{http://www.w3.org/XML/1998/namespace}lang").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@nowrap").headOption map { scalaxb.fromXML[com.gu.nitf.model.Nowrap](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@quote-source").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) }) })
     
     override def writesAttribute(__obj: com.gu.nitf.model.Bq, __scope: scala.xml.NamespaceBinding): scala.xml.MetaData = {
       var attr: scala.xml.MetaData  = scala.xml.Null
-      __obj.attributes.toList map {
-        case ("@id", _) => __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
-        case ("@class", _) => __obj.classValue foreach { x => attr = scala.xml.Attribute(null, "class", x.toString, attr) }
-        case ("@style", _) => __obj.style foreach { x => attr = scala.xml.Attribute(null, "style", x.toString, attr) }
-        case ("@{http://www.w3.org/XML/1998/namespace}lang", _) => __obj.xmllang foreach { x => attr = scala.xml.Attribute(__scope.getPrefix("http://www.w3.org/XML/1998/namespace"), "lang", x.toString, attr) }
-        case ("@nowrap", _) => __obj.nowrap foreach { x => attr = scala.xml.Attribute(null, "nowrap", x.toString, attr) }
-        case ("@quote-source", _) => __obj.quoteSource foreach { x => attr = scala.xml.Attribute(null, "quote-source", x.toString, attr) }
-        case (key, x) => attr = scala.xml.Attribute((x.namespace map { __scope.getPrefix(_) }).orNull, x.key.orNull, x.value.toString, attr)
-      }
+      __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
+      __obj.classValue foreach { x => attr = scala.xml.Attribute(null, "class", x.toString, attr) }
+      __obj.style foreach { x => attr = scala.xml.Attribute(null, "style", x.toString, attr) }
+      __obj.xmllang foreach { x => attr = scala.xml.Attribute(__scope.getPrefix("http://www.w3.org/XML/1998/namespace"), "lang", x.toString, attr) }
+      __obj.nowrap foreach { x => attr = scala.xml.Attribute(null, "nowrap", x.toString, attr) }
+      __obj.quoteSource foreach { x => attr = scala.xml.Attribute(null, "quote-source", x.toString, attr) }
       attr
     }
 
@@ -3574,22 +3219,17 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
       com.gu.nitf.model.Credit(Seq.concat(p1.toList,
         p2.flatten,
         p3.toList),
-        scala.collection.immutable.ListMap(List(
-        (node \ "@id").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@id" -> _ },
-        (node \ "@class").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@class" -> _ },
-        (node \ "@style").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@style" -> _ },
-        (node \ "@{http://www.w3.org/XML/1998/namespace}lang").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@{http://www.w3.org/XML/1998/namespace}lang" -> _ }
-        ).flatten[(String, scalaxb.DataRecord[Any])]: _*)) })
+        (node \ "@id").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@class").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@style").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@{http://www.w3.org/XML/1998/namespace}lang").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) }) })
     
     override def writesAttribute(__obj: com.gu.nitf.model.Credit, __scope: scala.xml.NamespaceBinding): scala.xml.MetaData = {
       var attr: scala.xml.MetaData  = scala.xml.Null
-      __obj.attributes.toList map {
-        case ("@id", _) => __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
-        case ("@class", _) => __obj.classValue foreach { x => attr = scala.xml.Attribute(null, "class", x.toString, attr) }
-        case ("@style", _) => __obj.style foreach { x => attr = scala.xml.Attribute(null, "style", x.toString, attr) }
-        case ("@{http://www.w3.org/XML/1998/namespace}lang", _) => __obj.xmllang foreach { x => attr = scala.xml.Attribute(__scope.getPrefix("http://www.w3.org/XML/1998/namespace"), "lang", x.toString, attr) }
-        case (key, x) => attr = scala.xml.Attribute((x.namespace map { __scope.getPrefix(_) }).orNull, x.key.orNull, x.value.toString, attr)
-      }
+      __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
+      __obj.classValue foreach { x => attr = scala.xml.Attribute(null, "class", x.toString, attr) }
+      __obj.style foreach { x => attr = scala.xml.Attribute(null, "style", x.toString, attr) }
+      __obj.xmllang foreach { x => attr = scala.xml.Attribute(__scope.getPrefix("http://www.w3.org/XML/1998/namespace"), "lang", x.toString, attr) }
       attr
     }
 
@@ -3607,22 +3247,17 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
         { case p1 => com.gu.nitf.model.FnSequence1(scalaxb.fromXML[com.gu.nitf.model.BodyContent](p1, scalaxb.ElemName(node) :: stack)) }) ^^
       { case p1 =>
       com.gu.nitf.model.Fn(p1,
-        scala.collection.immutable.ListMap(List(
-        (node \ "@id").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@id" -> _ },
-        (node \ "@class").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@class" -> _ },
-        (node \ "@style").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@style" -> _ },
-        (node \ "@{http://www.w3.org/XML/1998/namespace}lang").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@{http://www.w3.org/XML/1998/namespace}lang" -> _ }
-        ).flatten[(String, scalaxb.DataRecord[Any])]: _*)) })
+        (node \ "@id").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@class").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@style").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@{http://www.w3.org/XML/1998/namespace}lang").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) }) })
     
     override def writesAttribute(__obj: com.gu.nitf.model.Fn, __scope: scala.xml.NamespaceBinding): scala.xml.MetaData = {
       var attr: scala.xml.MetaData  = scala.xml.Null
-      __obj.attributes.toList map {
-        case ("@id", _) => __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
-        case ("@class", _) => __obj.classValue foreach { x => attr = scala.xml.Attribute(null, "class", x.toString, attr) }
-        case ("@style", _) => __obj.style foreach { x => attr = scala.xml.Attribute(null, "style", x.toString, attr) }
-        case ("@{http://www.w3.org/XML/1998/namespace}lang", _) => __obj.xmllang foreach { x => attr = scala.xml.Attribute(__scope.getPrefix("http://www.w3.org/XML/1998/namespace"), "lang", x.toString, attr) }
-        case (key, x) => attr = scala.xml.Attribute((x.namespace map { __scope.getPrefix(_) }).orNull, x.key.orNull, x.value.toString, attr)
-      }
+      __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
+      __obj.classValue foreach { x => attr = scala.xml.Attribute(null, "class", x.toString, attr) }
+      __obj.style foreach { x => attr = scala.xml.Attribute(null, "style", x.toString, attr) }
+      __obj.xmllang foreach { x => attr = scala.xml.Attribute(__scope.getPrefix("http://www.w3.org/XML/1998/namespace"), "lang", x.toString, attr) }
       attr
     }
 
@@ -3652,22 +3287,17 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
       phrase(optTextRecord ^^
       { case p1 =>
       com.gu.nitf.model.Pre(Seq.concat(p1.toList),
-        scala.collection.immutable.ListMap(List(
-        (node \ "@id").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@id" -> _ },
-        (node \ "@class").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@class" -> _ },
-        (node \ "@style").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@style" -> _ },
-        (node \ "@{http://www.w3.org/XML/1998/namespace}lang").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@{http://www.w3.org/XML/1998/namespace}lang" -> _ }
-        ).flatten[(String, scalaxb.DataRecord[Any])]: _*)) })
+        (node \ "@id").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@class").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@style").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@{http://www.w3.org/XML/1998/namespace}lang").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) }) })
     
     override def writesAttribute(__obj: com.gu.nitf.model.Pre, __scope: scala.xml.NamespaceBinding): scala.xml.MetaData = {
       var attr: scala.xml.MetaData  = scala.xml.Null
-      __obj.attributes.toList map {
-        case ("@id", _) => __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
-        case ("@class", _) => __obj.classValue foreach { x => attr = scala.xml.Attribute(null, "class", x.toString, attr) }
-        case ("@style", _) => __obj.style foreach { x => attr = scala.xml.Attribute(null, "style", x.toString, attr) }
-        case ("@{http://www.w3.org/XML/1998/namespace}lang", _) => __obj.xmllang foreach { x => attr = scala.xml.Attribute(__scope.getPrefix("http://www.w3.org/XML/1998/namespace"), "lang", x.toString, attr) }
-        case (key, x) => attr = scala.xml.Attribute((x.namespace map { __scope.getPrefix(_) }).orNull, x.key.orNull, x.value.toString, attr)
-      }
+      __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
+      __obj.classValue foreach { x => attr = scala.xml.Attribute(null, "class", x.toString, attr) }
+      __obj.style foreach { x => attr = scala.xml.Attribute(null, "style", x.toString, attr) }
+      __obj.xmllang foreach { x => attr = scala.xml.Attribute(__scope.getPrefix("http://www.w3.org/XML/1998/namespace"), "lang", x.toString, attr) }
       attr
     }
 
@@ -3682,24 +3312,19 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
     import scalaxb.ElemName._
     
     def reads(seq: scala.xml.NodeSeq, stack: List[scalaxb.ElemName]): Either[String, com.gu.nitf.model.Hr] = seq match {
-      case node: scala.xml.Node => Right(com.gu.nitf.model.Hr(scala.collection.immutable.ListMap(List(
-        (node \ "@id").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@id" -> _ },
-        (node \ "@class").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@class" -> _ },
-        (node \ "@style").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@style" -> _ },
-        (node \ "@{http://www.w3.org/XML/1998/namespace}lang").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@{http://www.w3.org/XML/1998/namespace}lang" -> _ }
-        ).flatten[(String, scalaxb.DataRecord[Any])]: _*)))
+      case node: scala.xml.Node => Right(com.gu.nitf.model.Hr((node \ "@id").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@class").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@style").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@{http://www.w3.org/XML/1998/namespace}lang").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) }))
       case _ => Left("reads failed: seq must be scala.xml.Node")
     }
     
     override def writesAttribute(__obj: com.gu.nitf.model.Hr, __scope: scala.xml.NamespaceBinding): scala.xml.MetaData = {
       var attr: scala.xml.MetaData  = scala.xml.Null
-      __obj.attributes.toList map {
-        case ("@id", _) => __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
-        case ("@class", _) => __obj.classValue foreach { x => attr = scala.xml.Attribute(null, "class", x.toString, attr) }
-        case ("@style", _) => __obj.style foreach { x => attr = scala.xml.Attribute(null, "style", x.toString, attr) }
-        case ("@{http://www.w3.org/XML/1998/namespace}lang", _) => __obj.xmllang foreach { x => attr = scala.xml.Attribute(__scope.getPrefix("http://www.w3.org/XML/1998/namespace"), "lang", x.toString, attr) }
-        case (key, x) => attr = scala.xml.Attribute((x.namespace map { __scope.getPrefix(_) }).orNull, x.key.orNull, x.value.toString, attr)
-      }
+      __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
+      __obj.classValue foreach { x => attr = scala.xml.Attribute(null, "class", x.toString, attr) }
+      __obj.style foreach { x => attr = scala.xml.Attribute(null, "style", x.toString, attr) }
+      __obj.xmllang foreach { x => attr = scala.xml.Attribute(__scope.getPrefix("http://www.w3.org/XML/1998/namespace"), "lang", x.toString, attr) }
       attr
     }
 
@@ -3719,16 +3344,11 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
       phrase(optTextRecord ^^
       { case p1 =>
       com.gu.nitf.model.Datasource(Seq.concat(p1.toList),
-        scala.collection.immutable.ListMap(List(
-        (node \ "@id").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@id" -> _ }
-        ).flatten[(String, scalaxb.DataRecord[Any])]: _*)) })
+        (node \ "@id").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) }) })
     
     override def writesAttribute(__obj: com.gu.nitf.model.Datasource, __scope: scala.xml.NamespaceBinding): scala.xml.MetaData = {
       var attr: scala.xml.MetaData  = scala.xml.Null
-      __obj.attributes.toList map {
-        case ("@id", _) => __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
-        case (key, x) => attr = scala.xml.Attribute((x.namespace map { __scope.getPrefix(_) }).orNull, x.key.orNull, x.value.toString, attr)
-      }
+      __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
       attr
     }
 
@@ -3777,24 +3397,19 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
       com.gu.nitf.model.Caption(Seq.concat(p1.toList,
         p2.flatten,
         p3.toList),
-        scala.collection.immutable.ListMap(List(
-        (node \ "@id").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@id" -> _ },
-        (node \ "@class").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@class" -> _ },
-        (node \ "@style").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@style" -> _ },
-        (node \ "@{http://www.w3.org/XML/1998/namespace}lang").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@{http://www.w3.org/XML/1998/namespace}lang" -> _ },
-        (node \ "@align").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[com.gu.nitf.model.AlignType2](x, scalaxb.ElemName(node) :: stack)) } map { "@align" -> _ }
-        ).flatten[(String, scalaxb.DataRecord[Any])]: _*)) })
+        (node \ "@id").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@class").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@style").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@{http://www.w3.org/XML/1998/namespace}lang").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@align").headOption map { scalaxb.fromXML[com.gu.nitf.model.AlignType2](_, scalaxb.ElemName(node) :: stack) }) })
     
     override def writesAttribute(__obj: com.gu.nitf.model.Caption, __scope: scala.xml.NamespaceBinding): scala.xml.MetaData = {
       var attr: scala.xml.MetaData  = scala.xml.Null
-      __obj.attributes.toList map {
-        case ("@id", _) => __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
-        case ("@class", _) => __obj.classValue foreach { x => attr = scala.xml.Attribute(null, "class", x.toString, attr) }
-        case ("@style", _) => __obj.style foreach { x => attr = scala.xml.Attribute(null, "style", x.toString, attr) }
-        case ("@{http://www.w3.org/XML/1998/namespace}lang", _) => __obj.xmllang foreach { x => attr = scala.xml.Attribute(__scope.getPrefix("http://www.w3.org/XML/1998/namespace"), "lang", x.toString, attr) }
-        case ("@align", _) => __obj.align foreach { x => attr = scala.xml.Attribute(null, "align", x.toString, attr) }
-        case (key, x) => attr = scala.xml.Attribute((x.namespace map { __scope.getPrefix(_) }).orNull, x.key.orNull, x.value.toString, attr)
-      }
+      __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
+      __obj.classValue foreach { x => attr = scala.xml.Attribute(null, "class", x.toString, attr) }
+      __obj.style foreach { x => attr = scala.xml.Attribute(null, "style", x.toString, attr) }
+      __obj.xmllang foreach { x => attr = scala.xml.Attribute(__scope.getPrefix("http://www.w3.org/XML/1998/namespace"), "lang", x.toString, attr) }
+      __obj.align foreach { x => attr = scala.xml.Attribute(null, "align", x.toString, attr) }
       attr
     }
 
@@ -3809,36 +3424,31 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
     import scalaxb.ElemName._
     
     def reads(seq: scala.xml.NodeSeq, stack: List[scalaxb.ElemName]): Either[String, com.gu.nitf.model.Col] = seq match {
-      case node: scala.xml.Node => Right(com.gu.nitf.model.Col(scala.collection.immutable.ListMap(List(
-        (node \ "@id").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@id" -> _ },
-        (node \ "@class").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@class" -> _ },
-        (node \ "@style").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@style" -> _ },
-        (node \ "@{http://www.w3.org/XML/1998/namespace}lang").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@{http://www.w3.org/XML/1998/namespace}lang" -> _ },
-        (node \ "@span").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } orElse Some(scalaxb.DataRecord(None, None, scalaxb.fromXML[String](scala.xml.Text("1"), scalaxb.ElemName(node) :: stack))) map { "@span" -> _ },
-        (node \ "@width").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@width" -> _ },
-        (node \ "@align").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[com.gu.nitf.model.Align](x, scalaxb.ElemName(node) :: stack)) } map { "@align" -> _ },
-        (node \ "@char").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@char" -> _ },
-        (node \ "@charoff").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@charoff" -> _ },
-        (node \ "@valign").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[com.gu.nitf.model.Valign](x, scalaxb.ElemName(node) :: stack)) } map { "@valign" -> _ }
-        ).flatten[(String, scalaxb.DataRecord[Any])]: _*)))
+      case node: scala.xml.Node => Right(com.gu.nitf.model.Col((node \ "@id").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@class").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@style").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@{http://www.w3.org/XML/1998/namespace}lang").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@span").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) } getOrElse { scalaxb.fromXML[String](scala.xml.Text("1"), scalaxb.ElemName(node) :: stack) },
+        (node \ "@width").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@align").headOption map { scalaxb.fromXML[com.gu.nitf.model.Align](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@char").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@charoff").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@valign").headOption map { scalaxb.fromXML[com.gu.nitf.model.Valign](_, scalaxb.ElemName(node) :: stack) }))
       case _ => Left("reads failed: seq must be scala.xml.Node")
     }
     
     override def writesAttribute(__obj: com.gu.nitf.model.Col, __scope: scala.xml.NamespaceBinding): scala.xml.MetaData = {
       var attr: scala.xml.MetaData  = scala.xml.Null
-      __obj.attributes.toList map {
-        case ("@id", _) => __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
-        case ("@class", _) => __obj.classValue foreach { x => attr = scala.xml.Attribute(null, "class", x.toString, attr) }
-        case ("@style", _) => __obj.style foreach { x => attr = scala.xml.Attribute(null, "style", x.toString, attr) }
-        case ("@{http://www.w3.org/XML/1998/namespace}lang", _) => __obj.xmllang foreach { x => attr = scala.xml.Attribute(__scope.getPrefix("http://www.w3.org/XML/1998/namespace"), "lang", x.toString, attr) }
-        case ("@span", _) => if (__obj.span.toString != "1") attr = scala.xml.Attribute(null, "span", __obj.span.toString, attr)
-        case ("@width", _) => __obj.width foreach { x => attr = scala.xml.Attribute(null, "width", x.toString, attr) }
-        case ("@align", _) => __obj.align foreach { x => attr = scala.xml.Attribute(null, "align", x.toString, attr) }
-        case ("@char", _) => __obj.char foreach { x => attr = scala.xml.Attribute(null, "char", x.toString, attr) }
-        case ("@charoff", _) => __obj.charoff foreach { x => attr = scala.xml.Attribute(null, "charoff", x.toString, attr) }
-        case ("@valign", _) => __obj.valign foreach { x => attr = scala.xml.Attribute(null, "valign", x.toString, attr) }
-        case (key, x) => attr = scala.xml.Attribute((x.namespace map { __scope.getPrefix(_) }).orNull, x.key.orNull, x.value.toString, attr)
-      }
+      __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
+      __obj.classValue foreach { x => attr = scala.xml.Attribute(null, "class", x.toString, attr) }
+      __obj.style foreach { x => attr = scala.xml.Attribute(null, "style", x.toString, attr) }
+      __obj.xmllang foreach { x => attr = scala.xml.Attribute(__scope.getPrefix("http://www.w3.org/XML/1998/namespace"), "lang", x.toString, attr) }
+      if (__obj.span.toString != "1") attr = scala.xml.Attribute(null, "span", __obj.span.toString, attr)
+      __obj.width foreach { x => attr = scala.xml.Attribute(null, "width", x.toString, attr) }
+      __obj.align foreach { x => attr = scala.xml.Attribute(null, "align", x.toString, attr) }
+      __obj.char foreach { x => attr = scala.xml.Attribute(null, "char", x.toString, attr) }
+      __obj.charoff foreach { x => attr = scala.xml.Attribute(null, "charoff", x.toString, attr) }
+      __obj.valign foreach { x => attr = scala.xml.Attribute(null, "valign", x.toString, attr) }
       attr
     }
 
@@ -3856,30 +3466,25 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
       phrase(safeRep(scalaxb.ElemName(Some("http://iptc.org/std/nitf/2006-03-01/"), "col")) ^^
       { case p1 =>
       com.gu.nitf.model.Colgroup(p1 map { scalaxb.fromXML[com.gu.nitf.model.Col](_, scalaxb.ElemName(node) :: stack) },
-        scala.collection.immutable.ListMap(List(
-        (node \ "@id").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@id" -> _ },
-        (node \ "@class").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@class" -> _ },
-        (node \ "@style").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@style" -> _ },
-        (node \ "@{http://www.w3.org/XML/1998/namespace}lang").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@{http://www.w3.org/XML/1998/namespace}lang" -> _ },
-        (node \ "@align").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[com.gu.nitf.model.Align](x, scalaxb.ElemName(node) :: stack)) } map { "@align" -> _ },
-        (node \ "@char").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@char" -> _ },
-        (node \ "@charoff").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@charoff" -> _ },
-        (node \ "@valign").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[com.gu.nitf.model.Valign](x, scalaxb.ElemName(node) :: stack)) } map { "@valign" -> _ }
-        ).flatten[(String, scalaxb.DataRecord[Any])]: _*)) })
+        (node \ "@id").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@class").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@style").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@{http://www.w3.org/XML/1998/namespace}lang").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@align").headOption map { scalaxb.fromXML[com.gu.nitf.model.Align](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@char").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@charoff").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@valign").headOption map { scalaxb.fromXML[com.gu.nitf.model.Valign](_, scalaxb.ElemName(node) :: stack) }) })
     
     override def writesAttribute(__obj: com.gu.nitf.model.Colgroup, __scope: scala.xml.NamespaceBinding): scala.xml.MetaData = {
       var attr: scala.xml.MetaData  = scala.xml.Null
-      __obj.attributes.toList map {
-        case ("@id", _) => __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
-        case ("@class", _) => __obj.classValue foreach { x => attr = scala.xml.Attribute(null, "class", x.toString, attr) }
-        case ("@style", _) => __obj.style foreach { x => attr = scala.xml.Attribute(null, "style", x.toString, attr) }
-        case ("@{http://www.w3.org/XML/1998/namespace}lang", _) => __obj.xmllang foreach { x => attr = scala.xml.Attribute(__scope.getPrefix("http://www.w3.org/XML/1998/namespace"), "lang", x.toString, attr) }
-        case ("@align", _) => __obj.align foreach { x => attr = scala.xml.Attribute(null, "align", x.toString, attr) }
-        case ("@char", _) => __obj.char foreach { x => attr = scala.xml.Attribute(null, "char", x.toString, attr) }
-        case ("@charoff", _) => __obj.charoff foreach { x => attr = scala.xml.Attribute(null, "charoff", x.toString, attr) }
-        case ("@valign", _) => __obj.valign foreach { x => attr = scala.xml.Attribute(null, "valign", x.toString, attr) }
-        case (key, x) => attr = scala.xml.Attribute((x.namespace map { __scope.getPrefix(_) }).orNull, x.key.orNull, x.value.toString, attr)
-      }
+      __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
+      __obj.classValue foreach { x => attr = scala.xml.Attribute(null, "class", x.toString, attr) }
+      __obj.style foreach { x => attr = scala.xml.Attribute(null, "style", x.toString, attr) }
+      __obj.xmllang foreach { x => attr = scala.xml.Attribute(__scope.getPrefix("http://www.w3.org/XML/1998/namespace"), "lang", x.toString, attr) }
+      __obj.align foreach { x => attr = scala.xml.Attribute(null, "align", x.toString, attr) }
+      __obj.char foreach { x => attr = scala.xml.Attribute(null, "char", x.toString, attr) }
+      __obj.charoff foreach { x => attr = scala.xml.Attribute(null, "charoff", x.toString, attr) }
+      __obj.valign foreach { x => attr = scala.xml.Attribute(null, "valign", x.toString, attr) }
       attr
     }
 
@@ -3896,30 +3501,25 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
       phrase(safeRep(scalaxb.ElemName(Some("http://iptc.org/std/nitf/2006-03-01/"), "tr")) ^^
       { case p1 =>
       com.gu.nitf.model.Thead(p1 map { scalaxb.fromXML[com.gu.nitf.model.Tr](_, scalaxb.ElemName(node) :: stack) },
-        scala.collection.immutable.ListMap(List(
-        (node \ "@id").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@id" -> _ },
-        (node \ "@class").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@class" -> _ },
-        (node \ "@style").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@style" -> _ },
-        (node \ "@{http://www.w3.org/XML/1998/namespace}lang").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@{http://www.w3.org/XML/1998/namespace}lang" -> _ },
-        (node \ "@align").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[com.gu.nitf.model.Align](x, scalaxb.ElemName(node) :: stack)) } map { "@align" -> _ },
-        (node \ "@char").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@char" -> _ },
-        (node \ "@charoff").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@charoff" -> _ },
-        (node \ "@valign").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[com.gu.nitf.model.Valign](x, scalaxb.ElemName(node) :: stack)) } map { "@valign" -> _ }
-        ).flatten[(String, scalaxb.DataRecord[Any])]: _*)) })
+        (node \ "@id").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@class").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@style").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@{http://www.w3.org/XML/1998/namespace}lang").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@align").headOption map { scalaxb.fromXML[com.gu.nitf.model.Align](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@char").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@charoff").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@valign").headOption map { scalaxb.fromXML[com.gu.nitf.model.Valign](_, scalaxb.ElemName(node) :: stack) }) })
     
     override def writesAttribute(__obj: com.gu.nitf.model.Thead, __scope: scala.xml.NamespaceBinding): scala.xml.MetaData = {
       var attr: scala.xml.MetaData  = scala.xml.Null
-      __obj.attributes.toList map {
-        case ("@id", _) => __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
-        case ("@class", _) => __obj.classValue foreach { x => attr = scala.xml.Attribute(null, "class", x.toString, attr) }
-        case ("@style", _) => __obj.style foreach { x => attr = scala.xml.Attribute(null, "style", x.toString, attr) }
-        case ("@{http://www.w3.org/XML/1998/namespace}lang", _) => __obj.xmllang foreach { x => attr = scala.xml.Attribute(__scope.getPrefix("http://www.w3.org/XML/1998/namespace"), "lang", x.toString, attr) }
-        case ("@align", _) => __obj.align foreach { x => attr = scala.xml.Attribute(null, "align", x.toString, attr) }
-        case ("@char", _) => __obj.char foreach { x => attr = scala.xml.Attribute(null, "char", x.toString, attr) }
-        case ("@charoff", _) => __obj.charoff foreach { x => attr = scala.xml.Attribute(null, "charoff", x.toString, attr) }
-        case ("@valign", _) => __obj.valign foreach { x => attr = scala.xml.Attribute(null, "valign", x.toString, attr) }
-        case (key, x) => attr = scala.xml.Attribute((x.namespace map { __scope.getPrefix(_) }).orNull, x.key.orNull, x.value.toString, attr)
-      }
+      __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
+      __obj.classValue foreach { x => attr = scala.xml.Attribute(null, "class", x.toString, attr) }
+      __obj.style foreach { x => attr = scala.xml.Attribute(null, "style", x.toString, attr) }
+      __obj.xmllang foreach { x => attr = scala.xml.Attribute(__scope.getPrefix("http://www.w3.org/XML/1998/namespace"), "lang", x.toString, attr) }
+      __obj.align foreach { x => attr = scala.xml.Attribute(null, "align", x.toString, attr) }
+      __obj.char foreach { x => attr = scala.xml.Attribute(null, "char", x.toString, attr) }
+      __obj.charoff foreach { x => attr = scala.xml.Attribute(null, "charoff", x.toString, attr) }
+      __obj.valign foreach { x => attr = scala.xml.Attribute(null, "valign", x.toString, attr) }
       attr
     }
 
@@ -3936,30 +3536,25 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
       phrase(safeRep(scalaxb.ElemName(Some("http://iptc.org/std/nitf/2006-03-01/"), "tr")) ^^
       { case p1 =>
       com.gu.nitf.model.Tbody(p1 map { scalaxb.fromXML[com.gu.nitf.model.Tr](_, scalaxb.ElemName(node) :: stack) },
-        scala.collection.immutable.ListMap(List(
-        (node \ "@id").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@id" -> _ },
-        (node \ "@class").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@class" -> _ },
-        (node \ "@style").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@style" -> _ },
-        (node \ "@{http://www.w3.org/XML/1998/namespace}lang").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@{http://www.w3.org/XML/1998/namespace}lang" -> _ },
-        (node \ "@align").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[com.gu.nitf.model.Align](x, scalaxb.ElemName(node) :: stack)) } map { "@align" -> _ },
-        (node \ "@char").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@char" -> _ },
-        (node \ "@charoff").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@charoff" -> _ },
-        (node \ "@valign").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[com.gu.nitf.model.Valign](x, scalaxb.ElemName(node) :: stack)) } map { "@valign" -> _ }
-        ).flatten[(String, scalaxb.DataRecord[Any])]: _*)) })
+        (node \ "@id").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@class").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@style").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@{http://www.w3.org/XML/1998/namespace}lang").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@align").headOption map { scalaxb.fromXML[com.gu.nitf.model.Align](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@char").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@charoff").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@valign").headOption map { scalaxb.fromXML[com.gu.nitf.model.Valign](_, scalaxb.ElemName(node) :: stack) }) })
     
     override def writesAttribute(__obj: com.gu.nitf.model.Tbody, __scope: scala.xml.NamespaceBinding): scala.xml.MetaData = {
       var attr: scala.xml.MetaData  = scala.xml.Null
-      __obj.attributes.toList map {
-        case ("@id", _) => __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
-        case ("@class", _) => __obj.classValue foreach { x => attr = scala.xml.Attribute(null, "class", x.toString, attr) }
-        case ("@style", _) => __obj.style foreach { x => attr = scala.xml.Attribute(null, "style", x.toString, attr) }
-        case ("@{http://www.w3.org/XML/1998/namespace}lang", _) => __obj.xmllang foreach { x => attr = scala.xml.Attribute(__scope.getPrefix("http://www.w3.org/XML/1998/namespace"), "lang", x.toString, attr) }
-        case ("@align", _) => __obj.align foreach { x => attr = scala.xml.Attribute(null, "align", x.toString, attr) }
-        case ("@char", _) => __obj.char foreach { x => attr = scala.xml.Attribute(null, "char", x.toString, attr) }
-        case ("@charoff", _) => __obj.charoff foreach { x => attr = scala.xml.Attribute(null, "charoff", x.toString, attr) }
-        case ("@valign", _) => __obj.valign foreach { x => attr = scala.xml.Attribute(null, "valign", x.toString, attr) }
-        case (key, x) => attr = scala.xml.Attribute((x.namespace map { __scope.getPrefix(_) }).orNull, x.key.orNull, x.value.toString, attr)
-      }
+      __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
+      __obj.classValue foreach { x => attr = scala.xml.Attribute(null, "class", x.toString, attr) }
+      __obj.style foreach { x => attr = scala.xml.Attribute(null, "style", x.toString, attr) }
+      __obj.xmllang foreach { x => attr = scala.xml.Attribute(__scope.getPrefix("http://www.w3.org/XML/1998/namespace"), "lang", x.toString, attr) }
+      __obj.align foreach { x => attr = scala.xml.Attribute(null, "align", x.toString, attr) }
+      __obj.char foreach { x => attr = scala.xml.Attribute(null, "char", x.toString, attr) }
+      __obj.charoff foreach { x => attr = scala.xml.Attribute(null, "charoff", x.toString, attr) }
+      __obj.valign foreach { x => attr = scala.xml.Attribute(null, "valign", x.toString, attr) }
       attr
     }
 
@@ -3976,30 +3571,25 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
       phrase(safeRep(scalaxb.ElemName(Some("http://iptc.org/std/nitf/2006-03-01/"), "tr")) ^^
       { case p1 =>
       com.gu.nitf.model.Tfoot(p1 map { scalaxb.fromXML[com.gu.nitf.model.Tr](_, scalaxb.ElemName(node) :: stack) },
-        scala.collection.immutable.ListMap(List(
-        (node \ "@id").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@id" -> _ },
-        (node \ "@class").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@class" -> _ },
-        (node \ "@style").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@style" -> _ },
-        (node \ "@{http://www.w3.org/XML/1998/namespace}lang").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@{http://www.w3.org/XML/1998/namespace}lang" -> _ },
-        (node \ "@align").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[com.gu.nitf.model.Align](x, scalaxb.ElemName(node) :: stack)) } map { "@align" -> _ },
-        (node \ "@char").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@char" -> _ },
-        (node \ "@charoff").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@charoff" -> _ },
-        (node \ "@valign").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[com.gu.nitf.model.Valign](x, scalaxb.ElemName(node) :: stack)) } map { "@valign" -> _ }
-        ).flatten[(String, scalaxb.DataRecord[Any])]: _*)) })
+        (node \ "@id").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@class").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@style").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@{http://www.w3.org/XML/1998/namespace}lang").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@align").headOption map { scalaxb.fromXML[com.gu.nitf.model.Align](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@char").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@charoff").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@valign").headOption map { scalaxb.fromXML[com.gu.nitf.model.Valign](_, scalaxb.ElemName(node) :: stack) }) })
     
     override def writesAttribute(__obj: com.gu.nitf.model.Tfoot, __scope: scala.xml.NamespaceBinding): scala.xml.MetaData = {
       var attr: scala.xml.MetaData  = scala.xml.Null
-      __obj.attributes.toList map {
-        case ("@id", _) => __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
-        case ("@class", _) => __obj.classValue foreach { x => attr = scala.xml.Attribute(null, "class", x.toString, attr) }
-        case ("@style", _) => __obj.style foreach { x => attr = scala.xml.Attribute(null, "style", x.toString, attr) }
-        case ("@{http://www.w3.org/XML/1998/namespace}lang", _) => __obj.xmllang foreach { x => attr = scala.xml.Attribute(__scope.getPrefix("http://www.w3.org/XML/1998/namespace"), "lang", x.toString, attr) }
-        case ("@align", _) => __obj.align foreach { x => attr = scala.xml.Attribute(null, "align", x.toString, attr) }
-        case ("@char", _) => __obj.char foreach { x => attr = scala.xml.Attribute(null, "char", x.toString, attr) }
-        case ("@charoff", _) => __obj.charoff foreach { x => attr = scala.xml.Attribute(null, "charoff", x.toString, attr) }
-        case ("@valign", _) => __obj.valign foreach { x => attr = scala.xml.Attribute(null, "valign", x.toString, attr) }
-        case (key, x) => attr = scala.xml.Attribute((x.namespace map { __scope.getPrefix(_) }).orNull, x.key.orNull, x.value.toString, attr)
-      }
+      __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
+      __obj.classValue foreach { x => attr = scala.xml.Attribute(null, "class", x.toString, attr) }
+      __obj.style foreach { x => attr = scala.xml.Attribute(null, "style", x.toString, attr) }
+      __obj.xmllang foreach { x => attr = scala.xml.Attribute(__scope.getPrefix("http://www.w3.org/XML/1998/namespace"), "lang", x.toString, attr) }
+      __obj.align foreach { x => attr = scala.xml.Attribute(null, "align", x.toString, attr) }
+      __obj.char foreach { x => attr = scala.xml.Attribute(null, "char", x.toString, attr) }
+      __obj.charoff foreach { x => attr = scala.xml.Attribute(null, "charoff", x.toString, attr) }
+      __obj.valign foreach { x => attr = scala.xml.Attribute(null, "valign", x.toString, attr) }
       attr
     }
 
@@ -4019,30 +3609,25 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
       (x => scalaxb.DataRecord(x.namespace, Some(x.name), scalaxb.fromXML[com.gu.nitf.model.Td](x, scalaxb.ElemName(node) :: stack))))) ^^
       { case p1 =>
       com.gu.nitf.model.Tr(p1,
-        scala.collection.immutable.ListMap(List(
-        (node \ "@id").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@id" -> _ },
-        (node \ "@class").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@class" -> _ },
-        (node \ "@style").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@style" -> _ },
-        (node \ "@{http://www.w3.org/XML/1998/namespace}lang").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@{http://www.w3.org/XML/1998/namespace}lang" -> _ },
-        (node \ "@align").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[com.gu.nitf.model.Align](x, scalaxb.ElemName(node) :: stack)) } map { "@align" -> _ },
-        (node \ "@char").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@char" -> _ },
-        (node \ "@charoff").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@charoff" -> _ },
-        (node \ "@valign").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[com.gu.nitf.model.Valign](x, scalaxb.ElemName(node) :: stack)) } map { "@valign" -> _ }
-        ).flatten[(String, scalaxb.DataRecord[Any])]: _*)) })
+        (node \ "@id").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@class").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@style").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@{http://www.w3.org/XML/1998/namespace}lang").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@align").headOption map { scalaxb.fromXML[com.gu.nitf.model.Align](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@char").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@charoff").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@valign").headOption map { scalaxb.fromXML[com.gu.nitf.model.Valign](_, scalaxb.ElemName(node) :: stack) }) })
     
     override def writesAttribute(__obj: com.gu.nitf.model.Tr, __scope: scala.xml.NamespaceBinding): scala.xml.MetaData = {
       var attr: scala.xml.MetaData  = scala.xml.Null
-      __obj.attributes.toList map {
-        case ("@id", _) => __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
-        case ("@class", _) => __obj.classValue foreach { x => attr = scala.xml.Attribute(null, "class", x.toString, attr) }
-        case ("@style", _) => __obj.style foreach { x => attr = scala.xml.Attribute(null, "style", x.toString, attr) }
-        case ("@{http://www.w3.org/XML/1998/namespace}lang", _) => __obj.xmllang foreach { x => attr = scala.xml.Attribute(__scope.getPrefix("http://www.w3.org/XML/1998/namespace"), "lang", x.toString, attr) }
-        case ("@align", _) => __obj.align foreach { x => attr = scala.xml.Attribute(null, "align", x.toString, attr) }
-        case ("@char", _) => __obj.char foreach { x => attr = scala.xml.Attribute(null, "char", x.toString, attr) }
-        case ("@charoff", _) => __obj.charoff foreach { x => attr = scala.xml.Attribute(null, "charoff", x.toString, attr) }
-        case ("@valign", _) => __obj.valign foreach { x => attr = scala.xml.Attribute(null, "valign", x.toString, attr) }
-        case (key, x) => attr = scala.xml.Attribute((x.namespace map { __scope.getPrefix(_) }).orNull, x.key.orNull, x.value.toString, attr)
-      }
+      __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
+      __obj.classValue foreach { x => attr = scala.xml.Attribute(null, "class", x.toString, attr) }
+      __obj.style foreach { x => attr = scala.xml.Attribute(null, "style", x.toString, attr) }
+      __obj.xmllang foreach { x => attr = scala.xml.Attribute(__scope.getPrefix("http://www.w3.org/XML/1998/namespace"), "lang", x.toString, attr) }
+      __obj.align foreach { x => attr = scala.xml.Attribute(null, "align", x.toString, attr) }
+      __obj.char foreach { x => attr = scala.xml.Attribute(null, "char", x.toString, attr) }
+      __obj.charoff foreach { x => attr = scala.xml.Attribute(null, "charoff", x.toString, attr) }
+      __obj.valign foreach { x => attr = scala.xml.Attribute(null, "valign", x.toString, attr) }
       attr
     }
 
@@ -4088,40 +3673,35 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
       com.gu.nitf.model.Th(Seq.concat(p1.toList,
         p2.flatten,
         p3.toList),
-        scala.collection.immutable.ListMap(List(
-        (node \ "@id").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@id" -> _ },
-        (node \ "@class").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@class" -> _ },
-        (node \ "@style").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@style" -> _ },
-        (node \ "@{http://www.w3.org/XML/1998/namespace}lang").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@{http://www.w3.org/XML/1998/namespace}lang" -> _ },
-        (node \ "@axis").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@axis" -> _ },
-        (node \ "@axes").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@axes" -> _ },
-        (node \ "@nowrap").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[com.gu.nitf.model.NowrapType](x, scalaxb.ElemName(node) :: stack)) } map { "@nowrap" -> _ },
-        (node \ "@rowspan").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@rowspan" -> _ },
-        (node \ "@colspan").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@colspan" -> _ },
-        (node \ "@align").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[com.gu.nitf.model.Align](x, scalaxb.ElemName(node) :: stack)) } map { "@align" -> _ },
-        (node \ "@char").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@char" -> _ },
-        (node \ "@charoff").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@charoff" -> _ },
-        (node \ "@valign").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[com.gu.nitf.model.Valign](x, scalaxb.ElemName(node) :: stack)) } map { "@valign" -> _ }
-        ).flatten[(String, scalaxb.DataRecord[Any])]: _*)) })
+        (node \ "@id").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@class").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@style").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@{http://www.w3.org/XML/1998/namespace}lang").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@axis").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@axes").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@nowrap").headOption map { scalaxb.fromXML[com.gu.nitf.model.NowrapType](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@rowspan").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@colspan").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@align").headOption map { scalaxb.fromXML[com.gu.nitf.model.Align](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@char").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@charoff").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@valign").headOption map { scalaxb.fromXML[com.gu.nitf.model.Valign](_, scalaxb.ElemName(node) :: stack) }) })
     
     override def writesAttribute(__obj: com.gu.nitf.model.Th, __scope: scala.xml.NamespaceBinding): scala.xml.MetaData = {
       var attr: scala.xml.MetaData  = scala.xml.Null
-      __obj.attributes.toList map {
-        case ("@id", _) => __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
-        case ("@class", _) => __obj.classValue foreach { x => attr = scala.xml.Attribute(null, "class", x.toString, attr) }
-        case ("@style", _) => __obj.style foreach { x => attr = scala.xml.Attribute(null, "style", x.toString, attr) }
-        case ("@{http://www.w3.org/XML/1998/namespace}lang", _) => __obj.xmllang foreach { x => attr = scala.xml.Attribute(__scope.getPrefix("http://www.w3.org/XML/1998/namespace"), "lang", x.toString, attr) }
-        case ("@axis", _) => __obj.axis foreach { x => attr = scala.xml.Attribute(null, "axis", x.toString, attr) }
-        case ("@axes", _) => __obj.axes foreach { x => attr = scala.xml.Attribute(null, "axes", x.toString, attr) }
-        case ("@nowrap", _) => __obj.nowrap foreach { x => attr = scala.xml.Attribute(null, "nowrap", x.toString, attr) }
-        case ("@rowspan", _) => __obj.rowspan foreach { x => attr = scala.xml.Attribute(null, "rowspan", x.toString, attr) }
-        case ("@colspan", _) => __obj.colspan foreach { x => attr = scala.xml.Attribute(null, "colspan", x.toString, attr) }
-        case ("@align", _) => __obj.align foreach { x => attr = scala.xml.Attribute(null, "align", x.toString, attr) }
-        case ("@char", _) => __obj.char foreach { x => attr = scala.xml.Attribute(null, "char", x.toString, attr) }
-        case ("@charoff", _) => __obj.charoff foreach { x => attr = scala.xml.Attribute(null, "charoff", x.toString, attr) }
-        case ("@valign", _) => __obj.valign foreach { x => attr = scala.xml.Attribute(null, "valign", x.toString, attr) }
-        case (key, x) => attr = scala.xml.Attribute((x.namespace map { __scope.getPrefix(_) }).orNull, x.key.orNull, x.value.toString, attr)
-      }
+      __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
+      __obj.classValue foreach { x => attr = scala.xml.Attribute(null, "class", x.toString, attr) }
+      __obj.style foreach { x => attr = scala.xml.Attribute(null, "style", x.toString, attr) }
+      __obj.xmllang foreach { x => attr = scala.xml.Attribute(__scope.getPrefix("http://www.w3.org/XML/1998/namespace"), "lang", x.toString, attr) }
+      __obj.axis foreach { x => attr = scala.xml.Attribute(null, "axis", x.toString, attr) }
+      __obj.axes foreach { x => attr = scala.xml.Attribute(null, "axes", x.toString, attr) }
+      __obj.nowrap foreach { x => attr = scala.xml.Attribute(null, "nowrap", x.toString, attr) }
+      __obj.rowspan foreach { x => attr = scala.xml.Attribute(null, "rowspan", x.toString, attr) }
+      __obj.colspan foreach { x => attr = scala.xml.Attribute(null, "colspan", x.toString, attr) }
+      __obj.align foreach { x => attr = scala.xml.Attribute(null, "align", x.toString, attr) }
+      __obj.char foreach { x => attr = scala.xml.Attribute(null, "char", x.toString, attr) }
+      __obj.charoff foreach { x => attr = scala.xml.Attribute(null, "charoff", x.toString, attr) }
+      __obj.valign foreach { x => attr = scala.xml.Attribute(null, "valign", x.toString, attr) }
       attr
     }
 
@@ -4167,40 +3747,35 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
       com.gu.nitf.model.Td(Seq.concat(p1.toList,
         p2.flatten,
         p3.toList),
-        scala.collection.immutable.ListMap(List(
-        (node \ "@id").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@id" -> _ },
-        (node \ "@class").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@class" -> _ },
-        (node \ "@style").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@style" -> _ },
-        (node \ "@{http://www.w3.org/XML/1998/namespace}lang").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@{http://www.w3.org/XML/1998/namespace}lang" -> _ },
-        (node \ "@axis").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@axis" -> _ },
-        (node \ "@axes").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@axes" -> _ },
-        (node \ "@nowrap").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[com.gu.nitf.model.NowrapType2](x, scalaxb.ElemName(node) :: stack)) } map { "@nowrap" -> _ },
-        (node \ "@rowspan").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@rowspan" -> _ },
-        (node \ "@colspan").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@colspan" -> _ },
-        (node \ "@align").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[com.gu.nitf.model.Align](x, scalaxb.ElemName(node) :: stack)) } map { "@align" -> _ },
-        (node \ "@char").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@char" -> _ },
-        (node \ "@charoff").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@charoff" -> _ },
-        (node \ "@valign").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[com.gu.nitf.model.Valign](x, scalaxb.ElemName(node) :: stack)) } map { "@valign" -> _ }
-        ).flatten[(String, scalaxb.DataRecord[Any])]: _*)) })
+        (node \ "@id").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@class").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@style").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@{http://www.w3.org/XML/1998/namespace}lang").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@axis").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@axes").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@nowrap").headOption map { scalaxb.fromXML[com.gu.nitf.model.NowrapType2](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@rowspan").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@colspan").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@align").headOption map { scalaxb.fromXML[com.gu.nitf.model.Align](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@char").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@charoff").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@valign").headOption map { scalaxb.fromXML[com.gu.nitf.model.Valign](_, scalaxb.ElemName(node) :: stack) }) })
     
     override def writesAttribute(__obj: com.gu.nitf.model.Td, __scope: scala.xml.NamespaceBinding): scala.xml.MetaData = {
       var attr: scala.xml.MetaData  = scala.xml.Null
-      __obj.attributes.toList map {
-        case ("@id", _) => __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
-        case ("@class", _) => __obj.classValue foreach { x => attr = scala.xml.Attribute(null, "class", x.toString, attr) }
-        case ("@style", _) => __obj.style foreach { x => attr = scala.xml.Attribute(null, "style", x.toString, attr) }
-        case ("@{http://www.w3.org/XML/1998/namespace}lang", _) => __obj.xmllang foreach { x => attr = scala.xml.Attribute(__scope.getPrefix("http://www.w3.org/XML/1998/namespace"), "lang", x.toString, attr) }
-        case ("@axis", _) => __obj.axis foreach { x => attr = scala.xml.Attribute(null, "axis", x.toString, attr) }
-        case ("@axes", _) => __obj.axes foreach { x => attr = scala.xml.Attribute(null, "axes", x.toString, attr) }
-        case ("@nowrap", _) => __obj.nowrap foreach { x => attr = scala.xml.Attribute(null, "nowrap", x.toString, attr) }
-        case ("@rowspan", _) => __obj.rowspan foreach { x => attr = scala.xml.Attribute(null, "rowspan", x.toString, attr) }
-        case ("@colspan", _) => __obj.colspan foreach { x => attr = scala.xml.Attribute(null, "colspan", x.toString, attr) }
-        case ("@align", _) => __obj.align foreach { x => attr = scala.xml.Attribute(null, "align", x.toString, attr) }
-        case ("@char", _) => __obj.char foreach { x => attr = scala.xml.Attribute(null, "char", x.toString, attr) }
-        case ("@charoff", _) => __obj.charoff foreach { x => attr = scala.xml.Attribute(null, "charoff", x.toString, attr) }
-        case ("@valign", _) => __obj.valign foreach { x => attr = scala.xml.Attribute(null, "valign", x.toString, attr) }
-        case (key, x) => attr = scala.xml.Attribute((x.namespace map { __scope.getPrefix(_) }).orNull, x.key.orNull, x.value.toString, attr)
-      }
+      __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
+      __obj.classValue foreach { x => attr = scala.xml.Attribute(null, "class", x.toString, attr) }
+      __obj.style foreach { x => attr = scala.xml.Attribute(null, "style", x.toString, attr) }
+      __obj.xmllang foreach { x => attr = scala.xml.Attribute(__scope.getPrefix("http://www.w3.org/XML/1998/namespace"), "lang", x.toString, attr) }
+      __obj.axis foreach { x => attr = scala.xml.Attribute(null, "axis", x.toString, attr) }
+      __obj.axes foreach { x => attr = scala.xml.Attribute(null, "axes", x.toString, attr) }
+      __obj.nowrap foreach { x => attr = scala.xml.Attribute(null, "nowrap", x.toString, attr) }
+      __obj.rowspan foreach { x => attr = scala.xml.Attribute(null, "rowspan", x.toString, attr) }
+      __obj.colspan foreach { x => attr = scala.xml.Attribute(null, "colspan", x.toString, attr) }
+      __obj.align foreach { x => attr = scala.xml.Attribute(null, "align", x.toString, attr) }
+      __obj.char foreach { x => attr = scala.xml.Attribute(null, "char", x.toString, attr) }
+      __obj.charoff foreach { x => attr = scala.xml.Attribute(null, "charoff", x.toString, attr) }
+      __obj.valign foreach { x => attr = scala.xml.Attribute(null, "valign", x.toString, attr) }
       attr
     }
 
@@ -4219,24 +3794,19 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
       phrase(optTextRecord ^^
       { case p1 =>
       com.gu.nitf.model.Chron(Seq.concat(p1.toList),
-        scala.collection.immutable.ListMap(List(
-        (node \ "@id").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@id" -> _ },
-        (node \ "@class").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@class" -> _ },
-        (node \ "@style").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@style" -> _ },
-        (node \ "@{http://www.w3.org/XML/1998/namespace}lang").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@{http://www.w3.org/XML/1998/namespace}lang" -> _ },
-        (node \ "@norm").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@norm" -> _ }
-        ).flatten[(String, scalaxb.DataRecord[Any])]: _*)) })
+        (node \ "@id").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@class").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@style").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@{http://www.w3.org/XML/1998/namespace}lang").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@norm").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) }) })
     
     override def writesAttribute(__obj: com.gu.nitf.model.Chron, __scope: scala.xml.NamespaceBinding): scala.xml.MetaData = {
       var attr: scala.xml.MetaData  = scala.xml.Null
-      __obj.attributes.toList map {
-        case ("@id", _) => __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
-        case ("@class", _) => __obj.classValue foreach { x => attr = scala.xml.Attribute(null, "class", x.toString, attr) }
-        case ("@style", _) => __obj.style foreach { x => attr = scala.xml.Attribute(null, "style", x.toString, attr) }
-        case ("@{http://www.w3.org/XML/1998/namespace}lang", _) => __obj.xmllang foreach { x => attr = scala.xml.Attribute(__scope.getPrefix("http://www.w3.org/XML/1998/namespace"), "lang", x.toString, attr) }
-        case ("@norm", _) => __obj.norm foreach { x => attr = scala.xml.Attribute(null, "norm", x.toString, attr) }
-        case (key, x) => attr = scala.xml.Attribute((x.namespace map { __scope.getPrefix(_) }).orNull, x.key.orNull, x.value.toString, attr)
-      }
+      __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
+      __obj.classValue foreach { x => attr = scala.xml.Attribute(null, "class", x.toString, attr) }
+      __obj.style foreach { x => attr = scala.xml.Attribute(null, "style", x.toString, attr) }
+      __obj.xmllang foreach { x => attr = scala.xml.Attribute(__scope.getPrefix("http://www.w3.org/XML/1998/namespace"), "lang", x.toString, attr) }
+      __obj.norm foreach { x => attr = scala.xml.Attribute(null, "norm", x.toString, attr) }
       attr
     }
 
@@ -4263,30 +3833,25 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
       com.gu.nitf.model.Event(Seq.concat(p1.toList,
         p2.flatten,
         p3.toList),
-        scala.collection.immutable.ListMap(List(
-        (node \ "@id").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@id" -> _ },
-        (node \ "@class").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@class" -> _ },
-        (node \ "@style").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@style" -> _ },
-        (node \ "@{http://www.w3.org/XML/1998/namespace}lang").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@{http://www.w3.org/XML/1998/namespace}lang" -> _ },
-        (node \ "@start-date").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@start-date" -> _ },
-        (node \ "@end-date").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@end-date" -> _ },
-        (node \ "@idsrc").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@idsrc" -> _ },
-        (node \ "@value").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@value" -> _ }
-        ).flatten[(String, scalaxb.DataRecord[Any])]: _*)) })
+        (node \ "@id").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@class").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@style").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@{http://www.w3.org/XML/1998/namespace}lang").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@start-date").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@end-date").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@idsrc").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@value").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) }) })
     
     override def writesAttribute(__obj: com.gu.nitf.model.Event, __scope: scala.xml.NamespaceBinding): scala.xml.MetaData = {
       var attr: scala.xml.MetaData  = scala.xml.Null
-      __obj.attributes.toList map {
-        case ("@id", _) => __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
-        case ("@class", _) => __obj.classValue foreach { x => attr = scala.xml.Attribute(null, "class", x.toString, attr) }
-        case ("@style", _) => __obj.style foreach { x => attr = scala.xml.Attribute(null, "style", x.toString, attr) }
-        case ("@{http://www.w3.org/XML/1998/namespace}lang", _) => __obj.xmllang foreach { x => attr = scala.xml.Attribute(__scope.getPrefix("http://www.w3.org/XML/1998/namespace"), "lang", x.toString, attr) }
-        case ("@start-date", _) => __obj.startDate foreach { x => attr = scala.xml.Attribute(null, "start-date", x.toString, attr) }
-        case ("@end-date", _) => __obj.endDate foreach { x => attr = scala.xml.Attribute(null, "end-date", x.toString, attr) }
-        case ("@idsrc", _) => __obj.idsrc foreach { x => attr = scala.xml.Attribute(null, "idsrc", x.toString, attr) }
-        case ("@value", _) => __obj.valueAttribute foreach { x => attr = scala.xml.Attribute(null, "value", x.toString, attr) }
-        case (key, x) => attr = scala.xml.Attribute((x.namespace map { __scope.getPrefix(_) }).orNull, x.key.orNull, x.value.toString, attr)
-      }
+      __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
+      __obj.classValue foreach { x => attr = scala.xml.Attribute(null, "class", x.toString, attr) }
+      __obj.style foreach { x => attr = scala.xml.Attribute(null, "style", x.toString, attr) }
+      __obj.xmllang foreach { x => attr = scala.xml.Attribute(__scope.getPrefix("http://www.w3.org/XML/1998/namespace"), "lang", x.toString, attr) }
+      __obj.startDate foreach { x => attr = scala.xml.Attribute(null, "start-date", x.toString, attr) }
+      __obj.endDate foreach { x => attr = scala.xml.Attribute(null, "end-date", x.toString, attr) }
+      __obj.idsrc foreach { x => attr = scala.xml.Attribute(null, "idsrc", x.toString, attr) }
+      __obj.valueAttribute foreach { x => attr = scala.xml.Attribute(null, "value", x.toString, attr) }
       attr
     }
 
@@ -4313,20 +3878,15 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
       com.gu.nitf.model.FunctionType(Seq.concat(p1.toList,
         p2.flatten,
         p3.toList),
-        scala.collection.immutable.ListMap(List(
-        (node \ "@id").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@id" -> _ },
-        (node \ "@idsrc").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@idsrc" -> _ },
-        (node \ "@value").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@value" -> _ }
-        ).flatten[(String, scalaxb.DataRecord[Any])]: _*)) })
+        (node \ "@id").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@idsrc").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@value").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) }) })
     
     override def writesAttribute(__obj: com.gu.nitf.model.FunctionType, __scope: scala.xml.NamespaceBinding): scala.xml.MetaData = {
       var attr: scala.xml.MetaData  = scala.xml.Null
-      __obj.attributes.toList map {
-        case ("@id", _) => __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
-        case ("@idsrc", _) => __obj.idsrc foreach { x => attr = scala.xml.Attribute(null, "idsrc", x.toString, attr) }
-        case ("@value", _) => __obj.valueAttribute foreach { x => attr = scala.xml.Attribute(null, "value", x.toString, attr) }
-        case (key, x) => attr = scala.xml.Attribute((x.namespace map { __scope.getPrefix(_) }).orNull, x.key.orNull, x.value.toString, attr)
-      }
+      __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
+      __obj.idsrc foreach { x => attr = scala.xml.Attribute(null, "idsrc", x.toString, attr) }
+      __obj.valueAttribute foreach { x => attr = scala.xml.Attribute(null, "value", x.toString, attr) }
       attr
     }
 
@@ -4378,26 +3938,21 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
       com.gu.nitf.model.Location(Seq.concat(p1.toList,
         p2.flatten,
         p3.toList),
-        scala.collection.immutable.ListMap(List(
-        (node \ "@id").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@id" -> _ },
-        (node \ "@class").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@class" -> _ },
-        (node \ "@style").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@style" -> _ },
-        (node \ "@{http://www.w3.org/XML/1998/namespace}lang").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@{http://www.w3.org/XML/1998/namespace}lang" -> _ },
-        (node \ "@location-code").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@location-code" -> _ },
-        (node \ "@code-source").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@code-source" -> _ }
-        ).flatten[(String, scalaxb.DataRecord[Any])]: _*)) })
+        (node \ "@id").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@class").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@style").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@{http://www.w3.org/XML/1998/namespace}lang").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@location-code").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@code-source").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) }) })
     
     override def writesAttribute(__obj: com.gu.nitf.model.Location, __scope: scala.xml.NamespaceBinding): scala.xml.MetaData = {
       var attr: scala.xml.MetaData  = scala.xml.Null
-      __obj.attributes.toList map {
-        case ("@id", _) => __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
-        case ("@class", _) => __obj.classValue foreach { x => attr = scala.xml.Attribute(null, "class", x.toString, attr) }
-        case ("@style", _) => __obj.style foreach { x => attr = scala.xml.Attribute(null, "style", x.toString, attr) }
-        case ("@{http://www.w3.org/XML/1998/namespace}lang", _) => __obj.xmllang foreach { x => attr = scala.xml.Attribute(__scope.getPrefix("http://www.w3.org/XML/1998/namespace"), "lang", x.toString, attr) }
-        case ("@location-code", _) => __obj.locationCode foreach { x => attr = scala.xml.Attribute(null, "location-code", x.toString, attr) }
-        case ("@code-source", _) => __obj.codeSource foreach { x => attr = scala.xml.Attribute(null, "code-source", x.toString, attr) }
-        case (key, x) => attr = scala.xml.Attribute((x.namespace map { __scope.getPrefix(_) }).orNull, x.key.orNull, x.value.toString, attr)
-      }
+      __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
+      __obj.classValue foreach { x => attr = scala.xml.Attribute(null, "class", x.toString, attr) }
+      __obj.style foreach { x => attr = scala.xml.Attribute(null, "style", x.toString, attr) }
+      __obj.xmllang foreach { x => attr = scala.xml.Attribute(__scope.getPrefix("http://www.w3.org/XML/1998/namespace"), "lang", x.toString, attr) }
+      __obj.locationCode foreach { x => attr = scala.xml.Attribute(null, "location-code", x.toString, attr) }
+      __obj.codeSource foreach { x => attr = scala.xml.Attribute(null, "code-source", x.toString, attr) }
       attr
     }
 
@@ -4424,26 +3979,21 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
       com.gu.nitf.model.Sublocation(Seq.concat(p1.toList,
         p2.flatten,
         p3.toList),
-        scala.collection.immutable.ListMap(List(
-        (node \ "@id").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@id" -> _ },
-        (node \ "@class").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@class" -> _ },
-        (node \ "@style").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@style" -> _ },
-        (node \ "@{http://www.w3.org/XML/1998/namespace}lang").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@{http://www.w3.org/XML/1998/namespace}lang" -> _ },
-        (node \ "@location-code").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@location-code" -> _ },
-        (node \ "@code-source").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@code-source" -> _ }
-        ).flatten[(String, scalaxb.DataRecord[Any])]: _*)) })
+        (node \ "@id").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@class").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@style").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@{http://www.w3.org/XML/1998/namespace}lang").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@location-code").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@code-source").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) }) })
     
     override def writesAttribute(__obj: com.gu.nitf.model.Sublocation, __scope: scala.xml.NamespaceBinding): scala.xml.MetaData = {
       var attr: scala.xml.MetaData  = scala.xml.Null
-      __obj.attributes.toList map {
-        case ("@id", _) => __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
-        case ("@class", _) => __obj.classValue foreach { x => attr = scala.xml.Attribute(null, "class", x.toString, attr) }
-        case ("@style", _) => __obj.style foreach { x => attr = scala.xml.Attribute(null, "style", x.toString, attr) }
-        case ("@{http://www.w3.org/XML/1998/namespace}lang", _) => __obj.xmllang foreach { x => attr = scala.xml.Attribute(__scope.getPrefix("http://www.w3.org/XML/1998/namespace"), "lang", x.toString, attr) }
-        case ("@location-code", _) => __obj.locationCode foreach { x => attr = scala.xml.Attribute(null, "location-code", x.toString, attr) }
-        case ("@code-source", _) => __obj.codeSource foreach { x => attr = scala.xml.Attribute(null, "code-source", x.toString, attr) }
-        case (key, x) => attr = scala.xml.Attribute((x.namespace map { __scope.getPrefix(_) }).orNull, x.key.orNull, x.value.toString, attr)
-      }
+      __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
+      __obj.classValue foreach { x => attr = scala.xml.Attribute(null, "class", x.toString, attr) }
+      __obj.style foreach { x => attr = scala.xml.Attribute(null, "style", x.toString, attr) }
+      __obj.xmllang foreach { x => attr = scala.xml.Attribute(__scope.getPrefix("http://www.w3.org/XML/1998/namespace"), "lang", x.toString, attr) }
+      __obj.locationCode foreach { x => attr = scala.xml.Attribute(null, "location-code", x.toString, attr) }
+      __obj.codeSource foreach { x => attr = scala.xml.Attribute(null, "code-source", x.toString, attr) }
       attr
     }
 
@@ -4470,26 +4020,21 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
       com.gu.nitf.model.City(Seq.concat(p1.toList,
         p2.flatten,
         p3.toList),
-        scala.collection.immutable.ListMap(List(
-        (node \ "@id").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@id" -> _ },
-        (node \ "@class").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@class" -> _ },
-        (node \ "@style").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@style" -> _ },
-        (node \ "@{http://www.w3.org/XML/1998/namespace}lang").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@{http://www.w3.org/XML/1998/namespace}lang" -> _ },
-        (node \ "@city-code").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@city-code" -> _ },
-        (node \ "@code-source").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@code-source" -> _ }
-        ).flatten[(String, scalaxb.DataRecord[Any])]: _*)) })
+        (node \ "@id").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@class").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@style").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@{http://www.w3.org/XML/1998/namespace}lang").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@city-code").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@code-source").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) }) })
     
     override def writesAttribute(__obj: com.gu.nitf.model.City, __scope: scala.xml.NamespaceBinding): scala.xml.MetaData = {
       var attr: scala.xml.MetaData  = scala.xml.Null
-      __obj.attributes.toList map {
-        case ("@id", _) => __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
-        case ("@class", _) => __obj.classValue foreach { x => attr = scala.xml.Attribute(null, "class", x.toString, attr) }
-        case ("@style", _) => __obj.style foreach { x => attr = scala.xml.Attribute(null, "style", x.toString, attr) }
-        case ("@{http://www.w3.org/XML/1998/namespace}lang", _) => __obj.xmllang foreach { x => attr = scala.xml.Attribute(__scope.getPrefix("http://www.w3.org/XML/1998/namespace"), "lang", x.toString, attr) }
-        case ("@city-code", _) => __obj.cityCode foreach { x => attr = scala.xml.Attribute(null, "city-code", x.toString, attr) }
-        case ("@code-source", _) => __obj.codeSource foreach { x => attr = scala.xml.Attribute(null, "code-source", x.toString, attr) }
-        case (key, x) => attr = scala.xml.Attribute((x.namespace map { __scope.getPrefix(_) }).orNull, x.key.orNull, x.value.toString, attr)
-      }
+      __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
+      __obj.classValue foreach { x => attr = scala.xml.Attribute(null, "class", x.toString, attr) }
+      __obj.style foreach { x => attr = scala.xml.Attribute(null, "style", x.toString, attr) }
+      __obj.xmllang foreach { x => attr = scala.xml.Attribute(__scope.getPrefix("http://www.w3.org/XML/1998/namespace"), "lang", x.toString, attr) }
+      __obj.cityCode foreach { x => attr = scala.xml.Attribute(null, "city-code", x.toString, attr) }
+      __obj.codeSource foreach { x => attr = scala.xml.Attribute(null, "code-source", x.toString, attr) }
       attr
     }
 
@@ -4516,26 +4061,21 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
       com.gu.nitf.model.State(Seq.concat(p1.toList,
         p2.flatten,
         p3.toList),
-        scala.collection.immutable.ListMap(List(
-        (node \ "@id").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@id" -> _ },
-        (node \ "@class").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@class" -> _ },
-        (node \ "@style").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@style" -> _ },
-        (node \ "@{http://www.w3.org/XML/1998/namespace}lang").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@{http://www.w3.org/XML/1998/namespace}lang" -> _ },
-        (node \ "@state-code").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@state-code" -> _ },
-        (node \ "@code-source").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@code-source" -> _ }
-        ).flatten[(String, scalaxb.DataRecord[Any])]: _*)) })
+        (node \ "@id").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@class").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@style").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@{http://www.w3.org/XML/1998/namespace}lang").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@state-code").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@code-source").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) }) })
     
     override def writesAttribute(__obj: com.gu.nitf.model.State, __scope: scala.xml.NamespaceBinding): scala.xml.MetaData = {
       var attr: scala.xml.MetaData  = scala.xml.Null
-      __obj.attributes.toList map {
-        case ("@id", _) => __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
-        case ("@class", _) => __obj.classValue foreach { x => attr = scala.xml.Attribute(null, "class", x.toString, attr) }
-        case ("@style", _) => __obj.style foreach { x => attr = scala.xml.Attribute(null, "style", x.toString, attr) }
-        case ("@{http://www.w3.org/XML/1998/namespace}lang", _) => __obj.xmllang foreach { x => attr = scala.xml.Attribute(__scope.getPrefix("http://www.w3.org/XML/1998/namespace"), "lang", x.toString, attr) }
-        case ("@state-code", _) => __obj.stateCode foreach { x => attr = scala.xml.Attribute(null, "state-code", x.toString, attr) }
-        case ("@code-source", _) => __obj.codeSource foreach { x => attr = scala.xml.Attribute(null, "code-source", x.toString, attr) }
-        case (key, x) => attr = scala.xml.Attribute((x.namespace map { __scope.getPrefix(_) }).orNull, x.key.orNull, x.value.toString, attr)
-      }
+      __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
+      __obj.classValue foreach { x => attr = scala.xml.Attribute(null, "class", x.toString, attr) }
+      __obj.style foreach { x => attr = scala.xml.Attribute(null, "style", x.toString, attr) }
+      __obj.xmllang foreach { x => attr = scala.xml.Attribute(__scope.getPrefix("http://www.w3.org/XML/1998/namespace"), "lang", x.toString, attr) }
+      __obj.stateCode foreach { x => attr = scala.xml.Attribute(null, "state-code", x.toString, attr) }
+      __obj.codeSource foreach { x => attr = scala.xml.Attribute(null, "code-source", x.toString, attr) }
       attr
     }
 
@@ -4562,26 +4102,21 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
       com.gu.nitf.model.Region(Seq.concat(p1.toList,
         p2.flatten,
         p3.toList),
-        scala.collection.immutable.ListMap(List(
-        (node \ "@id").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@id" -> _ },
-        (node \ "@class").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@class" -> _ },
-        (node \ "@style").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@style" -> _ },
-        (node \ "@{http://www.w3.org/XML/1998/namespace}lang").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@{http://www.w3.org/XML/1998/namespace}lang" -> _ },
-        (node \ "@region-code").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@region-code" -> _ },
-        (node \ "@code-source").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@code-source" -> _ }
-        ).flatten[(String, scalaxb.DataRecord[Any])]: _*)) })
+        (node \ "@id").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@class").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@style").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@{http://www.w3.org/XML/1998/namespace}lang").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@region-code").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@code-source").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) }) })
     
     override def writesAttribute(__obj: com.gu.nitf.model.Region, __scope: scala.xml.NamespaceBinding): scala.xml.MetaData = {
       var attr: scala.xml.MetaData  = scala.xml.Null
-      __obj.attributes.toList map {
-        case ("@id", _) => __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
-        case ("@class", _) => __obj.classValue foreach { x => attr = scala.xml.Attribute(null, "class", x.toString, attr) }
-        case ("@style", _) => __obj.style foreach { x => attr = scala.xml.Attribute(null, "style", x.toString, attr) }
-        case ("@{http://www.w3.org/XML/1998/namespace}lang", _) => __obj.xmllang foreach { x => attr = scala.xml.Attribute(__scope.getPrefix("http://www.w3.org/XML/1998/namespace"), "lang", x.toString, attr) }
-        case ("@region-code", _) => __obj.regionCode foreach { x => attr = scala.xml.Attribute(null, "region-code", x.toString, attr) }
-        case ("@code-source", _) => __obj.codeSource foreach { x => attr = scala.xml.Attribute(null, "code-source", x.toString, attr) }
-        case (key, x) => attr = scala.xml.Attribute((x.namespace map { __scope.getPrefix(_) }).orNull, x.key.orNull, x.value.toString, attr)
-      }
+      __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
+      __obj.classValue foreach { x => attr = scala.xml.Attribute(null, "class", x.toString, attr) }
+      __obj.style foreach { x => attr = scala.xml.Attribute(null, "style", x.toString, attr) }
+      __obj.xmllang foreach { x => attr = scala.xml.Attribute(__scope.getPrefix("http://www.w3.org/XML/1998/namespace"), "lang", x.toString, attr) }
+      __obj.regionCode foreach { x => attr = scala.xml.Attribute(null, "region-code", x.toString, attr) }
+      __obj.codeSource foreach { x => attr = scala.xml.Attribute(null, "code-source", x.toString, attr) }
       attr
     }
 
@@ -4608,24 +4143,19 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
       com.gu.nitf.model.Country(Seq.concat(p1.toList,
         p2.flatten,
         p3.toList),
-        scala.collection.immutable.ListMap(List(
-        (node \ "@id").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@id" -> _ },
-        (node \ "@class").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@class" -> _ },
-        (node \ "@style").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@style" -> _ },
-        (node \ "@{http://www.w3.org/XML/1998/namespace}lang").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@{http://www.w3.org/XML/1998/namespace}lang" -> _ },
-        (node \ "@iso-cc").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@iso-cc" -> _ }
-        ).flatten[(String, scalaxb.DataRecord[Any])]: _*)) })
+        (node \ "@id").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@class").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@style").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@{http://www.w3.org/XML/1998/namespace}lang").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@iso-cc").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) }) })
     
     override def writesAttribute(__obj: com.gu.nitf.model.Country, __scope: scala.xml.NamespaceBinding): scala.xml.MetaData = {
       var attr: scala.xml.MetaData  = scala.xml.Null
-      __obj.attributes.toList map {
-        case ("@id", _) => __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
-        case ("@class", _) => __obj.classValue foreach { x => attr = scala.xml.Attribute(null, "class", x.toString, attr) }
-        case ("@style", _) => __obj.style foreach { x => attr = scala.xml.Attribute(null, "style", x.toString, attr) }
-        case ("@{http://www.w3.org/XML/1998/namespace}lang", _) => __obj.xmllang foreach { x => attr = scala.xml.Attribute(__scope.getPrefix("http://www.w3.org/XML/1998/namespace"), "lang", x.toString, attr) }
-        case ("@iso-cc", _) => __obj.isoCc foreach { x => attr = scala.xml.Attribute(null, "iso-cc", x.toString, attr) }
-        case (key, x) => attr = scala.xml.Attribute((x.namespace map { __scope.getPrefix(_) }).orNull, x.key.orNull, x.value.toString, attr)
-      }
+      __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
+      __obj.classValue foreach { x => attr = scala.xml.Attribute(null, "class", x.toString, attr) }
+      __obj.style foreach { x => attr = scala.xml.Attribute(null, "style", x.toString, attr) }
+      __obj.xmllang foreach { x => attr = scala.xml.Attribute(__scope.getPrefix("http://www.w3.org/XML/1998/namespace"), "lang", x.toString, attr) }
+      __obj.isoCc foreach { x => attr = scala.xml.Attribute(null, "iso-cc", x.toString, attr) }
       attr
     }
 
@@ -4644,26 +4174,21 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
       phrase(optTextRecord ^^
       { case p1 =>
       com.gu.nitf.model.Money(Seq.concat(p1.toList),
-        scala.collection.immutable.ListMap(List(
-        (node \ "@id").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@id" -> _ },
-        (node \ "@class").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@class" -> _ },
-        (node \ "@style").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@style" -> _ },
-        (node \ "@{http://www.w3.org/XML/1998/namespace}lang").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@{http://www.w3.org/XML/1998/namespace}lang" -> _ },
-        (node \ "@unit").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@unit" -> _ },
-        (node \ "@date").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@date" -> _ }
-        ).flatten[(String, scalaxb.DataRecord[Any])]: _*)) })
+        (node \ "@id").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@class").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@style").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@{http://www.w3.org/XML/1998/namespace}lang").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@unit").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@date").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) }) })
     
     override def writesAttribute(__obj: com.gu.nitf.model.Money, __scope: scala.xml.NamespaceBinding): scala.xml.MetaData = {
       var attr: scala.xml.MetaData  = scala.xml.Null
-      __obj.attributes.toList map {
-        case ("@id", _) => __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
-        case ("@class", _) => __obj.classValue foreach { x => attr = scala.xml.Attribute(null, "class", x.toString, attr) }
-        case ("@style", _) => __obj.style foreach { x => attr = scala.xml.Attribute(null, "style", x.toString, attr) }
-        case ("@{http://www.w3.org/XML/1998/namespace}lang", _) => __obj.xmllang foreach { x => attr = scala.xml.Attribute(__scope.getPrefix("http://www.w3.org/XML/1998/namespace"), "lang", x.toString, attr) }
-        case ("@unit", _) => __obj.unit foreach { x => attr = scala.xml.Attribute(null, "unit", x.toString, attr) }
-        case ("@date", _) => __obj.date foreach { x => attr = scala.xml.Attribute(null, "date", x.toString, attr) }
-        case (key, x) => attr = scala.xml.Attribute((x.namespace map { __scope.getPrefix(_) }).orNull, x.key.orNull, x.value.toString, attr)
-      }
+      __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
+      __obj.classValue foreach { x => attr = scala.xml.Attribute(null, "class", x.toString, attr) }
+      __obj.style foreach { x => attr = scala.xml.Attribute(null, "style", x.toString, attr) }
+      __obj.xmllang foreach { x => attr = scala.xml.Attribute(__scope.getPrefix("http://www.w3.org/XML/1998/namespace"), "lang", x.toString, attr) }
+      __obj.unit foreach { x => attr = scala.xml.Attribute(null, "unit", x.toString, attr) }
+      __obj.date foreach { x => attr = scala.xml.Attribute(null, "date", x.toString, attr) }
       attr
     }
 
@@ -4700,28 +4225,23 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
       com.gu.nitf.model.Num(Seq.concat(p1.toList,
         p2.flatten,
         p3.toList),
-        scala.collection.immutable.ListMap(List(
-        (node \ "@id").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@id" -> _ },
-        (node \ "@class").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@class" -> _ },
-        (node \ "@style").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@style" -> _ },
-        (node \ "@{http://www.w3.org/XML/1998/namespace}lang").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@{http://www.w3.org/XML/1998/namespace}lang" -> _ },
-        (node \ "@units").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@units" -> _ },
-        (node \ "@decimal-ch").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@decimal-ch" -> _ },
-        (node \ "@thousands-ch").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@thousands-ch" -> _ }
-        ).flatten[(String, scalaxb.DataRecord[Any])]: _*)) })
+        (node \ "@id").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@class").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@style").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@{http://www.w3.org/XML/1998/namespace}lang").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@units").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@decimal-ch").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@thousands-ch").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) }) })
     
     override def writesAttribute(__obj: com.gu.nitf.model.Num, __scope: scala.xml.NamespaceBinding): scala.xml.MetaData = {
       var attr: scala.xml.MetaData  = scala.xml.Null
-      __obj.attributes.toList map {
-        case ("@id", _) => __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
-        case ("@class", _) => __obj.classValue foreach { x => attr = scala.xml.Attribute(null, "class", x.toString, attr) }
-        case ("@style", _) => __obj.style foreach { x => attr = scala.xml.Attribute(null, "style", x.toString, attr) }
-        case ("@{http://www.w3.org/XML/1998/namespace}lang", _) => __obj.xmllang foreach { x => attr = scala.xml.Attribute(__scope.getPrefix("http://www.w3.org/XML/1998/namespace"), "lang", x.toString, attr) }
-        case ("@units", _) => __obj.units foreach { x => attr = scala.xml.Attribute(null, "units", x.toString, attr) }
-        case ("@decimal-ch", _) => __obj.decimalCh foreach { x => attr = scala.xml.Attribute(null, "decimal-ch", x.toString, attr) }
-        case ("@thousands-ch", _) => __obj.thousandsCh foreach { x => attr = scala.xml.Attribute(null, "thousands-ch", x.toString, attr) }
-        case (key, x) => attr = scala.xml.Attribute((x.namespace map { __scope.getPrefix(_) }).orNull, x.key.orNull, x.value.toString, attr)
-      }
+      __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
+      __obj.classValue foreach { x => attr = scala.xml.Attribute(null, "class", x.toString, attr) }
+      __obj.style foreach { x => attr = scala.xml.Attribute(null, "style", x.toString, attr) }
+      __obj.xmllang foreach { x => attr = scala.xml.Attribute(__scope.getPrefix("http://www.w3.org/XML/1998/namespace"), "lang", x.toString, attr) }
+      __obj.units foreach { x => attr = scala.xml.Attribute(null, "units", x.toString, attr) }
+      __obj.decimalCh foreach { x => attr = scala.xml.Attribute(null, "decimal-ch", x.toString, attr) }
+      __obj.thousandsCh foreach { x => attr = scala.xml.Attribute(null, "thousands-ch", x.toString, attr) }
       attr
     }
 
@@ -4742,22 +4262,17 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
       com.gu.nitf.model.Frac(scalaxb.fromXML[com.gu.nitf.model.Numer](p1, scalaxb.ElemName(node) :: stack),
         p2.headOption map { scalaxb.fromXML[com.gu.nitf.model.FracSep](_, scalaxb.ElemName(node) :: stack) },
         scalaxb.fromXML[com.gu.nitf.model.Denom](p3, scalaxb.ElemName(node) :: stack),
-        scala.collection.immutable.ListMap(List(
-        (node \ "@id").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@id" -> _ },
-        (node \ "@class").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@class" -> _ },
-        (node \ "@style").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@style" -> _ },
-        (node \ "@{http://www.w3.org/XML/1998/namespace}lang").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@{http://www.w3.org/XML/1998/namespace}lang" -> _ }
-        ).flatten[(String, scalaxb.DataRecord[Any])]: _*)) })
+        (node \ "@id").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@class").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@style").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@{http://www.w3.org/XML/1998/namespace}lang").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) }) })
     
     override def writesAttribute(__obj: com.gu.nitf.model.Frac, __scope: scala.xml.NamespaceBinding): scala.xml.MetaData = {
       var attr: scala.xml.MetaData  = scala.xml.Null
-      __obj.attributes.toList map {
-        case ("@id", _) => __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
-        case ("@class", _) => __obj.classValue foreach { x => attr = scala.xml.Attribute(null, "class", x.toString, attr) }
-        case ("@style", _) => __obj.style foreach { x => attr = scala.xml.Attribute(null, "style", x.toString, attr) }
-        case ("@{http://www.w3.org/XML/1998/namespace}lang", _) => __obj.xmllang foreach { x => attr = scala.xml.Attribute(__scope.getPrefix("http://www.w3.org/XML/1998/namespace"), "lang", x.toString, attr) }
-        case (key, x) => attr = scala.xml.Attribute((x.namespace map { __scope.getPrefix(_) }).orNull, x.key.orNull, x.value.toString, attr)
-      }
+      __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
+      __obj.classValue foreach { x => attr = scala.xml.Attribute(null, "class", x.toString, attr) }
+      __obj.style foreach { x => attr = scala.xml.Attribute(null, "style", x.toString, attr) }
+      __obj.xmllang foreach { x => attr = scala.xml.Attribute(__scope.getPrefix("http://www.w3.org/XML/1998/namespace"), "lang", x.toString, attr) }
       attr
     }
 
@@ -4778,16 +4293,11 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
       phrase(optTextRecord ^^
       { case p1 =>
       com.gu.nitf.model.Numer(Seq.concat(p1.toList),
-        scala.collection.immutable.ListMap(List(
-        (node \ "@id").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@id" -> _ }
-        ).flatten[(String, scalaxb.DataRecord[Any])]: _*)) })
+        (node \ "@id").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) }) })
     
     override def writesAttribute(__obj: com.gu.nitf.model.Numer, __scope: scala.xml.NamespaceBinding): scala.xml.MetaData = {
       var attr: scala.xml.MetaData  = scala.xml.Null
-      __obj.attributes.toList map {
-        case ("@id", _) => __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
-        case (key, x) => attr = scala.xml.Attribute((x.namespace map { __scope.getPrefix(_) }).orNull, x.key.orNull, x.value.toString, attr)
-      }
+      __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
       attr
     }
 
@@ -4806,16 +4316,11 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
       phrase(optTextRecord ^^
       { case p1 =>
       com.gu.nitf.model.FracSep(Seq.concat(p1.toList),
-        scala.collection.immutable.ListMap(List(
-        (node \ "@id").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@id" -> _ }
-        ).flatten[(String, scalaxb.DataRecord[Any])]: _*)) })
+        (node \ "@id").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) }) })
     
     override def writesAttribute(__obj: com.gu.nitf.model.FracSep, __scope: scala.xml.NamespaceBinding): scala.xml.MetaData = {
       var attr: scala.xml.MetaData  = scala.xml.Null
-      __obj.attributes.toList map {
-        case ("@id", _) => __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
-        case (key, x) => attr = scala.xml.Attribute((x.namespace map { __scope.getPrefix(_) }).orNull, x.key.orNull, x.value.toString, attr)
-      }
+      __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
       attr
     }
 
@@ -4834,16 +4339,11 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
       phrase(optTextRecord ^^
       { case p1 =>
       com.gu.nitf.model.Denom(Seq.concat(p1.toList),
-        scala.collection.immutable.ListMap(List(
-        (node \ "@id").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@id" -> _ }
-        ).flatten[(String, scalaxb.DataRecord[Any])]: _*)) })
+        (node \ "@id").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) }) })
     
     override def writesAttribute(__obj: com.gu.nitf.model.Denom, __scope: scala.xml.NamespaceBinding): scala.xml.MetaData = {
       var attr: scala.xml.MetaData  = scala.xml.Null
-      __obj.attributes.toList map {
-        case ("@id", _) => __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
-        case (key, x) => attr = scala.xml.Attribute((x.namespace map { __scope.getPrefix(_) }).orNull, x.key.orNull, x.value.toString, attr)
-      }
+      __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
       attr
     }
 
@@ -4862,22 +4362,17 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
       phrase(optTextRecord ^^
       { case p1 =>
       com.gu.nitf.model.Sub(Seq.concat(p1.toList),
-        scala.collection.immutable.ListMap(List(
-        (node \ "@id").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@id" -> _ },
-        (node \ "@class").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@class" -> _ },
-        (node \ "@style").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@style" -> _ },
-        (node \ "@{http://www.w3.org/XML/1998/namespace}lang").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@{http://www.w3.org/XML/1998/namespace}lang" -> _ }
-        ).flatten[(String, scalaxb.DataRecord[Any])]: _*)) })
+        (node \ "@id").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@class").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@style").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@{http://www.w3.org/XML/1998/namespace}lang").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) }) })
     
     override def writesAttribute(__obj: com.gu.nitf.model.Sub, __scope: scala.xml.NamespaceBinding): scala.xml.MetaData = {
       var attr: scala.xml.MetaData  = scala.xml.Null
-      __obj.attributes.toList map {
-        case ("@id", _) => __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
-        case ("@class", _) => __obj.classValue foreach { x => attr = scala.xml.Attribute(null, "class", x.toString, attr) }
-        case ("@style", _) => __obj.style foreach { x => attr = scala.xml.Attribute(null, "style", x.toString, attr) }
-        case ("@{http://www.w3.org/XML/1998/namespace}lang", _) => __obj.xmllang foreach { x => attr = scala.xml.Attribute(__scope.getPrefix("http://www.w3.org/XML/1998/namespace"), "lang", x.toString, attr) }
-        case (key, x) => attr = scala.xml.Attribute((x.namespace map { __scope.getPrefix(_) }).orNull, x.key.orNull, x.value.toString, attr)
-      }
+      __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
+      __obj.classValue foreach { x => attr = scala.xml.Attribute(null, "class", x.toString, attr) }
+      __obj.style foreach { x => attr = scala.xml.Attribute(null, "style", x.toString, attr) }
+      __obj.xmllang foreach { x => attr = scala.xml.Attribute(__scope.getPrefix("http://www.w3.org/XML/1998/namespace"), "lang", x.toString, attr) }
       attr
     }
 
@@ -4896,22 +4391,17 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
       phrase(optTextRecord ^^
       { case p1 =>
       com.gu.nitf.model.Sup(Seq.concat(p1.toList),
-        scala.collection.immutable.ListMap(List(
-        (node \ "@id").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@id" -> _ },
-        (node \ "@class").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@class" -> _ },
-        (node \ "@style").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@style" -> _ },
-        (node \ "@{http://www.w3.org/XML/1998/namespace}lang").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@{http://www.w3.org/XML/1998/namespace}lang" -> _ }
-        ).flatten[(String, scalaxb.DataRecord[Any])]: _*)) })
+        (node \ "@id").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@class").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@style").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@{http://www.w3.org/XML/1998/namespace}lang").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) }) })
     
     override def writesAttribute(__obj: com.gu.nitf.model.Sup, __scope: scala.xml.NamespaceBinding): scala.xml.MetaData = {
       var attr: scala.xml.MetaData  = scala.xml.Null
-      __obj.attributes.toList map {
-        case ("@id", _) => __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
-        case ("@class", _) => __obj.classValue foreach { x => attr = scala.xml.Attribute(null, "class", x.toString, attr) }
-        case ("@style", _) => __obj.style foreach { x => attr = scala.xml.Attribute(null, "style", x.toString, attr) }
-        case ("@{http://www.w3.org/XML/1998/namespace}lang", _) => __obj.xmllang foreach { x => attr = scala.xml.Attribute(__scope.getPrefix("http://www.w3.org/XML/1998/namespace"), "lang", x.toString, attr) }
-        case (key, x) => attr = scala.xml.Attribute((x.namespace map { __scope.getPrefix(_) }).orNull, x.key.orNull, x.value.toString, attr)
-      }
+      __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
+      __obj.classValue foreach { x => attr = scala.xml.Attribute(null, "class", x.toString, attr) }
+      __obj.style foreach { x => attr = scala.xml.Attribute(null, "style", x.toString, attr) }
+      __obj.xmllang foreach { x => attr = scala.xml.Attribute(__scope.getPrefix("http://www.w3.org/XML/1998/namespace"), "lang", x.toString, attr) }
       attr
     }
 
@@ -4938,26 +4428,21 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
       com.gu.nitf.model.ObjectTitle(Seq.concat(p1.toList,
         p2.flatten,
         p3.toList),
-        scala.collection.immutable.ListMap(List(
-        (node \ "@id").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@id" -> _ },
-        (node \ "@class").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@class" -> _ },
-        (node \ "@style").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@style" -> _ },
-        (node \ "@{http://www.w3.org/XML/1998/namespace}lang").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@{http://www.w3.org/XML/1998/namespace}lang" -> _ },
-        (node \ "@idsrc").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@idsrc" -> _ },
-        (node \ "@value").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@value" -> _ }
-        ).flatten[(String, scalaxb.DataRecord[Any])]: _*)) })
+        (node \ "@id").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@class").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@style").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@{http://www.w3.org/XML/1998/namespace}lang").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@idsrc").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@value").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) }) })
     
     override def writesAttribute(__obj: com.gu.nitf.model.ObjectTitle, __scope: scala.xml.NamespaceBinding): scala.xml.MetaData = {
       var attr: scala.xml.MetaData  = scala.xml.Null
-      __obj.attributes.toList map {
-        case ("@id", _) => __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
-        case ("@class", _) => __obj.classValue foreach { x => attr = scala.xml.Attribute(null, "class", x.toString, attr) }
-        case ("@style", _) => __obj.style foreach { x => attr = scala.xml.Attribute(null, "style", x.toString, attr) }
-        case ("@{http://www.w3.org/XML/1998/namespace}lang", _) => __obj.xmllang foreach { x => attr = scala.xml.Attribute(__scope.getPrefix("http://www.w3.org/XML/1998/namespace"), "lang", x.toString, attr) }
-        case ("@idsrc", _) => __obj.idsrc foreach { x => attr = scala.xml.Attribute(null, "idsrc", x.toString, attr) }
-        case ("@value", _) => __obj.valueAttribute foreach { x => attr = scala.xml.Attribute(null, "value", x.toString, attr) }
-        case (key, x) => attr = scala.xml.Attribute((x.namespace map { __scope.getPrefix(_) }).orNull, x.key.orNull, x.value.toString, attr)
-      }
+      __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
+      __obj.classValue foreach { x => attr = scala.xml.Attribute(null, "class", x.toString, attr) }
+      __obj.style foreach { x => attr = scala.xml.Attribute(null, "style", x.toString, attr) }
+      __obj.xmllang foreach { x => attr = scala.xml.Attribute(__scope.getPrefix("http://www.w3.org/XML/1998/namespace"), "lang", x.toString, attr) }
+      __obj.idsrc foreach { x => attr = scala.xml.Attribute(null, "idsrc", x.toString, attr) }
+      __obj.valueAttribute foreach { x => attr = scala.xml.Attribute(null, "value", x.toString, attr) }
       attr
     }
 
@@ -4984,26 +4469,21 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
       com.gu.nitf.model.Org(Seq.concat(p1.toList,
         p2.flatten,
         p3.toList),
-        scala.collection.immutable.ListMap(List(
-        (node \ "@id").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@id" -> _ },
-        (node \ "@class").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@class" -> _ },
-        (node \ "@style").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@style" -> _ },
-        (node \ "@{http://www.w3.org/XML/1998/namespace}lang").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@{http://www.w3.org/XML/1998/namespace}lang" -> _ },
-        (node \ "@idsrc").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@idsrc" -> _ },
-        (node \ "@value").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@value" -> _ }
-        ).flatten[(String, scalaxb.DataRecord[Any])]: _*)) })
+        (node \ "@id").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@class").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@style").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@{http://www.w3.org/XML/1998/namespace}lang").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@idsrc").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@value").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) }) })
     
     override def writesAttribute(__obj: com.gu.nitf.model.Org, __scope: scala.xml.NamespaceBinding): scala.xml.MetaData = {
       var attr: scala.xml.MetaData  = scala.xml.Null
-      __obj.attributes.toList map {
-        case ("@id", _) => __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
-        case ("@class", _) => __obj.classValue foreach { x => attr = scala.xml.Attribute(null, "class", x.toString, attr) }
-        case ("@style", _) => __obj.style foreach { x => attr = scala.xml.Attribute(null, "style", x.toString, attr) }
-        case ("@{http://www.w3.org/XML/1998/namespace}lang", _) => __obj.xmllang foreach { x => attr = scala.xml.Attribute(__scope.getPrefix("http://www.w3.org/XML/1998/namespace"), "lang", x.toString, attr) }
-        case ("@idsrc", _) => __obj.idsrc foreach { x => attr = scala.xml.Attribute(null, "idsrc", x.toString, attr) }
-        case ("@value", _) => __obj.valueAttribute foreach { x => attr = scala.xml.Attribute(null, "value", x.toString, attr) }
-        case (key, x) => attr = scala.xml.Attribute((x.namespace map { __scope.getPrefix(_) }).orNull, x.key.orNull, x.value.toString, attr)
-      }
+      __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
+      __obj.classValue foreach { x => attr = scala.xml.Attribute(null, "class", x.toString, attr) }
+      __obj.style foreach { x => attr = scala.xml.Attribute(null, "style", x.toString, attr) }
+      __obj.xmllang foreach { x => attr = scala.xml.Attribute(__scope.getPrefix("http://www.w3.org/XML/1998/namespace"), "lang", x.toString, attr) }
+      __obj.idsrc foreach { x => attr = scala.xml.Attribute(null, "idsrc", x.toString, attr) }
+      __obj.valueAttribute foreach { x => attr = scala.xml.Attribute(null, "value", x.toString, attr) }
       attr
     }
 
@@ -5018,22 +4498,17 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
     import scalaxb.ElemName._
     
     def reads(seq: scala.xml.NodeSeq, stack: List[scalaxb.ElemName]): Either[String, com.gu.nitf.model.AltCode] = seq match {
-      case node: scala.xml.Node => Right(com.gu.nitf.model.AltCode(scala.collection.immutable.ListMap(List(
-        (node \ "@id").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@id" -> _ },
-        (node \ "@idsrc").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@idsrc" -> _ },
-        (node \ "@value").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@value" -> _ }
-        ).flatten[(String, scalaxb.DataRecord[Any])]: _*)))
+      case node: scala.xml.Node => Right(com.gu.nitf.model.AltCode((node \ "@id").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        scalaxb.fromXML[String]((node \ "@idsrc"), scalaxb.ElemName(node) :: stack),
+        scalaxb.fromXML[String]((node \ "@value"), scalaxb.ElemName(node) :: stack)))
       case _ => Left("reads failed: seq must be scala.xml.Node")
     }
     
     override def writesAttribute(__obj: com.gu.nitf.model.AltCode, __scope: scala.xml.NamespaceBinding): scala.xml.MetaData = {
       var attr: scala.xml.MetaData  = scala.xml.Null
-      __obj.attributes.toList map {
-        case ("@id", _) => __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
-        case ("@idsrc", _) => attr = scala.xml.Attribute(null, "idsrc", __obj.idsrc.toString, attr)
-        case ("@value", _) => attr = scala.xml.Attribute(null, "value", __obj.valueAttribute.toString, attr)
-        case (key, x) => attr = scala.xml.Attribute((x.namespace map { __scope.getPrefix(_) }).orNull, x.key.orNull, x.value.toString, attr)
-      }
+      __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
+      attr = scala.xml.Attribute(null, "idsrc", __obj.idsrc.toString, attr)
+      attr = scala.xml.Attribute(null, "value", __obj.valueAttribute.toString, attr)
       attr
     }
 
@@ -5099,28 +4574,23 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
       com.gu.nitf.model.Person(Seq.concat(p1.toList,
         p2.flatten,
         p3.toList),
-        scala.collection.immutable.ListMap(List(
-        (node \ "@id").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@id" -> _ },
-        (node \ "@class").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@class" -> _ },
-        (node \ "@style").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@style" -> _ },
-        (node \ "@{http://www.w3.org/XML/1998/namespace}lang").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@{http://www.w3.org/XML/1998/namespace}lang" -> _ },
-        (node \ "@idsrc").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@idsrc" -> _ },
-        (node \ "@value").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@value" -> _ },
-        (node \ "@gender").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[com.gu.nitf.model.Gender](x, scalaxb.ElemName(node) :: stack)) } map { "@gender" -> _ }
-        ).flatten[(String, scalaxb.DataRecord[Any])]: _*)) })
+        (node \ "@id").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@class").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@style").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@{http://www.w3.org/XML/1998/namespace}lang").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@idsrc").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@value").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@gender").headOption map { scalaxb.fromXML[com.gu.nitf.model.Gender](_, scalaxb.ElemName(node) :: stack) }) })
     
     override def writesAttribute(__obj: com.gu.nitf.model.Person, __scope: scala.xml.NamespaceBinding): scala.xml.MetaData = {
       var attr: scala.xml.MetaData  = scala.xml.Null
-      __obj.attributes.toList map {
-        case ("@id", _) => __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
-        case ("@class", _) => __obj.classValue foreach { x => attr = scala.xml.Attribute(null, "class", x.toString, attr) }
-        case ("@style", _) => __obj.style foreach { x => attr = scala.xml.Attribute(null, "style", x.toString, attr) }
-        case ("@{http://www.w3.org/XML/1998/namespace}lang", _) => __obj.xmllang foreach { x => attr = scala.xml.Attribute(__scope.getPrefix("http://www.w3.org/XML/1998/namespace"), "lang", x.toString, attr) }
-        case ("@idsrc", _) => __obj.idsrc foreach { x => attr = scala.xml.Attribute(null, "idsrc", x.toString, attr) }
-        case ("@value", _) => __obj.valueAttribute foreach { x => attr = scala.xml.Attribute(null, "value", x.toString, attr) }
-        case ("@gender", _) => __obj.gender foreach { x => attr = scala.xml.Attribute(null, "gender", x.toString, attr) }
-        case (key, x) => attr = scala.xml.Attribute((x.namespace map { __scope.getPrefix(_) }).orNull, x.key.orNull, x.value.toString, attr)
-      }
+      __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
+      __obj.classValue foreach { x => attr = scala.xml.Attribute(null, "class", x.toString, attr) }
+      __obj.style foreach { x => attr = scala.xml.Attribute(null, "style", x.toString, attr) }
+      __obj.xmllang foreach { x => attr = scala.xml.Attribute(__scope.getPrefix("http://www.w3.org/XML/1998/namespace"), "lang", x.toString, attr) }
+      __obj.idsrc foreach { x => attr = scala.xml.Attribute(null, "idsrc", x.toString, attr) }
+      __obj.valueAttribute foreach { x => attr = scala.xml.Attribute(null, "value", x.toString, attr) }
+      __obj.gender foreach { x => attr = scala.xml.Attribute(null, "gender", x.toString, attr) }
       attr
     }
 
@@ -5139,22 +4609,17 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
       phrase(optTextRecord ^^
       { case p1 =>
       com.gu.nitf.model.NameGiven(Seq.concat(p1.toList),
-        scala.collection.immutable.ListMap(List(
-        (node \ "@id").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@id" -> _ },
-        (node \ "@class").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@class" -> _ },
-        (node \ "@style").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@style" -> _ },
-        (node \ "@{http://www.w3.org/XML/1998/namespace}lang").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@{http://www.w3.org/XML/1998/namespace}lang" -> _ }
-        ).flatten[(String, scalaxb.DataRecord[Any])]: _*)) })
+        (node \ "@id").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@class").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@style").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@{http://www.w3.org/XML/1998/namespace}lang").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) }) })
     
     override def writesAttribute(__obj: com.gu.nitf.model.NameGiven, __scope: scala.xml.NamespaceBinding): scala.xml.MetaData = {
       var attr: scala.xml.MetaData  = scala.xml.Null
-      __obj.attributes.toList map {
-        case ("@id", _) => __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
-        case ("@class", _) => __obj.classValue foreach { x => attr = scala.xml.Attribute(null, "class", x.toString, attr) }
-        case ("@style", _) => __obj.style foreach { x => attr = scala.xml.Attribute(null, "style", x.toString, attr) }
-        case ("@{http://www.w3.org/XML/1998/namespace}lang", _) => __obj.xmllang foreach { x => attr = scala.xml.Attribute(__scope.getPrefix("http://www.w3.org/XML/1998/namespace"), "lang", x.toString, attr) }
-        case (key, x) => attr = scala.xml.Attribute((x.namespace map { __scope.getPrefix(_) }).orNull, x.key.orNull, x.value.toString, attr)
-      }
+      __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
+      __obj.classValue foreach { x => attr = scala.xml.Attribute(null, "class", x.toString, attr) }
+      __obj.style foreach { x => attr = scala.xml.Attribute(null, "style", x.toString, attr) }
+      __obj.xmllang foreach { x => attr = scala.xml.Attribute(__scope.getPrefix("http://www.w3.org/XML/1998/namespace"), "lang", x.toString, attr) }
       attr
     }
 
@@ -5173,22 +4638,17 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
       phrase(optTextRecord ^^
       { case p1 =>
       com.gu.nitf.model.NameFamily(Seq.concat(p1.toList),
-        scala.collection.immutable.ListMap(List(
-        (node \ "@id").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@id" -> _ },
-        (node \ "@class").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@class" -> _ },
-        (node \ "@style").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@style" -> _ },
-        (node \ "@{http://www.w3.org/XML/1998/namespace}lang").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@{http://www.w3.org/XML/1998/namespace}lang" -> _ }
-        ).flatten[(String, scalaxb.DataRecord[Any])]: _*)) })
+        (node \ "@id").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@class").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@style").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@{http://www.w3.org/XML/1998/namespace}lang").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) }) })
     
     override def writesAttribute(__obj: com.gu.nitf.model.NameFamily, __scope: scala.xml.NamespaceBinding): scala.xml.MetaData = {
       var attr: scala.xml.MetaData  = scala.xml.Null
-      __obj.attributes.toList map {
-        case ("@id", _) => __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
-        case ("@class", _) => __obj.classValue foreach { x => attr = scala.xml.Attribute(null, "class", x.toString, attr) }
-        case ("@style", _) => __obj.style foreach { x => attr = scala.xml.Attribute(null, "style", x.toString, attr) }
-        case ("@{http://www.w3.org/XML/1998/namespace}lang", _) => __obj.xmllang foreach { x => attr = scala.xml.Attribute(__scope.getPrefix("http://www.w3.org/XML/1998/namespace"), "lang", x.toString, attr) }
-        case (key, x) => attr = scala.xml.Attribute((x.namespace map { __scope.getPrefix(_) }).orNull, x.key.orNull, x.value.toString, attr)
-      }
+      __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
+      __obj.classValue foreach { x => attr = scala.xml.Attribute(null, "class", x.toString, attr) }
+      __obj.style foreach { x => attr = scala.xml.Attribute(null, "style", x.toString, attr) }
+      __obj.xmllang foreach { x => attr = scala.xml.Attribute(__scope.getPrefix("http://www.w3.org/XML/1998/namespace"), "lang", x.toString, attr) }
       attr
     }
 
@@ -5216,22 +4676,17 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
       com.gu.nitf.model.Postaddr(scalaxb.fromXML[com.gu.nitf.model.Addressee](p1, scalaxb.ElemName(node) :: stack),
         p2.headOption map { scalaxb.fromXML[com.gu.nitf.model.DeliveryPoint](_, scalaxb.ElemName(node) :: stack) },
         p3,
-        scala.collection.immutable.ListMap(List(
-        (node \ "@id").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@id" -> _ },
-        (node \ "@class").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@class" -> _ },
-        (node \ "@style").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@style" -> _ },
-        (node \ "@{http://www.w3.org/XML/1998/namespace}lang").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@{http://www.w3.org/XML/1998/namespace}lang" -> _ }
-        ).flatten[(String, scalaxb.DataRecord[Any])]: _*)) })
+        (node \ "@id").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@class").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@style").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@{http://www.w3.org/XML/1998/namespace}lang").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) }) })
     
     override def writesAttribute(__obj: com.gu.nitf.model.Postaddr, __scope: scala.xml.NamespaceBinding): scala.xml.MetaData = {
       var attr: scala.xml.MetaData  = scala.xml.Null
-      __obj.attributes.toList map {
-        case ("@id", _) => __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
-        case ("@class", _) => __obj.classValue foreach { x => attr = scala.xml.Attribute(null, "class", x.toString, attr) }
-        case ("@style", _) => __obj.style foreach { x => attr = scala.xml.Attribute(null, "style", x.toString, attr) }
-        case ("@{http://www.w3.org/XML/1998/namespace}lang", _) => __obj.xmllang foreach { x => attr = scala.xml.Attribute(__scope.getPrefix("http://www.w3.org/XML/1998/namespace"), "lang", x.toString, attr) }
-        case (key, x) => attr = scala.xml.Attribute((x.namespace map { __scope.getPrefix(_) }).orNull, x.key.orNull, x.value.toString, attr)
-      }
+      __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
+      __obj.classValue foreach { x => attr = scala.xml.Attribute(null, "class", x.toString, attr) }
+      __obj.style foreach { x => attr = scala.xml.Attribute(null, "style", x.toString, attr) }
+      __obj.xmllang foreach { x => attr = scala.xml.Attribute(__scope.getPrefix("http://www.w3.org/XML/1998/namespace"), "lang", x.toString, attr) }
       attr
     }
 
@@ -5260,26 +4715,21 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
       com.gu.nitf.model.Virtloc(Seq.concat(p1.toList,
         p2.flatten,
         p3.toList),
-        scala.collection.immutable.ListMap(List(
-        (node \ "@id").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@id" -> _ },
-        (node \ "@class").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@class" -> _ },
-        (node \ "@style").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@style" -> _ },
-        (node \ "@{http://www.w3.org/XML/1998/namespace}lang").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@{http://www.w3.org/XML/1998/namespace}lang" -> _ },
-        (node \ "@idsrc").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@idsrc" -> _ },
-        (node \ "@value").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@value" -> _ }
-        ).flatten[(String, scalaxb.DataRecord[Any])]: _*)) })
+        (node \ "@id").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@class").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@style").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@{http://www.w3.org/XML/1998/namespace}lang").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@idsrc").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@value").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) }) })
     
     override def writesAttribute(__obj: com.gu.nitf.model.Virtloc, __scope: scala.xml.NamespaceBinding): scala.xml.MetaData = {
       var attr: scala.xml.MetaData  = scala.xml.Null
-      __obj.attributes.toList map {
-        case ("@id", _) => __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
-        case ("@class", _) => __obj.classValue foreach { x => attr = scala.xml.Attribute(null, "class", x.toString, attr) }
-        case ("@style", _) => __obj.style foreach { x => attr = scala.xml.Attribute(null, "style", x.toString, attr) }
-        case ("@{http://www.w3.org/XML/1998/namespace}lang", _) => __obj.xmllang foreach { x => attr = scala.xml.Attribute(__scope.getPrefix("http://www.w3.org/XML/1998/namespace"), "lang", x.toString, attr) }
-        case ("@idsrc", _) => __obj.idsrc foreach { x => attr = scala.xml.Attribute(null, "idsrc", x.toString, attr) }
-        case ("@value", _) => __obj.valueAttribute foreach { x => attr = scala.xml.Attribute(null, "value", x.toString, attr) }
-        case (key, x) => attr = scala.xml.Attribute((x.namespace map { __scope.getPrefix(_) }).orNull, x.key.orNull, x.value.toString, attr)
-      }
+      __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
+      __obj.classValue foreach { x => attr = scala.xml.Attribute(null, "class", x.toString, attr) }
+      __obj.style foreach { x => attr = scala.xml.Attribute(null, "style", x.toString, attr) }
+      __obj.xmllang foreach { x => attr = scala.xml.Attribute(__scope.getPrefix("http://www.w3.org/XML/1998/namespace"), "lang", x.toString, attr) }
+      __obj.idsrc foreach { x => attr = scala.xml.Attribute(null, "idsrc", x.toString, attr) }
+      __obj.valueAttribute foreach { x => attr = scala.xml.Attribute(null, "value", x.toString, attr) }
       attr
     }
 
@@ -5302,32 +4752,27 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
       com.gu.nitf.model.A(Seq.concat(p1.toList,
         p2.flatten,
         p3.toList),
-        scala.collection.immutable.ListMap(List(
-        (node \ "@id").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@id" -> _ },
-        (node \ "@class").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@class" -> _ },
-        (node \ "@style").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@style" -> _ },
-        (node \ "@{http://www.w3.org/XML/1998/namespace}lang").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@{http://www.w3.org/XML/1998/namespace}lang" -> _ },
-        (node \ "@href").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@href" -> _ },
-        (node \ "@name").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@name" -> _ },
-        (node \ "@rel").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@rel" -> _ },
-        (node \ "@rev").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@rev" -> _ },
-        (node \ "@title").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@title" -> _ }
-        ).flatten[(String, scalaxb.DataRecord[Any])]: _*)) })
+        (node \ "@id").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@class").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@style").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@{http://www.w3.org/XML/1998/namespace}lang").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@href").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@name").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@rel").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@rev").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@title").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) }) })
     
     override def writesAttribute(__obj: com.gu.nitf.model.A, __scope: scala.xml.NamespaceBinding): scala.xml.MetaData = {
       var attr: scala.xml.MetaData  = scala.xml.Null
-      __obj.attributes.toList map {
-        case ("@id", _) => __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
-        case ("@class", _) => __obj.classValue foreach { x => attr = scala.xml.Attribute(null, "class", x.toString, attr) }
-        case ("@style", _) => __obj.style foreach { x => attr = scala.xml.Attribute(null, "style", x.toString, attr) }
-        case ("@{http://www.w3.org/XML/1998/namespace}lang", _) => __obj.xmllang foreach { x => attr = scala.xml.Attribute(__scope.getPrefix("http://www.w3.org/XML/1998/namespace"), "lang", x.toString, attr) }
-        case ("@href", _) => __obj.href foreach { x => attr = scala.xml.Attribute(null, "href", x.toString, attr) }
-        case ("@name", _) => __obj.name foreach { x => attr = scala.xml.Attribute(null, "name", x.toString, attr) }
-        case ("@rel", _) => __obj.rel foreach { x => attr = scala.xml.Attribute(null, "rel", x.toString, attr) }
-        case ("@rev", _) => __obj.rev foreach { x => attr = scala.xml.Attribute(null, "rev", x.toString, attr) }
-        case ("@title", _) => __obj.title foreach { x => attr = scala.xml.Attribute(null, "title", x.toString, attr) }
-        case (key, x) => attr = scala.xml.Attribute((x.namespace map { __scope.getPrefix(_) }).orNull, x.key.orNull, x.value.toString, attr)
-      }
+      __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
+      __obj.classValue foreach { x => attr = scala.xml.Attribute(null, "class", x.toString, attr) }
+      __obj.style foreach { x => attr = scala.xml.Attribute(null, "style", x.toString, attr) }
+      __obj.xmllang foreach { x => attr = scala.xml.Attribute(__scope.getPrefix("http://www.w3.org/XML/1998/namespace"), "lang", x.toString, attr) }
+      __obj.href foreach { x => attr = scala.xml.Attribute(null, "href", x.toString, attr) }
+      __obj.name foreach { x => attr = scala.xml.Attribute(null, "name", x.toString, attr) }
+      __obj.rel foreach { x => attr = scala.xml.Attribute(null, "rel", x.toString, attr) }
+      __obj.rev foreach { x => attr = scala.xml.Attribute(null, "rev", x.toString, attr) }
+      __obj.title foreach { x => attr = scala.xml.Attribute(null, "title", x.toString, attr) }
       attr
     }
 
@@ -5342,18 +4787,13 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
     import scalaxb.ElemName._
     
     def reads(seq: scala.xml.NodeSeq, stack: List[scalaxb.ElemName]): Either[String, com.gu.nitf.model.Br] = seq match {
-      case node: scala.xml.Node => Right(com.gu.nitf.model.Br(scala.collection.immutable.ListMap(List(
-        (node \ "@id").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@id" -> _ }
-        ).flatten[(String, scalaxb.DataRecord[Any])]: _*)))
+      case node: scala.xml.Node => Right(com.gu.nitf.model.Br((node \ "@id").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) }))
       case _ => Left("reads failed: seq must be scala.xml.Node")
     }
     
     override def writesAttribute(__obj: com.gu.nitf.model.Br, __scope: scala.xml.NamespaceBinding): scala.xml.MetaData = {
       var attr: scala.xml.MetaData  = scala.xml.Null
-      __obj.attributes.toList map {
-        case ("@id", _) => __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
-        case (key, x) => attr = scala.xml.Attribute((x.namespace map { __scope.getPrefix(_) }).orNull, x.key.orNull, x.value.toString, attr)
-      }
+      __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
       attr
     }
 
@@ -5377,22 +4817,17 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
       com.gu.nitf.model.Em(Seq.concat(p1.toList,
         p2.flatten,
         p3.toList),
-        scala.collection.immutable.ListMap(List(
-        (node \ "@id").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@id" -> _ },
-        (node \ "@class").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@class" -> _ },
-        (node \ "@style").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@style" -> _ },
-        (node \ "@{http://www.w3.org/XML/1998/namespace}lang").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@{http://www.w3.org/XML/1998/namespace}lang" -> _ }
-        ).flatten[(String, scalaxb.DataRecord[Any])]: _*)) })
+        (node \ "@id").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@class").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@style").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@{http://www.w3.org/XML/1998/namespace}lang").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) }) })
     
     override def writesAttribute(__obj: com.gu.nitf.model.Em, __scope: scala.xml.NamespaceBinding): scala.xml.MetaData = {
       var attr: scala.xml.MetaData  = scala.xml.Null
-      __obj.attributes.toList map {
-        case ("@id", _) => __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
-        case ("@class", _) => __obj.classValue foreach { x => attr = scala.xml.Attribute(null, "class", x.toString, attr) }
-        case ("@style", _) => __obj.style foreach { x => attr = scala.xml.Attribute(null, "style", x.toString, attr) }
-        case ("@{http://www.w3.org/XML/1998/namespace}lang", _) => __obj.xmllang foreach { x => attr = scala.xml.Attribute(__scope.getPrefix("http://www.w3.org/XML/1998/namespace"), "lang", x.toString, attr) }
-        case (key, x) => attr = scala.xml.Attribute((x.namespace map { __scope.getPrefix(_) }).orNull, x.key.orNull, x.value.toString, attr)
-      }
+      __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
+      __obj.classValue foreach { x => attr = scala.xml.Attribute(null, "class", x.toString, attr) }
+      __obj.style foreach { x => attr = scala.xml.Attribute(null, "style", x.toString, attr) }
+      __obj.xmllang foreach { x => attr = scala.xml.Attribute(__scope.getPrefix("http://www.w3.org/XML/1998/namespace"), "lang", x.toString, attr) }
       attr
     }
 
@@ -5415,26 +4850,21 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
       com.gu.nitf.model.Lang(Seq.concat(p1.toList,
         p2.flatten,
         p3.toList),
-        scala.collection.immutable.ListMap(List(
-        (node \ "@id").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@id" -> _ },
-        (node \ "@class").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@class" -> _ },
-        (node \ "@style").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@style" -> _ },
-        (node \ "@{http://www.w3.org/XML/1998/namespace}lang").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@{http://www.w3.org/XML/1998/namespace}lang" -> _ },
-        (node \ "@idsrc").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@idsrc" -> _ },
-        (node \ "@value").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@value" -> _ }
-        ).flatten[(String, scalaxb.DataRecord[Any])]: _*)) })
+        (node \ "@id").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@class").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@style").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@{http://www.w3.org/XML/1998/namespace}lang").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@idsrc").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@value").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) }) })
     
     override def writesAttribute(__obj: com.gu.nitf.model.Lang, __scope: scala.xml.NamespaceBinding): scala.xml.MetaData = {
       var attr: scala.xml.MetaData  = scala.xml.Null
-      __obj.attributes.toList map {
-        case ("@id", _) => __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
-        case ("@class", _) => __obj.classValue foreach { x => attr = scala.xml.Attribute(null, "class", x.toString, attr) }
-        case ("@style", _) => __obj.style foreach { x => attr = scala.xml.Attribute(null, "style", x.toString, attr) }
-        case ("@{http://www.w3.org/XML/1998/namespace}lang", _) => __obj.xmllang foreach { x => attr = scala.xml.Attribute(__scope.getPrefix("http://www.w3.org/XML/1998/namespace"), "lang", x.toString, attr) }
-        case ("@idsrc", _) => __obj.idsrc foreach { x => attr = scala.xml.Attribute(null, "idsrc", x.toString, attr) }
-        case ("@value", _) => __obj.valueAttribute foreach { x => attr = scala.xml.Attribute(null, "value", x.toString, attr) }
-        case (key, x) => attr = scala.xml.Attribute((x.namespace map { __scope.getPrefix(_) }).orNull, x.key.orNull, x.value.toString, attr)
-      }
+      __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
+      __obj.classValue foreach { x => attr = scala.xml.Attribute(null, "class", x.toString, attr) }
+      __obj.style foreach { x => attr = scala.xml.Attribute(null, "style", x.toString, attr) }
+      __obj.xmllang foreach { x => attr = scala.xml.Attribute(__scope.getPrefix("http://www.w3.org/XML/1998/namespace"), "lang", x.toString, attr) }
+      __obj.idsrc foreach { x => attr = scala.xml.Attribute(null, "idsrc", x.toString, attr) }
+      __obj.valueAttribute foreach { x => attr = scala.xml.Attribute(null, "value", x.toString, attr) }
       attr
     }
 
@@ -5457,26 +4887,21 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
       com.gu.nitf.model.Pronounce(Seq.concat(p1.toList,
         p2.flatten,
         p3.toList),
-        scala.collection.immutable.ListMap(List(
-        (node \ "@id").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@id" -> _ },
-        (node \ "@class").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@class" -> _ },
-        (node \ "@style").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@style" -> _ },
-        (node \ "@{http://www.w3.org/XML/1998/namespace}lang").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@{http://www.w3.org/XML/1998/namespace}lang" -> _ },
-        (node \ "@guide").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@guide" -> _ },
-        (node \ "@phonetic").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@phonetic" -> _ }
-        ).flatten[(String, scalaxb.DataRecord[Any])]: _*)) })
+        (node \ "@id").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@class").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@style").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@{http://www.w3.org/XML/1998/namespace}lang").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@guide").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@phonetic").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) }) })
     
     override def writesAttribute(__obj: com.gu.nitf.model.Pronounce, __scope: scala.xml.NamespaceBinding): scala.xml.MetaData = {
       var attr: scala.xml.MetaData  = scala.xml.Null
-      __obj.attributes.toList map {
-        case ("@id", _) => __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
-        case ("@class", _) => __obj.classValue foreach { x => attr = scala.xml.Attribute(null, "class", x.toString, attr) }
-        case ("@style", _) => __obj.style foreach { x => attr = scala.xml.Attribute(null, "style", x.toString, attr) }
-        case ("@{http://www.w3.org/XML/1998/namespace}lang", _) => __obj.xmllang foreach { x => attr = scala.xml.Attribute(__scope.getPrefix("http://www.w3.org/XML/1998/namespace"), "lang", x.toString, attr) }
-        case ("@guide", _) => __obj.guide foreach { x => attr = scala.xml.Attribute(null, "guide", x.toString, attr) }
-        case ("@phonetic", _) => __obj.phonetic foreach { x => attr = scala.xml.Attribute(null, "phonetic", x.toString, attr) }
-        case (key, x) => attr = scala.xml.Attribute((x.namespace map { __scope.getPrefix(_) }).orNull, x.key.orNull, x.value.toString, attr)
-      }
+      __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
+      __obj.classValue foreach { x => attr = scala.xml.Attribute(null, "class", x.toString, attr) }
+      __obj.style foreach { x => attr = scala.xml.Attribute(null, "style", x.toString, attr) }
+      __obj.xmllang foreach { x => attr = scala.xml.Attribute(__scope.getPrefix("http://www.w3.org/XML/1998/namespace"), "lang", x.toString, attr) }
+      __obj.guide foreach { x => attr = scala.xml.Attribute(null, "guide", x.toString, attr) }
+      __obj.phonetic foreach { x => attr = scala.xml.Attribute(null, "phonetic", x.toString, attr) }
       attr
     }
 
@@ -5499,24 +4924,19 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
       com.gu.nitf.model.Q(Seq.concat(p1.toList,
         p2.flatten,
         p3.toList),
-        scala.collection.immutable.ListMap(List(
-        (node \ "@id").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@id" -> _ },
-        (node \ "@class").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@class" -> _ },
-        (node \ "@style").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@style" -> _ },
-        (node \ "@{http://www.w3.org/XML/1998/namespace}lang").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@{http://www.w3.org/XML/1998/namespace}lang" -> _ },
-        (node \ "@quote-source").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@quote-source" -> _ }
-        ).flatten[(String, scalaxb.DataRecord[Any])]: _*)) })
+        (node \ "@id").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@class").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@style").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@{http://www.w3.org/XML/1998/namespace}lang").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@quote-source").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) }) })
     
     override def writesAttribute(__obj: com.gu.nitf.model.Q, __scope: scala.xml.NamespaceBinding): scala.xml.MetaData = {
       var attr: scala.xml.MetaData  = scala.xml.Null
-      __obj.attributes.toList map {
-        case ("@id", _) => __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
-        case ("@class", _) => __obj.classValue foreach { x => attr = scala.xml.Attribute(null, "class", x.toString, attr) }
-        case ("@style", _) => __obj.style foreach { x => attr = scala.xml.Attribute(null, "style", x.toString, attr) }
-        case ("@{http://www.w3.org/XML/1998/namespace}lang", _) => __obj.xmllang foreach { x => attr = scala.xml.Attribute(__scope.getPrefix("http://www.w3.org/XML/1998/namespace"), "lang", x.toString, attr) }
-        case ("@quote-source", _) => __obj.quoteSource foreach { x => attr = scala.xml.Attribute(null, "quote-source", x.toString, attr) }
-        case (key, x) => attr = scala.xml.Attribute((x.namespace map { __scope.getPrefix(_) }).orNull, x.key.orNull, x.value.toString, attr)
-      }
+      __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
+      __obj.classValue foreach { x => attr = scala.xml.Attribute(null, "class", x.toString, attr) }
+      __obj.style foreach { x => attr = scala.xml.Attribute(null, "style", x.toString, attr) }
+      __obj.xmllang foreach { x => attr = scala.xml.Attribute(__scope.getPrefix("http://www.w3.org/XML/1998/namespace"), "lang", x.toString, attr) }
+      __obj.quoteSource foreach { x => attr = scala.xml.Attribute(null, "quote-source", x.toString, attr) }
       attr
     }
 
@@ -5537,16 +4957,11 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
       com.gu.nitf.model.Addressee(scalaxb.fromXML[com.gu.nitf.model.Person](p1, scalaxb.ElemName(node) :: stack),
         p2.headOption map { scalaxb.fromXML[com.gu.nitf.model.FunctionType](_, scalaxb.ElemName(node) :: stack) },
         p3.headOption map { scalaxb.fromXML[com.gu.nitf.model.CareOf](_, scalaxb.ElemName(node) :: stack) },
-        scala.collection.immutable.ListMap(List(
-        (node \ "@id").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@id" -> _ }
-        ).flatten[(String, scalaxb.DataRecord[Any])]: _*)) })
+        (node \ "@id").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) }) })
     
     override def writesAttribute(__obj: com.gu.nitf.model.Addressee, __scope: scala.xml.NamespaceBinding): scala.xml.MetaData = {
       var attr: scala.xml.MetaData  = scala.xml.Null
-      __obj.attributes.toList map {
-        case ("@id", _) => __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
-        case (key, x) => attr = scala.xml.Attribute((x.namespace map { __scope.getPrefix(_) }).orNull, x.key.orNull, x.value.toString, attr)
-      }
+      __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
       attr
     }
 
@@ -5567,16 +4982,11 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
       phrase(optTextRecord ^^
       { case p1 =>
       com.gu.nitf.model.CareOf(Seq.concat(p1.toList),
-        scala.collection.immutable.ListMap(List(
-        (node \ "@id").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@id" -> _ }
-        ).flatten[(String, scalaxb.DataRecord[Any])]: _*)) })
+        (node \ "@id").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) }) })
     
     override def writesAttribute(__obj: com.gu.nitf.model.CareOf, __scope: scala.xml.NamespaceBinding): scala.xml.MetaData = {
       var attr: scala.xml.MetaData  = scala.xml.Null
-      __obj.attributes.toList map {
-        case ("@id", _) => __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
-        case (key, x) => attr = scala.xml.Attribute((x.namespace map { __scope.getPrefix(_) }).orNull, x.key.orNull, x.value.toString, attr)
-      }
+      __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
       attr
     }
 
@@ -5603,20 +5013,15 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
       com.gu.nitf.model.DeliveryPoint(Seq.concat(p1.toList,
         p2.flatten,
         p3.toList),
-        scala.collection.immutable.ListMap(List(
-        (node \ "@id").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@id" -> _ },
-        (node \ "@point-code").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@point-code" -> _ },
-        (node \ "@code-source").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@code-source" -> _ }
-        ).flatten[(String, scalaxb.DataRecord[Any])]: _*)) })
+        (node \ "@id").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@point-code").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@code-source").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) }) })
     
     override def writesAttribute(__obj: com.gu.nitf.model.DeliveryPoint, __scope: scala.xml.NamespaceBinding): scala.xml.MetaData = {
       var attr: scala.xml.MetaData  = scala.xml.Null
-      __obj.attributes.toList map {
-        case ("@id", _) => __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
-        case ("@point-code", _) => __obj.pointCode foreach { x => attr = scala.xml.Attribute(null, "point-code", x.toString, attr) }
-        case ("@code-source", _) => __obj.codeSource foreach { x => attr = scala.xml.Attribute(null, "code-source", x.toString, attr) }
-        case (key, x) => attr = scala.xml.Attribute((x.namespace map { __scope.getPrefix(_) }).orNull, x.key.orNull, x.value.toString, attr)
-      }
+      __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
+      __obj.pointCode foreach { x => attr = scala.xml.Attribute(null, "point-code", x.toString, attr) }
+      __obj.codeSource foreach { x => attr = scala.xml.Attribute(null, "code-source", x.toString, attr) }
       attr
     }
 
@@ -5635,18 +5040,13 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
       phrase(optTextRecord ^^
       { case p1 =>
       com.gu.nitf.model.Postcode(Seq.concat(p1.toList),
-        scala.collection.immutable.ListMap(List(
-        (node \ "@id").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@id" -> _ },
-        (node \ "@code-source").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@code-source" -> _ }
-        ).flatten[(String, scalaxb.DataRecord[Any])]: _*)) })
+        (node \ "@id").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@code-source").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) }) })
     
     override def writesAttribute(__obj: com.gu.nitf.model.Postcode, __scope: scala.xml.NamespaceBinding): scala.xml.MetaData = {
       var attr: scala.xml.MetaData  = scala.xml.Null
-      __obj.attributes.toList map {
-        case ("@id", _) => __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
-        case ("@code-source", _) => __obj.codeSource foreach { x => attr = scala.xml.Attribute(null, "code-source", x.toString, attr) }
-        case (key, x) => attr = scala.xml.Attribute((x.namespace map { __scope.getPrefix(_) }).orNull, x.key.orNull, x.value.toString, attr)
-      }
+      __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
+      __obj.codeSource foreach { x => attr = scala.xml.Attribute(null, "code-source", x.toString, attr) }
       attr
     }
 
@@ -5673,20 +5073,15 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
       com.gu.nitf.model.DeliveryOffice(Seq.concat(p1.toList,
         p2.flatten,
         p3.toList),
-        scala.collection.immutable.ListMap(List(
-        (node \ "@id").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@id" -> _ },
-        (node \ "@office-code").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@office-code" -> _ },
-        (node \ "@code-source").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@code-source" -> _ }
-        ).flatten[(String, scalaxb.DataRecord[Any])]: _*)) })
+        (node \ "@id").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@office-code").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@code-source").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) }) })
     
     override def writesAttribute(__obj: com.gu.nitf.model.DeliveryOffice, __scope: scala.xml.NamespaceBinding): scala.xml.MetaData = {
       var attr: scala.xml.MetaData  = scala.xml.Null
-      __obj.attributes.toList map {
-        case ("@id", _) => __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
-        case ("@office-code", _) => __obj.officeCode foreach { x => attr = scala.xml.Attribute(null, "office-code", x.toString, attr) }
-        case ("@code-source", _) => __obj.codeSource foreach { x => attr = scala.xml.Attribute(null, "code-source", x.toString, attr) }
-        case (key, x) => attr = scala.xml.Attribute((x.namespace map { __scope.getPrefix(_) }).orNull, x.key.orNull, x.value.toString, attr)
-      }
+      __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
+      __obj.officeCode foreach { x => attr = scala.xml.Attribute(null, "office-code", x.toString, attr) }
+      __obj.codeSource foreach { x => attr = scala.xml.Attribute(null, "code-source", x.toString, attr) }
       attr
     }
 
@@ -5705,16 +5100,11 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
       { case p1 ~ p2 =>
       com.gu.nitf.model.BodyEnd(p1.headOption map { scalaxb.fromXML[com.gu.nitf.model.Tagline](_, scalaxb.ElemName(node) :: stack) },
         p2.headOption map { scalaxb.fromXML[com.gu.nitf.model.Bibliography](_, scalaxb.ElemName(node) :: stack) },
-        scala.collection.immutable.ListMap(List(
-        (node \ "@id").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@id" -> _ }
-        ).flatten[(String, scalaxb.DataRecord[Any])]: _*)) })
+        (node \ "@id").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) }) })
     
     override def writesAttribute(__obj: com.gu.nitf.model.BodyEnd, __scope: scala.xml.NamespaceBinding): scala.xml.MetaData = {
       var attr: scala.xml.MetaData  = scala.xml.Null
-      __obj.attributes.toList map {
-        case ("@id", _) => __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
-        case (key, x) => attr = scala.xml.Attribute((x.namespace map { __scope.getPrefix(_) }).orNull, x.key.orNull, x.value.toString, attr)
-      }
+      __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
       attr
     }
 
@@ -5762,24 +5152,19 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
       com.gu.nitf.model.Tagline(Seq.concat(p1.toList,
         p2.flatten,
         p3.toList),
-        scala.collection.immutable.ListMap(List(
-        (node \ "@id").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@id" -> _ },
-        (node \ "@class").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@class" -> _ },
-        (node \ "@style").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@style" -> _ },
-        (node \ "@{http://www.w3.org/XML/1998/namespace}lang").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@{http://www.w3.org/XML/1998/namespace}lang" -> _ },
-        (node \ "@type").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[com.gu.nitf.model.TypeType3](x, scalaxb.ElemName(node) :: stack)) } orElse Some(scalaxb.DataRecord(None, None, scalaxb.fromXML[com.gu.nitf.model.TypeType3](scala.xml.Text("std"), scalaxb.ElemName(node) :: stack))) map { "@type" -> _ }
-        ).flatten[(String, scalaxb.DataRecord[Any])]: _*)) })
+        (node \ "@id").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@class").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@style").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@{http://www.w3.org/XML/1998/namespace}lang").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@type").headOption map { scalaxb.fromXML[com.gu.nitf.model.TypeType3](_, scalaxb.ElemName(node) :: stack) } getOrElse { scalaxb.fromXML[com.gu.nitf.model.TypeType3](scala.xml.Text("std"), scalaxb.ElemName(node) :: stack) }) })
     
     override def writesAttribute(__obj: com.gu.nitf.model.Tagline, __scope: scala.xml.NamespaceBinding): scala.xml.MetaData = {
       var attr: scala.xml.MetaData  = scala.xml.Null
-      __obj.attributes.toList map {
-        case ("@id", _) => __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
-        case ("@class", _) => __obj.classValue foreach { x => attr = scala.xml.Attribute(null, "class", x.toString, attr) }
-        case ("@style", _) => __obj.style foreach { x => attr = scala.xml.Attribute(null, "style", x.toString, attr) }
-        case ("@{http://www.w3.org/XML/1998/namespace}lang", _) => __obj.xmllang foreach { x => attr = scala.xml.Attribute(__scope.getPrefix("http://www.w3.org/XML/1998/namespace"), "lang", x.toString, attr) }
-        case ("@type", _) => if (__obj.typeValue.toString != "std") attr = scala.xml.Attribute(null, "type", __obj.typeValue.toString, attr)
-        case (key, x) => attr = scala.xml.Attribute((x.namespace map { __scope.getPrefix(_) }).orNull, x.key.orNull, x.value.toString, attr)
-      }
+      __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
+      __obj.classValue foreach { x => attr = scala.xml.Attribute(null, "class", x.toString, attr) }
+      __obj.style foreach { x => attr = scala.xml.Attribute(null, "style", x.toString, attr) }
+      __obj.xmllang foreach { x => attr = scala.xml.Attribute(__scope.getPrefix("http://www.w3.org/XML/1998/namespace"), "lang", x.toString, attr) }
+      if (__obj.typeValue.toString != "std") attr = scala.xml.Attribute(null, "type", __obj.typeValue.toString, attr)
       attr
     }
 
@@ -5798,22 +5183,17 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
       phrase(optTextRecord ^^
       { case p1 =>
       com.gu.nitf.model.Bibliography(Seq.concat(p1.toList),
-        scala.collection.immutable.ListMap(List(
-        (node \ "@id").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@id" -> _ },
-        (node \ "@class").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@class" -> _ },
-        (node \ "@style").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@style" -> _ },
-        (node \ "@{http://www.w3.org/XML/1998/namespace}lang").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@{http://www.w3.org/XML/1998/namespace}lang" -> _ }
-        ).flatten[(String, scalaxb.DataRecord[Any])]: _*)) })
+        (node \ "@id").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@class").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@style").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@{http://www.w3.org/XML/1998/namespace}lang").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) }) })
     
     override def writesAttribute(__obj: com.gu.nitf.model.Bibliography, __scope: scala.xml.NamespaceBinding): scala.xml.MetaData = {
       var attr: scala.xml.MetaData  = scala.xml.Null
-      __obj.attributes.toList map {
-        case ("@id", _) => __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
-        case ("@class", _) => __obj.classValue foreach { x => attr = scala.xml.Attribute(null, "class", x.toString, attr) }
-        case ("@style", _) => __obj.style foreach { x => attr = scala.xml.Attribute(null, "style", x.toString, attr) }
-        case ("@{http://www.w3.org/XML/1998/namespace}lang", _) => __obj.xmllang foreach { x => attr = scala.xml.Attribute(__scope.getPrefix("http://www.w3.org/XML/1998/namespace"), "lang", x.toString, attr) }
-        case (key, x) => attr = scala.xml.Attribute((x.namespace map { __scope.getPrefix(_) }).orNull, x.key.orNull, x.value.toString, attr)
-      }
+      __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
+      __obj.classValue foreach { x => attr = scala.xml.Attribute(null, "class", x.toString, attr) }
+      __obj.style foreach { x => attr = scala.xml.Attribute(null, "style", x.toString, attr) }
+      __obj.xmllang foreach { x => attr = scala.xml.Attribute(__scope.getPrefix("http://www.w3.org/XML/1998/namespace"), "lang", x.toString, attr) }
       attr
     }
 
@@ -5840,28 +5220,23 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
       com.gu.nitf.model.Classifier(Seq.concat(p1.toList,
         p2.flatten,
         p3.toList),
-        scala.collection.immutable.ListMap(List(
-        (node \ "@id").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@id" -> _ },
-        (node \ "@class").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@class" -> _ },
-        (node \ "@style").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@style" -> _ },
-        (node \ "@{http://www.w3.org/XML/1998/namespace}lang").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@{http://www.w3.org/XML/1998/namespace}lang" -> _ },
-        (node \ "@type").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@type" -> _ },
-        (node \ "@idsrc").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@idsrc" -> _ },
-        (node \ "@value").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@value" -> _ }
-        ).flatten[(String, scalaxb.DataRecord[Any])]: _*)) })
+        (node \ "@id").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@class").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@style").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@{http://www.w3.org/XML/1998/namespace}lang").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@type").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@idsrc").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@value").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) }) })
     
     override def writesAttribute(__obj: com.gu.nitf.model.Classifier, __scope: scala.xml.NamespaceBinding): scala.xml.MetaData = {
       var attr: scala.xml.MetaData  = scala.xml.Null
-      __obj.attributes.toList map {
-        case ("@id", _) => __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
-        case ("@class", _) => __obj.classValue foreach { x => attr = scala.xml.Attribute(null, "class", x.toString, attr) }
-        case ("@style", _) => __obj.style foreach { x => attr = scala.xml.Attribute(null, "style", x.toString, attr) }
-        case ("@{http://www.w3.org/XML/1998/namespace}lang", _) => __obj.xmllang foreach { x => attr = scala.xml.Attribute(__scope.getPrefix("http://www.w3.org/XML/1998/namespace"), "lang", x.toString, attr) }
-        case ("@type", _) => __obj.typeValue foreach { x => attr = scala.xml.Attribute(null, "type", x.toString, attr) }
-        case ("@idsrc", _) => __obj.idsrc foreach { x => attr = scala.xml.Attribute(null, "idsrc", x.toString, attr) }
-        case ("@value", _) => __obj.valueAttribute foreach { x => attr = scala.xml.Attribute(null, "value", x.toString, attr) }
-        case (key, x) => attr = scala.xml.Attribute((x.namespace map { __scope.getPrefix(_) }).orNull, x.key.orNull, x.value.toString, attr)
-      }
+      __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
+      __obj.classValue foreach { x => attr = scala.xml.Attribute(null, "class", x.toString, attr) }
+      __obj.style foreach { x => attr = scala.xml.Attribute(null, "style", x.toString, attr) }
+      __obj.xmllang foreach { x => attr = scala.xml.Attribute(__scope.getPrefix("http://www.w3.org/XML/1998/namespace"), "lang", x.toString, attr) }
+      __obj.typeValue foreach { x => attr = scala.xml.Attribute(null, "type", x.toString, attr) }
+      __obj.idsrc foreach { x => attr = scala.xml.Attribute(null, "idsrc", x.toString, attr) }
+      __obj.valueAttribute foreach { x => attr = scala.xml.Attribute(null, "value", x.toString, attr) }
       attr
     }
 
@@ -5885,16 +5260,11 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
       { case p1 ~ p2 =>
       com.gu.nitf.model.NitfTable(scalaxb.fromXML[com.gu.nitf.model.NitfTableMetadata](p1, scalaxb.ElemName(node) :: stack),
         p2,
-        scala.collection.immutable.ListMap(List(
-        (node \ "@id").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@id" -> _ }
-        ).flatten[(String, scalaxb.DataRecord[Any])]: _*)) })
+        (node \ "@id").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) }) })
     
     override def writesAttribute(__obj: com.gu.nitf.model.NitfTable, __scope: scala.xml.NamespaceBinding): scala.xml.MetaData = {
       var attr: scala.xml.MetaData  = scala.xml.Null
-      __obj.attributes.toList map {
-        case ("@id", _) => __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
-        case (key, x) => attr = scala.xml.Attribute((x.namespace map { __scope.getPrefix(_) }).orNull, x.key.orNull, x.value.toString, attr)
-      }
+      __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
       attr
     }
 
@@ -5914,22 +5284,17 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
       phrase(optTextRecord ^^
       { case p1 =>
       com.gu.nitf.model.CustomTable(Seq.concat(p1.toList),
-        scala.collection.immutable.ListMap(List(
-        (node \ "@id").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@id" -> _ },
-        (node \ "@class").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@class" -> _ },
-        (node \ "@style").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@style" -> _ },
-        (node \ "@{http://www.w3.org/XML/1998/namespace}lang").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@{http://www.w3.org/XML/1998/namespace}lang" -> _ }
-        ).flatten[(String, scalaxb.DataRecord[Any])]: _*)) })
+        (node \ "@id").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@class").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@style").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@{http://www.w3.org/XML/1998/namespace}lang").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) }) })
     
     override def writesAttribute(__obj: com.gu.nitf.model.CustomTable, __scope: scala.xml.NamespaceBinding): scala.xml.MetaData = {
       var attr: scala.xml.MetaData  = scala.xml.Null
-      __obj.attributes.toList map {
-        case ("@id", _) => __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
-        case ("@class", _) => __obj.classValue foreach { x => attr = scala.xml.Attribute(null, "class", x.toString, attr) }
-        case ("@style", _) => __obj.style foreach { x => attr = scala.xml.Attribute(null, "style", x.toString, attr) }
-        case ("@{http://www.w3.org/XML/1998/namespace}lang", _) => __obj.xmllang foreach { x => attr = scala.xml.Attribute(__scope.getPrefix("http://www.w3.org/XML/1998/namespace"), "lang", x.toString, attr) }
-        case (key, x) => attr = scala.xml.Attribute((x.namespace map { __scope.getPrefix(_) }).orNull, x.key.orNull, x.value.toString, attr)
-      }
+      __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
+      __obj.classValue foreach { x => attr = scala.xml.Attribute(null, "class", x.toString, attr) }
+      __obj.style foreach { x => attr = scala.xml.Attribute(null, "style", x.toString, attr) }
+      __obj.xmllang foreach { x => attr = scala.xml.Attribute(__scope.getPrefix("http://www.w3.org/XML/1998/namespace"), "lang", x.toString, attr) }
       attr
     }
 
@@ -5944,20 +5309,15 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
     import scalaxb.ElemName._
     
     def reads(seq: scala.xml.NodeSeq, stack: List[scalaxb.ElemName]): Either[String, com.gu.nitf.model.TableReference] = seq match {
-      case node: scala.xml.Node => Right(com.gu.nitf.model.TableReference(scala.collection.immutable.ListMap(List(
-        (node \ "@id").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@id" -> _ },
-        (node \ "@idref").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@idref" -> _ }
-        ).flatten[(String, scalaxb.DataRecord[Any])]: _*)))
+      case node: scala.xml.Node => Right(com.gu.nitf.model.TableReference((node \ "@id").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        scalaxb.fromXML[String]((node \ "@idref"), scalaxb.ElemName(node) :: stack)))
       case _ => Left("reads failed: seq must be scala.xml.Node")
     }
     
     override def writesAttribute(__obj: com.gu.nitf.model.TableReference, __scope: scala.xml.NamespaceBinding): scala.xml.MetaData = {
       var attr: scala.xml.MetaData  = scala.xml.Null
-      __obj.attributes.toList map {
-        case ("@id", _) => __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
-        case ("@idref", _) => attr = scala.xml.Attribute(null, "idref", __obj.idref.toString, attr)
-        case (key, x) => attr = scala.xml.Attribute((x.namespace map { __scope.getPrefix(_) }).orNull, x.key.orNull, x.value.toString, attr)
-      }
+      __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
+      attr = scala.xml.Attribute(null, "idref", __obj.idref.toString, attr)
       attr
     }
 
@@ -6006,34 +5366,29 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
       { case p1 ~ p2 =>
       com.gu.nitf.model.NitfTableMetadata(p1.headOption map { scalaxb.fromXML[com.gu.nitf.model.NitfTableSummary](_, scalaxb.ElemName(node) :: stack) },
         p2,
-        scala.collection.immutable.ListMap(List(
-        (node \ "@id").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@id" -> _ },
-        (node \ "@class").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@class" -> _ },
-        (node \ "@style").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@style" -> _ },
-        (node \ "@{http://www.w3.org/XML/1998/namespace}lang").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@{http://www.w3.org/XML/1998/namespace}lang" -> _ },
-        (node \ "@subclass").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@subclass" -> _ },
-        (node \ "@idsrc").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@idsrc" -> _ },
-        (node \ "@value").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@value" -> _ },
-        (node \ "@status").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[com.gu.nitf.model.Status](x, scalaxb.ElemName(node) :: stack)) } map { "@status" -> _ },
-        (node \ "@column-count").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@column-count" -> _ },
-        (node \ "@row-count").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@row-count" -> _ }
-        ).flatten[(String, scalaxb.DataRecord[Any])]: _*)) })
+        (node \ "@id").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@class").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@style").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@{http://www.w3.org/XML/1998/namespace}lang").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@subclass").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@idsrc").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@value").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@status").headOption map { scalaxb.fromXML[com.gu.nitf.model.Status](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@column-count").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@row-count").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) }) })
     
     override def writesAttribute(__obj: com.gu.nitf.model.NitfTableMetadata, __scope: scala.xml.NamespaceBinding): scala.xml.MetaData = {
       var attr: scala.xml.MetaData  = scala.xml.Null
-      __obj.attributes.toList map {
-        case ("@id", _) => __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
-        case ("@class", _) => __obj.classValue foreach { x => attr = scala.xml.Attribute(null, "class", x.toString, attr) }
-        case ("@style", _) => __obj.style foreach { x => attr = scala.xml.Attribute(null, "style", x.toString, attr) }
-        case ("@{http://www.w3.org/XML/1998/namespace}lang", _) => __obj.xmllang foreach { x => attr = scala.xml.Attribute(__scope.getPrefix("http://www.w3.org/XML/1998/namespace"), "lang", x.toString, attr) }
-        case ("@subclass", _) => __obj.subclass foreach { x => attr = scala.xml.Attribute(null, "subclass", x.toString, attr) }
-        case ("@idsrc", _) => __obj.idsrc foreach { x => attr = scala.xml.Attribute(null, "idsrc", x.toString, attr) }
-        case ("@value", _) => __obj.valueAttribute foreach { x => attr = scala.xml.Attribute(null, "value", x.toString, attr) }
-        case ("@status", _) => __obj.status foreach { x => attr = scala.xml.Attribute(null, "status", x.toString, attr) }
-        case ("@column-count", _) => __obj.columnCount foreach { x => attr = scala.xml.Attribute(null, "column-count", x.toString, attr) }
-        case ("@row-count", _) => __obj.rowCount foreach { x => attr = scala.xml.Attribute(null, "row-count", x.toString, attr) }
-        case (key, x) => attr = scala.xml.Attribute((x.namespace map { __scope.getPrefix(_) }).orNull, x.key.orNull, x.value.toString, attr)
-      }
+      __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
+      __obj.classValue foreach { x => attr = scala.xml.Attribute(null, "class", x.toString, attr) }
+      __obj.style foreach { x => attr = scala.xml.Attribute(null, "style", x.toString, attr) }
+      __obj.xmllang foreach { x => attr = scala.xml.Attribute(__scope.getPrefix("http://www.w3.org/XML/1998/namespace"), "lang", x.toString, attr) }
+      __obj.subclass foreach { x => attr = scala.xml.Attribute(null, "subclass", x.toString, attr) }
+      __obj.idsrc foreach { x => attr = scala.xml.Attribute(null, "idsrc", x.toString, attr) }
+      __obj.valueAttribute foreach { x => attr = scala.xml.Attribute(null, "value", x.toString, attr) }
+      __obj.status foreach { x => attr = scala.xml.Attribute(null, "status", x.toString, attr) }
+      __obj.columnCount foreach { x => attr = scala.xml.Attribute(null, "column-count", x.toString, attr) }
+      __obj.rowCount foreach { x => attr = scala.xml.Attribute(null, "row-count", x.toString, attr) }
       attr
     }
 
@@ -6051,22 +5406,17 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
       phrase(safeRep(scalaxb.ElemName(Some("http://iptc.org/std/nitf/2006-03-01/"), "p")) ^^
       { case p1 =>
       com.gu.nitf.model.NitfTableSummary(p1 map { scalaxb.fromXML[com.gu.nitf.model.P](_, scalaxb.ElemName(node) :: stack) },
-        scala.collection.immutable.ListMap(List(
-        (node \ "@id").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@id" -> _ },
-        (node \ "@class").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@class" -> _ },
-        (node \ "@style").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@style" -> _ },
-        (node \ "@{http://www.w3.org/XML/1998/namespace}lang").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@{http://www.w3.org/XML/1998/namespace}lang" -> _ }
-        ).flatten[(String, scalaxb.DataRecord[Any])]: _*)) })
+        (node \ "@id").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@class").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@style").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@{http://www.w3.org/XML/1998/namespace}lang").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) }) })
     
     override def writesAttribute(__obj: com.gu.nitf.model.NitfTableSummary, __scope: scala.xml.NamespaceBinding): scala.xml.MetaData = {
       var attr: scala.xml.MetaData  = scala.xml.Null
-      __obj.attributes.toList map {
-        case ("@id", _) => __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
-        case ("@class", _) => __obj.classValue foreach { x => attr = scala.xml.Attribute(null, "class", x.toString, attr) }
-        case ("@style", _) => __obj.style foreach { x => attr = scala.xml.Attribute(null, "style", x.toString, attr) }
-        case ("@{http://www.w3.org/XML/1998/namespace}lang", _) => __obj.xmllang foreach { x => attr = scala.xml.Attribute(__scope.getPrefix("http://www.w3.org/XML/1998/namespace"), "lang", x.toString, attr) }
-        case (key, x) => attr = scala.xml.Attribute((x.namespace map { __scope.getPrefix(_) }).orNull, x.key.orNull, x.value.toString, attr)
-      }
+      __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
+      __obj.classValue foreach { x => attr = scala.xml.Attribute(null, "class", x.toString, attr) }
+      __obj.style foreach { x => attr = scala.xml.Attribute(null, "style", x.toString, attr) }
+      __obj.xmllang foreach { x => attr = scala.xml.Attribute(__scope.getPrefix("http://www.w3.org/XML/1998/namespace"), "lang", x.toString, attr) }
       attr
     }
 
@@ -6084,22 +5434,17 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
         { case p1 => com.gu.nitf.model.NitfColgroupSequence1(scalaxb.fromXML[com.gu.nitf.model.NitfCol](p1, scalaxb.ElemName(node) :: stack)) }) ^^
       { case p1 =>
       com.gu.nitf.model.NitfColgroup(p1,
-        scala.collection.immutable.ListMap(List(
-        (node \ "@id").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@id" -> _ },
-        (node \ "@idsrc").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@idsrc" -> _ },
-        (node \ "@value").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@value" -> _ },
-        (node \ "@occurrences").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@occurrences" -> _ }
-        ).flatten[(String, scalaxb.DataRecord[Any])]: _*)) })
+        (node \ "@id").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@idsrc").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@value").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@occurrences").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) }) })
     
     override def writesAttribute(__obj: com.gu.nitf.model.NitfColgroup, __scope: scala.xml.NamespaceBinding): scala.xml.MetaData = {
       var attr: scala.xml.MetaData  = scala.xml.Null
-      __obj.attributes.toList map {
-        case ("@id", _) => __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
-        case ("@idsrc", _) => __obj.idsrc foreach { x => attr = scala.xml.Attribute(null, "idsrc", x.toString, attr) }
-        case ("@value", _) => __obj.valueAttribute foreach { x => attr = scala.xml.Attribute(null, "value", x.toString, attr) }
-        case ("@occurrences", _) => __obj.occurrences foreach { x => attr = scala.xml.Attribute(null, "occurrences", x.toString, attr) }
-        case (key, x) => attr = scala.xml.Attribute((x.namespace map { __scope.getPrefix(_) }).orNull, x.key.orNull, x.value.toString, attr)
-      }
+      __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
+      __obj.idsrc foreach { x => attr = scala.xml.Attribute(null, "idsrc", x.toString, attr) }
+      __obj.valueAttribute foreach { x => attr = scala.xml.Attribute(null, "value", x.toString, attr) }
+      __obj.occurrences foreach { x => attr = scala.xml.Attribute(null, "occurrences", x.toString, attr) }
       attr
     }
 
@@ -6150,28 +5495,23 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
     import scalaxb.ElemName._
     
     def reads(seq: scala.xml.NodeSeq, stack: List[scalaxb.ElemName]): Either[String, com.gu.nitf.model.NitfCol] = seq match {
-      case node: scala.xml.Node => Right(com.gu.nitf.model.NitfCol(scala.collection.immutable.ListMap(List(
-        (node \ "@id").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@id" -> _ },
-        (node \ "@idsrc").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@idsrc" -> _ },
-        (node \ "@value").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@value" -> _ },
-        (node \ "@occurrences").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@occurrences" -> _ },
-        (node \ "@data-type").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[com.gu.nitf.model.DataType](x, scalaxb.ElemName(node) :: stack)) } map { "@data-type" -> _ },
-        (node \ "@data-format").headOption map { x => scalaxb.DataRecord(x, node, scalaxb.fromXML[String](x, scalaxb.ElemName(node) :: stack)) } map { "@data-format" -> _ }
-        ).flatten[(String, scalaxb.DataRecord[Any])]: _*)))
+      case node: scala.xml.Node => Right(com.gu.nitf.model.NitfCol((node \ "@id").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@idsrc").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@value").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@occurrences").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@data-type").headOption map { scalaxb.fromXML[com.gu.nitf.model.DataType](_, scalaxb.ElemName(node) :: stack) },
+        (node \ "@data-format").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) }))
       case _ => Left("reads failed: seq must be scala.xml.Node")
     }
     
     override def writesAttribute(__obj: com.gu.nitf.model.NitfCol, __scope: scala.xml.NamespaceBinding): scala.xml.MetaData = {
       var attr: scala.xml.MetaData  = scala.xml.Null
-      __obj.attributes.toList map {
-        case ("@id", _) => __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
-        case ("@idsrc", _) => __obj.idsrc foreach { x => attr = scala.xml.Attribute(null, "idsrc", x.toString, attr) }
-        case ("@value", _) => __obj.valueAttribute foreach { x => attr = scala.xml.Attribute(null, "value", x.toString, attr) }
-        case ("@occurrences", _) => __obj.occurrences foreach { x => attr = scala.xml.Attribute(null, "occurrences", x.toString, attr) }
-        case ("@data-type", _) => __obj.dataType foreach { x => attr = scala.xml.Attribute(null, "data-type", x.toString, attr) }
-        case ("@data-format", _) => __obj.dataFormat foreach { x => attr = scala.xml.Attribute(null, "data-format", x.toString, attr) }
-        case (key, x) => attr = scala.xml.Attribute((x.namespace map { __scope.getPrefix(_) }).orNull, x.key.orNull, x.value.toString, attr)
-      }
+      __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
+      __obj.idsrc foreach { x => attr = scala.xml.Attribute(null, "idsrc", x.toString, attr) }
+      __obj.valueAttribute foreach { x => attr = scala.xml.Attribute(null, "value", x.toString, attr) }
+      __obj.occurrences foreach { x => attr = scala.xml.Attribute(null, "occurrences", x.toString, attr) }
+      __obj.dataType foreach { x => attr = scala.xml.Attribute(null, "data-type", x.toString, attr) }
+      __obj.dataFormat foreach { x => attr = scala.xml.Attribute(null, "data-format", x.toString, attr) }
       attr
     }
 

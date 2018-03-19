@@ -41,9 +41,6 @@ case class Nitf(head: Option[com.gu.nitf.model.Head] = None,
   body: com.gu.nitf.model.Body,
   id: Option[String] = None,
   uno: Option[String] = None,
-  version: String,
-  changeDate: String,
-  changeTime: String,
   baselang: Option[String] = None,
   classValue: Option[Seq[String]] = None)
       

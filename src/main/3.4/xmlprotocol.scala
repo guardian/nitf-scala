@@ -394,9 +394,6 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
         scalaxb.fromXML[com.gu.nitf.model.Body](p2, scalaxb.ElemName(node) :: stack),
         (node \ "@id").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
         (node \ "@uno").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
-        scalaxb.fromXML[String](scala.xml.Text("-//IPTC//DTD NITF 3.4//EN"), scalaxb.ElemName(node) :: stack),
-        scalaxb.fromXML[String](scala.xml.Text("October 18, 2006"), scalaxb.ElemName(node) :: stack),
-        scalaxb.fromXML[String](scala.xml.Text("19:30"), scalaxb.ElemName(node) :: stack),
         (node \ "@baselang").headOption map { scalaxb.fromXML[String](_, scalaxb.ElemName(node) :: stack) },
         (node \ "@class").headOption map { scalaxb.fromXML[Seq[String]](_, scalaxb.ElemName(node) :: stack) }) })
     
@@ -404,11 +401,11 @@ trait XMLProtocol extends scalaxb.XMLStandardTypes {
       var attr: scala.xml.MetaData  = scala.xml.Null
       __obj.id foreach { x => attr = scala.xml.Attribute(null, "id", x.toString, attr) }
       __obj.uno foreach { x => attr = scala.xml.Attribute(null, "uno", x.toString, attr) }
-      attr = scala.xml.Attribute(null, "version", __obj.version.toString, attr)
-      attr = scala.xml.Attribute(null, "change.date", __obj.changeDate.toString, attr)
-      attr = scala.xml.Attribute(null, "change.time", __obj.changeTime.toString, attr)
       __obj.baselang foreach { x => attr = scala.xml.Attribute(null, "baselang", x.toString, attr) }
       __obj.classValue foreach { x => attr = scala.xml.Attribute(null, "class", x.toString, attr) }
+      attr = scala.xml.Attribute(null, "version", "-//IPTC//DTD NITF 3.4//EN".toString, attr)
+      attr = scala.xml.Attribute(null, "change.date", "October 18, 2006".toString, attr)
+      attr = scala.xml.Attribute(null, "change.time", "19:30".toString, attr)
       attr
     }
 

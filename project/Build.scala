@@ -2,8 +2,6 @@ import sbt._
 import sbt.Keys._
 import sbt.internal.BuildDef
 
-import scala.collection.breakOut
-
 import com.typesafe.sbt.SbtPgp.autoImport._
 import net.vonbuchholtz.sbt.dependencycheck.DependencyCheckPlugin.autoImport._
 import sbtrelease.ReleasePlugin.autoImport._

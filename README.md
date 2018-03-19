@@ -66,7 +66,7 @@ The following command was used to generate the files:
 ```bash
 for v in 3.{3..6}; do
   scalaxb "src/test/resources/nitf-$v.xsd" \
-    --outdir "$v" \
+    --outdir "src/main/$v" \
     --no-dispatch-client \
     --named-attributes \
     --capitalize-words \

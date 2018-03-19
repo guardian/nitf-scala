@@ -28,7 +28,7 @@ object `package` {
 
   val BareNitfNamespace: NamespaceBinding = toScope(None -> defaultScope.uri)
 
-  private[builders] val DateTimeAttributeKey = "norm"
+  @inline private[builders] def optionalString(x: Any): Option[String] = Option(x).map(_.toString)
 }
 
 object Builder {
@@ -72,10 +72,7 @@ trait EnrichedTextBuilder {
 class NitfBuilder(var build: Nitf = Nitf(body = Body())) extends Builder[Nitf] {
   def withHead(x: Head): this.type = { build = build.copy(head = Option(x)); this }
   def withBody(x: Body): this.type = { build = build.copy(body = x); this }
-  def withUno(x: String): this.type = {
-    build = build.copy(attributes = build.attributes ++ attrs("uno" -> x.toString))
-    this
-  }
+  def withUno(x: String): this.type = { build = build.copy(uno = Option(x)); this }
 }
 
 class HeadBuilder(var build: Head = Head()) extends Builder[Head] {
@@ -87,11 +84,11 @@ class HeadBuilder(var build: Head = Head()) extends Builder[Head] {
 class DocDataBuilder(var build: Docdata = Docdata()) extends Builder[Docdata] {
   def withDocId(x: DocId): this.type = withDocDataOption(x)
   def withCopyright(x: DocCopyright): this.type = withDocDataOption(x)
-  def withIssueDate(x: LocalDate): this.type = withDocDataOption(DateIssue(attrs(DateTimeAttributeKey -> x.toString)))
-  def withReleaseDate(x: LocalDate): this.type = withDocDataOption(DateRelease(attrs(DateTimeAttributeKey -> x.toString)))
-  def withUrgency(x: NewsUrgency.Value): this.type = withDocDataOption(Urgency(attrs("ed-urg" -> x.toString)))
+  def withIssueDate(x: LocalDate): this.type = withDocDataOption(DateIssue(norm = optionalString(x)))
+  def withReleaseDate(x: LocalDate): this.type = withDocDataOption(DateRelease(norm = optionalString(x)))
+  def withUrgency(x: NewsUrgency.Value): this.type = withDocDataOption(Urgency(edUrg = optionalString(x)))
   def withManagementStatus(x: ManagementStatus.Value): this.type = {
-    build = build.copy(attributes = build.attributes ++ attrs("management-status" -> x.toString))
+    build = build.copy(managementStatus = optionalString(x))
     this
   }
   private def withDocDataOption[T <: DocdataOption : CanWriteXML](x: T): this.type = {
@@ -101,32 +98,18 @@ class DocDataBuilder(var build: Docdata = Docdata()) extends Builder[Docdata] {
 }
 
 class DocCopyrightBuilder(var build: DocCopyright = DocCopyright()) extends Builder[DocCopyright] {
-  def withHolder(x: String): this.type = withAttribute("holder", x)
-  def withYear(x: Int): this.type = withAttribute("year", x.toString)
-  private def withAttribute(key: String, value: String): this.type = {
-    build = build.copy(attributes = build.attributes ++ attrs(key -> value))
-    this
-  }
+  def withHolder(x: String): this.type = { build = build.copy(holder = optionalString(x)); this }
+  def withYear(x: Int): this.type = { build = build.copy(year = optionalString(x)); this }
 }
 
 class DocIdBuilder(var build: DocId = DocId()) extends Builder[DocId] {
-  def withId(x: String): this.type = withAttribute("id-string", x)
-  def withSource(x: String): this.type = withAttribute("regsrc", x)
-  private def withAttribute(key: String, value: String): this.type = {
-    build = build.copy(attributes = build.attributes ++ attrs(key -> value))
-    this
-  }
+  def withId(x: String): this.type = { build = build.copy(idString = optionalString(x)); this }
+  def withSource(x: String): this.type = { build = build.copy(regsrc = optionalString(x)); this }
 }
 
 class PublicationDataBuilder(var build: Pubdata = Pubdata()) extends Builder[Pubdata] {
-  def withType(x: PublicationType): this.type = {
-    build = build.copy(attributes = build.attributes + attrWithValue("type", x))
-    this
-  }
-  def withPublicationDate(x: LocalDate): this.type = {
-    build = build.copy(attributes = build.attributes ++ attrs("date.publication" -> x.toString))
-    this
-  }
+  def withType(x: PublicationType): this.type = { build = build.copy(typeValue = Option(x)); this }
+  def withPublicationDate(x: LocalDate): this.type = { build = build.copy(datePublication = optionalString(x)); this }
 }
 
 class BodyBuilder(var build: Body = Body()) extends Builder[Body] {
@@ -208,10 +191,13 @@ class BlockBuilder(var build: Block = Block()) extends Builder[Block] with Block
   }
 }
 
-class MediaBuilder(var build: Media = Media()) extends Builder[Media] {
+class MediaBuilder(var build: Media) extends Builder[Media] {
+  def this(mediaType: MediaType.Value) = this(Media(mediaType = mediaType.toString))
+
   def withMetadata(key: String, value: String): this.type = withMetadata(new MediaMetadataBuilder(key, value))
   def withMetadata(x: MediaMetadata): this.type = { build = build.copy(mediaMetadata = build.mediaMetadata :+ x); this }
   def withCaption(x: MediaCaption): this.type = { build = build.copy(mediaCaption = build.mediaCaption :+ x); this }
+  def withType(x: MediaType.Value): this.type = { build = build.copy(mediaType = x.toString); this }
   def withProducer(x: MediaProducer): this.type = {
     build = build.copy(mediaProducer = Chooser.choose(build.mediaProducer, x))
     this
@@ -220,59 +206,44 @@ class MediaBuilder(var build: Media = Media()) extends Builder[Media] {
     build = build.copy(mediasequence1 = build.mediasequence1 :+ MediaSequence1(x, y))
     this
   }
-  def withType(x: MediaType.Value): this.type = {
-    build = build.copy(attributes = build.attributes ++ attrs("media-type" -> x.toString))
-    this
-  }
 }
 
-class MediaMetadataBuilder(var build: MediaMetadata = MediaMetadata()) extends Builder[MediaMetadata] {
-  def this(name: String, value: String) = this(MediaMetadata(attrs("name" -> name, "value" -> value)))
-  def withName(x: String): this.type = withAttribute("name", x)
-  def withValue(x: String): this.type = withAttribute("value", x)
-  private def withAttribute(key: String, value: String): this.type = {
-    build = build.copy(attributes = build.attributes ++ attrs(key -> value))
-    this
-  }
+class MediaMetadataBuilder(var build: MediaMetadata) extends Builder[MediaMetadata] {
+  def this(name: String) = this(MediaMetadata(name = name))
+  def this(name: String, value: String) = this(MediaMetadata(name = name, valueAttribute = Option(value)))
+
+  def withName(x: String): this.type = { build = build.copy(name = x); this }
+  def withValue(x: String): this.type = { build = build.copy(valueAttribute = Option(x)); this }
 }
 
 class MediaReferenceBuilder(var build: MediaReference = MediaReference()) extends Builder[MediaReference] {
-  def asNoFlow: this.type = withAttribute("noflow", "noflow")
+  def asNoFlow: this.type = { build = build.copy(noflow = Some(NoflowValue)); this }
   def withSource(x: URI): this.type = withSource(x.toString)
-  def withSource(x: String): this.type = withAttribute("source", x)
-  def withCoding(x: String): this.type = withAttribute("coding", x)
-  def withOutCue(x: String): this.type = withAttribute("outcue", x)
-  def withImageMap(x: String): this.type = withAttribute("imagemap", x)
-  def withWidth(x: Int): this.type = withAttribute("width", x.toString)
-  def withHeight(x: Int): this.type = withAttribute("height", x.toString)
-  def withCopyright(x: String): this.type = withAttribute("copyright", x)
-  def withMimeType(x: String): this.type = withAttribute("mime-type", x)
-  def withAlternateName(x: String): this.type = withAttribute("name", x)
-  def withAlternateText(x: String): this.type = withAttribute("alternate-text", x)
-  def withSourceCredit(x: String): this.type = withAttribute("source-credit", x)
-  def withTimeUnitOfMeasure(x: String): this.type = withAttribute("time-unit-of-measure", x)
-  def withTimeLength(x: Int): this.type = withAttribute("time", x.toString)
-
-  private def withAttribute(key: String, value: String): this.type = {
-    build = build.copy(attributes = build.attributes ++ attrs(key -> value))
-    this
-  }
+  def withSource(x: String): this.type = { build = build.copy(source = Option(x)); this }
+  def withCoding(x: String): this.type = { build = build.copy(coding = Option(x)); this }
+  def withOutCue(x: String): this.type = { build = build.copy(outcue = Option(x)); this }
+  def withImageMap(x: String): this.type = { build = build.copy(imagemap = Option(x)); this }
+  def withWidth(x: Int): this.type = { build = build.copy(width = Option(x.toString)); this }
+  def withHeight(x: Int): this.type = { build = build.copy(height = Option(x.toString)); this }
+  def withCopyright(x: String): this.type = { build = build.copy(copyright = Option(x)); this }
+  def withMimeType(x: String): this.type = { build = build.copy(mimeType = Option(x)); this }
+  def withAlternateName(x: String): this.type = { build = build.copy(name = Option(x)); this }
+  def withAlternateText(x: String): this.type = { build = build.copy(alternateText = Option(x)); this }
+  def withSourceCredit(x: String): this.type = { build = build.copy(sourceCredit = Option(x)); this }
+  def withTimeUnitOfMeasure(x: String): this.type = { build = build.copy(timeUnitOfMeasure = Option(x)); this }
+  def withTimeLength(x: Int): this.type = { build = build.copy(time = Option(x.toString)); this }
 }
 
 class ParagraphBuilder(var build: P = P()) extends Builder[P] with EnrichedTextBuilder {
-  def asLead: this.type = { withAttribute("lede", "true"); this }
-  def asSummary: this.type = { withAttribute("summary", "true"); this }
-  def asOptional: this.type = { withAttribute("optional-text", "true"); this }
+  def asLead: this.type = { build = build.copy(lede = Option("true")); this }
+  def asSummary: this.type = { build = build.copy(summary = Option("true")); this }
+  def asOptional: this.type = { build = build.copy(optionalText = Option("true")); this }
 
   protected override def withContent(x: DataRecord[_]): this.type = {
     build = build.copy(mixed = build.mixed :+ x)
     this
   }
-  private def withAttribute(key: String, value: String): Unit = {
-    build = build.copy(attributes = build.attributes ++ attrs(key -> value))
-  }
 }
-
 
 /** Encapsulates a strategy for choosing between (or combining) previous and new values.
   *

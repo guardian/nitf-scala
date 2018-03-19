@@ -42,12 +42,9 @@ case class Nitf(head: Option[com.gu.nitf.model.Head] = None,
   any: Seq[scalaxb.DataRecord[Any]] = Nil,
   id: Option[String] = None,
   uno: Option[String] = None,
-  version: String,
-  changeDate: String,
-  changeTime: String,
   baselang: Option[String] = None,
   classValue: Option[Seq[String]] = None,
-  attributes: Map[String, scalaxb.DataRecord[Any]])
+  attributes: Map[String, scalaxb.DataRecord[Any]] = Map.empty)
       
 
 
@@ -60,7 +57,7 @@ case class Head(title: Option[com.gu.nitf.model.Title] = None,
   revisionHistory: Seq[com.gu.nitf.model.RevisionHistory] = Nil,
   any: Seq[scalaxb.DataRecord[Any]] = Nil,
   id: Option[String] = None,
-  attributes: Map[String, scalaxb.DataRecord[Any]])
+  attributes: Map[String, scalaxb.DataRecord[Any]] = Map.empty)
       
 
 trait Type
@@ -84,7 +81,7 @@ case object Other extends Type { override def toString = "other" }
 case class Title(mixed: Seq[scalaxb.DataRecord[Any]] = Nil,
   id: Option[String] = None,
   typeValue: Option[com.gu.nitf.model.Type] = None,
-  attributes: Map[String, scalaxb.DataRecord[Any]])
+  attributes: Map[String, scalaxb.DataRecord[Any]] = Map.empty)
       
 
 
@@ -92,7 +89,7 @@ case class Meta(id: Option[String] = None,
   httpEquiv: Option[String] = None,
   name: Option[String] = None,
   content: String,
-  attributes: Map[String, scalaxb.DataRecord[Any]])
+  attributes: Map[String, scalaxb.DataRecord[Any]] = Map.empty)
       
 
 
@@ -100,13 +97,13 @@ case class Tobject(tobjectProperty: Seq[com.gu.nitf.model.TobjectProperty] = Nil
   tobjectSubject: Seq[com.gu.nitf.model.TobjectSubject] = Nil,
   id: Option[String] = None,
   tobjectType: String,
-  attributes: Map[String, scalaxb.DataRecord[Any]])
+  attributes: Map[String, scalaxb.DataRecord[Any]] = Map.empty)
       
 
 
 case class TobjectProperty(id: Option[String] = None,
   tobjectPropertyType: String,
-  attributes: Map[String, scalaxb.DataRecord[Any]])
+  attributes: Map[String, scalaxb.DataRecord[Any]] = Map.empty)
       
 
 
@@ -117,21 +114,21 @@ case class TobjectSubject(id: Option[String] = None,
   tobjectSubjectType: Option[String] = None,
   tobjectSubjectMatter: Option[String] = None,
   tobjectSubjectDetail: Option[String] = None,
-  attributes: Map[String, scalaxb.DataRecord[Any]])
+  attributes: Map[String, scalaxb.DataRecord[Any]] = Map.empty)
       
 
 
 case class Iim(ds: Seq[com.gu.nitf.model.Ds] = Nil,
   id: Option[String] = None,
   ver: Option[String] = None,
-  attributes: Map[String, scalaxb.DataRecord[Any]])
+  attributes: Map[String, scalaxb.DataRecord[Any]] = Map.empty)
       
 
 
 case class Ds(id: Option[String] = None,
   num: String,
   valueAttribute: Option[String] = None,
-  attributes: Map[String, scalaxb.DataRecord[Any]])
+  attributes: Map[String, scalaxb.DataRecord[Any]] = Map.empty)
       
 
 
@@ -140,7 +137,7 @@ case class Docdata(docdataoption: Seq[scalaxb.DataRecord[Any]] = Nil,
   managementStatus: Option[String] = None,
   managementDocIdref: Option[String] = None,
   managementIdrefStatus: Option[String] = None,
-  attributes: Map[String, scalaxb.DataRecord[Any]])
+  attributes: Map[String, scalaxb.DataRecord[Any]] = Map.empty)
       
 
 trait DocdataOption
@@ -149,7 +146,7 @@ case class Correction(id: Option[String] = None,
   info: Option[String] = None,
   idString: Option[String] = None,
   regsrc: Option[String] = None,
-  attributes: Map[String, scalaxb.DataRecord[Any]]) extends DocdataOption
+  attributes: Map[String, scalaxb.DataRecord[Any]] = Map.empty) extends DocdataOption
       
 
 
@@ -158,20 +155,20 @@ case class Evloc(id: Option[String] = None,
   stateProv: Option[String] = None,
   countyDist: Option[String] = None,
   city: Option[String] = None,
-  attributes: Map[String, scalaxb.DataRecord[Any]]) extends DocdataOption
+  attributes: Map[String, scalaxb.DataRecord[Any]] = Map.empty) extends DocdataOption
       
 
 
 case class DocId(id: Option[String] = None,
   regsrc: Option[String] = None,
   idString: Option[String] = None,
-  attributes: Map[String, scalaxb.DataRecord[Any]]) extends DocdataOption
+  attributes: Map[String, scalaxb.DataRecord[Any]] = Map.empty) extends DocdataOption
       
 
 
 case class DelList(dellistsequence1: Seq[com.gu.nitf.model.DelListSequence1] = Nil,
   id: Option[String] = None,
-  attributes: Map[String, scalaxb.DataRecord[Any]]) extends DocdataOption
+  attributes: Map[String, scalaxb.DataRecord[Any]] = Map.empty) extends DocdataOption
       
 
 case class DelListSequence1(fromSrc: com.gu.nitf.model.FromSrc)
@@ -179,43 +176,43 @@ case class DelListSequence1(fromSrc: com.gu.nitf.model.FromSrc)
 case class FromSrc(id: Option[String] = None,
   srcName: Option[String] = None,
   levelNumber: Option[String] = None,
-  attributes: Map[String, scalaxb.DataRecord[Any]])
+  attributes: Map[String, scalaxb.DataRecord[Any]] = Map.empty)
       
 
 
 case class Urgency(id: Option[String] = None,
   edUrg: Option[String] = None,
-  attributes: Map[String, scalaxb.DataRecord[Any]]) extends DocdataOption
+  attributes: Map[String, scalaxb.DataRecord[Any]] = Map.empty) extends DocdataOption
       
 
 
 case class Fixture(id: Option[String] = None,
   fixId: Option[String] = None,
-  attributes: Map[String, scalaxb.DataRecord[Any]]) extends DocdataOption
+  attributes: Map[String, scalaxb.DataRecord[Any]] = Map.empty) extends DocdataOption
       
 
 
 case class DateIssue(id: Option[String] = None,
   norm: Option[String] = None,
-  attributes: Map[String, scalaxb.DataRecord[Any]]) extends DocdataOption
+  attributes: Map[String, scalaxb.DataRecord[Any]] = Map.empty) extends DocdataOption
       
 
 
 case class DateRelease(id: Option[String] = None,
   norm: Option[String] = None,
-  attributes: Map[String, scalaxb.DataRecord[Any]]) extends DocdataOption
+  attributes: Map[String, scalaxb.DataRecord[Any]] = Map.empty) extends DocdataOption
       
 
 
 case class DateExpire(id: Option[String] = None,
   norm: Option[String] = None,
-  attributes: Map[String, scalaxb.DataRecord[Any]]) extends DocdataOption
+  attributes: Map[String, scalaxb.DataRecord[Any]] = Map.empty) extends DocdataOption
       
 
 
 case class DocScope(id: Option[String] = None,
   scope: Option[String] = None,
-  attributes: Map[String, scalaxb.DataRecord[Any]]) extends DocdataOption
+  attributes: Map[String, scalaxb.DataRecord[Any]] = Map.empty) extends DocdataOption
       
 
 
@@ -223,14 +220,14 @@ case class Series(id: Option[String] = None,
   seriesName: Option[String] = None,
   seriesPart: String,
   seriesTotalpart: String,
-  attributes: Map[String, scalaxb.DataRecord[Any]]) extends DocdataOption
+  attributes: Map[String, scalaxb.DataRecord[Any]] = Map.empty) extends DocdataOption
       
 
 
 case class EdMsg(id: Option[String] = None,
   msgType: Option[String] = None,
   info: Option[String] = None,
-  attributes: Map[String, scalaxb.DataRecord[Any]]) extends DocdataOption
+  attributes: Map[String, scalaxb.DataRecord[Any]] = Map.empty) extends DocdataOption
       
 
 
@@ -239,14 +236,14 @@ case class DuKey(id: Option[String] = None,
   part: Option[String] = None,
   version: Option[String] = None,
   key: Option[String] = None,
-  attributes: Map[String, scalaxb.DataRecord[Any]]) extends DocdataOption
+  attributes: Map[String, scalaxb.DataRecord[Any]] = Map.empty) extends DocdataOption
       
 
 
 case class DocCopyright(id: Option[String] = None,
   year: Option[String] = None,
   holder: Option[String] = None,
-  attributes: Map[String, scalaxb.DataRecord[Any]]) extends DocdataOption
+  attributes: Map[String, scalaxb.DataRecord[Any]] = Map.empty) extends DocdataOption
       
 
 
@@ -260,26 +257,26 @@ case class DocRights(id: Option[String] = None,
   codeSource: Option[String] = None,
   typeValue: Option[String] = None,
   limitations: Option[String] = None,
-  attributes: Map[String, scalaxb.DataRecord[Any]]) extends DocdataOption
+  attributes: Map[String, scalaxb.DataRecord[Any]] = Map.empty) extends DocdataOption
       
 
 
 case class KeyList(keylistsequence1: Seq[com.gu.nitf.model.KeyListSequence1] = Nil,
   id: Option[String] = None,
-  attributes: Map[String, scalaxb.DataRecord[Any]]) extends DocdataOption
+  attributes: Map[String, scalaxb.DataRecord[Any]] = Map.empty) extends DocdataOption
       
 
 case class KeyListSequence1(keyword: com.gu.nitf.model.Keyword)
 
 case class Keyword(id: Option[String] = None,
   key: Option[String] = None,
-  attributes: Map[String, scalaxb.DataRecord[Any]])
+  attributes: Map[String, scalaxb.DataRecord[Any]] = Map.empty)
       
 
 
 case class IdentifiedContent(identifiedcontentoption: Seq[scalaxb.DataRecord[com.gu.nitf.model.IdentifiedContentOption]] = Nil,
   id: Option[String] = None,
-  attributes: Map[String, scalaxb.DataRecord[Any]]) extends DocdataOption
+  attributes: Map[String, scalaxb.DataRecord[Any]] = Map.empty) extends DocdataOption
       
 
 trait IdentifiedContentOption
@@ -316,7 +313,7 @@ case class Pubdata(id: Option[String] = None,
   positionSection: Option[String] = None,
   positionSequence: Option[String] = None,
   exRef: Option[String] = None,
-  attributes: Map[String, scalaxb.DataRecord[Any]])
+  attributes: Map[String, scalaxb.DataRecord[Any]] = Map.empty)
       
 
 trait FunctionTypeType
@@ -345,7 +342,7 @@ case class RevisionHistory(id: Option[String] = None,
   function: Option[com.gu.nitf.model.FunctionTypeType] = None,
   norm: Option[String] = None,
   comment: Option[String] = None,
-  attributes: Map[String, scalaxb.DataRecord[Any]])
+  attributes: Map[String, scalaxb.DataRecord[Any]] = Map.empty)
       
 
 
@@ -356,7 +353,7 @@ case class Body(bodyHead: Option[com.gu.nitf.model.BodyHead] = None,
   classValue: Option[String] = None,
   style: Option[String] = None,
   xmllang: Option[String] = None,
-  attributes: Map[String, scalaxb.DataRecord[Any]])
+  attributes: Map[String, scalaxb.DataRecord[Any]] = Map.empty)
       
 
 
@@ -370,7 +367,7 @@ case class BodyHead(hedline: Seq[com.gu.nitf.model.Hedline] = Nil,
   series: Option[com.gu.nitf.model.Series] = None,
   any: Seq[scalaxb.DataRecord[Any]] = Nil,
   id: Option[String] = None,
-  attributes: Map[String, scalaxb.DataRecord[Any]])
+  attributes: Map[String, scalaxb.DataRecord[Any]] = Map.empty)
       
 
 
@@ -380,7 +377,7 @@ case class Hedline(hl1: com.gu.nitf.model.Hl1,
   classValue: Option[String] = None,
   style: Option[String] = None,
   xmllang: Option[String] = None,
-  attributes: Map[String, scalaxb.DataRecord[Any]])
+  attributes: Map[String, scalaxb.DataRecord[Any]] = Map.empty)
       
 
 
@@ -389,7 +386,7 @@ case class Hl1(mixed: Seq[scalaxb.DataRecord[Any]] = Nil,
   classValue: Option[String] = None,
   style: Option[String] = None,
   xmllang: Option[String] = None,
-  attributes: Map[String, scalaxb.DataRecord[Any]])
+  attributes: Map[String, scalaxb.DataRecord[Any]] = Map.empty)
       
 
 trait Hl1Option
@@ -399,7 +396,7 @@ case class Hl2(mixed: Seq[scalaxb.DataRecord[Any]] = Nil,
   classValue: Option[String] = None,
   style: Option[String] = None,
   xmllang: Option[String] = None,
-  attributes: Map[String, scalaxb.DataRecord[Any]]) extends BlockContentOption
+  attributes: Map[String, scalaxb.DataRecord[Any]] = Map.empty) extends BlockContentOption
       
 
 trait Hl2Option
@@ -442,14 +439,14 @@ case class Note(notesequence1: Seq[com.gu.nitf.model.NoteSequence1] = Nil,
   xmllang: Option[String] = None,
   noteclass: Option[com.gu.nitf.model.Noteclass] = None,
   typeValue: com.gu.nitf.model.TypeType2,
-  attributes: Map[String, scalaxb.DataRecord[Any]]) extends BlockContentOption
+  attributes: Map[String, scalaxb.DataRecord[Any]] = Map.empty) extends BlockContentOption
       
 
 case class NoteSequence1(bodyContent: com.gu.nitf.model.BodyContent)
 
 case class Rights(mixed: Seq[scalaxb.DataRecord[Any]] = Nil,
   id: Option[String] = None,
-  attributes: Map[String, scalaxb.DataRecord[Any]])
+  attributes: Map[String, scalaxb.DataRecord[Any]] = Map.empty)
       
 
 trait RightsOption
@@ -457,28 +454,28 @@ trait RightsOption
 case class RightsOwner(mixed: Seq[scalaxb.DataRecord[Any]] = Nil,
   id: Option[String] = None,
   contact: Option[String] = None,
-  attributes: Map[String, scalaxb.DataRecord[Any]]) extends RightsOption
+  attributes: Map[String, scalaxb.DataRecord[Any]] = Map.empty) extends RightsOption
       
 
 
 case class RightsStartdate(mixed: Seq[scalaxb.DataRecord[Any]] = Nil,
   id: Option[String] = None,
   norm: Option[String] = None,
-  attributes: Map[String, scalaxb.DataRecord[Any]]) extends RightsOption
+  attributes: Map[String, scalaxb.DataRecord[Any]] = Map.empty) extends RightsOption
       
 
 
 case class RightsEnddate(mixed: Seq[scalaxb.DataRecord[Any]] = Nil,
   id: Option[String] = None,
   norm: Option[String] = None,
-  attributes: Map[String, scalaxb.DataRecord[Any]]) extends RightsOption
+  attributes: Map[String, scalaxb.DataRecord[Any]] = Map.empty) extends RightsOption
       
 
 
 case class RightsAgent(mixed: Seq[scalaxb.DataRecord[Any]] = Nil,
   id: Option[String] = None,
   contact: Option[String] = None,
-  attributes: Map[String, scalaxb.DataRecord[Any]]) extends RightsOption
+  attributes: Map[String, scalaxb.DataRecord[Any]] = Map.empty) extends RightsOption
       
 
 
@@ -486,19 +483,19 @@ case class RightsGeography(mixed: Seq[scalaxb.DataRecord[Any]] = Nil,
   id: Option[String] = None,
   locationCode: Option[String] = None,
   codeSource: Option[String] = None,
-  attributes: Map[String, scalaxb.DataRecord[Any]]) extends RightsOption
+  attributes: Map[String, scalaxb.DataRecord[Any]] = Map.empty) extends RightsOption
       
 
 
 case class RightsType(mixed: Seq[scalaxb.DataRecord[Any]] = Nil,
   id: Option[String] = None,
-  attributes: Map[String, scalaxb.DataRecord[Any]]) extends RightsOption
+  attributes: Map[String, scalaxb.DataRecord[Any]] = Map.empty) extends RightsOption
       
 
 
 case class RightsLimitations(mixed: Seq[scalaxb.DataRecord[Any]] = Nil,
   id: Option[String] = None,
-  attributes: Map[String, scalaxb.DataRecord[Any]]) extends RightsOption
+  attributes: Map[String, scalaxb.DataRecord[Any]] = Map.empty) extends RightsOption
       
 
 
@@ -507,14 +504,14 @@ case class Byline(mixed: Seq[scalaxb.DataRecord[Any]] = Nil,
   classValue: Option[String] = None,
   style: Option[String] = None,
   xmllang: Option[String] = None,
-  attributes: Map[String, scalaxb.DataRecord[Any]])
+  attributes: Map[String, scalaxb.DataRecord[Any]] = Map.empty)
       
 
 trait BylineOption
 
 case class Byttl(mixed: Seq[scalaxb.DataRecord[Any]] = Nil,
   id: Option[String] = None,
-  attributes: Map[String, scalaxb.DataRecord[Any]]) extends BylineOption
+  attributes: Map[String, scalaxb.DataRecord[Any]] = Map.empty) extends BylineOption
       
 
 trait ByttlOption
@@ -524,7 +521,7 @@ case class Distributor(mixed: Seq[scalaxb.DataRecord[Any]] = Nil,
   classValue: Option[String] = None,
   style: Option[String] = None,
   xmllang: Option[String] = None,
-  attributes: Map[String, scalaxb.DataRecord[Any]])
+  attributes: Map[String, scalaxb.DataRecord[Any]] = Map.empty)
       
 
 trait DistributorOption
@@ -534,7 +531,7 @@ case class Dateline(mixed: Seq[scalaxb.DataRecord[Any]] = Nil,
   classValue: Option[String] = None,
   style: Option[String] = None,
   xmllang: Option[String] = None,
-  attributes: Map[String, scalaxb.DataRecord[Any]])
+  attributes: Map[String, scalaxb.DataRecord[Any]] = Map.empty)
       
 
 trait DatelineOption
@@ -542,7 +539,7 @@ trait DatelineOption
 case class StoryDate(mixed: Seq[scalaxb.DataRecord[Any]] = Nil,
   id: Option[String] = None,
   norm: Option[String] = None,
-  attributes: Map[String, scalaxb.DataRecord[Any]]) extends DatelineOption
+  attributes: Map[String, scalaxb.DataRecord[Any]] = Map.empty) extends DatelineOption
       
 
 
@@ -551,33 +548,33 @@ case class Abstract(abstractoption: Seq[scalaxb.DataRecord[Any]] = Nil,
   classValue: Option[String] = None,
   style: Option[String] = None,
   xmllang: Option[String] = None,
-  attributes: Map[String, scalaxb.DataRecord[Any]])
+  attributes: Map[String, scalaxb.DataRecord[Any]] = Map.empty)
       
 
 trait AbstractOption
 
 case class Copyrite(mixed: Seq[scalaxb.DataRecord[Any]] = Nil,
   id: Option[String] = None,
-  attributes: Map[String, scalaxb.DataRecord[Any]]) extends EnrichedTextOption
+  attributes: Map[String, scalaxb.DataRecord[Any]] = Map.empty) extends EnrichedTextOption
       
 
 trait CopyriteOption
 
 case class CopyriteYear(mixed: Seq[scalaxb.DataRecord[Any]] = Nil,
   id: Option[String] = None,
-  attributes: Map[String, scalaxb.DataRecord[Any]]) extends CopyriteOption
+  attributes: Map[String, scalaxb.DataRecord[Any]] = Map.empty) extends CopyriteOption
       
 
 
 case class CopyriteHolder(mixed: Seq[scalaxb.DataRecord[Any]] = Nil,
   id: Option[String] = None,
-  attributes: Map[String, scalaxb.DataRecord[Any]]) extends CopyriteOption
+  attributes: Map[String, scalaxb.DataRecord[Any]] = Map.empty) extends CopyriteOption
       
 
 
 case class BodyContent(bodycontentoption: Seq[scalaxb.DataRecord[Any]] = Nil,
   id: Option[String] = None,
-  attributes: Map[String, scalaxb.DataRecord[Any]])
+  attributes: Map[String, scalaxb.DataRecord[Any]] = Map.empty)
       
 
 trait BodyContentOption
@@ -590,7 +587,7 @@ case class Block(blocksequence1: Option[com.gu.nitf.model.BlockSequence1] = None
   classValue: Option[String] = None,
   style: Option[String] = None,
   xmllang: Option[String] = None,
-  attributes: Map[String, scalaxb.DataRecord[Any]]) extends BodyContentOption with DdOption
+  attributes: Map[String, scalaxb.DataRecord[Any]] = Map.empty) extends BodyContentOption with DdOption
       
 
 case class BlockSequence2(datasource: Option[com.gu.nitf.model.Datasource] = None)
@@ -612,7 +609,7 @@ case class P(mixed: Seq[scalaxb.DataRecord[Any]] = Nil,
   lede: Option[String] = None,
   summary: Option[String] = None,
   optionalText: Option[String] = None,
-  attributes: Map[String, scalaxb.DataRecord[Any]]) extends BlockContentOption
+  attributes: Map[String, scalaxb.DataRecord[Any]] = Map.empty) extends BlockContentOption
       
 
 trait POption
@@ -685,7 +682,7 @@ case class Table(caption: Option[com.gu.nitf.model.Caption] = None,
   rules: Option[com.gu.nitf.model.Rules] = None,
   cellspacing: Option[String] = None,
   cellpadding: Option[String] = None,
-  attributes: Map[String, scalaxb.DataRecord[Any]]) extends BlockContentOption with NitfTableOption
+  attributes: Map[String, scalaxb.DataRecord[Any]] = Map.empty) extends BlockContentOption with NitfTableOption
       
 
 trait TableOption
@@ -701,7 +698,7 @@ case class Media(mediaMetadata: Seq[com.gu.nitf.model.MediaMetadata] = Nil,
   style: Option[String] = None,
   xmllang: Option[String] = None,
   mediaType: String,
-  attributes: Map[String, scalaxb.DataRecord[Any]]) extends BlockContentOption
+  attributes: Map[String, scalaxb.DataRecord[Any]] = Map.empty) extends BlockContentOption
       
 
 case class MediaSequence1(mediaReference: com.gu.nitf.model.MediaReference,
@@ -750,14 +747,14 @@ case class MediaReference(mixed: Seq[scalaxb.DataRecord[Any]] = Nil,
   imagemap: Option[String] = None,
   noflow: Option[com.gu.nitf.model.Noflow] = None,
   dataLocation: Option[String] = None,
-  attributes: Map[String, scalaxb.DataRecord[Any]])
+  attributes: Map[String, scalaxb.DataRecord[Any]] = Map.empty)
       
 
 
 case class MediaMetadata(id: Option[String] = None,
   name: String,
   valueAttribute: Option[String] = None,
-  attributes: Map[String, scalaxb.DataRecord[Any]])
+  attributes: Map[String, scalaxb.DataRecord[Any]] = Map.empty)
       
 
 
@@ -767,7 +764,7 @@ case class MediaObject(mixed: Seq[scalaxb.DataRecord[Any]] = Nil,
   style: Option[String] = None,
   xmllang: Option[String] = None,
   encoding: String,
-  attributes: Map[String, scalaxb.DataRecord[Any]])
+  attributes: Map[String, scalaxb.DataRecord[Any]] = Map.empty)
       
 
 
@@ -776,7 +773,7 @@ case class MediaCaption(mixed: Seq[scalaxb.DataRecord[Any]] = Nil,
   classValue: Option[String] = None,
   style: Option[String] = None,
   xmllang: Option[String] = None,
-  attributes: Map[String, scalaxb.DataRecord[Any]])
+  attributes: Map[String, scalaxb.DataRecord[Any]] = Map.empty)
       
 
 trait MediaCaptionOption
@@ -786,7 +783,7 @@ case class MediaProducer(mixed: Seq[scalaxb.DataRecord[Any]] = Nil,
   classValue: Option[String] = None,
   style: Option[String] = None,
   xmllang: Option[String] = None,
-  attributes: Map[String, scalaxb.DataRecord[Any]])
+  attributes: Map[String, scalaxb.DataRecord[Any]] = Map.empty)
       
 
 trait MediaProducerOption
@@ -797,7 +794,7 @@ case class Ol(olsequence1: Seq[com.gu.nitf.model.OlSequence1] = Nil,
   style: Option[String] = None,
   xmllang: Option[String] = None,
   seqnum: Option[String] = None,
-  attributes: Map[String, scalaxb.DataRecord[Any]]) extends BlockContentOption
+  attributes: Map[String, scalaxb.DataRecord[Any]] = Map.empty) extends BlockContentOption
       
 
 case class OlSequence1(li: com.gu.nitf.model.Li)
@@ -807,7 +804,7 @@ case class Ul(ulsequence1: Seq[com.gu.nitf.model.UlSequence1] = Nil,
   classValue: Option[String] = None,
   style: Option[String] = None,
   xmllang: Option[String] = None,
-  attributes: Map[String, scalaxb.DataRecord[Any]]) extends BlockContentOption
+  attributes: Map[String, scalaxb.DataRecord[Any]] = Map.empty) extends BlockContentOption
       
 
 case class UlSequence1(li: com.gu.nitf.model.Li)
@@ -817,7 +814,7 @@ case class Li(mixed: Seq[scalaxb.DataRecord[Any]] = Nil,
   classValue: Option[String] = None,
   style: Option[String] = None,
   xmllang: Option[String] = None,
-  attributes: Map[String, scalaxb.DataRecord[Any]])
+  attributes: Map[String, scalaxb.DataRecord[Any]] = Map.empty)
       
 
 trait LiOption
@@ -827,7 +824,7 @@ case class Dl(dloption: Seq[scalaxb.DataRecord[com.gu.nitf.model.DlOption]] = Ni
   classValue: Option[String] = None,
   style: Option[String] = None,
   xmllang: Option[String] = None,
-  attributes: Map[String, scalaxb.DataRecord[Any]]) extends BlockContentOption
+  attributes: Map[String, scalaxb.DataRecord[Any]] = Map.empty) extends BlockContentOption
       
 
 trait DlOption
@@ -837,7 +834,7 @@ case class Dt(mixed: Seq[scalaxb.DataRecord[Any]] = Nil,
   classValue: Option[String] = None,
   style: Option[String] = None,
   xmllang: Option[String] = None,
-  attributes: Map[String, scalaxb.DataRecord[Any]]) extends DlOption
+  attributes: Map[String, scalaxb.DataRecord[Any]] = Map.empty) extends DlOption
       
 
 trait DtOption
@@ -847,7 +844,7 @@ case class Dd(ddoption: Seq[scalaxb.DataRecord[Any]] = Nil,
   classValue: Option[String] = None,
   style: Option[String] = None,
   xmllang: Option[String] = None,
-  attributes: Map[String, scalaxb.DataRecord[Any]]) extends DlOption
+  attributes: Map[String, scalaxb.DataRecord[Any]] = Map.empty) extends DlOption
       
 
 trait DdOption
@@ -871,7 +868,7 @@ case class Bq(bqsequence1: Seq[com.gu.nitf.model.BqSequence1] = Nil,
   xmllang: Option[String] = None,
   nowrap: Option[com.gu.nitf.model.Nowrap] = None,
   quoteSource: Option[String] = None,
-  attributes: Map[String, scalaxb.DataRecord[Any]]) extends BlockContentOption
+  attributes: Map[String, scalaxb.DataRecord[Any]] = Map.empty) extends BlockContentOption
       
 
 case class BqSequence1(block: Seq[com.gu.nitf.model.Block] = Nil,
@@ -883,7 +880,7 @@ case class Credit(mixed: Seq[scalaxb.DataRecord[Any]] = Nil,
   classValue: Option[String] = None,
   style: Option[String] = None,
   xmllang: Option[String] = None,
-  attributes: Map[String, scalaxb.DataRecord[Any]])
+  attributes: Map[String, scalaxb.DataRecord[Any]] = Map.empty)
       
 
 trait CreditOption
@@ -893,7 +890,7 @@ case class Fn(fnsequence1: Seq[com.gu.nitf.model.FnSequence1] = Nil,
   classValue: Option[String] = None,
   style: Option[String] = None,
   xmllang: Option[String] = None,
-  attributes: Map[String, scalaxb.DataRecord[Any]]) extends BlockContentOption
+  attributes: Map[String, scalaxb.DataRecord[Any]] = Map.empty) extends BlockContentOption
       
 
 case class FnSequence1(bodyContent: com.gu.nitf.model.BodyContent)
@@ -903,7 +900,7 @@ case class Pre(mixed: Seq[scalaxb.DataRecord[Any]] = Nil,
   classValue: Option[String] = None,
   style: Option[String] = None,
   xmllang: Option[String] = None,
-  attributes: Map[String, scalaxb.DataRecord[Any]]) extends BlockContentOption
+  attributes: Map[String, scalaxb.DataRecord[Any]] = Map.empty) extends BlockContentOption
       
 
 
@@ -911,13 +908,13 @@ case class Hr(id: Option[String] = None,
   classValue: Option[String] = None,
   style: Option[String] = None,
   xmllang: Option[String] = None,
-  attributes: Map[String, scalaxb.DataRecord[Any]]) extends BlockContentOption
+  attributes: Map[String, scalaxb.DataRecord[Any]] = Map.empty) extends BlockContentOption
       
 
 
 case class Datasource(mixed: Seq[scalaxb.DataRecord[Any]] = Nil,
   id: Option[String] = None,
-  attributes: Map[String, scalaxb.DataRecord[Any]])
+  attributes: Map[String, scalaxb.DataRecord[Any]] = Map.empty)
       
 
 trait AlignType2
@@ -942,7 +939,7 @@ case class Caption(mixed: Seq[scalaxb.DataRecord[Any]] = Nil,
   style: Option[String] = None,
   xmllang: Option[String] = None,
   align: Option[com.gu.nitf.model.AlignType2] = None,
-  attributes: Map[String, scalaxb.DataRecord[Any]])
+  attributes: Map[String, scalaxb.DataRecord[Any]] = Map.empty)
       
 
 trait CaptionOption
@@ -957,7 +954,7 @@ case class Col(id: Option[String] = None,
   char: Option[String] = None,
   charoff: Option[String] = None,
   valign: Option[com.gu.nitf.model.Valign] = None,
-  attributes: Map[String, scalaxb.DataRecord[Any]]) extends TableOption
+  attributes: Map[String, scalaxb.DataRecord[Any]] = Map.empty) extends TableOption
       
 
 
@@ -970,7 +967,7 @@ case class Colgroup(col: Seq[com.gu.nitf.model.Col] = Nil,
   char: Option[String] = None,
   charoff: Option[String] = None,
   valign: Option[com.gu.nitf.model.Valign] = None,
-  attributes: Map[String, scalaxb.DataRecord[Any]]) extends TableOption
+  attributes: Map[String, scalaxb.DataRecord[Any]] = Map.empty) extends TableOption
       
 
 
@@ -983,7 +980,7 @@ case class Thead(tr: Seq[com.gu.nitf.model.Tr] = Nil,
   char: Option[String] = None,
   charoff: Option[String] = None,
   valign: Option[com.gu.nitf.model.Valign] = None,
-  attributes: Map[String, scalaxb.DataRecord[Any]])
+  attributes: Map[String, scalaxb.DataRecord[Any]] = Map.empty)
       
 
 
@@ -996,7 +993,7 @@ case class Tbody(tr: Seq[com.gu.nitf.model.Tr] = Nil,
   char: Option[String] = None,
   charoff: Option[String] = None,
   valign: Option[com.gu.nitf.model.Valign] = None,
-  attributes: Map[String, scalaxb.DataRecord[Any]]) extends TableOption2
+  attributes: Map[String, scalaxb.DataRecord[Any]] = Map.empty) extends TableOption2
       
 
 
@@ -1009,7 +1006,7 @@ case class Tfoot(tr: Seq[com.gu.nitf.model.Tr] = Nil,
   char: Option[String] = None,
   charoff: Option[String] = None,
   valign: Option[com.gu.nitf.model.Valign] = None,
-  attributes: Map[String, scalaxb.DataRecord[Any]])
+  attributes: Map[String, scalaxb.DataRecord[Any]] = Map.empty)
       
 
 
@@ -1022,7 +1019,7 @@ case class Tr(troption: Seq[scalaxb.DataRecord[com.gu.nitf.model.TrOption]] = Ni
   char: Option[String] = None,
   charoff: Option[String] = None,
   valign: Option[com.gu.nitf.model.Valign] = None,
-  attributes: Map[String, scalaxb.DataRecord[Any]]) extends TableOption2
+  attributes: Map[String, scalaxb.DataRecord[Any]] = Map.empty) extends TableOption2
       
 
 trait TrOption
@@ -1053,7 +1050,7 @@ case class Th(mixed: Seq[scalaxb.DataRecord[Any]] = Nil,
   char: Option[String] = None,
   charoff: Option[String] = None,
   valign: Option[com.gu.nitf.model.Valign] = None,
-  attributes: Map[String, scalaxb.DataRecord[Any]]) extends TrOption
+  attributes: Map[String, scalaxb.DataRecord[Any]] = Map.empty) extends TrOption
       
 
 trait ThOption
@@ -1084,7 +1081,7 @@ case class Td(mixed: Seq[scalaxb.DataRecord[Any]] = Nil,
   char: Option[String] = None,
   charoff: Option[String] = None,
   valign: Option[com.gu.nitf.model.Valign] = None,
-  attributes: Map[String, scalaxb.DataRecord[Any]]) extends TrOption
+  attributes: Map[String, scalaxb.DataRecord[Any]] = Map.empty) extends TrOption
       
 
 trait TdOption
@@ -1095,7 +1092,7 @@ case class Chron(mixed: Seq[scalaxb.DataRecord[Any]] = Nil,
   style: Option[String] = None,
   xmllang: Option[String] = None,
   norm: Option[String] = None,
-  attributes: Map[String, scalaxb.DataRecord[Any]]) extends EnrichedTextOption
+  attributes: Map[String, scalaxb.DataRecord[Any]] = Map.empty) extends EnrichedTextOption
       
 
 
@@ -1108,7 +1105,7 @@ case class Event(mixed: Seq[scalaxb.DataRecord[Any]] = Nil,
   endDate: Option[String] = None,
   idsrc: Option[String] = None,
   valueAttribute: Option[String] = None,
-  attributes: Map[String, scalaxb.DataRecord[Any]]) extends EnrichedTextOption with IdentifiedContentOption
+  attributes: Map[String, scalaxb.DataRecord[Any]] = Map.empty) extends EnrichedTextOption with IdentifiedContentOption
       
 
 trait EventOption
@@ -1117,7 +1114,7 @@ case class FunctionType(mixed: Seq[scalaxb.DataRecord[Any]] = Nil,
   id: Option[String] = None,
   idsrc: Option[String] = None,
   valueAttribute: Option[String] = None,
-  attributes: Map[String, scalaxb.DataRecord[Any]]) extends EnrichedTextOption with IdentifiedContentOption with PersonOption
+  attributes: Map[String, scalaxb.DataRecord[Any]] = Map.empty) extends EnrichedTextOption with IdentifiedContentOption with PersonOption
       
 
 trait FunctionTypeOption
@@ -1129,7 +1126,7 @@ case class Location(mixed: Seq[scalaxb.DataRecord[Any]] = Nil,
   xmllang: Option[String] = None,
   locationCode: Option[String] = None,
   codeSource: Option[String] = None,
-  attributes: Map[String, scalaxb.DataRecord[Any]]) extends EnrichedTextOption with IdentifiedContentOption with BylineOption with DatelineOption
+  attributes: Map[String, scalaxb.DataRecord[Any]] = Map.empty) extends EnrichedTextOption with IdentifiedContentOption with BylineOption with DatelineOption
       
 
 trait LocationOption
@@ -1141,7 +1138,7 @@ case class Sublocation(mixed: Seq[scalaxb.DataRecord[Any]] = Nil,
   xmllang: Option[String] = None,
   locationCode: Option[String] = None,
   codeSource: Option[String] = None,
-  attributes: Map[String, scalaxb.DataRecord[Any]]) extends LocationOption
+  attributes: Map[String, scalaxb.DataRecord[Any]] = Map.empty) extends LocationOption
       
 
 trait SublocationOption
@@ -1153,7 +1150,7 @@ case class City(mixed: Seq[scalaxb.DataRecord[Any]] = Nil,
   xmllang: Option[String] = None,
   cityCode: Option[String] = None,
   codeSource: Option[String] = None,
-  attributes: Map[String, scalaxb.DataRecord[Any]]) extends LocationOption
+  attributes: Map[String, scalaxb.DataRecord[Any]] = Map.empty) extends LocationOption
       
 
 trait CityOption
@@ -1165,7 +1162,7 @@ case class State(mixed: Seq[scalaxb.DataRecord[Any]] = Nil,
   xmllang: Option[String] = None,
   stateCode: Option[String] = None,
   codeSource: Option[String] = None,
-  attributes: Map[String, scalaxb.DataRecord[Any]]) extends LocationOption
+  attributes: Map[String, scalaxb.DataRecord[Any]] = Map.empty) extends LocationOption
       
 
 trait StateOption
@@ -1177,7 +1174,7 @@ case class Region(mixed: Seq[scalaxb.DataRecord[Any]] = Nil,
   xmllang: Option[String] = None,
   regionCode: Option[String] = None,
   codeSource: Option[String] = None,
-  attributes: Map[String, scalaxb.DataRecord[Any]]) extends LocationOption with PostaddrOption
+  attributes: Map[String, scalaxb.DataRecord[Any]] = Map.empty) extends LocationOption with PostaddrOption
       
 
 trait RegionOption
@@ -1188,7 +1185,7 @@ case class Country(mixed: Seq[scalaxb.DataRecord[Any]] = Nil,
   style: Option[String] = None,
   xmllang: Option[String] = None,
   isoCc: Option[String] = None,
-  attributes: Map[String, scalaxb.DataRecord[Any]]) extends LocationOption with PostaddrOption
+  attributes: Map[String, scalaxb.DataRecord[Any]] = Map.empty) extends LocationOption with PostaddrOption
       
 
 trait CountryOption
@@ -1200,7 +1197,7 @@ case class Money(mixed: Seq[scalaxb.DataRecord[Any]] = Nil,
   xmllang: Option[String] = None,
   unit: Option[String] = None,
   date: Option[String] = None,
-  attributes: Map[String, scalaxb.DataRecord[Any]]) extends EnrichedTextOption
+  attributes: Map[String, scalaxb.DataRecord[Any]] = Map.empty) extends EnrichedTextOption
       
 
 
@@ -1212,7 +1209,7 @@ case class Num(mixed: Seq[scalaxb.DataRecord[Any]] = Nil,
   units: Option[String] = None,
   decimalCh: Option[String] = None,
   thousandsCh: Option[String] = None,
-  attributes: Map[String, scalaxb.DataRecord[Any]]) extends EnrichedTextOption
+  attributes: Map[String, scalaxb.DataRecord[Any]] = Map.empty) extends EnrichedTextOption
       
 
 trait NumOption
@@ -1224,25 +1221,25 @@ case class Frac(numer: com.gu.nitf.model.Numer,
   classValue: Option[String] = None,
   style: Option[String] = None,
   xmllang: Option[String] = None,
-  attributes: Map[String, scalaxb.DataRecord[Any]]) extends NumOption
+  attributes: Map[String, scalaxb.DataRecord[Any]] = Map.empty) extends NumOption
       
 
 
 case class Numer(mixed: Seq[scalaxb.DataRecord[Any]] = Nil,
   id: Option[String] = None,
-  attributes: Map[String, scalaxb.DataRecord[Any]])
+  attributes: Map[String, scalaxb.DataRecord[Any]] = Map.empty)
       
 
 
 case class FracSep(mixed: Seq[scalaxb.DataRecord[Any]] = Nil,
   id: Option[String] = None,
-  attributes: Map[String, scalaxb.DataRecord[Any]])
+  attributes: Map[String, scalaxb.DataRecord[Any]] = Map.empty)
       
 
 
 case class Denom(mixed: Seq[scalaxb.DataRecord[Any]] = Nil,
   id: Option[String] = None,
-  attributes: Map[String, scalaxb.DataRecord[Any]])
+  attributes: Map[String, scalaxb.DataRecord[Any]] = Map.empty)
       
 
 
@@ -1251,7 +1248,7 @@ case class Sub(mixed: Seq[scalaxb.DataRecord[Any]] = Nil,
   classValue: Option[String] = None,
   style: Option[String] = None,
   xmllang: Option[String] = None,
-  attributes: Map[String, scalaxb.DataRecord[Any]]) extends NumOption
+  attributes: Map[String, scalaxb.DataRecord[Any]] = Map.empty) extends NumOption
       
 
 
@@ -1260,7 +1257,7 @@ case class Sup(mixed: Seq[scalaxb.DataRecord[Any]] = Nil,
   classValue: Option[String] = None,
   style: Option[String] = None,
   xmllang: Option[String] = None,
-  attributes: Map[String, scalaxb.DataRecord[Any]]) extends NumOption
+  attributes: Map[String, scalaxb.DataRecord[Any]] = Map.empty) extends NumOption
       
 
 
@@ -1271,7 +1268,7 @@ case class ObjectTitle(mixed: Seq[scalaxb.DataRecord[Any]] = Nil,
   xmllang: Option[String] = None,
   idsrc: Option[String] = None,
   valueAttribute: Option[String] = None,
-  attributes: Map[String, scalaxb.DataRecord[Any]]) extends EnrichedTextOption with IdentifiedContentOption
+  attributes: Map[String, scalaxb.DataRecord[Any]] = Map.empty) extends EnrichedTextOption with IdentifiedContentOption
       
 
 trait ObjectTitleOption
@@ -1283,7 +1280,7 @@ case class Org(mixed: Seq[scalaxb.DataRecord[Any]] = Nil,
   xmllang: Option[String] = None,
   idsrc: Option[String] = None,
   valueAttribute: Option[String] = None,
-  attributes: Map[String, scalaxb.DataRecord[Any]]) extends EnrichedTextOption with IdentifiedContentOption with ByttlOption with DistributorOption
+  attributes: Map[String, scalaxb.DataRecord[Any]] = Map.empty) extends EnrichedTextOption with IdentifiedContentOption with ByttlOption with DistributorOption
       
 
 trait OrgOption
@@ -1291,7 +1288,7 @@ trait OrgOption
 case class AltCode(id: Option[String] = None,
   idsrc: String,
   valueAttribute: String,
-  attributes: Map[String, scalaxb.DataRecord[Any]]) extends EventOption with FunctionTypeOption with LocationOption with SublocationOption with CityOption with StateOption with RegionOption with CountryOption with ObjectTitleOption with OrgOption with PersonOption with VirtlocOption with ClassifierOption
+  attributes: Map[String, scalaxb.DataRecord[Any]] = Map.empty) extends EventOption with FunctionTypeOption with LocationOption with SublocationOption with CityOption with StateOption with RegionOption with CountryOption with ObjectTitleOption with OrgOption with PersonOption with VirtlocOption with ClassifierOption
       
 
 trait Gender
@@ -1316,7 +1313,7 @@ case class Person(mixed: Seq[scalaxb.DataRecord[Any]] = Nil,
   idsrc: Option[String] = None,
   valueAttribute: Option[String] = None,
   gender: Option[com.gu.nitf.model.Gender] = None,
-  attributes: Map[String, scalaxb.DataRecord[Any]]) extends EnrichedTextOption with IdentifiedContentOption with BylineOption
+  attributes: Map[String, scalaxb.DataRecord[Any]] = Map.empty) extends EnrichedTextOption with IdentifiedContentOption with BylineOption
       
 
 trait PersonOption
@@ -1326,7 +1323,7 @@ case class NameGiven(mixed: Seq[scalaxb.DataRecord[Any]] = Nil,
   classValue: Option[String] = None,
   style: Option[String] = None,
   xmllang: Option[String] = None,
-  attributes: Map[String, scalaxb.DataRecord[Any]]) extends PersonOption
+  attributes: Map[String, scalaxb.DataRecord[Any]] = Map.empty) extends PersonOption
       
 
 
@@ -1335,7 +1332,7 @@ case class NameFamily(mixed: Seq[scalaxb.DataRecord[Any]] = Nil,
   classValue: Option[String] = None,
   style: Option[String] = None,
   xmllang: Option[String] = None,
-  attributes: Map[String, scalaxb.DataRecord[Any]]) extends PersonOption
+  attributes: Map[String, scalaxb.DataRecord[Any]] = Map.empty) extends PersonOption
       
 
 
@@ -1346,7 +1343,7 @@ case class Postaddr(addressee: com.gu.nitf.model.Addressee,
   classValue: Option[String] = None,
   style: Option[String] = None,
   xmllang: Option[String] = None,
-  attributes: Map[String, scalaxb.DataRecord[Any]]) extends EnrichedTextOption
+  attributes: Map[String, scalaxb.DataRecord[Any]] = Map.empty) extends EnrichedTextOption
       
 
 trait PostaddrOption
@@ -1358,7 +1355,7 @@ case class Virtloc(mixed: Seq[scalaxb.DataRecord[Any]] = Nil,
   xmllang: Option[String] = None,
   idsrc: Option[String] = None,
   valueAttribute: Option[String] = None,
-  attributes: Map[String, scalaxb.DataRecord[Any]]) extends EnrichedTextOption with IdentifiedContentOption with BylineOption
+  attributes: Map[String, scalaxb.DataRecord[Any]] = Map.empty) extends EnrichedTextOption with IdentifiedContentOption with BylineOption
       
 
 trait VirtlocOption
@@ -1373,13 +1370,13 @@ case class A(mixed: Seq[scalaxb.DataRecord[Any]] = Nil,
   rel: Option[String] = None,
   rev: Option[String] = None,
   title: Option[String] = None,
-  attributes: Map[String, scalaxb.DataRecord[Any]]) extends EnrichedTextOption
+  attributes: Map[String, scalaxb.DataRecord[Any]] = Map.empty) extends EnrichedTextOption
       
 
 trait AOption
 
 case class Br(id: Option[String] = None,
-  attributes: Map[String, scalaxb.DataRecord[Any]]) extends EnrichedTextOption with DeliveryPointOption with DeliveryOfficeOption
+  attributes: Map[String, scalaxb.DataRecord[Any]] = Map.empty) extends EnrichedTextOption with DeliveryPointOption with DeliveryOfficeOption
       
 
 
@@ -1388,7 +1385,7 @@ case class Em(mixed: Seq[scalaxb.DataRecord[Any]] = Nil,
   classValue: Option[String] = None,
   style: Option[String] = None,
   xmllang: Option[String] = None,
-  attributes: Map[String, scalaxb.DataRecord[Any]]) extends EnrichedTextOption
+  attributes: Map[String, scalaxb.DataRecord[Any]] = Map.empty) extends EnrichedTextOption
       
 
 trait EmOption
@@ -1400,7 +1397,7 @@ case class Lang(mixed: Seq[scalaxb.DataRecord[Any]] = Nil,
   xmllang: Option[String] = None,
   idsrc: Option[String] = None,
   valueAttribute: Option[String] = None,
-  attributes: Map[String, scalaxb.DataRecord[Any]]) extends EnrichedTextOption
+  attributes: Map[String, scalaxb.DataRecord[Any]] = Map.empty) extends EnrichedTextOption
       
 
 trait LangOption
@@ -1412,7 +1409,7 @@ case class Pronounce(mixed: Seq[scalaxb.DataRecord[Any]] = Nil,
   xmllang: Option[String] = None,
   guide: Option[String] = None,
   phonetic: Option[String] = None,
-  attributes: Map[String, scalaxb.DataRecord[Any]]) extends EnrichedTextOption
+  attributes: Map[String, scalaxb.DataRecord[Any]] = Map.empty) extends EnrichedTextOption
       
 
 trait PronounceOption
@@ -1423,7 +1420,7 @@ case class Q(mixed: Seq[scalaxb.DataRecord[Any]] = Nil,
   style: Option[String] = None,
   xmllang: Option[String] = None,
   quoteSource: Option[String] = None,
-  attributes: Map[String, scalaxb.DataRecord[Any]]) extends EnrichedTextOption
+  attributes: Map[String, scalaxb.DataRecord[Any]] = Map.empty) extends EnrichedTextOption
       
 
 trait QOption
@@ -1432,13 +1429,13 @@ case class Addressee(person: com.gu.nitf.model.Person,
   function: Option[com.gu.nitf.model.FunctionType] = None,
   careOf: Option[com.gu.nitf.model.CareOf] = None,
   id: Option[String] = None,
-  attributes: Map[String, scalaxb.DataRecord[Any]])
+  attributes: Map[String, scalaxb.DataRecord[Any]] = Map.empty)
       
 
 
 case class CareOf(mixed: Seq[scalaxb.DataRecord[Any]] = Nil,
   id: Option[String] = None,
-  attributes: Map[String, scalaxb.DataRecord[Any]])
+  attributes: Map[String, scalaxb.DataRecord[Any]] = Map.empty)
       
 
 
@@ -1446,7 +1443,7 @@ case class DeliveryPoint(mixed: Seq[scalaxb.DataRecord[Any]] = Nil,
   id: Option[String] = None,
   pointCode: Option[String] = None,
   codeSource: Option[String] = None,
-  attributes: Map[String, scalaxb.DataRecord[Any]])
+  attributes: Map[String, scalaxb.DataRecord[Any]] = Map.empty)
       
 
 trait DeliveryPointOption
@@ -1454,7 +1451,7 @@ trait DeliveryPointOption
 case class Postcode(mixed: Seq[scalaxb.DataRecord[Any]] = Nil,
   id: Option[String] = None,
   codeSource: Option[String] = None,
-  attributes: Map[String, scalaxb.DataRecord[Any]]) extends PostaddrOption
+  attributes: Map[String, scalaxb.DataRecord[Any]] = Map.empty) extends PostaddrOption
       
 
 
@@ -1462,7 +1459,7 @@ case class DeliveryOffice(mixed: Seq[scalaxb.DataRecord[Any]] = Nil,
   id: Option[String] = None,
   officeCode: Option[String] = None,
   codeSource: Option[String] = None,
-  attributes: Map[String, scalaxb.DataRecord[Any]]) extends PostaddrOption
+  attributes: Map[String, scalaxb.DataRecord[Any]] = Map.empty) extends PostaddrOption
       
 
 trait DeliveryOfficeOption
@@ -1471,7 +1468,7 @@ case class BodyEnd(tagline: Option[com.gu.nitf.model.Tagline] = None,
   bibliography: Option[com.gu.nitf.model.Bibliography] = None,
   any: Seq[scalaxb.DataRecord[Any]] = Nil,
   id: Option[String] = None,
-  attributes: Map[String, scalaxb.DataRecord[Any]])
+  attributes: Map[String, scalaxb.DataRecord[Any]] = Map.empty)
       
 
 trait TypeType3
@@ -1495,7 +1492,7 @@ case class Tagline(mixed: Seq[scalaxb.DataRecord[Any]] = Nil,
   style: Option[String] = None,
   xmllang: Option[String] = None,
   typeValue: com.gu.nitf.model.TypeType3,
-  attributes: Map[String, scalaxb.DataRecord[Any]])
+  attributes: Map[String, scalaxb.DataRecord[Any]] = Map.empty)
       
 
 trait TaglineOption
@@ -1505,7 +1502,7 @@ case class Bibliography(mixed: Seq[scalaxb.DataRecord[Any]] = Nil,
   classValue: Option[String] = None,
   style: Option[String] = None,
   xmllang: Option[String] = None,
-  attributes: Map[String, scalaxb.DataRecord[Any]])
+  attributes: Map[String, scalaxb.DataRecord[Any]] = Map.empty)
       
 
 
@@ -1517,7 +1514,7 @@ case class Classifier(mixed: Seq[scalaxb.DataRecord[Any]] = Nil,
   typeValue: Option[String] = None,
   idsrc: Option[String] = None,
   valueAttribute: Option[String] = None,
-  attributes: Map[String, scalaxb.DataRecord[Any]]) extends EnrichedTextOption with IdentifiedContentOption
+  attributes: Map[String, scalaxb.DataRecord[Any]] = Map.empty) extends EnrichedTextOption with IdentifiedContentOption
       
 
 trait ClassifierOption
@@ -1525,7 +1522,7 @@ trait ClassifierOption
 case class NitfTable(nitfTableMetadata: com.gu.nitf.model.NitfTableMetadata,
   nitftableoption: scalaxb.DataRecord[com.gu.nitf.model.NitfTableOption],
   id: Option[String] = None,
-  attributes: Map[String, scalaxb.DataRecord[Any]]) extends BlockContentOption
+  attributes: Map[String, scalaxb.DataRecord[Any]] = Map.empty) extends BlockContentOption
       
 
 trait NitfTableOption
@@ -1535,13 +1532,13 @@ case class CustomTable(mixed: Seq[scalaxb.DataRecord[Any]] = Nil,
   classValue: Option[String] = None,
   style: Option[String] = None,
   xmllang: Option[String] = None,
-  attributes: Map[String, scalaxb.DataRecord[Any]]) extends NitfTableOption
+  attributes: Map[String, scalaxb.DataRecord[Any]] = Map.empty) extends NitfTableOption
       
 
 
 case class TableReference(id: Option[String] = None,
   idref: String,
-  attributes: Map[String, scalaxb.DataRecord[Any]]) extends NitfTableOption
+  attributes: Map[String, scalaxb.DataRecord[Any]] = Map.empty) extends NitfTableOption
       
 
 trait Status
@@ -1573,7 +1570,7 @@ case class NitfTableMetadata(nitfTableSummary: Option[com.gu.nitf.model.NitfTabl
   status: Option[com.gu.nitf.model.Status] = None,
   columnCount: Option[String] = None,
   rowCount: Option[String] = None,
-  attributes: Map[String, scalaxb.DataRecord[Any]])
+  attributes: Map[String, scalaxb.DataRecord[Any]] = Map.empty)
       
 
 trait NitfTableMetadataOption
@@ -1583,7 +1580,7 @@ case class NitfTableSummary(p: Seq[com.gu.nitf.model.P] = Nil,
   classValue: Option[String] = None,
   style: Option[String] = None,
   xmllang: Option[String] = None,
-  attributes: Map[String, scalaxb.DataRecord[Any]])
+  attributes: Map[String, scalaxb.DataRecord[Any]] = Map.empty)
       
 
 
@@ -1592,7 +1589,7 @@ case class NitfColgroup(nitfcolgroupsequence1: Seq[com.gu.nitf.model.NitfColgrou
   idsrc: Option[String] = None,
   valueAttribute: Option[String] = None,
   occurrences: Option[String] = None,
-  attributes: Map[String, scalaxb.DataRecord[Any]]) extends NitfTableMetadataOption
+  attributes: Map[String, scalaxb.DataRecord[Any]] = Map.empty) extends NitfTableMetadataOption
       
 
 case class NitfColgroupSequence1(nitfCol: com.gu.nitf.model.NitfCol)
@@ -1618,7 +1615,7 @@ case class NitfCol(id: Option[String] = None,
   occurrences: Option[String] = None,
   dataType: Option[com.gu.nitf.model.DataType] = None,
   dataFormat: Option[String] = None,
-  attributes: Map[String, scalaxb.DataRecord[Any]]) extends NitfTableMetadataOption
+  attributes: Map[String, scalaxb.DataRecord[Any]] = Map.empty) extends NitfTableMetadataOption
       
 
 trait BlockContentOption
@@ -1631,11 +1628,11 @@ case class CommonNITFAttributes(id: Option[String] = None,
   classValue: Option[String] = None,
   style: Option[String] = None,
   xmllang: Option[String] = None,
-  attributes: Map[String, scalaxb.DataRecord[Any]])
+  attributes: Map[String, scalaxb.DataRecord[Any]] = Map.empty)
 
 
 case class GlobalNITFAttributes(id: Option[String] = None,
-  attributes: Map[String, scalaxb.DataRecord[Any]])
+  attributes: Map[String, scalaxb.DataRecord[Any]] = Map.empty)
 
 
 case class CellAlign(align: Option[com.gu.nitf.model.Align] = None,

@@ -7,7 +7,7 @@ import com.github.andyglow.xml.diff._
 import org.scalatest._
 import org.scalatest.Matchers._
 import org.scalatest.xml.XmlMatchers._
-import Utils._
+import XmlUtils._
 
 import com.gu.nitf.model.Nitf
 import com.gu.nitf.scalaxb._

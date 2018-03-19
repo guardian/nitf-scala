@@ -1,7 +1,7 @@
 import java.time.LocalDate
 
 import org.scalatest.FunSpec
-import Utils._
+import XmlUtils._
 
 import com.gu.nitf.model._
 import com.gu.nitf.model.builders._

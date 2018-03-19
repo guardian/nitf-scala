@@ -13,7 +13,7 @@ import scala.xml.parsing.ConsoleErrorHandler
 import org.scalatest.Matchers._
 import org.xml.sax.ErrorHandler
 
-object Utils {
+object XmlUtils {
   val schemaVersion: String = System.getProperty("nitf.schema.version")  // defined in project/Build.scala
   assume(Option(schemaVersion).getOrElse("") !== "")
 
@@ -34,7 +34,7 @@ object Utils {
 
   def resource(fileName: String): URL =
     Option(Thread.currentThread.getContextClassLoader)
-      .getOrElse(classOf[TwoWaySpec].getClassLoader)
+      .getOrElse(this.getClass.getClassLoader)
       .getResource(fileName)
 
   def writeTemporaryFile(fileName: String, xmlContents: NodeSeq): Path = {

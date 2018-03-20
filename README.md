@@ -1,8 +1,9 @@
 # nitf-scala
 [![License: Apache-2.0](https://img.shields.io/github/license/guardian/nitf-scala.svg)](https://github.com/guardian/nitf-scala/blob/master/LICENSE)
 [![Build Status](https://travis-ci.org/guardian/nitf-scala.svg?branch=master)](https://travis-ci.org/guardian/nitf-scala)
-![Latest release for Scala 2.11](https://img.shields.io/maven-metadata/v/http/central.maven.org/maven2/com/gu/nitf-scala_2.11/maven-metadata.xml.svg?label=scala%202.11)
-![Latest release for Scala 2.12](https://img.shields.io/maven-metadata/v/http/central.maven.org/maven2/com/gu/nitf-scala_2.12/maven-metadata.xml.svg?label=scala%202.12)
+[![Codacy Quality Rating](https://api.codacy.com/project/badge/Grade/a7f65308a2dd4f38ada2c53234194076)](https://www.codacy.com/app/hosamaly/nitf-scala?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=guardian/nitf-scala&amp;utm_campaign=Badge_Grade)
+[![Latest release for Scala 2.11](https://img.shields.io/maven-metadata/v/http/central.maven.org/maven2/com/gu/nitf-scala_2.11/maven-metadata.xml.svg?label=scala%202.11)](https://mvnrepository.com/artifact/com.gu/nitf-scala)
+[![Latest release for Scala 2.12](https://img.shields.io/maven-metadata/v/http/central.maven.org/maven2/com/gu/nitf-scala_2.12/maven-metadata.xml.svg?label=scala%202.12)](https://mvnrepository.com/artifact/com.gu/nitf-scala)
 
 Scala library to parse and generate [News Industry Text Format](https://iptc.org/standards/nitf/) files,
 based on [ScalaXB](http://scalaxb.org).

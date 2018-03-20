@@ -14,10 +14,12 @@ This library supports versions 3.3 to 3.6.
 
 To use this library, add the following dependencies to your project:
 ```scala
+val nitfScalaVersion = "3.6.2"  // one of 3.3, 3.4, 3.5, and 3.6 followed by the release version
 val scalaXmlVersion = "1.1.0"
 libraryDependencies ++= Seq(
   "org.scala-lang.modules" %% "scala-xml" % scalaXmlVersion,
-  "org.scala-lang.modules" %% "scala-parser-combinators" % scalaXmlVersion
+  "org.scala-lang.modules" %% "scala-parser-combinators" % scalaXmlVersion,
+  "com.gu" %% "nitf-scala" % nitfScalaVersion
 )
 ```
 

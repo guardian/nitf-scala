@@ -42,6 +42,32 @@ trait Builder[T] {
   override def toString: String = build.toString
 }
 
+trait BlockContentBuilder {
+  def withNote(x: Note): this.type = withBlockContent(x)
+  def withFootnote(x: Fn): this.type = withBlockContent(x)
+  def withMedia(x: Media): this.type = withBlockContent(x)
+  def withParagraph(x: P): this.type = withBlockContent(x)
+  def withTable(x: Table): this.type = withBlockContent(x)
+  def withBlockQuote(x: Bq): this.type = withBlockContent(x)
+  def withOrderedList(x: Ol): this.type = withBlockContent(x)
+  def withPreformatted(x: Pre): this.type = withBlockContent(x)
+  def withUnorderedList(x: Ul): this.type = withBlockContent(x)
+  def withDefinitionList(x: Dl): this.type = withBlockContent(x)
+  def withHorizontalRule(x: Hr): this.type = withBlockContent(x)
+  def withNitfTable(x: NitfTable): this.type = withBlockContent(x)
+  def withSubordinateHeadline(x: Hl2): this.type = withBlockContent(x)
+
+  def withXml(x: NodeSeq): this.type = withContent(dataRecord(x))
+  def withTextParagraph(x: String, markAsSummary: Boolean = true): this.type = {
+    var paragraphBuilder = new ParagraphBuilder().withText(x)
+    if (markAsSummary) paragraphBuilder = paragraphBuilder.asSummary
+    withParagraph(paragraphBuilder.build)
+  }
+
+  protected def withBlockContent[T <: BlockContentOption : CanWriteXML](x: T): this.type = withContent(dataRecord(x))
+  protected def withContent(x: DataRecord[_]): this.type
+}
+
 trait EnrichedTextBuilder {
   def withAnchor(x: A): this.type = withEnrichedText(x)
   def withChron(x: Chron): this.type = withEnrichedText(x)
@@ -70,8 +96,8 @@ trait EnrichedTextBuilder {
 }
 
 class NitfBuilder(var build: Nitf = Nitf(body = Body())) extends Builder[Nitf] {
-  def withHead(x: Head): this.type = { build = build.copy(head = Option(x)); this }
   def withBody(x: Body): this.type = { build = build.copy(body = x); this }
+  def withHead(x: Head): this.type = { build = build.copy(head = Option(x)); this }
   def withUno(x: String): this.type = { build = build.copy(uno = Option(x)); this }
 }
 
@@ -151,32 +177,6 @@ class HeadlineBuilder(var build: Hedline = Hedline(Hl1())) extends Builder[Hedli
 
 class PrimaryHeadlineBuilder(var build: Hl1 = Hl1()) extends Builder[Hl1] with EnrichedTextBuilder {
   protected def withContent(x: DataRecord[_]): this.type = { build = build.copy(mixed = build.mixed :+ x); this }
-}
-
-trait BlockContentBuilder {
-  def withNote(x: Note): this.type = withBlockContent(x)
-  def withFootnote(x: Fn): this.type = withBlockContent(x)
-  def withMedia(x: Media): this.type = withBlockContent(x)
-  def withParagraph(x: P): this.type = withBlockContent(x)
-  def withTable(x: Table): this.type = withBlockContent(x)
-  def withBlockQuote(x: Bq): this.type = withBlockContent(x)
-  def withOrderedList(x: Ol): this.type = withBlockContent(x)
-  def withPreformatted(x: Pre): this.type = withBlockContent(x)
-  def withUnorderedList(x: Ul): this.type = withBlockContent(x)
-  def withDefinitionList(x: Dl): this.type = withBlockContent(x)
-  def withHorizontalRule(x: Hr): this.type = withBlockContent(x)
-  def withNitfTable(x: NitfTable): this.type = withBlockContent(x)
-  def withSubordinateHeadline(x: Hl2): this.type = withBlockContent(x)
-
-  def withXml(x: NodeSeq): this.type = withContent(dataRecord(x))
-  def withTextParagraph(x: String, markAsSummary: Boolean = true): this.type = {
-    var paragraphBuilder = new ParagraphBuilder().withText(x)
-    if (markAsSummary) paragraphBuilder = paragraphBuilder.asSummary
-    withParagraph(paragraphBuilder.build)
-  }
-
-  protected def withBlockContent[T <: BlockContentOption : CanWriteXML](x: T): this.type = withContent(dataRecord(x))
-  protected def withContent(x: DataRecord[_]): this.type
 }
 
 class BodyContentBuilder(var build: BodyContent = BodyContent()) extends Builder[BodyContent] with BlockContentBuilder {

@@ -120,12 +120,6 @@ class BodyBuilder(var build: Body = Body()) extends Builder[Body] {
 class BodyHeadBuilder(var build: BodyHead = BodyHead()) extends Builder[BodyHead] {
   def withByline(x: String): this.type = withByline(Byline(Seq(dataRecord(x))))
   def withHeadline(x: String): this.type = withHeadline(new HeadlineBuilder().withPrimaryHeadline(x))
-  def withAbstract(x: NodeSeq): this.type = withAbstract(Abstract(Seq(dataRecord(x))))
-  def withAbstract(x: String, markAsSummary: Boolean = true): this.type = {
-    var paragraphBuilder = new ParagraphBuilder().withText(x)
-    if (markAsSummary) paragraphBuilder = paragraphBuilder.asSummary
-    withAbstract(Abstract(Seq(dataRecord(paragraphBuilder.build))))
-  }
 
   def withRights(x: Rights): this.type = { build = build.copy(rights = Option(x)); this }
   def withSeries(x: Series): this.type = { build = build.copy(series = Option(x)); this }
@@ -137,6 +131,13 @@ class BodyHeadBuilder(var build: BodyHead = BodyHead()) extends Builder[BodyHead
   def withDateline(x: Dateline): this.type = { build = build.copy(dateline = build.dateline :+ x); this }
   def withAbstract(x: Abstract): this.type = {
     build = build.copy(abstractValue = Chooser.choose(build.abstractValue, x))
+    this
+  }
+}
+
+class AbstractBuilder(var build: Abstract = Abstract()) extends Builder[Abstract] with BlockContentBuilder {
+  protected def withContent(x: DataRecord[_]): this.type = {
+    build = build.copy(abstractoption = build.abstractoption :+ x)
     this
   }
 }
@@ -166,7 +167,13 @@ trait BlockContentBuilder {
   def withHorizontalRule(x: Hr): this.type = withBlockContent(x)
   def withNitfTable(x: NitfTable): this.type = withBlockContent(x)
   def withSubordinateHeadline(x: Hl2): this.type = withBlockContent(x)
+
   def withXml(x: NodeSeq): this.type = withContent(dataRecord(x))
+  def withTextParagraph(x: String, markAsSummary: Boolean = true): this.type = {
+    var paragraphBuilder = new ParagraphBuilder().withText(x)
+    if (markAsSummary) paragraphBuilder = paragraphBuilder.asSummary
+    withParagraph(paragraphBuilder.build)
+  }
 
   protected def withBlockContent[T <: BlockContentOption : CanWriteXML](x: T): this.type = withContent(dataRecord(x))
   protected def withContent(x: DataRecord[_]): this.type

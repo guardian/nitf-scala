@@ -6,6 +6,7 @@ import XmlUtils._
 import com.gu.nitf.model._
 import com.gu.nitf.model.builders._
 import com.gu.nitf.scalaxb._
+import com.gu.scalaxb._
 
 
 class BuildersSpec extends FunSpec {
@@ -32,7 +33,13 @@ class BuildersSpec extends FunSpec {
           .withHead(new BodyHeadBuilder()
             .withHeadline("News Article")
             .withByline("It took a lot of work to get there")
-            .withAbstract(new AbstractBuilder().withTextParagraph("It wasn't easy, but they never gave up!"))
+            .withAbstract(new AbstractBuilder()
+              .withParagraph(new ParagraphBuilder()
+                .withText("It wasn't easy, but they ")
+                .withEmphasis(Em(Seq(dataRecord("never"))))
+                .withText(" gave up!")
+              )
+            )
           )
           .withContent(new BodyContentBuilder()
             .withParagraph(new ParagraphBuilder().withText("It was done, really!"))

@@ -99,7 +99,10 @@ trait MixedContentBuilder {
   /** Appends the given XML to the model object.
     * Note that this method is _not_ type-safe!
     * __No__ validation is performed to verify that the XML matches the expected schema..
+    *
+    * @deprecated Use multiple invocations of other methods to construct the data for a type-safe approach
     */
+  @deprecated("Use multiple invocations of other methods for a type-safe approach", since = "3.x.3")
   def withXml(x: NodeSeq): this.type = withContent(dataRecord(x))
 
   protected def withContent(x: DataRecord[_]): this.type

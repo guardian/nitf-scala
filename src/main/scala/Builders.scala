@@ -25,6 +25,7 @@ object `package` {
   type NoteType = TypeType2
   type PublicationType = TypeType
   type TaglineType = TypeType3
+  type TitleType = Type
 
   val BareNitfNamespace: NamespaceBinding = toScope(None -> defaultScope.uri)
 
@@ -102,7 +103,10 @@ class NitfBuilder(var build: Nitf = Nitf(body = Body())) extends Builder[Nitf] {
 }
 
 class HeadBuilder(var build: Head = Head()) extends Builder[Head] {
-  def withTitle(x: String): this.type = { build = build.copy(title = Option(x).map(t => Title(Seq(dataRecord(t))))); this }
+  def withTitle(x: String, titleType: Option[TitleType] = None): this.type = {
+    build = build.copy(title = Option(x).map(t => Title(Seq(dataRecord(t)), typeValue = titleType)))
+    this
+  }
   def withDocData(x: Docdata): this.type = { build = build.copy(docdata = Option(x)); this }
   def withPublicationData(x: Pubdata): this.type = { build = build.copy(pubdata = build.pubdata :+ x); this }
 }

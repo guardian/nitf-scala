@@ -32,7 +32,7 @@ class BuildersSpec extends FunSpec {
           .withHead(new BodyHeadBuilder()
             .withHeadline("News Article")
             .withByline("It took a lot of work to get there")
-            .withAbstract(new AbstractBuilder().withXml(<p>It wasn't easy, but they <em>never</em> gave up!</p>))
+            .withAbstract(new AbstractBuilder().withTextParagraph("It wasn't easy, but they never gave up!"))
           )
           .withContent(new BodyContentBuilder()
             .withParagraph(new ParagraphBuilder().withText("It was done, really!"))

@@ -112,6 +112,7 @@ class HeadBuilder(var build: Head = Head()) extends Builder[Head] {
 }
 
 class DocDataBuilder(var build: Docdata = Docdata()) extends Builder[Docdata] {
+  def withDocId(x: String): this.type = withDocId(DocId(idString = Option(x)))
   def withDocId(x: DocId): this.type = withDocDataOption(x)
   def withCopyright(x: DocCopyright): this.type = withDocDataOption(x)
   def withIssueDate(x: LocalDate): this.type = withDocDataOption(DateIssue(norm = optionalString(x)))
@@ -121,7 +122,7 @@ class DocDataBuilder(var build: Docdata = Docdata()) extends Builder[Docdata] {
     build = build.copy(managementStatus = optionalString(x))
     this
   }
-  private def withDocDataOption[T <: DocdataOption : CanWriteXML](x: T): this.type = {
+  protected def withDocDataOption[T <: DocdataOption : CanWriteXML](x: T): this.type = {
     build = build.copy(docdataoption = build.docdataoption :+ dataRecord(x))
     this
   }
@@ -145,6 +146,7 @@ class PublicationDataBuilder(var build: Pubdata = Pubdata()) extends Builder[Pub
 class BodyBuilder(var build: Body = Body()) extends Builder[Body] {
   def withHead(x: BodyHead): this.type = { build = build.copy(bodyHead = Option(x)); this }
   def withContent(x: BodyContent): this.type = { build = build.copy(bodyContent = build.bodyContent :+ x); this }
+  def withEnd(x: BodyEnd): this.type = { build = build.copy(bodyEnd = Option(x)); this }
 }
 
 class BodyHeadBuilder(var build: BodyHead = BodyHead()) extends Builder[BodyHead] {

@@ -34,7 +34,7 @@ class TwoWaySpec extends FunSpec {
   import TwoWaySpec._
 
   describe("the parser") {
-    it("should parse and regenerate a sample file") {
+    it(s"should parse and regenerate a sample file (v$schemaVersion)") {
 
       val example = XML.load(resource(s"nitf-example-$schemaVersion.xml"))
       val schemaLocation = example.attribute(namespaces("xsi"), "schemaLocation").get.head.text

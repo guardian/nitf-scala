@@ -1,11 +1,11 @@
 language: scala
-jdk: oraclejdk8
+jdk: openjdk8
 git:
   depth: 10
 
 scala:
   - 2.11.12
-  - 2.12.5
+  - 2.12.10
 
 env:
   matrix:

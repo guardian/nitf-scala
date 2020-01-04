@@ -57,7 +57,7 @@ object BuildSettings {
     name := Metadata.projectName,
     crossScalaVersions := Dependencies.scalaVersions,
     scalaVersion := Dependencies.scalaVersions.min,
-    scalacOptions += "-target:jvm-1.8",
+    scalacOptions ++= Seq("-deprecation", "-feature", "-unchecked", "-target:jvm-1.8"),
 
     dependencyCheckFailBuildOnCVSS := 4
   )

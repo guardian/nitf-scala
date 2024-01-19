@@ -14,7 +14,6 @@ object Dependencies {
 
   val scalaTestVersion = "3.0.5"
   val scalaTest = "org.scalatest" %% "scalatest" % scalaTestVersion
-  val scalactic = "org.scalactic" %% "scalactic" % scalaTestVersion
 
   val xmlDiff = "com.github.andyglow" %% "scala-xml-diff" % "2.0.3"
 
